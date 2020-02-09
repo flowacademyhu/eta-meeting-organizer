@@ -1,0 +1,88 @@
+/**
+ * This starter project recommended using Microsoft TSLint rules.
+ * Please see https://github.com/Microsoft/tslint-microsoft-contrib for more details.
+ */
+{
+  "defaultSeverity": "error",
+  "extends": [
+    "tslint:recommended"
+  ],
+  "rules": {
+    "prefer-const": true,
+    "promise-function-async": true,
+    "no-redundant-jsdoc": true,
+    "no-shadowed-variable": true,
+    "no-misused-new": true,
+    "no-any": true,
+    "no-var-keyword": true,
+    "no-switch-case-fall-through": true,
+    "no-unused-variable": true,
+    "semicolon": [
+      true,
+      "always"
+    ],
+    "quotemark": [
+      true,
+      "single"
+    ],
+    "no-invalid-this": true,
+    "newline-per-chained-call": true,
+    "no-null-keyword": true,
+    // We use tab indent with tab-size 4
+    // Disable ts-lint checking because of 1 exception:
+    // - long, multi-line function header indentations
+    // .editorconfig should handle indentation anyway
+    // https://palantir.github.io/tslint/rules/indent/
+    // Original: "indent": [true, "tabs", 4],
+    "indent": [
+      true,
+      "spaces",
+      2
+    ],
+    // https://palantir.github.io/tslint/rules/trailing-comma/
+    "trailing-comma": [
+      true,
+      {
+        "multiline": {
+          "imports": "always",
+          "exports": "always",
+          "arrays": "always",
+          "typeLiterals": "always"
+        }
+      }
+    ],
+    // https://palantir.github.io/tslint/rules/no-empty/
+    "no-empty": true,
+    // allow default exports
+    // https://palantir.github.io/tslint/rules/no-default-export/
+    "no-default-export": true,
+    // https://palantir.github.io/tslint/rules/no-parameter-properties/
+    "no-parameter-properties": false,
+    // https://palantir.github.io/tslint/rules/prefer-object-spread/
+    "prefer-object-spread": true,
+    // https://palantir.github.io/tslint/rules/variable-name/
+    "variable-name": {
+      "options": [
+        "ban-keywords",
+        "check-format",
+        "allow-leading-underscore",
+        "allow-pascal-case"
+      ]
+    },
+    // https://palantir.github.io/tslint/rules/interface-name/
+    "interface-name": [
+      true,
+      "never-prefix"
+    ],
+    "member-ordering": true,
+    "no-console": true,
+    "align": [true, "parameters", "statements"],
+    "typedef": [
+      true,
+      "parameter",
+      // "arrow-parameter", // removed - clashes with typeorm mappings
+      "property-declaration",
+      "member-variable-declaration"
+    ]
+  }
+}
