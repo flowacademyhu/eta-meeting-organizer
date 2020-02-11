@@ -1,9 +1,13 @@
 package hu.flowacademy.meetingorganizer.service;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
 
-@Repository
-public interface MeetingRoomRepository extends JpaRepository {
+import javax.transaction.Transactional;
+
+@Service
+@AllArgsConstructor
+@Transactional
+public class MeetingRoomService {
 
 }
