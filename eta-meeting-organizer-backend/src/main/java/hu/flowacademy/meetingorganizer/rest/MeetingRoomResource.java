@@ -1,12 +1,46 @@
 package hu.flowacademy.meetingorganizer.rest;
 
+import hu.flowacademy.meetingorganizer.persistence.model.MeetingRoom;
+import hu.flowacademy.meetingorganizer.service.MeetingRoomService;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api")
 @AllArgsConstructor
 public class MeetingRoomResource {
 
+    private MeetingRoomService meetingRoomService;
+
+    @GetMapping("/meetingrooms")
+    public List<MeetingRoom> findAllMeetingRooms () {
+        return meetingRoomService.findAllMeetingRooms();
+    }
+
+    @GetMapping("/meetingrooms/{id}")
+    public MeetingRoom findOneMeetingRoomById (@PathVariable Long id) {
+        return meetingRoomService.findOneMeetingRoomById(id);
+    }
+
+    @PostMapping("/meetingrooms")
+    public ResponseEntity<?> createMeetingRoom (@RequestBody MeetingRoom meetingRoom) {
+        meetingRoomService.createMeetingRoom(meetingRoom);
+        return new ResponseEntity<>(meetingRoom, HttpStatus.CREATED);
+    }
+
+    @PutMapping("meetingrooms/{id}")
+    public ResponseEntity<MeetingRoom> updateMeetingRoom (@PathVariable Long id, @RequestBody MeetingRoom meetingRoom) {
+        meetingRoomService.updateMeetingRoom(id, meetingRoom);
+        return ResponseEntity.accepted().build();
+    }
+
+    @DeleteMapping("meetingrooms/{id}")
+    public ResponseEntity<Void> deleteMeetingRoom (@PathVariable Long id) {
+        meetingRoomService.deleteMeetingRoom(id);
+        return ResponseEntity.noContent().build();
+    }
 }
