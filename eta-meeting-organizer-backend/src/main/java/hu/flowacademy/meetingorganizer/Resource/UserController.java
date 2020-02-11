@@ -18,20 +18,16 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/{id}")
-    public User getOne(@PathVariable("userId") Long userId) {
-        return userService.findUserById(userId);
-    }
 
 
 
-    @GetMapping
+    @GetMapping("/users")
     public ResponseEntity<List<User>> getAllUsers() {
         List<User> userList = userService.findAllUser();
         return new ResponseEntity<List<User>>(userList, new HttpHeaders(), HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/users/{id}")
     public ResponseEntity<User> getUserById(@PathVariable("id") Long id) {
         User userEntity = userService.findUserById(id);
         return new ResponseEntity<User>(userEntity, new HttpHeaders(), HttpStatus.OK);
@@ -43,7 +39,7 @@ public class UserController {
         return new ResponseEntity<User>(updatedUser, new HttpHeaders(), HttpStatus.OK);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/users/{id}")
     public HttpStatus deleteUser(@PathVariable("id") Long id) {
         userService.deleteUser(id);
         return HttpStatus.OK;

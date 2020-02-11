@@ -8,6 +8,6 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: pwd
       MYSQL_DATABASE: meetingorganizer
-      MYSQL_USER: newuser2
-      MYSQL_PASSWORD: Pass-123
+      MYSQL_USER: meetingorganizer
+      MYSQL_PASSWORD: 123456
 
