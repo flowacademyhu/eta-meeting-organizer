@@ -40,14 +40,7 @@ public class BuildingService {
         return buildingRepository.findById(id).get();
     }
 
-    public List<Building>findAllBuilding(){
+    public List<Building> findAllBuilding(){
         return buildingRepository.findAll();
     }
-
-
 }
-
-
-
-
-
