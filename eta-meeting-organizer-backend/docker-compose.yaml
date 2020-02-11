@@ -1,0 +1,13 @@
+version: "3"
+
+services:
+  flow-percona:
+    image: "percona:ps-8.0.16-7"
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: pwd
+      MYSQL_DATABASE: meetingorganizer
+      MYSQL_USER: meetingorganizer
+      MYSQL_PASSWORD: 123456
+
