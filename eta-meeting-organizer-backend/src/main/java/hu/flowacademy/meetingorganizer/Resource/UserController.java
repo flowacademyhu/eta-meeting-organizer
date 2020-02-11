@@ -4,7 +4,12 @@ package hu.flowacademy.meetingorganizer.Resource;
 import hu.flowacademy.meetingorganizer.persistence.model.User;
 import hu.flowacademy.meetingorganizer.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api")
@@ -15,16 +20,34 @@ public class UserController {
 
     @GetMapping("/{id}")
     public User getOne(@PathVariable("userId") Long userId) {
-        return userService.findById(userId);
+        return userService.findUserById(userId);
     }
 
+
+
+    @GetMapping
+    public ResponseEntity<List<User>> getAllUsers() {
+        List<User> userList = userService.findAllUser();
+        return new ResponseEntity<List<User>>(userList, new HttpHeaders(), HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<User> getUserById(@PathVariable("id") Long id) {
+        User userEntity = userService.findUserById(id);
+        return new ResponseEntity<User>(userEntity, new HttpHeaders(), HttpStatus.OK);
+    }
+
+    @PostMapping
+    public ResponseEntity<User> createUser(User user) {
+        User updatedUser = userService.createUser(user);
+        return new ResponseEntity<User>(updatedUser, new HttpHeaders(), HttpStatus.OK);
+    }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable("userId") Long userId) {
-        userService.deleteUser(userId);
+    public HttpStatus deleteUser(@PathVariable("id") Long id) {
+        userService.deleteUser(id);
+        return HttpStatus.OK;
     }
-
-
 
 
 

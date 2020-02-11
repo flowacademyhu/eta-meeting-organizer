@@ -8,7 +8,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -17,29 +19,43 @@ public class UserService {
     private UserRepository userRepository;
 
 
+    public List<User> findAllUser()
+    {
+        List<User> userList = userRepository.findAll();
 
-
-    public User saveUser(User user){
-        return userRepository.save(user);
+        if(userList.size() > 0) {
+            return userList;
+        } else {
+            return new ArrayList<User>();
+        }
     }
 
+    public User findUserById(Long id) throws ResponseStatusException{
+        Optional<User> user = userRepository.findById(id);
 
-    public User findById(Long id) {
-        User user = this.userRepository.findById(id)
-                .orElseThrow(
-                        () -> new ResponseStatusException(HttpStatus.BAD_REQUEST));
-        return user;
+        if(user.isPresent()) {
+            return user.get();
+        } else {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
     }
 
-    public List<User> findAll() {
+    public User createUser(User user){
+            user = userRepository.save(user);
+            return user;
+        }
 
-        List<User> users = (List<User>) userRepository.findAll();
 
-        return users;
-    }
+    public void deleteUser(Long id) throws ResponseStatusException
+    {
+        Optional<User> user = userRepository.findById(id);
 
-    public void deleteUser(Long id) {
-        userRepository.deleteById(id);
+        if(user.isPresent())
+        {
+            userRepository.deleteById(id);
+        } else {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
     }
 
 }
