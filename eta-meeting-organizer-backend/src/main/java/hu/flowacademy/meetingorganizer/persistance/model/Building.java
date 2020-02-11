@@ -24,5 +24,4 @@ public class Building {
 
     @OneToMany
     private List<MeetingRoom> meetingRoom;
-
 }

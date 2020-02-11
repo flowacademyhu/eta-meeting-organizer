@@ -17,19 +17,19 @@ public class BuildingResource {
     private BuildingService buildingService;
 
     @PostMapping("/buildings")
-    public ResponseEntity<?> create (@RequestBody Building building){
+    public ResponseEntity<?> create(@RequestBody Building building){
         buildingService.createBuilding(building);
         return new ResponseEntity<>(building, HttpStatus.CREATED);
     }
 
     @GetMapping("/buildings")
-    public ResponseEntity<List<Building>> findAll (){
+    public ResponseEntity<List<Building>> findAll(){
         List<Building> buildings = buildingService.findAllBuilding();
         return new ResponseEntity<>(buildings, HttpStatus.OK);
     }
 
     @GetMapping("/buildings/{id}")
-    public ResponseEntity<?> findOne (@PathVariable Long id){
+    public ResponseEntity<?> findOne(@PathVariable Long id){
         Building building = buildingService.findBuildingById(id);
         if(building == null){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -39,15 +39,14 @@ public class BuildingResource {
     }
 
     @PutMapping("/buildings/{id}")
-    public ResponseEntity<Building> update (@PathVariable Long id, @RequestBody Building building){
+    public ResponseEntity<Building> update(@PathVariable Long id, @RequestBody Building building){
         buildingService.updateBuilding(id, building);
         return  ResponseEntity.accepted().build();
     }
 
     @DeleteMapping("/buildings/{id}")
-    public ResponseEntity<Void> delete (@PathVariable Long id){
+    public ResponseEntity<Void> delete(@PathVariable Long id){
         buildingService.deleteBuilding(id);
         return ResponseEntity.noContent().build();
     }
-
 }
