@@ -1,6 +1,12 @@
 {
   "welcome": {
     "text": "Welcome Team Meeting Organizer! Read the dev-docs!",
-    "button": "Switch to Hungarian"
+    "button": "HUN"
+  },
+
+  "header": {
+    "text": "Wysio Meeting Organizer",
+    "button": "HUN",
+    "exit": "sign out"
   }
 }

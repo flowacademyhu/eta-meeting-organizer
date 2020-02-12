@@ -124,6 +124,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "eta-meeting-organizer-frontend"
+    }
+  },
+  "defaultProject": "eta-meeting-organizer-frontend",
+  "cli": {
+    "analytics": "6da363fe-675d-46c3-904c-c8e049ea6f90"
+  }
 }
