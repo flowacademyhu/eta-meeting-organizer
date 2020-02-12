@@ -1,6 +1,5 @@
 package hu.flowacademy.meetingorganizer.persistence.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import hu.flowacademy.meetingorganizer.persistence.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
