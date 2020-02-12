@@ -30,11 +30,7 @@ public class UserService {
     }
 
     public void deleteUser(Long id) throws ResponseStatusException{
-        try {
             userRepository.deleteById(id);
-        } catch (ResponseStatusException e) {
-          throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
-        }
     }
 
 }
