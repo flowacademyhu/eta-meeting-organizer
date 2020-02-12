@@ -1,6 +1,6 @@
 package hu.flowacademy.meetingorganizer.resource;
 
-import hu.flowacademy.meetingorganizer.persistence.model.User;
+import hu.flowacademy.meetingorganizer.persistance.model.User;
 import hu.flowacademy.meetingorganizer.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
