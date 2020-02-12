@@ -1,4 +1,4 @@
-package hu.flowacademy.meetingorganizer.resource;
+package hu.flowacademy.meetingorganizer.rest;
 
 import hu.flowacademy.meetingorganizer.persistence.model.User;
 import hu.flowacademy.meetingorganizer.service.UserService;
