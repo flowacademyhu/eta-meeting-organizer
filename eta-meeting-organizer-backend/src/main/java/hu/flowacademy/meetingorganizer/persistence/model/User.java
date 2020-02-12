@@ -1,18 +1,13 @@
 package hu.flowacademy.meetingorganizer.persistence.model;
-
-
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import javax.persistence.*;
 
-import java.util.List;
-
 @Entity
-@Table(name = "user")
+@Table(name = "users")
 @Data
 @Builder
 @NoArgsConstructor
@@ -33,15 +28,11 @@ public class User {
     @Column(name = "role")
     private Role role;
 
-
     @Column
     @JsonBackReference
     @OneToMany(cascade = CascadeType.ALL,
             fetch = FetchType.LAZY,
             mappedBy = "user")
     private List<Reservation> reservations;
-
-
-
 
 }

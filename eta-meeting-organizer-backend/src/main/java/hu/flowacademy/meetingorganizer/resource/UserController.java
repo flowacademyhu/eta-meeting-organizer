@@ -1,5 +1,4 @@
-package hu.flowacademy.meetingorganizer.Resource;
-
+package hu.flowacademy.meetingorganizer.resource;
 
 import hu.flowacademy.meetingorganizer.persistence.model.User;
 import hu.flowacademy.meetingorganizer.service.UserService;
@@ -8,7 +7,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
@@ -17,9 +15,6 @@ public class UserController {
 
     @Autowired
     private UserService userService;
-
-
-
 
     @GetMapping("/users")
     public ResponseEntity<List<User>> getAllUsers() {
@@ -44,7 +39,4 @@ public class UserController {
         userService.deleteUser(id);
         return HttpStatus.OK;
     }
-
-
-
 }
