@@ -1,6 +1,6 @@
-package hu.flowacademy.meetingorganizer.persistance.repository;
+package hu.flowacademy.meetingorganizer.persistence.repository;
 
-import hu.flowacademy.meetingorganizer.persistance.model.MeetingRoom;
+import hu.flowacademy.meetingorganizer.persistence.model.MeetingRoom;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

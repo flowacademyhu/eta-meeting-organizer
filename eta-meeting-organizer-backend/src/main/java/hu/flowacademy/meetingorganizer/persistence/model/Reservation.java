@@ -1,4 +1,4 @@
-package hu.flowacademy.meetingorganizer.persistance.model;
+package hu.flowacademy.meetingorganizer.persistence.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
