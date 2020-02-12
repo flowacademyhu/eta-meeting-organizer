@@ -1,10 +1,13 @@
 package hu.flowacademy.meetingorganizer.persistence.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import hu.flowacademy.meetingorganizer.persistance.Role;
+import hu.flowacademy.meetingorganizer.persistance.model.Reservation;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
