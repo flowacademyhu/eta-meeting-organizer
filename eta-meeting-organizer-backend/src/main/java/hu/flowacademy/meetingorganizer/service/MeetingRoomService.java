@@ -9,7 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 
 @Service
 @AllArgsConstructor
@@ -34,12 +33,7 @@ public class MeetingRoomService {
     }
 
     public MeetingRoom updateMeetingRoom (Long id, MeetingRoom meetingRoom) {
-        if (meetingRoomRepository.findById(id).isPresent()) {
-            MeetingRoom room = meetingRoomRepository.findById(id).orElseThrow(NoSuchElementException::new);
-            room.setId(id);
-            return meetingRoomRepository.save(room);
-        } else {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-        }
+        meetingRoom.setId(id);
+        return meetingRoomRepository.save(meetingRoom);
     }
 }
