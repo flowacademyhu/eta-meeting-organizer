@@ -15,7 +15,6 @@ import java.util.NoSuchElementException;
 @AllArgsConstructor
 @Transactional
 public class MeetingRoomService {
-
     private MeetingRoomRepository meetingRoomRepository;
 
     public List<MeetingRoom> findAllMeetingRooms () {
