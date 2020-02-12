@@ -2,9 +2,33 @@ spring:
   datasource:
     url: jdbc:mysql://localhost:3306/meetingorganizer
     username: meetingorganizer
-    password: 123456
+    password: KkN7{/uvw}?CKi).hDY8YSM0}YMC3QT
   jpa:
     show-sql: true
     database-platform: org.hibernate.dialect.MySQL5Dialect
     hibernate:
       ddl-auto: create-drop
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            clientId: 420282268179-1skfuced9tnijsgmkfhu8397v2olmnll.apps.googleusercontent.com
+            clientSecret: LL0FSTTAlR-VnZV3NJvGZOID
+            redirectUriTemplate: "{baseUrl}/oauth2/callback/{registrationId}"
+            scope:
+              - email
+              - profile
+  app:
+    auth:
+      tokenSecret: 926D96C90030DD58429D2751AC1BDBBC
+      tokenExpirationMsec: 864000000
+    oauth2:
+      # After successfully authenticating with the OAuth2 Provider,
+      # we'll be generating an auth token for the user and sending the token to the
+      # redirectUri mentioned by the client in the /oauth2/authorize request.
+      # We're not using cookies because they won't work well in mobile clients.
+      authorizedRedirectUris:
+        - http://localhost:3000/oauth2/redirect
+        - myandroidapp://oauth2/redirect
+        - myiosapp://oauth2/redirect
