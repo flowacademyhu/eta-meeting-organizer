@@ -23,7 +23,7 @@ public class MeetingRoomResource {
     }
 
     @GetMapping("/meetingrooms/{id}")
-    public ResponseEntity<?> findOne(@PathVariable Long id) {
+    public ResponseEntity<MeetingRoom> findOne(@PathVariable Long id) {
         MeetingRoom meetingRoom = meetingRoomService.findOneMeetingRoomById(id);
         if(meetingRoom == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
