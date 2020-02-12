@@ -1,9 +1,9 @@
 package utils;
 
-import hu.flowacademy.meetingorganizer.persistance.model.Building;
-import hu.flowacademy.meetingorganizer.persistance.model.Reservation;
-import hu.flowacademy.meetingorganizer.persistance.repository.BuildingRepository;
-import hu.flowacademy.meetingorganizer.persistance.repository.ReservationRepository;
+import hu.flowacademy.meetingorganizer.persistence.model.Building;
+import hu.flowacademy.meetingorganizer.persistence.model.Reservation;
+import hu.flowacademy.meetingorganizer.persistence.repository.BuildingRepository;
+import hu.flowacademy.meetingorganizer.persistence.repository.ReservationRepository;
 import hu.flowacademy.meetingorganizer.persistence.model.User;
 import hu.flowacademy.meetingorganizer.persistence.repository.UserRepository;
 import lombok.AllArgsConstructor;
@@ -13,8 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.PostConstruct;
 import java.time.LocalDateTime;
 
-import static hu.flowacademy.meetingorganizer.persistance.Role.ADMIN;
-import static hu.flowacademy.meetingorganizer.persistance.Role.USER;
+import static hu.flowacademy.meetingorganizer.persistence.model.Role.ADMIN;
+import static hu.flowacademy.meetingorganizer.persistence.model.Role.USER;
 
 @Component
 @Transactional
