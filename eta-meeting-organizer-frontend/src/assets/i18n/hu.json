@@ -4,8 +4,11 @@
     "button": "Váltás angol nyelvre"
   },
   "profile": {
+    "username": "Felhasználói név",
     "lastName": "Vezetéknév",
-    "firstName": "Keresztnév"
+    "firstName": "Keresztnév",
+    "email": "E-mail cím",
+    "role": "Szerepkör"
   }
 }
 

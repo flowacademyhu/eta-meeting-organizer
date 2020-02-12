@@ -2,5 +2,12 @@
   "welcome": {
     "text": "Welcome Team Meeting Organizer! Read the dev-docs!",
     "button": "Switch to Hungarian"
+  },
+  "profile": {
+    "username": "Username",
+    "lastName": "Lastname",
+    "firstName": "Firstname",
+    "email": "E-mail address",
+    "role": "Role"
   }
 }

@@ -7,8 +7,11 @@ import { TranslateService } from '@ngx-translate/core';
   `],
   template: `
     <mat-card class="card">
+    {{'profile.username' | translate}}: <br>
     {{'profile.lastName' | translate}}: <br>
-    {{'profile.firstName' | translate}}:
+    {{'profile.firstName' | translate}}: <br>
+    {{'profile.email' | translate}}: <br>
+    {{'profile.role' | translate}}: <br>
     </mat-card>
   `
 })
