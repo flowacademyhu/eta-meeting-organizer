@@ -21,8 +21,8 @@ public class UserService {
     }
 
     public User findUserById(Long id) throws ResponseStatusException{
-        Optional<User> user = userRepository.findById(id);
-            return user.orElseThrow(()-> new ResponseStatusException(HttpStatus.BAD_REQUEST));
+       return userRepository.findById(id)
+                .orElseThrow(()-> new ResponseStatusException(HttpStatus.BAD_REQUEST));
     }
 
     public User createUser(User user){
@@ -30,12 +30,10 @@ public class UserService {
     }
 
     public void deleteUser(Long id) throws ResponseStatusException{
-        Optional<User> user = userRepository.findById(id);
-        if(user.isPresent())
-        {
+        try {
             userRepository.deleteById(id);
-        } else {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        } catch (ResponseStatusException e) {
+          throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
     }
 
