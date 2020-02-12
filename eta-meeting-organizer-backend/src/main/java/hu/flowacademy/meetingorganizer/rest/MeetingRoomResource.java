@@ -17,29 +17,35 @@ public class MeetingRoomResource {
     private MeetingRoomService meetingRoomService;
 
     @GetMapping("/meetingrooms")
-    public List<MeetingRoom> findAllMeetingRooms () {
-        return meetingRoomService.findAllMeetingRooms();
+    public ResponseEntity<List<MeetingRoom>> findAllMeetingRooms() {
+        List<MeetingRoom> meetingRooms = meetingRoomService.findAllMeetingRooms();
+        return new ResponseEntity<>(meetingRooms, HttpStatus.OK);
     }
 
     @GetMapping("/meetingrooms/{id}")
-    public MeetingRoom findOneMeetingRoomById (@PathVariable Long id) {
-        return meetingRoomService.findOneMeetingRoomById(id);
+    public ResponseEntity<?> findOne(@PathVariable Long id) {
+        MeetingRoom meetingRoom = meetingRoomService.findOneMeetingRoomById(id);
+        if(meetingRoom == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } else {
+            return new ResponseEntity<>(meetingRoom, HttpStatus.OK);
+        }
     }
 
     @PostMapping("/meetingrooms")
-    public ResponseEntity<?> createMeetingRoom (@RequestBody MeetingRoom meetingRoom) {
+    public ResponseEntity<MeetingRoom> createMeetingRoom(@RequestBody MeetingRoom meetingRoom) {
         meetingRoomService.createMeetingRoom(meetingRoom);
         return new ResponseEntity<>(meetingRoom, HttpStatus.CREATED);
     }
 
     @PutMapping("meetingrooms/{id}")
-    public ResponseEntity<MeetingRoom> updateMeetingRoom (@PathVariable Long id, @RequestBody MeetingRoom meetingRoom) {
+    public ResponseEntity<MeetingRoom> updateMeetingRoom(@PathVariable Long id, @RequestBody MeetingRoom meetingRoom) {
         meetingRoomService.updateMeetingRoom(id, meetingRoom);
         return ResponseEntity.accepted().build();
     }
 
     @DeleteMapping("meetingrooms/{id}")
-    public ResponseEntity<Void> deleteMeetingRoom (@PathVariable Long id) {
+    public ResponseEntity<Void> deleteMeetingRoom(@PathVariable Long id) {
         meetingRoomService.deleteMeetingRoom(id);
         return ResponseEntity.noContent().build();
     }
