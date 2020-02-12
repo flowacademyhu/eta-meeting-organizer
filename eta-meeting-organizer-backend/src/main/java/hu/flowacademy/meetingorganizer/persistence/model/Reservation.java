@@ -1,4 +1,4 @@
-package hu.flowacademy.meetingorganizer.persistance.model;
+package hu.flowacademy.meetingorganizer.persistence.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
