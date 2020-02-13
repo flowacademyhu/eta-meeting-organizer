@@ -10,6 +10,15 @@ const routes: Routes = [
     path: '',
     pathMatch: 'full',
   },
+  {
+    component: MainLayoutComponent,
+    loadChildren: () => import('./building/building.module')
+      .then((m) => m.BuildingModule),
+    path: 'building-register',
+    pathMatch: 'full',
+  },
+
+
 ];
 
 @NgModule({

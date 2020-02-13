@@ -2,5 +2,10 @@
   "welcome": {
     "text": "Welcome Team Meeting Organizer! Read the dev-docs!",
     "button": "Switch to Hungarian"
+  },
+  "building": {
+    "city": "City",
+    "address":"Address",
+    "saveButton":"Save"
   }
 }
