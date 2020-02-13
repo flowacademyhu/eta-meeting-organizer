@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-welcome-layout',
@@ -31,7 +30,7 @@ import { TranslateService } from '@ngx-translate/core';
       a {
         font: 400 32px/44px Roboto,"Helvetica Neue",sans-serif;
       }
-    `
+    `,
   ],
   template: `
     <mat-toolbar color="warn">
@@ -47,7 +46,7 @@ import { TranslateService } from '@ngx-translate/core';
         </button>
       </mat-toolbar-row>
     </mat-toolbar>
-    <mat-sidenav-container class="example-container">
+    <mat-sidenav-container>
       <mat-sidenav id="nav-sidebar" #drawer mode="side" opened role="navigation">
         <mat-nav-list id="navbar-list">
           <a mat-list-item routerLink="/first">{{'navbar.calendar' | translate}}</a>
@@ -62,9 +61,5 @@ import { TranslateService } from '@ngx-translate/core';
   `
 })
 export class MainLayoutComponent {
-  public language: string;
 
-  constructor(private readonly translate: TranslateService) {
-    this.language = this.translate.currentLang;
-  }
 }
