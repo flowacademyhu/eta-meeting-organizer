@@ -1,7 +1,6 @@
 package hu.flowacademy.meetingorganizer.rest;
 
 import hu.flowacademy.meetingorganizer.persistence.model.Building;
-import hu.flowacademy.meetingorganizer.persistence.model.MeetingRoom;
 import hu.flowacademy.meetingorganizer.service.BuildingService;
 import java.util.Optional;
 import lombok.AllArgsConstructor;

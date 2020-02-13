@@ -1,4 +1,4 @@
-package utils;
+package hu.flowacademy.meetingorganizer.utils;
 
 import hu.flowacademy.meetingorganizer.persistence.model.Building;
 import hu.flowacademy.meetingorganizer.persistence.model.Reservation;
@@ -51,28 +51,28 @@ public class initDataLoader {
     reservationRepository.save(Reservation.builder()
         .title("Napi meeting")
         .summary("Megbeszéljük ki mivel haladt tegnap és mivel fog ma foglalkozni.")
-        .startingTime(LocalDateTime.parse("2020-02-01 10:30"))
-        .endingTime(LocalDateTime.parse("2020-02-01 11:30")).build());
+        .startingTime(LocalDateTime.now())
+        .endingTime(LocalDateTime.now()).build());
     reservationRepository.save(Reservation.builder()
         .title("Flow tárgyalás")
         .summary("Új ügyfelek felkutatása.")
-        .startingTime(LocaTime.now()))
-        .endingTime(LocalDateTime.parse("2020-01-01 13:30")).build());
+        .startingTime(LocalDateTime.now())
+        .endingTime(LocalDateTime.now()).build());
     reservationRepository.save(Reservation.builder()
         .title("Húsvét")
         .summary("húsvéti program megbeszélése Pennywise-al")
-        .startingTime(LocalDateTime.parse("2020-04-01 10:30"))
-        .endingTime(LocalDateTime.parse("2020-04-01 13:30")).build());
+        .startingTime(LocalDateTime.now())
+        .endingTime(LocalDateTime.now()).build());
     reservationRepository.save(Reservation.builder()
         .title("Karácsony")
         .summary("Megbeszéljük hogy mikor tartsuk illetve ki melyik zenekart szeretné ")
-        .startingTime(LocalDateTime.parse("2020-05-01 10:30"))
-        .endingTime(LocalDateTime.parse("2020-05-01 13:30")).build());
+        .startingTime(LocalDateTime.now())
+        .endingTime(LocalDateTime.now()).build());
     reservationRepository.save(Reservation.builder()
         .title("Tesla")
         .summary("Tesla gyár látogatásának időpontja")
-        .startingTime(LocalDateTime.parse("2020-05-01 10:30"))
-        .endingTime(LocalDateTime.parse("2020-05-01 13:30")).build());
+        .startingTime(LocalDateTime.now())
+        .endingTime(LocalDateTime.now()).build());
 
     userRepository.save(User.builder()
         .name("Bandi")
