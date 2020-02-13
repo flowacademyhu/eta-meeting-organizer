@@ -1,6 +1,6 @@
 package hu.flowacademy.meetingorganizer.rest;
 
-import hu.flowacademy.meetingorganizer.persistance.model.Building;
+import hu.flowacademy.meetingorganizer.persistence.model.Building;
 import hu.flowacademy.meetingorganizer.service.BuildingService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;

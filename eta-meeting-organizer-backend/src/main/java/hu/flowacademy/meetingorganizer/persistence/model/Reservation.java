@@ -1,4 +1,4 @@
-package hu.flowacademy.meetingorganizer.persistance.model;
+package hu.flowacademy.meetingorganizer.persistence.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,7 +18,7 @@ public class Reservation {
     private Long id;
 
     @ManyToOne
-    private User owner;
+    private User user;
 
     @OneToOne
     private MeetingRoom meetingRoom;
