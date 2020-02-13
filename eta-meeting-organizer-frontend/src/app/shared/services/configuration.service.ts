@@ -37,6 +37,14 @@ export class ConfigurationService {
   }
 
   /**
+   * Set authorization string tokens to localStorage
+   * @param token: string - The authorization string token
+   */
+  public setStringToken(token: string) {
+    this.LStorage.setItem(this.fetchStorageName(), token);
+  }
+
+  /**
    * Fetch token by parameter
    * @param key - A key from AuthResponse to fetch the corresponding token
    * @returns string - The authorization token with the key parameter

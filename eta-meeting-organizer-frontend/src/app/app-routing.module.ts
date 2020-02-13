@@ -7,6 +7,13 @@ const routes: Routes = [
     component: MainLayoutComponent,
     loadChildren: () => import('./welcome/welcome.module')
       .then((m) => m.WelcomeModule),
+    path: 'welcome',
+    pathMatch: 'full',
+  },
+  {
+    component: MainLayoutComponent,
+    loadChildren: () => import('./login/login.module')
+      .then((m) => m.LoginModule),
     path: '',
     pathMatch: 'full',
   },

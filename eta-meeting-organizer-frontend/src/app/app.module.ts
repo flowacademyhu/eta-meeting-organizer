@@ -8,10 +8,23 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { SharedModule } from '~/app/shared/shared.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { AuthService, AuthServiceConfig } from "angularx-social-login";
+import { GoogleLoginProvider } from 'angularx-social-login';
 
 // http loader for translations file
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, '/assets/i18n/', '.json');
+}
+
+const config = new AuthServiceConfig([
+  {
+    id: GoogleLoginProvider.PROVIDER_ID,
+    provider: new GoogleLoginProvider('160652702041-14ipa76q95t63j3o974o3focpjsr51i7.apps.googleusercontent.com')
+  },
+]);
+
+export function provideConfig() {
+  return config;
 }
 
 @NgModule({
@@ -42,6 +55,11 @@ export function HttpLoaderFactory(http: HttpClient) {
     provide: LocationStrategy,
     useClass: HashLocationStrategy
   },
+  AuthService,
+    {
+      provide: AuthServiceConfig,
+      useFactory: provideConfig
+    },
 ]
 })
 export class AppModule {

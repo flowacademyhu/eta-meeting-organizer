@@ -13,6 +13,8 @@ import { ApiCommunicationService } from '~/app/shared/services/api-communication
               (click)="onLanguageChange()">{{'welcome.button' | translate}}</button>
     </mat-toolbar>
 
+    <p>{{'welcome.test' | translate}}</p>
+
     <mat-card *ngFor="let user of (users$ | async)" class="my-2">
       <strong>{{user.name}}</strong><br>
       {{user.email}}<br>

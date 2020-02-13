@@ -3,7 +3,7 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  baseUrl: 'https://jsonplaceholder.typicode.com',
+  baseUrl: 'https://jsonplaceholder.typicode.com/',
   production: false,
   storagePrefix: 'meeting_organizer_',
 };
