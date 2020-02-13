@@ -8,6 +8,7 @@ import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import hu.flowacademy.meetingorganizer.persistence.model.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -26,10 +27,11 @@ public class Reservation {
     private Long id;
 
     @ManyToOne
-    private User owner;
+    private User user;
 
     @OneToOne
     private MeetingRoom meetingRoom;
+
 
     @JsonSerialize(using = LocalDateSerializer.class)
     @JsonDeserialize(using = LocalDateDeserializer.class)
