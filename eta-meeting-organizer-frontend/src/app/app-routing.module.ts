@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MainLayoutComponent } from '~/app/shared/pages/main-layout.component';
-
 const routes: Routes = [
   {
     component: MainLayoutComponent,
@@ -10,7 +9,15 @@ const routes: Routes = [
     path: '',
     pathMatch: 'full',
   },
+  {
+    component: MainLayoutComponent,
+    loadChildren: () => import('./meeting-room/meeting-room.module')
+      .then((m) => m.MeetingRoomModule),
+    path: 'meetingroom',
+    pathMatch: 'full',
+  },
 ];
+
 
 @NgModule({
   exports: [RouterModule],
