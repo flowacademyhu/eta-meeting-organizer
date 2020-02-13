@@ -28,8 +28,6 @@ export function provideConfig() {
   styles: [
     `
       #row {
-        margin: auto auto;
-        padding: auto 0;
         min-height: calc(100vh - 60px);
       }
       #customBtn {
@@ -40,13 +38,6 @@ export function provideConfig() {
         border-radius: 5px;
         box-shadow: 1px 1px 1px grey;
         white-space: nowrap;
-      }
-      #customBtn:hover {
-        cursor: pointer;
-      }
-      span.label {
-        font-family: serif;
-        font-weight: normal;
       }
       img {
         background: transparent 5px 50% no-repeat;
@@ -69,14 +60,13 @@ export function provideConfig() {
       }
       mat-card-title,
       mat-card-content {
-        color: rgb(243, 245, 237);
         display: flex;
         justify-content: center;
       }
     `,
   ],
   template: `
-    <div id="row" class="row align-items-center justify-content-center">
+    <div id="row" class="row align-items-center justify-content-center" color="primary">
       <div class="col-sm-4">
         <mat-card id="login">
           <mat-card-title>{{ "login.title" | translate }}</mat-card-title>
@@ -106,18 +96,17 @@ export class LoginComponent implements OnInit, OnDestroy {
     private readonly router: Router
   ) {}
 
-  public ngOnInit() {
-    this.subscription = this.authService.authState.subscribe(user => {
-      this.user = user;
-      this.configService.setStringToken(this.user.idToken);
-    });
-  }
+  public ngOnInit() {}
 
   public signInWithGoogle(): void {
     this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
-    if (this.user.idToken !== null) {
-      this.router.navigate(['./welcome']);
-    }
+    this.subscription = this.authService.authState.subscribe((user) => {
+      this.user = user;
+      this.configService.setStringToken(this.user.idToken);
+      if (this.user.idToken !== null) {
+        this.router.navigate(['./welcome']);
+      }
+    });
   }
 
   public ngOnDestroy() {

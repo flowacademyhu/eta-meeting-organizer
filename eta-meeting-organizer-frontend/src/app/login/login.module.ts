@@ -4,11 +4,12 @@ import { AuthServiceConfig, GoogleLoginProvider, AuthService } from 'angularx-so
 import { SharedModule } from '~/app/shared/shared.module';
 import { LoginComponent } from './components/login.component';
 import { LoginRoutingModule } from './login-routing.module';
+import { environment } from '~/environment/environment';
 
 const config = new AuthServiceConfig([
   {
     id: GoogleLoginProvider.PROVIDER_ID,
-    provider: new GoogleLoginProvider('160652702041-14ipa76q95t63j3o974o3focpjsr51i7.apps.googleusercontent.com')
+    provider: new GoogleLoginProvider(environment.googleKey)
   },
 ]);
 
