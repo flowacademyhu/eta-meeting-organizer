@@ -18,7 +18,7 @@ public class Reservation {
     private Long id;
 
     @ManyToOne
-    private User owner;
+    private User user;
 
     @OneToOne
     private MeetingRoom meetingRoom;
