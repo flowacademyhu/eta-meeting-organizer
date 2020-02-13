@@ -1,4 +1,4 @@
-package hu.flowacademy.meetingorganizer.resource;
+package hu.flowacademy.meetingorganizer.rest;
 
 import hu.flowacademy.meetingorganizer.persistence.model.User;
 import hu.flowacademy.meetingorganizer.service.UserService;
@@ -11,7 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api")
-public class UserController {
+public class UserResource {
 
     @Autowired
     private UserService userService;
