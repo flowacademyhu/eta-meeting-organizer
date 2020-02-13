@@ -18,12 +18,12 @@ public class UserService {
   @Autowired
   private UserRepository userRepository;
 
-  public List<User> findAllUser() {
+  public List<User> findAll() {
     List<User> userList = userRepository.findAll();
     return new ArrayList<User>();
   }
 
-  public User findUserById(Long id) throws ResponseStatusException {
+  public User findOne(Long id) throws ResponseStatusException {
     return userRepository.findById(id)
         .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST));
   }

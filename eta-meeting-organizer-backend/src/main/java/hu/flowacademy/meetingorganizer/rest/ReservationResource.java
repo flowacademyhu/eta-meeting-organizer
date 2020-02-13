@@ -24,13 +24,13 @@ public class ReservationResource {
   private ReservationService reservationService;
 
   @GetMapping
-  public List<Reservation> findAllReservations() {
-    return reservationService.findAllReservations();
+  public List<Reservation> findAll() {
+    return reservationService.findAll();
   }
 
   @GetMapping("{id}")
   public Reservation findOneReservationById(@PathVariable Long id) {
-    return reservationService.findOneReservationById(id);
+    return reservationService.findOne(id);
   }
 
   @PostMapping

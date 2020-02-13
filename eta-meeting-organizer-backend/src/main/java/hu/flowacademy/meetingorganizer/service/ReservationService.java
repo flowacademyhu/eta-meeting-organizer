@@ -17,11 +17,11 @@ public class ReservationService {
 
   private ReservationRepository reservationRepository;
 
-  public List<Reservation> findAllReservations() {
+  public List<Reservation> findAll() {
     return reservationRepository.findAll();
   }
 
-  public Reservation findOneReservationById(Long id) {
+  public Reservation findOne(Long id) {
     return reservationRepository.findById(id)
         .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
   }

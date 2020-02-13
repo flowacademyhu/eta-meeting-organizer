@@ -36,11 +36,11 @@ public class BuildingService {
         buildingRepository.deleteById(id);
     }
 
-    public Building findBuildingById(Long id){
+    public Building findOne(Long id){
         return buildingRepository.findById(id).get();
     }
 
-    public List<Building> findAllBuilding(){
+    public List<Building> findAll(){
         return buildingRepository.findAll();
     }
 }

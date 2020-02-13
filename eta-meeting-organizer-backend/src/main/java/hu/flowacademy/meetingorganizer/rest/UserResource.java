@@ -24,13 +24,13 @@ public class UserResource {
 
   @GetMapping
   public ResponseEntity<List<User>> getAllUsers() {
-    List<User> userList = userService.findAllUser();
+    List<User> userList = userService.findAll();
     return new ResponseEntity<List<User>>(userList, new HttpHeaders(), HttpStatus.OK);
   }
 
   @GetMapping("{id}")
   public ResponseEntity<User> getUserById(@PathVariable("id") Long id) {
-    User userEntity = userService.findUserById(id);
+    User userEntity = userService.findOne(id);
     return new ResponseEntity<User>(userEntity, new HttpHeaders(), HttpStatus.OK);
   }
 
