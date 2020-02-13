@@ -17,35 +17,35 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/reservations")
 @AllArgsConstructor
 public class ReservationResource {
 
   private ReservationService reservationService;
 
-  @GetMapping("/reservations")
+  @GetMapping
   public List<Reservation> findAllReservations() {
     return reservationService.findAllReservations();
   }
 
-  @GetMapping("/reservations/{id}")
+  @GetMapping("{id}")
   public Reservation findOneReservationById(@PathVariable Long id) {
     return reservationService.findOneReservationById(id);
   }
 
-  @PostMapping("/reservations")
+  @PostMapping
   public ResponseEntity<?> createReservation(@RequestBody Reservation reservation) {
     reservationService.createReservation(reservation);
     return new ResponseEntity<>(reservation, HttpStatus.CREATED);
   }
 
-  @DeleteMapping("/reservations/{id}")
+  @DeleteMapping("{id}")
   public ResponseEntity<Void> deleteReservation(@PathVariable Long id) {
     reservationService.deleteReservation(id);
     return ResponseEntity.noContent().build();
   }
 
-  @PutMapping("/reservations/{id}")
+  @PutMapping("{id}")
   public ResponseEntity<Reservation> updateReservation(@PathVariable Long id,
       @RequestBody Reservation reservation) {
     reservationService.updateReservation(id, reservation);

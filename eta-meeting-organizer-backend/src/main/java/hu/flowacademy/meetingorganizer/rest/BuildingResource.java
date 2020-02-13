@@ -17,25 +17,25 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/buildings")
 @AllArgsConstructor
 public class BuildingResource {
 
   private BuildingService buildingService;
 
-  @PostMapping("/buildings")
+  @PostMapping
   public ResponseEntity<?> create(@RequestBody Building building) {
     buildingService.createBuilding(building);
     return new ResponseEntity<>(building, HttpStatus.CREATED);
   }
 
-  @GetMapping("/buildings")
+  @GetMapping
   public ResponseEntity<List<Building>> findAll() {
     List<Building> buildings = buildingService.findAllBuilding();
     return new ResponseEntity<>(buildings, HttpStatus.OK);
   }
 
-  @GetMapping("/buildings/{id}")
+  @GetMapping("{id}")
   public ResponseEntity<?> findOne(@PathVariable Long id) {
     Building building = buildingService.findBuildingById(id);
     if (building == null) {
@@ -45,13 +45,13 @@ public class BuildingResource {
     }
   }
 
-  @PutMapping("/buildings/{id}")
+  @PutMapping("{id}")
   public ResponseEntity<Building> update(@PathVariable Long id, @RequestBody Building building) {
     buildingService.updateBuilding(id, building);
     return ResponseEntity.accepted().build();
   }
 
-  @DeleteMapping("/buildings/{id}")
+  @DeleteMapping("{id}")
   public ResponseEntity<Void> delete(@PathVariable Long id) {
     buildingService.deleteBuilding(id);
     return ResponseEntity.noContent().build();
