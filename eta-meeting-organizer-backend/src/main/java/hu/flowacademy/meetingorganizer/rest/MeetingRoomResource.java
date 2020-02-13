@@ -22,36 +22,36 @@ import java.util.List;
 @AllArgsConstructor
 public class MeetingRoomResource {
 
-    private MeetingRoomService meetingRoomService;
+  private MeetingRoomService meetingRoomService;
 
-    @GetMapping
-    public ResponseEntity<List<MeetingRoom>> findAllMeetingRooms() {
-        List<MeetingRoom> meetingRooms = meetingRoomService.findAll();
-        return new ResponseEntity<>(meetingRooms, HttpStatus.OK);
-    }
+  @GetMapping
+  public ResponseEntity<List<MeetingRoom>> findAllMeetingRooms() {
+    List<MeetingRoom> meetingRooms = meetingRoomService.findAll();
+    return new ResponseEntity<>(meetingRooms, HttpStatus.OK);
+  }
 
-    @GetMapping("{id}")
-    public ResponseEntity<MeetingRoom> findOne(@PathVariable Long id) {
-        Optional<MeetingRoom> meetingRoomOptional = meetingRoomService.findOne(id);
-        return meetingRoomOptional.isEmpty() ? ResponseEntity.notFound().build() : ResponseEntity.ok(meetingRoomOptional.get());
-    }
+  @GetMapping("{id}")
+  public ResponseEntity<MeetingRoom> findOne(@PathVariable Long id) {
+    Optional<MeetingRoom> meetingRoomOptional = meetingRoomService.findOne(id);
+    return meetingRoomOptional.isEmpty() ? ResponseEntity.notFound().build() : ResponseEntity.ok(meetingRoomOptional.get());
+  }
 
-    @PostMapping
-    public ResponseEntity<MeetingRoom> createMeetingRoom(@RequestBody MeetingRoom meetingRoom) {
-        meetingRoomService.createMeetingRoom(meetingRoom);
-        return new ResponseEntity<>(meetingRoom, HttpStatus.CREATED);
-    }
+  @PostMapping
+  public ResponseEntity<MeetingRoom> createMeetingRoom(@RequestBody MeetingRoom meetingRoom) {
+    meetingRoomService.createMeetingRoom(meetingRoom);
+    return new ResponseEntity<>(meetingRoom, HttpStatus.CREATED);
+  }
 
-    @PutMapping("{id}")
-    public ResponseEntity<MeetingRoom> updateMeetingRoom(@PathVariable Long id,
-                                                         @RequestBody MeetingRoom meetingRoom) {
-        meetingRoomService.updateMeetingRoom(id, meetingRoom);
-        return ResponseEntity.accepted().build();
-    }
+  @PutMapping("{id}")
+  public ResponseEntity<MeetingRoom> updateMeetingRoom(@PathVariable Long id,
+      @RequestBody MeetingRoom meetingRoom) {
+    meetingRoomService.updateMeetingRoom(id, meetingRoom);
+    return ResponseEntity.accepted().build();
+  }
 
-    @DeleteMapping("{id}")
-    public ResponseEntity<Void> deleteMeetingRoom(@PathVariable Long id) {
-        meetingRoomService.deleteMeetingRoom(id);
-        return ResponseEntity.noContent().build();
-    }
+  @DeleteMapping("{id}")
+  public ResponseEntity<Void> deleteMeetingRoom(@PathVariable Long id) {
+    meetingRoomService.deleteMeetingRoom(id);
+    return ResponseEntity.noContent().build();
+  }
 }
