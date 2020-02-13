@@ -5,12 +5,17 @@ import {TranslateService} from '@ngx-translate/core';
   selector: 'app-profile',
   styles: [`
     .card {
-      margin-top: 20rem;
-      margin-left: 7rem;
-      width: 30rem;
-      background-color: #f44336;
-      color: white;
+      margin-top: 25%;
+      margin-left: 25%;
+      width: 50%;
+      background-color: #e64b3a;
+      color: #f3f5ed;
       border-radius: 5%;
+      padding: 3%;
+    }
+    .button {
+      background-color: #333333;
+      color: #f3f5ed;
     }
   `],
   template: `
@@ -20,7 +25,7 @@ import {TranslateService} from '@ngx-translate/core';
       <h2>{{'profile.firstName' | translate}}:</h2>
       <h2>{{'profile.email' | translate}}:</h2>
       <h2>{{'profile.role' | translate}}:</h2>
-      <button mat-raised-button color="primary">{{'profile.delete' | translate}}</button>
+      <button mat-raised-button class="button">{{'profile.delete' | translate}}</button>
     </mat-card>
   `
 })
@@ -33,6 +38,6 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit() {
-  }
+}
 
 }
