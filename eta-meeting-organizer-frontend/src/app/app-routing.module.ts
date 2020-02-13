@@ -17,8 +17,6 @@ const routes: Routes = [
     path: 'building-register',
     pathMatch: 'full',
   },
-
-
 ];
 
 @NgModule({
