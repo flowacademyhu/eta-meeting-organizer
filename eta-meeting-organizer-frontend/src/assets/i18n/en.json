@@ -8,6 +8,7 @@
     "lastName": "Lastname",
     "firstName": "Firstname",
     "email": "E-mail address",
-    "role": "Role"
+    "role": "Role",
+    "delete": "Delete"
   }
 }
