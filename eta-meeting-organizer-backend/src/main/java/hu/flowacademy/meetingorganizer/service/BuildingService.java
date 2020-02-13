@@ -1,7 +1,7 @@
 package hu.flowacademy.meetingorganizer.service;
 
-import hu.flowacademy.meetingorganizer.persistance.model.Building;
-import hu.flowacademy.meetingorganizer.persistance.repository.BuildingRepository;
+import hu.flowacademy.meetingorganizer.persistence.model.Building;
+import hu.flowacademy.meetingorganizer.persistence.repository.BuildingRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
