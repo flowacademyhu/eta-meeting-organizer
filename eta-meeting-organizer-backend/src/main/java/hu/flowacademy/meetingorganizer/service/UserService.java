@@ -2,16 +2,16 @@ package hu.flowacademy.meetingorganizer.service;
 
 import hu.flowacademy.meetingorganizer.persistence.model.User;
 import hu.flowacademy.meetingorganizer.persistence.repository.UserRepository;
+import java.util.Optional;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
-import javax.transaction.Transactional;
-import java.util.ArrayList;
 import java.util.List;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@AllArgsConstructor
 @Transactional
 public class UserService {
 
@@ -19,21 +19,23 @@ public class UserService {
   private UserRepository userRepository;
 
   public List<User> findAll() {
-    List<User> userList = userRepository.findAll();
-    return new ArrayList<User>();
+    return userRepository.findAll();
   }
 
-  public User findOne(Long id) throws ResponseStatusException {
-    return userRepository.findById(id)
-        .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST));
+  public Optional<User> findOne(Long id) {
+    return userRepository.findById(id);
   }
 
   public User createUser(User user) {
     return userRepository.save(user);
   }
 
-  public void deleteUser(Long id) throws ResponseStatusException {
+  public void deleteUser(Long id) {
     userRepository.deleteById(id);
   }
 
+  public User updateUser(Long id, User user) {
+    user.setId(id);
+    return userRepository.save(user);
+  }
 }

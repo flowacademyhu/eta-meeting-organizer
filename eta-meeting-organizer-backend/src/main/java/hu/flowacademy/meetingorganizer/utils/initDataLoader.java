@@ -56,7 +56,7 @@ public class initDataLoader {
     reservationRepository.save(Reservation.builder()
         .title("Flow tárgyalás")
         .summary("Új ügyfelek felkutatása.")
-        .startingTime(LocalDateTime.parse("2020-01-01 10:30"))
+        .startingTime(LocaTime.now()))
         .endingTime(LocalDateTime.parse("2020-01-01 13:30")).build());
     reservationRepository.save(Reservation.builder()
         .title("Húsvét")

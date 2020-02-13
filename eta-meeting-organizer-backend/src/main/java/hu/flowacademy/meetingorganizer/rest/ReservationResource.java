@@ -2,6 +2,7 @@ package hu.flowacademy.meetingorganizer.rest;
 
 import hu.flowacademy.meetingorganizer.persistence.model.Reservation;
 import hu.flowacademy.meetingorganizer.service.ReservationService;
+import java.util.Optional;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,17 +25,20 @@ public class ReservationResource {
   private ReservationService reservationService;
 
   @GetMapping
-  public List<Reservation> findAll() {
-    return reservationService.findAll();
+  public ResponseEntity<List<Reservation>> findAll() {
+    List<Reservation> reservations = reservationService.findAll();
+    return new ResponseEntity<>(reservations, HttpStatus.OK);
   }
 
   @GetMapping("{id}")
-  public Reservation findOneReservationById(@PathVariable Long id) {
-    return reservationService.findOne(id);
+  public ResponseEntity<Reservation> findOne(@PathVariable Long id) {
+    Optional<Reservation> reservationOptional = reservationService.findOne(id);
+    return reservationOptional.isEmpty() ? ResponseEntity.notFound().build()
+        : ResponseEntity.ok(reservationOptional.get());
   }
 
   @PostMapping
-  public ResponseEntity<?> createReservation(@RequestBody Reservation reservation) {
+  public ResponseEntity<Reservation> createReservation(@RequestBody Reservation reservation) {
     reservationService.createReservation(reservation);
     return new ResponseEntity<>(reservation, HttpStatus.CREATED);
   }

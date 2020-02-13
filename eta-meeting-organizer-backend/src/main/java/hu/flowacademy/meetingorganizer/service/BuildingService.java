@@ -2,6 +2,7 @@ package hu.flowacademy.meetingorganizer.service;
 
 import hu.flowacademy.meetingorganizer.persistence.model.Building;
 import hu.flowacademy.meetingorganizer.persistence.repository.BuildingRepository;
+import java.util.Optional;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -16,31 +17,26 @@ import java.util.NoSuchElementException;
 @AllArgsConstructor
 public class BuildingService {
 
-    private BuildingRepository buildingRepository;
+  private BuildingRepository buildingRepository;
 
-    public Building createBuilding(Building building){
-        return buildingRepository.save(building);
-    }
+  public Building createBuilding(Building building) {
+    return buildingRepository.save(building);
+  }
 
-    public Building updateBuilding(Long id, Building building){
-        if(buildingRepository.findById(id).isPresent()){
-            Building build = buildingRepository.findById(id).orElseThrow(NoSuchElementException::new);
-            build.setId(id);
-            return buildingRepository.save(build);
-        } else {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-        }
-    }
+  public Building updateBuilding(Long id, Building building) {
+    building.setId(id);
+    return buildingRepository.save(building);
+  }
 
-    public void deleteBuilding(Long id){
-        buildingRepository.deleteById(id);
-    }
+  public void deleteBuilding(Long id) {
+    buildingRepository.deleteById(id);
+  }
 
-    public Building findOne(Long id){
-        return buildingRepository.findById(id).get();
-    }
+  public Optional<Building> findOne(Long id) {
+    return buildingRepository.findById(id);
+  }
 
-    public List<Building> findAll(){
-        return buildingRepository.findAll();
-    }
+  public List<Building> findAll() {
+    return buildingRepository.findAll();
+  }
 }

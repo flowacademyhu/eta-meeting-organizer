@@ -2,6 +2,7 @@ package hu.flowacademy.meetingorganizer.rest;
 
 import hu.flowacademy.meetingorganizer.persistence.model.User;
 import hu.flowacademy.meetingorganizer.service.UserService;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,26 +26,33 @@ public class UserResource {
   private UserService userService;
 
   @GetMapping
-  public ResponseEntity<List<User>> getAllUsers() {
-    List<User> userList = userService.findAll();
-    return new ResponseEntity<List<User>>(userList, new HttpHeaders(), HttpStatus.OK);
+  public ResponseEntity<List<User>> findAll() {
+    List<User> users = userService.findAll();
+    return new ResponseEntity<>(users, HttpStatus.OK);
   }
 
   @GetMapping("{id}")
-  public ResponseEntity<User> getUserById(@PathVariable("id") Long id) {
-    User userEntity = userService.findOne(id);
-    return new ResponseEntity<User>(userEntity, new HttpHeaders(), HttpStatus.OK);
+  public ResponseEntity<User> getOne(@PathVariable Long id) {
+    Optional<User> userOptional = userService.findOne(id);
+    return userOptional.isEmpty() ? ResponseEntity.notFound().build()
+        : ResponseEntity.ok(userOptional.get());
   }
 
   @PostMapping
-  public ResponseEntity<User> createUser(User user) {
-    User updatedUser = userService.createUser(user);
-    return new ResponseEntity<User>(updatedUser, new HttpHeaders(), HttpStatus.OK);
+  public ResponseEntity<User> createUser(@RequestBody User user) {
+    userService.createUser(user);
+    return new ResponseEntity<>(user, HttpStatus.CREATED);
   }
 
   @DeleteMapping("{id}")
-  public HttpStatus deleteUser(@PathVariable("id") Long id) {
+  public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
     userService.deleteUser(id);
-    return HttpStatus.OK;
+    return ResponseEntity.noContent().build();
+  }
+
+  @PutMapping("{id}")
+  public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User user) {
+    userService.updateUser(id, user);
+    return ResponseEntity.accepted().build();
   }
 }

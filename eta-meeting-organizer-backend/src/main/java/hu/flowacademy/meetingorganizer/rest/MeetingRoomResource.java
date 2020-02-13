@@ -25,7 +25,7 @@ public class MeetingRoomResource {
   private MeetingRoomService meetingRoomService;
 
   @GetMapping
-  public ResponseEntity<List<MeetingRoom>> findAllMeetingRooms() {
+  public ResponseEntity<List<MeetingRoom>> findAll() {
     List<MeetingRoom> meetingRooms = meetingRoomService.findAll();
     return new ResponseEntity<>(meetingRooms, HttpStatus.OK);
   }
@@ -33,7 +33,8 @@ public class MeetingRoomResource {
   @GetMapping("{id}")
   public ResponseEntity<MeetingRoom> findOne(@PathVariable Long id) {
     Optional<MeetingRoom> meetingRoomOptional = meetingRoomService.findOne(id);
-    return meetingRoomOptional.isEmpty() ? ResponseEntity.notFound().build() : ResponseEntity.ok(meetingRoomOptional.get());
+    return meetingRoomOptional.isEmpty() ? ResponseEntity.notFound().build()
+        : ResponseEntity.ok(meetingRoomOptional.get());
   }
 
   @PostMapping

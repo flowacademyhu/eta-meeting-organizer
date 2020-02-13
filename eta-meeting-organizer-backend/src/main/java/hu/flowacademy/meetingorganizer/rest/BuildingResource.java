@@ -1,7 +1,9 @@
 package hu.flowacademy.meetingorganizer.rest;
 
 import hu.flowacademy.meetingorganizer.persistence.model.Building;
+import hu.flowacademy.meetingorganizer.persistence.model.MeetingRoom;
 import hu.flowacademy.meetingorganizer.service.BuildingService;
+import java.util.Optional;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +26,7 @@ public class BuildingResource {
   private BuildingService buildingService;
 
   @PostMapping
-  public ResponseEntity<?> createBuilding(@RequestBody Building building) {
+  public ResponseEntity<Building> createBuilding(@RequestBody Building building) {
     buildingService.createBuilding(building);
     return new ResponseEntity<>(building, HttpStatus.CREATED);
   }
@@ -36,17 +38,15 @@ public class BuildingResource {
   }
 
   @GetMapping("{id}")
-  public ResponseEntity<?> findOne(@PathVariable Long id) {
-    Building building = buildingService.findOne(id);
-    if (building == null) {
-      return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    } else {
-      return new ResponseEntity<>(building, HttpStatus.OK);
-    }
+  public ResponseEntity<Building> findOne(@PathVariable Long id) {
+    Optional<Building> buildingOptional = buildingService.findOne(id);
+    return buildingOptional.isEmpty() ? ResponseEntity.notFound().build()
+        : ResponseEntity.ok(buildingOptional.get());
   }
 
   @PutMapping("{id}")
-  public ResponseEntity<Building> updateBuilding(@PathVariable Long id, @RequestBody Building building) {
+  public ResponseEntity<Building> updateBuilding(@PathVariable Long id,
+      @RequestBody Building building) {
     buildingService.updateBuilding(id, building);
     return ResponseEntity.accepted().build();
   }

@@ -2,6 +2,7 @@ package hu.flowacademy.meetingorganizer.service;
 
 import hu.flowacademy.meetingorganizer.persistence.model.Reservation;
 import hu.flowacademy.meetingorganizer.persistence.repository.ReservationRepository;
+import java.util.Optional;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -21,9 +22,8 @@ public class ReservationService {
     return reservationRepository.findAll();
   }
 
-  public Reservation findOne(Long id) {
-    return reservationRepository.findById(id)
-        .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+  public Optional<Reservation> findOne(Long id) {
+    return reservationRepository.findById(id);
   }
 
   public Reservation createReservation(Reservation reservation) {
@@ -35,12 +35,7 @@ public class ReservationService {
   }
 
   public Reservation updateReservation(Long id, Reservation reservation) {
-    if (reservationRepository.findById(id).isPresent()) {
-      Reservation res = reservationRepository.findById(id).get();
-      res.setId(id);
-      return reservationRepository.save(res);
-    } else {
-      throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-    }
+    reservation.setId(id);
+    return reservationRepository.save(reservation);
   }
 }
