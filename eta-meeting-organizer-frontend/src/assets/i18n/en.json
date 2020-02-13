@@ -2,5 +2,10 @@
   "welcome": {
     "text": "Welcome Team Meeting Organizer! Read the dev-docs!",
     "button": "Switch to Hungarian"
+  },
+  "navbar": {
+    "calendar": "Calendar",
+    "profile" : "Profile",
+    "meetingRoomEditor": "Meetingroom Editor"
   }
 }

@@ -2,5 +2,10 @@
   "welcome": {
     "text": "Üdvözöllek Tárgyaló foglaló csapat! Olvassátok el a fejlesztői dokumentációt!",
     "button": "Váltás angol nyelvre"
+  },
+  "navbar": {
+    "calendar": "Naptár",
+    "profile" : "Profil",
+    "meetingRoomEditor": "Tárgyaló kezelő"
   }
 }
