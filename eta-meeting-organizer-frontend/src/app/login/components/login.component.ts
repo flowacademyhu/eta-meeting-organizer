@@ -62,7 +62,6 @@ export function provideConfig() {
         padding-right: 42px;
         font-size: 14px;
         font-weight: bold;
-        /* Use the Roboto font that is loaded in the <head> */
         font-family: "Roboto", sans-serif;
       }
       mat-card {
