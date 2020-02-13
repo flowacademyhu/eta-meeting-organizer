@@ -1,17 +1,15 @@
 import {Component, OnInit} from '@angular/core';
-import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-profile',
   styles: [`
     .card {
-      margin-top: 25%;
-      margin-left: 25%;
-      width: 50%;
-      background-color: #e64b3a;
       color: #f3f5ed;
+      background-color: #e64b3a;
       border-radius: 5%;
-      padding: 3%;
+    }
+    .row {
+      min-height: calc(100vh - 60px);
     }
     .button {
       background-color: #333333;
@@ -19,6 +17,8 @@ import {TranslateService} from '@ngx-translate/core';
     }
   `],
   template: `
+  <div class="row justify-content-center align-items-center">
+    <div class="col-6">
     <mat-card class="card">
       <h2>{{'profile.username' | translate}}:</h2>
       <h2>{{'profile.lastName' | translate}}:</h2>
@@ -27,15 +27,13 @@ import {TranslateService} from '@ngx-translate/core';
       <h2>{{'profile.role' | translate}}:</h2>
       <button mat-raised-button class="button">{{'profile.delete' | translate}}</button>
     </mat-card>
+    </div>
+ </div>
   `
 })
 
 export class ProfileComponent implements OnInit {
-  public language: string;
-
-  constructor(private readonly translate: TranslateService) {
-    this.language = this.translate.currentLang;
-  }
+  constructor() { }
 
   ngOnInit() {
 }
