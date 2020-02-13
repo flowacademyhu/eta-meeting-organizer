@@ -32,8 +32,8 @@ public class MeetingRoomResource {
 
   @GetMapping("{id}")
   public ResponseEntity<Optional<MeetingRoom>> findOne(@PathVariable Long id) {
-    Optional<MeetingRoom> meetingRoom = meetingRoomService.findOne(id);
-    return meetingRoomService.findOne(id).isEmpty() ? ResponseEntity.notFound().build() : new ResponseEntity<>(meetingRoom, HttpStatus.OK);
+    Optional<MeetingRoom> meetingRoomOptional = meetingRoomService.findOne(id);
+    return meetingRoomOptional.isEmpty() ? ResponseEntity.notFound().build() : new ResponseEntity<>(meetingRoomOptional, HttpStatus.OK);
   }
 
   @PostMapping
