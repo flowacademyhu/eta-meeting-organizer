@@ -2,7 +2,28 @@
 @import "mixins";
 
 body {
+  height: 100%;
   font-size: 14px;
   font-family: Roboto, "Helvetica Neue", sans-serif;
   margin: 0;
+}
+
+
+.header{
+  height: 50px;
+  position: fixed;
+  top: 0px;
+  text-align: center;
+  position: fixed;
+  z-index:999;
+  font-size: smaller;
+  align-items: center;
+  padding: 8px;
+  position: sticky;
+  bottom:0;
+  }
+
+.white{
+  color:white;
+  text-align: center;
 }

@@ -16,7 +16,7 @@ import { HeaderComponent } from './components/header-layout.component';
     MainLayoutComponent,
     HeaderComponent,
     FooterComponent,
-    
+
   ],
   exports: [
     CommonModule,
