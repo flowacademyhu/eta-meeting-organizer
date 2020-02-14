@@ -3,6 +3,14 @@
     "text": "Üdvözöllek Tárgyaló foglaló csapat! Olvassátok el a fejlesztői dokumentációt!",
     "button": "Váltás angol nyelvre"
   },
+  "profile": {
+    "username": "Felhasználói név",
+    "lastName": "Vezetéknév",
+    "firstName": "Keresztnév",
+    "email": "E-mail cím",
+    "role": "Szerepkör",
+    "delete": "Törlés"
+  },
   "meeting-room": {
     "text": "név",
     "building": "épület",
@@ -24,3 +32,4 @@
     "exit": "Kilépés"
   }
 }
+

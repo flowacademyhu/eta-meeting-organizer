@@ -11,13 +11,19 @@ const routes: Routes = [
   },
   {
     component: MainLayoutComponent,
+    loadChildren: () => import('./profile/profile.module')
+      .then((p) => p.ProfileModule),
+      path: 'profile',
+      pathMatch: 'full',
+  },
+  {
+    component: MainLayoutComponent,
     loadChildren: () => import('./meeting-room/meeting-room.module')
       .then((m) => m.MeetingRoomModule),
     path: 'meetingroom',
     pathMatch: 'full',
   },
 ];
-
 
 @NgModule({
   exports: [RouterModule],
