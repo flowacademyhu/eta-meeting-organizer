@@ -22,7 +22,7 @@ import { ApiCommunicationService } from '~/app/shared/services/api-communication
       <h2>{{'profile.role' | translate}}:  {{(user$ | async)?.role}}</h2>
       <h2>{{'profile.lastName' | translate}}:</h2>
       <h2>{{'profile.firstName' | translate}}:</h2>
-      <h1><button mat-raised-button color="primary">{{'profile.delete' | translate}}</button></h1>
+      <button mat-raised-button color="primary">{{'profile.delete' | translate}}</button>
     </mat-card>
     </div>
  </div>
