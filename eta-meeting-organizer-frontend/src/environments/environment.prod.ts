@@ -1,5 +1,5 @@
 export const environment = {
-  baseUrl: 'https://jsonplaceholder.typicode.com',
+  baseUrl: 'http://localhost:8080/api',
   production: true,
   storagePrefix: 'meeting_organizer_',
 };
