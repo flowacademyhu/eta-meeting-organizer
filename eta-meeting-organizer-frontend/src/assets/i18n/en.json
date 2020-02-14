@@ -5,7 +5,8 @@
   },
   "building": {
     "city": "City",
-    "address":"Address"
+    "address":"Address",
+    "saveButton":"Save"
   },
   "meeting-room": {
     "text": "name",
