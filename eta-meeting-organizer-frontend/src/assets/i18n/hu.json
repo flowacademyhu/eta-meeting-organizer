@@ -37,6 +37,10 @@
     "calendar": "Naptár",
     "profile" : "Profil",
     "meetingRoomEditor": "Tárgyaló kezelő"
+  },
+  "header": {
+    "button": "ENG",
+    "exit": "Kilépés"
   }
 }
 

@@ -37,5 +37,10 @@
     "calendar": "Calendar",
     "profile" : "Profile",
     "meetingRoomEditor": "Meetingroom Editor"
+  },
+  "header": {
+    "button": "HUN",
+    "exit": "Sign Out"
   }
+
 }
