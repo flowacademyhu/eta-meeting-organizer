@@ -9,7 +9,7 @@
 
 // Fonts
 @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500');
-
+     
 $fontConfig: (
   display-4: mat-typography-level(112px, 112px, 300, 'Roboto', -0.0134em),
   display-3: mat-typography-level(56px, 56px, 400, 'Roboto', -0.0089em),
@@ -84,7 +84,7 @@ $mat-dark-theme-foreground: (
 
 // Background config
 // Light bg
-$light-background:    #fafafa;
+$light-background:    #f3f5ed;
 $light-bg-darker-5:   darken($light-background, 5%);
 $light-bg-darker-10:  darken($light-background, 10%);
 $light-bg-darker-20:  darken($light-background, 20%);
@@ -116,8 +116,8 @@ $dark-bg-lighter-5:   lighten($dark-background, 5%);
 $dark-bg-lighter-10:  lighten($dark-background, 10%);
 $dark-bg-lighter-20:  lighten($dark-background, 20%);
 $dark-bg-lighter-30:  lighten($dark-background, 30%);
-$light-bg-alpha-4:    rgba(#fafafa, 0.04);
-$light-bg-alpha-12:   rgba(#fafafa, 0.12);
+$light-bg-alpha-4:    rgba(#f3f5ed, 0.04);
+$light-bg-alpha-12:   rgba(#f3f5ed, 0.12);
 
 // Background palette for dark themes.
 $mat-dark-theme-background: (
@@ -165,37 +165,15 @@ $mat-primary: (
 $theme-primary: mat-palette($mat-primary, main, lighter, darker);
 
 body {
-  --accent-color: #f3f5ed;
-  --accent-lighter-color: #fbfcfa;
-  --accent-darker-color: #edf0e5;
-  --text-accent-color: #{$dark-primary-text};
+  --accent-color: #333333;
+  --accent-lighter-color: #c2c2c2;
+  --accent-darker-color: #202020;
+  --text-accent-color: #{$light-primary-text};
   --text-accent-lighter-color: #{$dark-primary-text};
-  --text-accent-darker-color: #{$dark-primary-text};
+  --text-accent-darker-color: #{$light-primary-text};
 }
 
 $mat-accent: (
-  main: #f3f5ed,
-  lighter: #fbfcfa,
-  darker: #edf0e5,
-  200: #f3f5ed, // For slide toggle,
-  contrast : (
-    main: $dark-primary-text,
-    lighter: $dark-primary-text,
-    darker: $dark-primary-text,
-  )
-);
-$theme-accent: mat-palette($mat-accent, main, lighter, darker);
-
-body {
-  --warn-color: #333333;
-  --warn-lighter-color: #c2c2c2;
-  --warn-darker-color: #202020;
-  --text-warn-color: #{$light-primary-text};
-  --text-warn-lighter-color: #{$dark-primary-text};
-  --text-warn-darker-color: #{$light-primary-text};
-}
-
-$mat-warn: (
   main: #333333,
   lighter: #c2c2c2,
   darker: #202020,
@@ -206,10 +184,32 @@ $mat-warn: (
     darker: $light-primary-text,
   )
 );
+$theme-accent: mat-palette($mat-accent, main, lighter, darker);
+
+body {
+  --warn-color: #f3f5ed;
+  --warn-lighter-color: #fbfcfa;
+  --warn-darker-color: #edf0e5;
+  --text-warn-color: #{$dark-primary-text};
+  --text-warn-lighter-color: #{$dark-primary-text};
+  --text-warn-darker-color: #{$dark-primary-text};
+}
+
+$mat-warn: (
+  main: #f3f5ed,
+  lighter: #fbfcfa,
+  darker: #edf0e5,
+  200: #f3f5ed, // For slide toggle,
+  contrast : (
+    main: $dark-primary-text,
+    lighter: $dark-primary-text,
+    darker: $dark-primary-text,
+  )
+);
 $theme-warn: mat-palette($mat-warn, main, lighter, darker);;
 
-$theme: mat-dark-theme($theme-primary, $theme-accent, $theme-warn);
-$altTheme: mat-light-theme($theme-primary, $theme-accent, $theme-warn);
+$theme: mat-light-theme($theme-primary, $theme-accent, $theme-warn);
+$altTheme: mat-dark-theme($theme-primary, $theme-accent, $theme-warn);
 
 // Theme Init
 @include angular-material-theme($theme);
