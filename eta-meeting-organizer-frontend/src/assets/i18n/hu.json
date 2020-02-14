@@ -5,7 +5,8 @@
   },
   "building": {
     "city": "Város",
-    "address":"Cím"
+    "address":"Cím",
+    "saveButton":"Mentés"
   },
   "meeting-room": {
     "text": "név",
