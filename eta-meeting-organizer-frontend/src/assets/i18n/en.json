@@ -7,5 +7,10 @@
     "city": "City",
     "address":"Address",
     "saveButton":"Save"
+  },
+  "navbar": {
+    "calendar": "Calendar",
+    "profile" : "Profile",
+    "meetingRoomEditor": "Meetingroom Editor"
   }
 }

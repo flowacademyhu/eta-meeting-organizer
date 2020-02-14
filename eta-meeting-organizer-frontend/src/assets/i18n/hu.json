@@ -7,5 +7,10 @@
     "city": "Város",
     "address":"Cím",
     "saveButton":"Mentés"
+  },
+  "navbar": {
+    "calendar": "Naptár",
+    "profile" : "Profil",
+    "meetingRoomEditor": "Tárgyaló kezelő"
   }
 }
