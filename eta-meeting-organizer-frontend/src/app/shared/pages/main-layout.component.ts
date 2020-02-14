@@ -19,6 +19,7 @@ import { Component } from '@angular/core';
     `,
   ],
   template: `
+    <app-header></app-header>
     <mat-toolbar color="accent">
       <mat-toolbar-row color="accent">
         <button color="warn"
@@ -40,11 +41,10 @@ import { Component } from '@angular/core';
         </mat-nav-list>
       </mat-sidenav>
       <mat-sidenav-content color="accent">
-        <app-header></app-header>
         <router-outlet></router-outlet>
-        <app-footer></app-footer>
       </mat-sidenav-content>
     </mat-sidenav-container>
+    <app-footer></app-footer>
   `
 })
 export class MainLayoutComponent {
