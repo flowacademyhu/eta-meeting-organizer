@@ -13,5 +13,10 @@
     "selectBuilding":"Válasz telephelyet",
     "projector":"Projektor",
     "saveButton":"Mentés"
+  },
+  "navbar": {
+    "calendar": "Naptár",
+    "profile" : "Profil",
+    "meetingRoomEditor": "Tárgyaló kezelő"
   }
 }

@@ -13,5 +13,10 @@
     "selectBuilding":"Select building",
     "projector":"Projector",
     "saveButton":"Save"
+  },
+  "navbar": {
+    "calendar": "Calendar",
+    "profile" : "Profile",
+    "meetingRoomEditor": "Meetingroom Editor"
   }
 }
