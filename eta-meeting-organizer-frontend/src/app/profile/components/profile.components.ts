@@ -18,7 +18,7 @@ import {Component, OnInit} from '@angular/core';
   `],
   template: `
   <div class="row justify-content-center align-items-center">
-    <div class="col-6">
+    <div class="col-4">
     <mat-card class="card">
       <h2>{{'profile.username' | translate}}:</h2>
       <h2>{{'profile.lastName' | translate}}:</h2>
