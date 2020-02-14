@@ -5,14 +5,15 @@ import { FormControl, FormGroup } from '@angular/forms';
   selector: 'app-building',
   styles: [`
     .row {
-      min-height: calc(100vh - 60vh);
+      min-height: calc(100vh - 60px);
     }
-    .field{
-      min-width: calc(100vh - 60vh);
+     .field{
+      min-width: calc(60vh - 60px);
     }
   `],
   template: `
     <div class="row justify-content-center align-items-center">
+    <div class="col-4">
       <form [formGroup]="profileForm">
         <mat-card class="card">
           <p>
@@ -30,6 +31,7 @@ import { FormControl, FormGroup } from '@angular/forms';
           <button mat-raised-button color="warn">{{'building.saveButton' | translate}}</button>
         </mat-card>
       </form>
+      </div>
     </div>
   `
 })
