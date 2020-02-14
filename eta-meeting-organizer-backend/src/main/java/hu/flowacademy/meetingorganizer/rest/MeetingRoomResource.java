@@ -28,31 +28,33 @@ public class MeetingRoomResource {
   private MeetingRoomService meetingRoomService;
 
   @GetMapping
-  public ResponseEntity<List<MeetingRoom>> findAllMeetingRooms() {
+  public ResponseEntity<List<MeetingRoom>> findAll() {
     List<MeetingRoom> meetingRooms = meetingRoomService.findAll();
     return new ResponseEntity<>(meetingRooms, HttpStatus.OK);
   }
 
-  @GetMapping("{id}")
+  @GetMapping("/{id}")
   public ResponseEntity<MeetingRoom> findOne(@PathVariable Long id) {
     Optional<MeetingRoom> meetingRoomOptional = meetingRoomService.findOne(id);
-    return meetingRoomOptional.isEmpty() ? ResponseEntity.notFound().build() : ResponseEntity.ok(meetingRoomOptional.get());
+    return meetingRoomOptional.isPresent() ? ResponseEntity.ok(meetingRoomOptional.get())
+        : ResponseEntity.notFound().build();
+
   }
 
   @PostMapping
   public ResponseEntity<MeetingRoom> createMeetingRoom(@RequestBody MeetingRoom meetingRoom) {
-    meetingRoomService.createMeetingRoom(meetingRoom);
-    return new ResponseEntity<>(meetingRoom, HttpStatus.CREATED);
+    return new ResponseEntity<>(meetingRoomService.createMeetingRoom(meetingRoom),
+        HttpStatus.CREATED);
   }
 
-  @PutMapping("{id}")
+  @PutMapping("/{id}")
   public ResponseEntity<MeetingRoom> updateMeetingRoom(@PathVariable Long id,
       @RequestBody MeetingRoom meetingRoom) {
     meetingRoomService.updateMeetingRoom(id, meetingRoom);
     return ResponseEntity.accepted().build();
   }
 
-  @DeleteMapping("{id}")
+  @DeleteMapping("/{id}")
   public ResponseEntity<Void> deleteMeetingRoom(@PathVariable Long id) {
     meetingRoomService.deleteMeetingRoom(id);
     return ResponseEntity.noContent().build();

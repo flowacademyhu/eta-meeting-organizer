@@ -1,21 +1,19 @@
 package hu.flowacademy.meetingorganizer.utils;
 
-import hu.flowacademy.meetingorganizer.persistence.model.*;
+import hu.flowacademy.meetingorganizer.persistence.model.Building;
 import hu.flowacademy.meetingorganizer.persistence.model.MeetingRoom;
 import hu.flowacademy.meetingorganizer.persistence.model.Reservation;
-import hu.flowacademy.meetingorganizer.persistence.model.User;
 import hu.flowacademy.meetingorganizer.persistence.model.Role;
 import hu.flowacademy.meetingorganizer.persistence.repository.BuildingRepository;
 import hu.flowacademy.meetingorganizer.persistence.repository.MeetingRoomRepository;
-import hu.flowacademy.meetingorganizer.persistence.repository.*;
-
+import hu.flowacademy.meetingorganizer.persistence.repository.ReservationRepository;
+import hu.flowacademy.meetingorganizer.persistence.model.User;
 import hu.flowacademy.meetingorganizer.persistence.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.PostConstruct;
 import java.time.LocalDateTime;
-
 
 @Component
 @Transactional
