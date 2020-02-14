@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MainLayoutComponent } from '~/app/shared/pages/main-layout.component';
-
 const routes: Routes = [
   {
     component: MainLayoutComponent,
@@ -15,6 +14,20 @@ const routes: Routes = [
     loadChildren: () => import('./login/login.module')
       .then((m) => m.LoginModule),
     path: '',
+    pathMatch: 'full',
+  },
+  {
+    component: MainLayoutComponent,
+    loadChildren: () => import('./profile/profile.module')
+      .then((p) => p.ProfileModule),
+      path: 'profile',
+      pathMatch: 'full',
+  },
+  {
+    component: MainLayoutComponent,
+    loadChildren: () => import('./meeting-room/meeting-room.module')
+      .then((m) => m.MeetingRoomModule),
+    path: 'meetingroom',
     pathMatch: 'full',
   },
 ];

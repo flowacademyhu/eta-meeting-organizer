@@ -7,14 +7,15 @@ import {
   SocialUser,
 } from 'angularx-social-login';
 import { GoogleLoginProvider } from 'angularx-social-login';
-import { ConfigurationService } from '~/app/shared/services/configuration.service';
 import { Subscription } from 'rxjs';
+import { ConfigurationService } from '~/app/shared/services/configuration.service';
+import { environment } from '~/environment/environment';
 
 const config = new AuthServiceConfig([
   {
     id: GoogleLoginProvider.PROVIDER_ID,
     provider: new GoogleLoginProvider(
-      '160652702041-14ipa76q95t63j3o974o3focpjsr51i7.apps.googleusercontent.com'
+      environment.googleKey
     )
   }
 ]);
@@ -77,7 +78,7 @@ export function provideConfig() {
                 <img src="../../../assets/googlelogo.png" />
               </span>
               <span class="buttonText" (click)="signInWithGoogle()">{{
-                "login.button" | translate
+                "login.loginButton" | translate
               }}</span>
             </div>
           </mat-card-content>
