@@ -3,6 +3,11 @@
     "text": "Üdvözöllek Tárgyaló foglaló csapat! Olvassátok el a fejlesztői dokumentációt!",
     "button": "Váltás angol nyelvre"
   },
+  "building": {
+    "city": "Város",
+    "address":"Cím",
+    "saveButton":"Mentés"
+  },
   "profile": {
     "username": "Felhasználói név",
     "lastName": "Vezetéknév",
