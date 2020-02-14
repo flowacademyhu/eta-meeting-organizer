@@ -26,8 +26,7 @@ public class BuildingResource {
 
   @PostMapping
   public ResponseEntity<Building> createBuilding(@RequestBody Building building) {
-    buildingService.createBuilding(building);
-    return new ResponseEntity<>(building, HttpStatus.CREATED);
+    return new ResponseEntity<>(buildingService.createBuilding(building), HttpStatus.CREATED);
   }
 
   @GetMapping

@@ -39,8 +39,7 @@ public class UserResource {
 
   @PostMapping
   public ResponseEntity<User> createUser(@RequestBody User user) {
-    userService.createUser(user);
-    return new ResponseEntity<>(user, HttpStatus.CREATED);
+    return new ResponseEntity<>(userService.createUser(user), HttpStatus.CREATED);
   }
 
   @DeleteMapping("/{id}")

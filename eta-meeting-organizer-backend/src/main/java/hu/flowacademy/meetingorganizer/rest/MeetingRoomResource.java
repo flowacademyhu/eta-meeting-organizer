@@ -40,8 +40,8 @@ public class MeetingRoomResource {
 
   @PostMapping
   public ResponseEntity<MeetingRoom> createMeetingRoom(@RequestBody MeetingRoom meetingRoom) {
-    meetingRoomService.createMeetingRoom(meetingRoom);
-    return new ResponseEntity<>(meetingRoom, HttpStatus.CREATED);
+    return new ResponseEntity<>(meetingRoomService.createMeetingRoom(meetingRoom),
+        HttpStatus.CREATED);
   }
 
   @PutMapping("/{id}")

@@ -39,8 +39,8 @@ public class ReservationResource {
 
   @PostMapping
   public ResponseEntity<Reservation> createReservation(@RequestBody Reservation reservation) {
-    reservationService.createReservation(reservation);
-    return new ResponseEntity<>(reservation, HttpStatus.CREATED);
+    return new ResponseEntity<>(reservationService.createReservation(reservation),
+        HttpStatus.CREATED);
   }
 
   @DeleteMapping("/{id}")
