@@ -1,5 +1,6 @@
 package hu.flowacademy.meetingorganizer.persistence.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

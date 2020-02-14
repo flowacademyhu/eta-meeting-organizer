@@ -20,7 +20,7 @@ public class UserService {
 
   public List<User> findAllUser() {
     List<User> userList = userRepository.findAll();
-    return new ArrayList<User>();
+    return userList;
   }
 
   public User findUserById(Long id) throws ResponseStatusException {
