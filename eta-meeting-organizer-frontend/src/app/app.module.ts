@@ -5,11 +5,12 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { AuthService, AuthServiceConfig } from 'angularx-social-login';
+import { GoogleLoginProvider } from 'angularx-social-login';
 import { SharedModule } from '~/app/shared/shared.module';
+import { environment } from '~/environment/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AuthService, AuthServiceConfig } from "angularx-social-login";
-import { GoogleLoginProvider } from 'angularx-social-login';
 
 // http loader for translations file
 export function HttpLoaderFactory(http: HttpClient) {
@@ -19,7 +20,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 const config = new AuthServiceConfig([
   {
     id: GoogleLoginProvider.PROVIDER_ID,
-    provider: new GoogleLoginProvider('160652702041-14ipa76q95t63j3o974o3focpjsr51i7.apps.googleusercontent.com')
+    provider: new GoogleLoginProvider(environment.googleKey)
   },
 ]);
 

@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
-import { AuthServiceConfig, GoogleLoginProvider, AuthService } from 'angularx-social-login';
+import { AuthService, AuthServiceConfig, GoogleLoginProvider } from 'angularx-social-login';
 import { SharedModule } from '~/app/shared/shared.module';
+import { environment } from '~/environment/environment';
 import { LoginComponent } from './components/login.component';
 import { LoginRoutingModule } from './login-routing.module';
-import { environment } from '~/environment/environment';
 
 const config = new AuthServiceConfig([
   {
