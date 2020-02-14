@@ -10,6 +10,22 @@
     "email": "E-mail cím",
     "role": "Szerepkör",
     "delete": "Törlés"
+  },
+  "meeting-room": {
+    "text": "név",
+    "building": "épület",
+    "building1": "épület1",
+    "seats": "ülőhely",
+    "placeholderName": "Írd be a neved",
+    "placeholderSeats": "ülőhelyek száma",
+    "selectBuilding":"Válasz telephelyet",
+    "projector":"Projektor",
+    "saveButton":"Mentés"
+  },
+  "navbar": {
+    "calendar": "Naptár",
+    "profile" : "Profil",
+    "meetingRoomEditor": "Tárgyaló kezelő"
   }
 }
 
