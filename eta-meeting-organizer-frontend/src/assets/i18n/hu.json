@@ -1,7 +1,37 @@
 {
   "welcome": {
     "text": "Üdvözöllek Tárgyaló foglaló csapat! Olvassátok el a fejlesztői dokumentációt!",
+    "button": "Váltás angol nyelvre",
+    "test": "Próba szöveg"
+  },
+  "login": {
+    "title": "Bejelentkezés",
+    "loginButton": "Bejelentkezés",
     "button": "Váltás angol nyelvre"
+  },
+  "building": {
+    "city": "Város",
+    "address":"Cím",
+    "saveButton":"Mentés"
+  },
+  "profile": {
+    "username": "Felhasználói név",
+    "lastName": "Vezetéknév",
+    "firstName": "Keresztnév",
+    "email": "E-mail cím",
+    "role": "Szerepkör",
+    "delete": "Törlés"
+  },
+  "meeting-room": {
+    "text": "név",
+    "building": "épület",
+    "building1": "épület1",
+    "seats": "ülőhely",
+    "placeholderName": "Írd be a neved",
+    "placeholderSeats": "ülőhelyek száma",
+    "selectBuilding":"Válasz telephelyet",
+    "projector":"Projektor",
+    "saveButton":"Mentés"
   },
   "navbar": {
     "calendar": "Naptár",
@@ -9,3 +39,4 @@
     "meetingRoomEditor": "Tárgyaló kezelő"
   }
 }
+
