@@ -1,6 +1,12 @@
 {
   "welcome": {
     "text": "Üdvözöllek Tárgyaló foglaló csapat! Olvassátok el a fejlesztői dokumentációt!",
+    "button": "Váltás angol nyelvre",
+    "test": "Próba szöveg"
+  },
+  "login": {
+    "title": "Bejelentkezés",
+    "loginButton": "Bejelentkezés",
     "button": "Váltás angol nyelvre"
   },
   "building": {
