@@ -8,6 +8,14 @@
     "address":"Cím",
     "saveButton":"Mentés"
   },
+  "profile": {
+    "username": "Felhasználói név",
+    "lastName": "Vezetéknév",
+    "firstName": "Keresztnév",
+    "email": "E-mail cím",
+    "role": "Szerepkör",
+    "delete": "Törlés"
+  },
   "meeting-room": {
     "text": "név",
     "building": "épület",
@@ -25,3 +33,4 @@
     "meetingRoomEditor": "Tárgyaló kezelő"
   }
 }
+
