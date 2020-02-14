@@ -30,11 +30,11 @@ public class ReservationResource {
     return new ResponseEntity<>(reservations, HttpStatus.OK);
   }
 
-  @GetMapping("{id}")
+  @GetMapping("/{id}")
   public ResponseEntity<Reservation> findOne(@PathVariable Long id) {
     Optional<Reservation> reservationOptional = reservationService.findOne(id);
-    return reservationOptional.isEmpty() ? ResponseEntity.notFound().build()
-        : ResponseEntity.ok(reservationOptional.get());
+    return reservationOptional.isPresent() ? ResponseEntity.ok(reservationOptional.get())
+        : ResponseEntity.notFound().build();
   }
 
   @PostMapping
@@ -43,13 +43,13 @@ public class ReservationResource {
     return new ResponseEntity<>(reservation, HttpStatus.CREATED);
   }
 
-  @DeleteMapping("{id}")
+  @DeleteMapping("/{id}")
   public ResponseEntity<Void> deleteReservation(@PathVariable Long id) {
     reservationService.deleteReservation(id);
     return ResponseEntity.noContent().build();
   }
 
-  @PutMapping("{id}")
+  @PutMapping("/{id}")
   public ResponseEntity<Reservation> updateReservation(@PathVariable Long id,
       @RequestBody Reservation reservation) {
     reservationService.updateReservation(id, reservation);

@@ -30,11 +30,12 @@ public class MeetingRoomResource {
     return new ResponseEntity<>(meetingRooms, HttpStatus.OK);
   }
 
-  @GetMapping("{id}")
+  @GetMapping("/{id}")
   public ResponseEntity<MeetingRoom> findOne(@PathVariable Long id) {
     Optional<MeetingRoom> meetingRoomOptional = meetingRoomService.findOne(id);
-    return meetingRoomOptional.isEmpty() ? ResponseEntity.notFound().build()
-        : ResponseEntity.ok(meetingRoomOptional.get());
+    return meetingRoomOptional.isPresent() ? ResponseEntity.ok(meetingRoomOptional.get())
+        : ResponseEntity.notFound().build();
+
   }
 
   @PostMapping
@@ -43,14 +44,14 @@ public class MeetingRoomResource {
     return new ResponseEntity<>(meetingRoom, HttpStatus.CREATED);
   }
 
-  @PutMapping("{id}")
+  @PutMapping("/{id}")
   public ResponseEntity<MeetingRoom> updateMeetingRoom(@PathVariable Long id,
       @RequestBody MeetingRoom meetingRoom) {
     meetingRoomService.updateMeetingRoom(id, meetingRoom);
     return ResponseEntity.accepted().build();
   }
 
-  @DeleteMapping("{id}")
+  @DeleteMapping("/{id}")
   public ResponseEntity<Void> deleteMeetingRoom(@PathVariable Long id) {
     meetingRoomService.deleteMeetingRoom(id);
     return ResponseEntity.noContent().build();

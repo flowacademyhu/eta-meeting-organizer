@@ -36,21 +36,21 @@ public class BuildingResource {
     return new ResponseEntity<>(buildings, HttpStatus.OK);
   }
 
-  @GetMapping("{id}")
+  @GetMapping("/{id}")
   public ResponseEntity<Building> findOne(@PathVariable Long id) {
     Optional<Building> buildingOptional = buildingService.findOne(id);
-    return buildingOptional.isEmpty() ? ResponseEntity.notFound().build()
-        : ResponseEntity.ok(buildingOptional.get());
+    return buildingOptional.isPresent() ? ResponseEntity.ok(buildingOptional.get())
+        : ResponseEntity.notFound().build();
   }
 
-  @PutMapping("{id}")
+  @PutMapping("/{id}")
   public ResponseEntity<Building> updateBuilding(@PathVariable Long id,
       @RequestBody Building building) {
     buildingService.updateBuilding(id, building);
     return ResponseEntity.accepted().build();
   }
 
-  @DeleteMapping("{id}")
+  @DeleteMapping("/{id}")
   public ResponseEntity<Void> deleteBuilding(@PathVariable Long id) {
     buildingService.deleteBuilding(id);
     return ResponseEntity.noContent().build();

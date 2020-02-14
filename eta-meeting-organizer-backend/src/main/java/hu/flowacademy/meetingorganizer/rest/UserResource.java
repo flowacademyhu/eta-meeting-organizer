@@ -30,11 +30,11 @@ public class UserResource {
     return new ResponseEntity<>(users, HttpStatus.OK);
   }
 
-  @GetMapping("{id}")
+  @GetMapping("/{id}")
   public ResponseEntity<User> getOne(@PathVariable Long id) {
     Optional<User> userOptional = userService.findOne(id);
-    return userOptional.isEmpty() ? ResponseEntity.notFound().build()
-        : ResponseEntity.ok(userOptional.get());
+    return userOptional.isPresent() ? ResponseEntity.ok(userOptional.get())
+        : ResponseEntity.notFound().build();
   }
 
   @PostMapping
@@ -43,13 +43,13 @@ public class UserResource {
     return new ResponseEntity<>(user, HttpStatus.CREATED);
   }
 
-  @DeleteMapping("{id}")
+  @DeleteMapping("/{id}")
   public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
     userService.deleteUser(id);
     return ResponseEntity.noContent().build();
   }
 
-  @PutMapping("{id}")
+  @PutMapping("/{id}")
   public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User user) {
     userService.updateUser(id, user);
     return ResponseEntity.accepted().build();
