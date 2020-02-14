@@ -9,6 +9,9 @@ import { TranslateService } from '@ngx-translate/core';
       margin-top: 10%;
       width: 50%;
     }
+    .row {
+      min-height: calc(100vh - 60px);
+    }
     .field{
       width:100%;
     }
@@ -17,6 +20,8 @@ import { TranslateService } from '@ngx-translate/core';
     }
   `],
   template: `
+   <div class="row justify-content-center align-items-center">
+    <div class="col-5">
 <form [formGroup]="profileForm">
   <mat-card class="card">
     <p>
@@ -46,6 +51,8 @@ import { TranslateService } from '@ngx-translate/core';
     <button mat-raised-button color="warn">{{'meeting-room.saveButton' | translate}}</button>
   </mat-card>
 </form>
+</div>
+</div>
 `
 })
 
