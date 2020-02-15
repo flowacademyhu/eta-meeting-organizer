@@ -12,7 +12,9 @@
   "building": {
     "city": "Város",
     "address":"Cím",
-    "saveButton":"Mentés"
+    "saveButton":"Mentés",
+    "delete":"Épület törlése",
+    "deleteButton":"törlés"
   },
   "profile": {
     "username": "Felhasználói név",
