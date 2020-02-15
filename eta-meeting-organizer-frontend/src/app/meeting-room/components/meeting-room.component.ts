@@ -4,7 +4,7 @@ import { ApiCommunicationService } from '~/app/shared/services/api-communication
 import { MeetingRoom } from './../../models/meetingroom.model';
 
 @Component({
-  selector: 'app-meetingRoom',
+  selector: 'app-meeting-room-listing',
   styles: [`
     .row {
       min-height: calc(100vh - 60px);
@@ -15,7 +15,7 @@ import { MeetingRoom } from './../../models/meetingroom.model';
   `],
   template: `
     <div class="row justify-content-center">
-      <table mat-table [dataSource]="meetingRoom$" class="mat-elevation-z8">
+      <table mat-table [dataSource]="meetingRoom$ | async" class="mat-elevation-z8">
         <ng-container matColumnDef="name">
           <th mat-header-cell *matHeaderCellDef>{{'meeting-room.text' | translate}} </th>
           <td mat-cell *matCellDef="let meetingRoom"> {{meetingRoom.name}} </td>
@@ -54,5 +54,4 @@ export class MeetingRoomComponent {
     .getMeetingRooms();
    }
    public displayedColumns: string[] = ['name', 'numberOfSeat', 'projector', 'building', 'delete'];
-   public dataSource = this.meetingRoom$;
 }
