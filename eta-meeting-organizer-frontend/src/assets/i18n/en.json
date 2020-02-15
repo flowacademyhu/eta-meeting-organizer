@@ -12,7 +12,9 @@
   "building": {
     "city": "City",
     "address":"Address",
-    "saveButton":"Save"
+    "saveButton":"Save",
+    "delete":"Delete building",
+    "deleteButton":"Delete"
   },
   "profile": {
     "username": "Username",
