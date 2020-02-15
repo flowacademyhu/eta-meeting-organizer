@@ -1,77 +1,57 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
-import { TranslateService } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
+import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
+import { MeetingRoom } from './../../models/meetingroom.model';
 
 @Component({
-  selector: 'app-welcome-component',
+  selector: 'app-meeting-room-listing',
   styles: [`
-    .card{
-      margin-top: 10%;
-      width: 50%;
-    }
     .row {
       min-height: calc(100vh - 60px);
     }
-    .field{
-      width:100%;
-    }
-    .toggle{
-      margin-top:5%
+    table {
+      width: 100%;
     }
   `],
   template: `
-   <div class="row justify-content-center align-items-center">
-    <div class="col-5">
-<form [formGroup]="profileForm">
-  <mat-card class="card">
-    <p>
-      <mat-form-field class="field">
-        <mat-label>{{'meeting-room.text' | translate}}</mat-label>
-        <input type="text" formControlName="name" matInput placeholder="{{'meeting-room.placeholderName' | translate}}">
-      </mat-form-field>
-    </p>
-      <mat-form-field class="field">
-        <mat-label>{{'meeting-room.selectBuilding' | translate}}</mat-label>
-        <mat-select formControlName="building">
-          <mat-option value="option1">{{'meeting-room.building' | translate}} </mat-option>
-          <mat-option value="option2">{{'meeting-room.building1' | translate}}</mat-option>
-        </mat-select>
-      </mat-form-field>
-    <br>
-      <mat-slide-toggle class="toggle" formControlName="projector">{{'meeting-room.projector' | translate}}
-      </mat-slide-toggle>
-    <br>
-    <p>
-      <mat-form-field class="field">
-        <mat-label>{{'meeting-room.seats' | translate}}</mat-label>
-        <input  type="number" formControlName="seats"
-          matInput placeholder="{{'meeting-room.placeholderSeats' | translate}}">
-      </mat-form-field>
-    </p>
-    <button mat-raised-button color="warn">{{'meeting-room.saveButton' | translate}}</button>
-  </mat-card>
-</form>
-</div>
-</div>
-`
+    <div class="row justify-content-center">
+      <table mat-table [dataSource]="meetingRoom$ | async" class="mat-elevation-z8">
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef>{{'meeting-room.text' | translate}} </th>
+          <td mat-cell *matCellDef="let meetingRoom"> {{meetingRoom.name}} </td>
+        </ng-container>
+        <ng-container matColumnDef="numberOfSeat">
+          <th mat-header-cell *matHeaderCellDef> {{'meeting-room.seats' | translate}} </th>
+          <td mat-cell *matCellDef="let meetingRoom"> {{meetingRoom.numberOfSeats}} </td>
+        </ng-container>
+        <ng-container matColumnDef="projector">
+          <th mat-header-cell *matHeaderCellDef> {{'meeting-room.projector' | translate}} </th>
+          <td mat-cell *matCellDef="let meetingRoom">{{meetingRoom.projector}}</td>
+        </ng-container>
+        <ng-container matColumnDef="building">
+          <th mat-header-cell *matHeaderCellDef> {{'meeting-room.building' | translate}} </th>
+          <td mat-cell *matCellDef="let meetingRoom">{{meetingRoom.building}</td>
+        </ng-container>
+        <ng-container matColumnDef="delete">
+          <th mat-header-cell *matHeaderCellDef> {{'meeting-room.delete' | translate}} </th>
+          <td mat-cell *matCellDef="let meetingRoom">
+            <button mat-raised-button color="warn">{{'meeting-room.delete' | translate}}</button>
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </div>
+  `
 })
 
 export class MeetingRoomComponent {
-  public language: string;
 
-  profileForm = new FormGroup({
-  building : new FormControl(''),
-  name : new FormControl(''),
-  projector : new FormControl(''),
-  seats : new FormControl(''),
-  });
+  public meetingRoom$: Observable<MeetingRoom[]>;
 
-  constructor(private readonly translate: TranslateService) {
-    this.language = this.translate.currentLang;
-  }
-
-   public onLanguageChange() {
-    this.translate.use(this.language === 'en' ? 'hu' : 'en');
-    this.language = this.translate.currentLang;
-  }
+  constructor(private readonly api: ApiCommunicationService) {
+    this.meetingRoom$ = this.api.meetingRoom()
+    .getMeetingRooms();
+   }
+   public displayedColumns: string[] = ['name', 'numberOfSeat', 'projector', 'building', 'delete'];
 }
