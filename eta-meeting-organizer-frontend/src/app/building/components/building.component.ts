@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
 import { Building } from '~/app/models/building.model';
+import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
 
 @Component({
-  selector: 'app-building',
+  selector: 'app-building-list',
   styles: [`
     .row {
       min-height: calc(100vh - 60px);
@@ -15,7 +15,7 @@ import { Building } from '~/app/models/building.model';
   `],
   template: `
     <div class="row justify-content-center">
-      <table mat-table [dataSource]="building$" class="mat-elevation-z8">
+      <table mat-table [dataSource]="building$ | async" class="mat-elevation-z8">
         <ng-container matColumnDef="city">
           <th mat-header-cell *matHeaderCellDef>{{'building.city' | translate}} </th>
           <td mat-cell *matCellDef="let building"> {{building.city}} </td>
@@ -26,7 +26,11 @@ import { Building } from '~/app/models/building.model';
         </ng-container>
         <ng-container matColumnDef="delete">
           <th mat-header-cell *matHeaderCellDef> {{'building.delete' | translate}} </th>
-          <td mat-cell *matCellDef="let building"><button mat-raised-button color="warn">{{'building.deleteButton' | translate}}</button> </td>
+          <td mat-cell *matCellDef="let building">
+            <button mat-raised-button color="warn">
+              {{'building.deleteButton' | translate}}
+            </button>
+          </td>
         </ng-container>
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
@@ -44,5 +48,4 @@ export class BuildingComponent {
     .getBuildings();
    }
    public displayedColumns: string[] = ['city', 'address','delete'];
-   public dataSource = this.building$;
 }
