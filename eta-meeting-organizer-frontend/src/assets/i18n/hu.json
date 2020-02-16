@@ -17,6 +17,7 @@
     "deleteButton":"törlés"
   },
   "profile": {
+    "id": "Azonosító",
     "username": "Felhasználói név",
     "lastName": "Vezetéknév",
     "firstName": "Keresztnév",

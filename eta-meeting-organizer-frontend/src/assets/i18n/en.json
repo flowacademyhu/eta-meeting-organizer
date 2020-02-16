@@ -17,6 +17,7 @@
     "deleteButton":"Delete"
   },
   "profile": {
+    "id": "Identifier",
     "username": "Username",
     "lastName": "Lastname",
     "firstName": "Firstname",
