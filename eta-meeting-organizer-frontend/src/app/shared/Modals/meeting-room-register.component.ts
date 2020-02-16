@@ -1,0 +1,75 @@
+import { Component, OnInit, Input } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialogRef } from '@angular/material/dialog';
+import { Observable } from 'rxjs';
+import { ApiCommunicationService } from '../services/api-communication.service';
+import { MeetingRoom } from './../../models/meetingroom.model';
+
+@Component({
+  selector: 'app-meeting-room-register',
+  styles: [`
+  .mat-dialog-content{
+    display: flex;
+    justify-content: center;
+    height: 300px;
+  }
+  .space{
+    margin-top: 20%;
+  }
+  `],
+ template: `
+ <div mat-dialog-content>
+   <form [formGroup]="meetingRoomForm" (ngSubmit)="onSubmit()">
+     <mat-form-field>
+       <mat-label>{{'meeting-room.text' | translate}}</mat-label>
+         <input type="text" name="name" formControlName="name" matInput placeholder="{{'building.text' | translate}}">
+     </mat-form-field>
+     <br>
+     <mat-form-field>
+       <mat-label>{{'meeting-room.seats' | translate}}</mat-label>
+         <input  type="number" name="numberOfSeats" formControlName="numberOfSeats"
+           matInput placeholder="{{'building.seats' | translate}}">
+       </mat-form-field>
+       <br>
+     <mat-slide-toggle  [checked]="checked" class="toggle" formControlName="projector">{{'meeting-room.projector' | translate}}
+     </mat-slide-toggle>
+
+     <div class="space">
+       <button mat-button [mat-dialog-close]>cancel</button>
+       <button mat-button type="submit" cdkFocusInitial>Ok</button>
+     </div>
+   </form>
+ </div>`,
+})
+
+export class MeetingRoomRegisterComponent implements OnInit {
+  @Input()
+  public checked: boolean;
+
+  public meetingRoom$: Observable<MeetingRoom[]>;
+  public meetingRoomForm: FormGroup;
+  public meetingRoom: MeetingRoom;
+
+  constructor(
+    public dialogRef: MatDialogRef<MeetingRoomRegisterComponent>,
+    private readonly api: ApiCommunicationService) {
+    }
+
+    public ngOnInit() {
+      this.meetingRoomForm = new FormGroup({
+      name : new FormControl('', Validators.required ),
+      numberOfSeats : new FormControl('', Validators.required),
+      projector : new FormControl('', Validators.required),
+      });
+      this.checked = true;
+    }
+
+  public onSubmit() {
+    this.api.meetingRoom()
+      .postMeetingRoom(this.meetingRoomForm.getRawValue())
+      .subscribe((data) => {
+        this.meetingRoom = data;
+        console.log(this.meetingRoom);
+      });
+  }
+}
