@@ -18,5 +18,5 @@ export class UsersTableComponent implements OnInit {
     .getUsers();
    }
 
-  ngOnInit() { }
+   public displayedColumns: string[] = ['id', 'name', 'email', 'role'];
 }
