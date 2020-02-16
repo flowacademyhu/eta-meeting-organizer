@@ -5,12 +5,20 @@ import { User } from './../../models/user.model';
 
 @Component({
   selector: 'app-users-table',
+  styles: [`
+    .row {
+      min-height: calc(100vh - 60px);
+    }
+    table {
+      width: 100%;
+    }
+  `],
   template: `
   <div class="row justify-content-center">
       <table mat-table [dataSource]="users$ | async" class="mat-elevation-z8">
         <ng-container matColumnDef="id">
           <th mat-header-cell *matHeaderCellDef>{{'profile.id' | translate}} </th>
-          <td mat-cell *matCellDef="let user"> {{user.id}} </td>
+          <td mat-cell  *matCellDef="let user"> {{user.id}} </td>
         </ng-container>
         <ng-container matColumnDef="name">
           <th mat-header-cell *matHeaderCellDef> {{'profile.username' | translate}} </th>
@@ -22,7 +30,7 @@ import { User } from './../../models/user.model';
         </ng-container>
         <ng-container matColumnDef="role">
           <th mat-header-cell *matHeaderCellDef> {{'profile.role' | translate}} </th>
-          <td mat-cell *matCellDef="let user">{{user.role}</td>
+          <td mat-cell *matCellDef="let user">{{user.role}}</td>
         </ng-container>
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
