@@ -32,8 +32,15 @@ import { User } from './../../models/user.model';
           <th mat-header-cell *matHeaderCellDef> {{'profile.role' | translate}} </th>
           <td mat-cell *matCellDef="let user">{{user.role}}</td>
         </ng-container>
+        <ng-container matColumnDef="delete">
+          <th mat-header-cell *matHeaderCellDef> {{'profile.delete' | translate}} </th>
+          <td mat-cell *matCellDef="let user">
+            <button mat-raised-button color="primary"
+             (click)="deleteUser(user.id)">{{'profile.delete' | translate}}</button>
+          </td>
+        </ng-container>
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" ></tr>
       </table>
     </div>
   `
@@ -47,5 +54,13 @@ export class UsersTableComponent {
     .getUsers();
    }
 
-   public displayedColumns: string[] = ['id', 'name', 'email', 'role'];
+   public deleteUser(id: number) {
+    this.api.user()
+    .deleteUserById(id)
+    .subscribe();
+    location.reload;
+    console.log(id);
+  }
+
+   public displayedColumns: string[] = ['id', 'name', 'email', 'role', 'delete'];
 }
