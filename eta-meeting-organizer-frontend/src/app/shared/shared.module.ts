@@ -9,12 +9,14 @@ import { MainLayoutComponent } from '~/app/shared/pages/main-layout.component';
 import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
 import { ConfigurationService } from '~/app/shared/services/configuration.service';
 import { HeaderComponent } from './components/header-layout.component';
+import { MeetingRoomRegisterComponent } from './Modals/meeting-room-register.component';
 
 @NgModule({
   declarations: [
     MainLayoutComponent,
     HeaderComponent,
     FooterComponent,
+    MeetingRoomRegisterComponent,
   ],
   exports: [
     CommonModule,
