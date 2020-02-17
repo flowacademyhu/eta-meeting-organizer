@@ -43,7 +43,7 @@ import { UserDeleteDialogComponent } from './../../shared/Modals/user-delete-dia
           </mat-icon>
            </button>
            <button *ngIf="user.role == 'USER'" mat-raised-button color="primary">
-          <mat-icon aria-label="User Icon" color="warn">
+          <mat-icon aria-label="User" color="warn">
             perm_identity
           </mat-icon>
            </button>
@@ -84,8 +84,7 @@ export class UsersTableComponent implements OnInit{
    public deleteUser(id: number) {
     this.api.user()
     .deleteUserById(id)
-    .subscribe((data) => {
-      console.log(data);
+    .subscribe(() => {
       this.api.user()
       .getUsers();
     });

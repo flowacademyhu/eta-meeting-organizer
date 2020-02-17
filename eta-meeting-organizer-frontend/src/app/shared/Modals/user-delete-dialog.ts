@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-user-delete-dialog',
@@ -12,8 +12,5 @@ import { Component, OnInit } from '@angular/core';
   `
 })
 
-export class UserDeleteDialogComponent implements OnInit {
-  constructor() { }
-
-  ngOnInit() { }
+export class UserDeleteDialogComponent {
 }
