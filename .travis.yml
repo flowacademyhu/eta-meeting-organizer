@@ -27,15 +27,16 @@ jobs:
       - "npm install"
       script:
       - "npm run lint"
-    - script:
-      - "npm run build"
+    - stage: test
       name: "Frontend build"
+      language: node_js
       cache:
         directories:
           - "node_modules"
       before_script:
       - "cd eta-meeting-organizer-frontend"
       - "npm install"
+      script:
+      - "npm run build"
 
-      language: node_js
 
