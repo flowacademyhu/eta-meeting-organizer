@@ -40,14 +40,19 @@ public class UserPrincipal implements OAuth2User, UserDetails {
   private String id;
   @Column(unique = true, length = 100)
   private String username;
+  @Transient
+  @JsonIgnore
   private String password;
   @Enumerated(EnumType.STRING)
   private Role role;
   @Column(columnDefinition = DEFAULT_TRUE)
   private boolean isVerifiedByAdmin;
   @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+  @Transient
+  @JsonIgnore
   private Collection<UserAuthority> authorities;
   @Transient
+  @JsonIgnore
   private Map<String, Object> attributes;
   @Column(columnDefinition = DEFAULT_TRUE)
   private boolean enabled;
