@@ -44,6 +44,12 @@
   "header": {
     "button": "HUN",
     "exit": "Sign Out"
+  },
+  "user-delete-dialog": {
+    "userDelete": "User deletion",
+    "verification": "Are you sure you want to delete user?",
+    "yes": "Yes",
+    "no": "No"
   }
 
 }

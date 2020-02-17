@@ -44,6 +44,12 @@
   "header": {
     "button": "ENG",
     "exit": "Kilépés"
+  },
+  "user-delete-dialog": {
+    "userDelete": "Felhasználó törlése",
+    "verification": "Biztosan törölni akarja a felhasználót?",
+    "yes": "Igen",
+    "no": "Nem"
   }
 }
 
