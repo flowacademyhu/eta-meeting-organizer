@@ -66,5 +66,6 @@ import { Component } from '@angular/core';
   `
 })
 export class LoginComponent {
+  // tslint:disable-next-line: no-empty
   constructor() {}
 }

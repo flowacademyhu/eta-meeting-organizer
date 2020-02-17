@@ -7,7 +7,7 @@ import { ConfigurationService } from './configuration.service';
 @Injectable()
 export class AuthService {
   private _user: UserToken;
-  private tokenResponse = {} as AuthResponse;
+  private tokenResponse: AuthResponse = {} as AuthResponse;
 
   get user(): UserToken {
     return this.user;

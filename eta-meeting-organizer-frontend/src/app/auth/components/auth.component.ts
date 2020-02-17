@@ -26,7 +26,7 @@ export class AuthComponent implements OnDestroy {
               private readonly authService: AuthService,
               private readonly router: Router) {
     this.subscription = this.route.queryParams.subscribe((params) => {
-      const token = params['token'] as string;
+      const token = params.token as string;
       if (token) {
         const response = this.authService.decodeAndSaveUser(token);
         if (response === 'Authentication is successfull!' ) {

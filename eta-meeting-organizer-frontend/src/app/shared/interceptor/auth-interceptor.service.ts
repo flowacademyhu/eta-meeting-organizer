@@ -13,8 +13,8 @@ export class RequestInterceptorService implements HttpInterceptor {
     if (accessToken) {
       req = req.clone({
         setHeaders: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-          Authorization: `Bearer ${accessToken}`
+          'Authorization': `Bearer ${accessToken}`,
+          'Content-Type': 'application/x-www-form-urlencoded'
         }
       });
     }
