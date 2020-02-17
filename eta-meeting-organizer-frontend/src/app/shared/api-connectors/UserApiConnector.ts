@@ -1,12 +1,17 @@
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { User } from '~/app/models/user.model';
 import { AbstractApiConnector } from '~/app/shared/api-connectors/AbstractApiConnector';
 
 export class UserApiConnector extends AbstractApiConnector {
   protected readonly apiRoute: string = `${this.apiBaseUrl}`;
 
-  public getUsers(): Observable<User[]> {
-    return this.http.get<User[]>(`${this.apiRoute}/users`);
+  public userSub: BehaviorSubject<User[]> = new BehaviorSubject<User[]>([]);
+
+  public getUsers() {
+    this.http.get<User[]>(`${this.apiRoute}/users`)
+    .subscribe((data) => {
+      this.userSub.next(data);
+    })
   }
 
   public getOneUserById(id: number): Observable<User> {

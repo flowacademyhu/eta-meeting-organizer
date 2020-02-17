@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
@@ -48,14 +48,19 @@ import { UserDeleteDialogComponent } from './../../shared/Modals/user-delete-dia
   `
 })
 
-export class UsersTableComponent {
+export class UsersTableComponent implements OnInit{
   public users$: Observable<User[]>;
   public displayedColumns: string[] = ['id', 'name', 'email', 'role', 'delete'];
 
   constructor(private readonly api: ApiCommunicationService,
               private readonly dialog: MatDialog) {
-    this.users$ = this.api.user()
+   }
+
+   public ngOnInit() {
+    this.api.user()
     .getUsers();
+    this.users$ = this.api.user()
+    .userSub;
    }
 
    public openDialog(id: number) {
@@ -73,7 +78,8 @@ export class UsersTableComponent {
     .deleteUserById(id)
     .subscribe((data) => {
       console.log(data);
+      this.api.user()
+      .getUsers();
     });
    }
-   
 }
