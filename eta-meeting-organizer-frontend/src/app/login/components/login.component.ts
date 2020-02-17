@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 
 import { Router } from '@angular/router';
 import {
@@ -17,7 +17,7 @@ const config = new AuthServiceConfig([
     provider: new GoogleLoginProvider(
       environment.googleKey
     )
-  }
+  },
 ]);
 
 export function provideConfig() {
@@ -87,7 +87,7 @@ export function provideConfig() {
     </div>
   `
 })
-export class LoginComponent implements OnInit, OnDestroy {
+export class LoginComponent implements OnDestroy {
   private user: SocialUser;
   private subscription: Subscription;
 
@@ -96,8 +96,6 @@ export class LoginComponent implements OnInit, OnDestroy {
     private readonly configService: ConfigurationService,
     private readonly router: Router
   ) {}
-
-  public ngOnInit() {}
 
   public signInWithGoogle(): void {
     this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
