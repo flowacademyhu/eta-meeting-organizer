@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
 import { User } from './../../models/user.model';
+import { UserDeleteDialogComponent } from './../../shared/Modals/user-delete-dialog';
 
 @Component({
   selector: 'app-users-table',
@@ -36,7 +38,7 @@ import { User } from './../../models/user.model';
           <th mat-header-cell *matHeaderCellDef> {{'profile.delete' | translate}} </th>
           <td mat-cell *matCellDef="let user">
             <button mat-raised-button color="primary"
-             (click)="deleteUser(user.id)">{{'profile.delete' | translate}}</button>
+             (click)="openDialog(user.id)">{{'profile.delete' | translate}}</button>
           </td>
         </ng-container>
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -48,17 +50,30 @@ import { User } from './../../models/user.model';
 
 export class UsersTableComponent {
   public users$: Observable<User[]>;
+  public displayedColumns: string[] = ['id', 'name', 'email', 'role', 'delete'];
 
-  constructor(private readonly api: ApiCommunicationService) {
+  constructor(private readonly api: ApiCommunicationService,
+              private readonly dialog: MatDialog) {
     this.users$ = this.api.user()
     .getUsers();
+   }
+
+   public openDialog(id: number) {
+    const dialogRef = this.dialog.open(UserDeleteDialogComponent);
+    dialogRef.afterClosed()
+    .subscribe((result) => {
+      if (result === 'true') {
+        this.deleteUser(id);
+      }
+    });
    }
 
    public deleteUser(id: number) {
     this.api.user()
     .deleteUserById(id)
-    .subscribe();
+    .subscribe((data) => {
+      console.log(data);
+    });
    }
-
-   public displayedColumns: string[] = ['id', 'name', 'email', 'role', 'delete'];
+   
 }
