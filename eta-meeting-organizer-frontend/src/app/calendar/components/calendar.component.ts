@@ -36,17 +36,13 @@ export class CalendarComponent implements OnInit {
 
   constructor(private readonly api: ApiCommunicationService) {}
 
-  public calendarEvents: EventInput[] = [
-    {title: 'Weekend Begins', start: new Date('Feb 14, 2020 16:00:00'), end: new Date('Feb 14, 2020 18:00:00')},
-    {title: 'Uncle Bob needs money', start: new Date('Feb 15, 2020 14:00:00')},
-    {title: 'Searching for money', start: new Date('Feb 13, 2020 08:00:00')}
-  ];
+  public calendarEvents: EventInput[] = [];
 
   public ngOnInit() {
     this.options = {
       buttonText: {
-        next: 'next month',
-        prev: 'previous month',
+        next: 'next week',
+        prev: 'previous week',
       },
       header: {
         center: 'title',
@@ -60,7 +56,7 @@ export class CalendarComponent implements OnInit {
       (data) => {
         this.reservation = data;
         this.calendarEvents.push(
-          {title: 'Something', start: this.reservation.startingTime, end: this.reservation.endingTime}
+          {title: this.reservation.title, start: this.reservation.startingTime, end: this.reservation.endingTime}
         );
       }
     );

@@ -55,12 +55,14 @@ public class initDataLoader {
 
     reservationRepository.save(Reservation.builder()
         .id(1l)
+        .user(userRepository.getOne(1l))
         .title("Napi meeting")
         .summary("Megbeszéljük ki mivel haladt tegnap és mivel fog ma foglalkozni.")
         .startingTime(LocalDateTime.now())
         .endingTime(LocalDateTime.of(2020, 2, 17, 18, 00)).build());
     reservationRepository.save(Reservation.builder()
         .id(2l)
+        .user(userRepository.getOne(1l))
         .title("Flow tárgyalás")
         .summary("Új ügyfelek felkutatása.")
         .startingTime(LocalDateTime.now())
