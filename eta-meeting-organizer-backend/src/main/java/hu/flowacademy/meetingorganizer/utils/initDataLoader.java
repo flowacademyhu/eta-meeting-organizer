@@ -58,7 +58,7 @@ public class initDataLoader {
         .title("Napi meeting")
         .summary("Megbeszéljük ki mivel haladt tegnap és mivel fog ma foglalkozni.")
         .startingTime(LocalDateTime.now())
-        .endingTime(LocalDateTime.now()).build());
+        .endingTime(LocalDateTime.of(2020, 2, 17, 18, 00)).build());
     reservationRepository.save(Reservation.builder()
         .id(2l)
         .title("Flow tárgyalás")
