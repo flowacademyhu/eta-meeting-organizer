@@ -2,8 +2,12 @@ package hu.flowacademy.meetingorganizer.service;
 
 import hu.flowacademy.meetingorganizer.persistence.model.MeetingRoom;
 import hu.flowacademy.meetingorganizer.persistence.repository.MeetingRoomRepository;
+import java.util.ArrayList;
 import java.util.Optional;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,8 +20,10 @@ public class MeetingRoomService {
 
   private MeetingRoomRepository meetingRoomRepository;
 
-  public List<MeetingRoom> findAll() {
-    return meetingRoomRepository.findAll();
+  public List<MeetingRoom> findAll(Integer pageNumber, Integer pageSize) {
+    Pageable pageable = PageRequest.of(pageNumber, pageSize);
+    Page<MeetingRoom> pagedResult = meetingRoomRepository.findAll(pageable);
+    return pagedResult.hasContent() ? pagedResult.getContent() : new ArrayList<MeetingRoom>();
   }
 
   public Optional<MeetingRoom> findOne(Long id) {

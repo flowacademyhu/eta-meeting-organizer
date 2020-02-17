@@ -4,8 +4,6 @@ import hu.flowacademy.meetingorganizer.persistence.model.User;
 import hu.flowacademy.meetingorganizer.service.UserService;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -28,10 +26,10 @@ public class UserResource {
   private UserService userService;
 
   @GetMapping
-  public ResponseEntity<List<User>> queryByPage(
+  public ResponseEntity<List<User>> findAll(
       @RequestParam(defaultValue = "0") Integer pageNumber,
       @RequestParam(defaultValue = "10") Integer pageSize) {
-    List<User> users = userService.listByPage(pageNumber, pageSize);
+    List<User> users = userService.findAll(pageNumber, pageSize);
     return new ResponseEntity<>(users, HttpStatus.OK);
   }
 

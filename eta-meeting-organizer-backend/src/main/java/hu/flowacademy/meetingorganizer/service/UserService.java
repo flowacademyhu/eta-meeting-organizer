@@ -22,7 +22,7 @@ public class UserService {
   @Autowired
   private UserRepository userRepository;
 
-  public List<User> listByPage(Integer pageNumber, Integer pageSize) {
+  public List<User> findAll(Integer pageNumber, Integer pageSize) {
     Pageable pageable = PageRequest.of(pageNumber, pageSize);
     Page<User> pagedResult = userRepository.findAll(pageable);
     return pagedResult.hasContent() ? pagedResult.getContent() : new ArrayList<User>();
