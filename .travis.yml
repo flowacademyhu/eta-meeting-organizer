@@ -1,5 +1,4 @@
 node_js: "12.0"
-cache: npm
 
 jobs:
   include:
@@ -20,7 +19,9 @@ jobs:
     - stage: test
       name: "Frontend lint"
       language: node_js
-      #node_js: "12.0"
+      cache:
+        directories:
+          - "node_modules"
       before_script:
       - "cd eta-meeting-organizer-frontend"
       - "npm install"
@@ -29,6 +30,9 @@ jobs:
     - script:
       - "npm run build"
       name: "Frontend build"
+      cache:
+        directories:
+          - "node_modules"
       before_script:
       - "cd eta-meeting-organizer-frontend"
       - "npm install"
