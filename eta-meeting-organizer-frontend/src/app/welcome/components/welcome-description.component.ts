@@ -15,29 +15,6 @@ import { ApiCommunicationService } from '~/app/shared/services/api-communication
   ],
   template: `
     <div class="row">
-      <mat-toolbar color="primary" class="my-5">
-        {{ "welcome.text" | translate }}
-        <button
-          color="accent"
-          mat-raised-button
-          class="ml-auto"
-          (click)="onLanguageChange()"
-        >
-          {{ "welcome.button" | translate }}
-        </button>
-      </mat-toolbar>
-
-      <p>{{ "welcome.test" | translate }}</p>
-
-      <mat-card *ngFor="let user of users$ | async" class="my-2">
-        <strong>{{ user.name }}</strong
-        ><br />
-        {{ user.email }}<br />
-        {{ user.address.city }} - {{ user.address.zipcode }} -
-        {{ user.address.street }} - {{ user.address.suite }}<br />
-        {{ user.phone }}<br />
-        {{ user.website }}<br />
-      </mat-card>
     </div>
   `
 })

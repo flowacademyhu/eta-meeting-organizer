@@ -12,7 +12,9 @@
   "building": {
     "city": "City",
     "address":"Address",
-    "saveButton":"Save"
+    "saveButton":"Save",
+    "delete":"Delete building",
+    "deleteButton":"Delete"
   },
   "profile": {
     "username": "Username",
@@ -23,15 +25,15 @@
     "delete": "Delete"
   },
   "meeting-room": {
-    "text": "name",
-    "building":"building",
-    "building1":"building1",
-    "seats":"seats",
+    "text": "Meeting room",
+    "building":"Building",
+    "seats":"Seats",
     "placeholderName":"Add your name",
     "placeholderSeats": "Number of seats",
     "selectBuilding":"Select building",
     "projector":"Projector",
-    "saveButton":"Save"
+    "saveButton":"Save",
+    "delete": "Delete"
   },
   "navbar": {
     "calendar": "Calendar",
