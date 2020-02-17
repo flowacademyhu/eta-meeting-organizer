@@ -35,10 +35,13 @@ import { UserDeleteDialogComponent } from './../../shared/Modals/user-delete-dia
           <td mat-cell *matCellDef="let user">{{user.role}}</td>
         </ng-container>
         <ng-container matColumnDef="delete">
-          <th mat-header-cell *matHeaderCellDef> {{'profile.delete' | translate}} </th>
+          <th mat-header-cell *matHeaderCellDef></th>
           <td mat-cell *matCellDef="let user">
-            <button mat-raised-button color="primary"
-             (click)="openDialog(user.id)">{{'profile.delete' | translate}}</button>
+          <button mat-raised-button color="primary" (click)="openDialog(user.id)">
+          <mat-icon aria-label="Delete Icon" color="warn">
+            delete
+          </mat-icon>
+           </button>
           </td>
         </ng-container>
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
