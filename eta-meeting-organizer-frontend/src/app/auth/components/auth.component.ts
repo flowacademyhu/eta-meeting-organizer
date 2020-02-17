@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AuthService } from '~/app/shared/services/auth.service';
@@ -14,13 +14,13 @@ import { AuthService } from '~/app/shared/services/auth.service';
   ],
   template: `
     <div id="row" class="row align-items-center justify-content-center">
-      <p>{{message}}</p>
+      <h1 *ngIf="badAuthentication" class="mat-display-2">{{ "authentication.answer" | translate}}</h1>
     </div>
   `
 })
-export class AuthComponent implements OnInit, OnDestroy {
+export class AuthComponent implements OnDestroy {
   private subscription: Subscription;
-  public message: string;
+  public badAuthentication: boolean = false;
 
   constructor(private readonly route: ActivatedRoute,
               private readonly authService: AuthService,
@@ -32,12 +32,10 @@ export class AuthComponent implements OnInit, OnDestroy {
         if (response === 'Authentication is successfull!' ) {
           this.router.navigate(['./welcome']);
         }
-        this.message = response;
+        this.badAuthentication = true;
       }
     });
   }
-
-  public ngOnInit(): void {}
 
   public ngOnDestroy(): void {
     this.subscription.unsubscribe();

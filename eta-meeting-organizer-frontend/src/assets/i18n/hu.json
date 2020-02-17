@@ -41,6 +41,9 @@
   "header": {
     "button": "ENG",
     "exit": "Kilépés"
+  },
+  "authentication": {
+    "answer": "A regisztráció admin általi jóváhagyásra vár!"
   }
 }
 

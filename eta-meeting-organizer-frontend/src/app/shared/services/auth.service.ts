@@ -7,7 +7,7 @@ import { ConfigurationService } from './configuration.service';
 @Injectable()
 export class AuthService {
   private _user: UserToken;
-  private tokenResponse: AuthResponse;
+  private tokenResponse = {} as AuthResponse;
 
   get user(): UserToken {
     return this.user;
@@ -22,7 +22,7 @@ export class AuthService {
       this.configService.setToken(this.tokenResponse);
       return 'Authentication is successfull!';
     } else {
-      return 'Your registration has not been verified by admin yet!';
+      return 'Bad request!';
     }
   }
 

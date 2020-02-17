@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MainLayoutComponent } from '~/app/shared/pages/main-layout.component';
+import { AuthGuard } from './shared/guard/auth.guard';
 
 const routes: Routes = [
   {
@@ -20,19 +21,23 @@ const routes: Routes = [
       .then((m) => m.AuthModule),
     path: 'auth',
   },
-  { component: MainLayoutComponent,
+  {
+    canActivate: [AuthGuard],
+    component: MainLayoutComponent,
     loadChildren: () => import('./welcome/welcome.module')
       .then((m) => m.WelcomeModule),
     path: 'welcome',
     pathMatch: 'full',
   },
   {
+    canActivate: [AuthGuard],
     component: MainLayoutComponent,
     loadChildren: () => import('./building/building.module')
       .then((m) => m.BuildingModule),
     path: 'building-register'
   },
   {
+    canActivate: [AuthGuard],
     component: MainLayoutComponent,
     loadChildren: () => import('./profile/profile.module')
       .then((p) => p.ProfileModule),
@@ -40,6 +45,7 @@ const routes: Routes = [
       pathMatch: 'full',
   },
   {
+    canActivate: [AuthGuard],
     component: MainLayoutComponent,
     loadChildren: () => import('./meeting-room/meeting-room.module')
       .then((m) => m.MeetingRoomModule),
