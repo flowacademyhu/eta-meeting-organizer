@@ -53,6 +53,32 @@ public class initDataLoader {
         .address("Győri utca 28 3/28")
         .build());
 
+    userRepository.save(User.builder()
+        .id(1l)
+        .name("Bandi")
+        .email("bandi@gmail.com")
+        .role(Role.USER).build());
+    userRepository.save(User.builder()
+        .id(2l)
+        .name("Károly")
+        .email("karcsi@gmail.com")
+        .role(Role.ADMIN).build());
+    userRepository.save(User.builder()
+        .id(3l)
+        .name("Zita")
+        .email("zita@gmail.com")
+        .role(Role.ADMIN).build());
+    userRepository.save(User.builder()
+        .id(4l)
+        .name("Zsuzsa")
+        .email("tuzes_zsuzsi@gmail.com")
+        .role(Role.USER).build());
+    userRepository.save(User.builder()
+        .id(5l)
+        .name("Béla")
+        .email("bela@gmail.com")
+        .role(Role.USER).build());
+
     reservationRepository.save(Reservation.builder()
         .id(1l)
         .user(userRepository.getOne(1l))
@@ -85,32 +111,6 @@ public class initDataLoader {
         .summary("Tesla gyár látogatásának időpontja")
         .startingTime(LocalDateTime.now())
         .endingTime(LocalDateTime.now()).build());
-
-    userRepository.save(User.builder()
-        .id(1l)
-        .name("Bandi")
-        .email("bandi@gmail.com")
-        .role(Role.USER).build());
-    userRepository.save(User.builder()
-        .id(2l)
-        .name("Károly")
-        .email("karcsi@gmail.com")
-        .role(Role.ADMIN).build());
-    userRepository.save(User.builder()
-        .id(3l)
-        .name("Zita")
-        .email("zita@gmail.com")
-        .role(Role.ADMIN).build());
-    userRepository.save(User.builder()
-        .id(4l)
-        .name("Zsuzsa")
-        .email("tuzes_zsuzsi@gmail.com")
-        .role(Role.USER).build());
-    userRepository.save(User.builder()
-        .id(5l)
-        .name("Béla")
-        .email("bela@gmail.com")
-        .role(Role.USER).build());
 
     meetingRoomRepository.save(MeetingRoom.builder()
         .id(1l)
