@@ -1,6 +1,9 @@
 package hu.flowacademy.meetingorganizer.service;
 
+import hu.flowacademy.meetingorganizer.persistence.converter.MeetingRoomDTOConverter;
+import hu.flowacademy.meetingorganizer.persistence.model.Building;
 import hu.flowacademy.meetingorganizer.persistence.model.MeetingRoom;
+import hu.flowacademy.meetingorganizer.persistence.model.dto.MeetingRoomDTO;
 import hu.flowacademy.meetingorganizer.persistence.repository.MeetingRoomRepository;
 import java.util.Optional;
 import lombok.AllArgsConstructor;
@@ -15,6 +18,7 @@ import java.util.List;
 public class MeetingRoomService {
 
   private MeetingRoomRepository meetingRoomRepository;
+  private MeetingRoomDTOConverter meetingRoomDTOConverter;
 
   public List<MeetingRoom> findAll() {
     return meetingRoomRepository.findAll();
@@ -35,5 +39,9 @@ public class MeetingRoomService {
   public MeetingRoom updateMeetingRoom(Long id, MeetingRoom meetingRoom) {
     meetingRoom.setId(id);
     return meetingRoomRepository.save(meetingRoom);
+  }
+
+  public MeetingRoomDTO create(MeetingRoom meetingRoom) {
+    return meetingRoomDTOConverter.convert(meetingRoomRepository.save(meetingRoom));
   }
 }

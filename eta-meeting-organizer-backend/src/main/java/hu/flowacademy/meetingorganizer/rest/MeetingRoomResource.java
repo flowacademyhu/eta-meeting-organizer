@@ -1,6 +1,8 @@
 package hu.flowacademy.meetingorganizer.rest;
 
+import hu.flowacademy.meetingorganizer.persistence.converter.MeetingRoomDTOConverter;
 import hu.flowacademy.meetingorganizer.persistence.model.MeetingRoom;
+import hu.flowacademy.meetingorganizer.persistence.model.dto.MeetingRoomDTO;
 import hu.flowacademy.meetingorganizer.service.MeetingRoomService;
 import java.util.Optional;
 import lombok.AllArgsConstructor;
@@ -23,6 +25,7 @@ import java.util.List;
 public class MeetingRoomResource {
 
   private MeetingRoomService meetingRoomService;
+  private MeetingRoomDTOConverter meetingRoomDTOConverter;
 
   @GetMapping
   public ResponseEntity<List<MeetingRoom>> findAll() {
@@ -39,8 +42,8 @@ public class MeetingRoomResource {
   }
 
   @PostMapping
-  public ResponseEntity<MeetingRoom> createMeetingRoom(@RequestBody MeetingRoom meetingRoom) {
-    return new ResponseEntity<>(meetingRoomService.createMeetingRoom(meetingRoom),
+  public ResponseEntity<MeetingRoomDTO> createMeetingRoom(@RequestBody MeetingRoom meetingRoom) {
+    return new ResponseEntity<>(meetingRoomService.create(meetingRoom),
         HttpStatus.CREATED);
   }
 
