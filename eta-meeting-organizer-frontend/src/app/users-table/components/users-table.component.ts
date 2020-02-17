@@ -58,9 +58,7 @@ export class UsersTableComponent {
     this.api.user()
     .deleteUserById(id)
     .subscribe();
-    location.reload;
-    console.log(id);
-  }
+   }
 
    public displayedColumns: string[] = ['id', 'name', 'email', 'role', 'delete'];
 }
