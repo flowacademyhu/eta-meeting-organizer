@@ -1,5 +1,4 @@
 import { Component,  OnInit } from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-login',
@@ -67,14 +66,7 @@ import {ActivatedRoute} from "@angular/router";
   `
 })
 export class LoginComponent implements OnInit {
-  constructor(private readonly route: ActivatedRoute) {}
+  constructor() {}
 
-  public ngOnInit(): void {
-    this.route.queryParams.subscribe((params) => {
-      const token = params['token'];
-      if (token) {
-        console.log(token);
-      }
-    });
-  }
+  public ngOnInit(): void {}
 }

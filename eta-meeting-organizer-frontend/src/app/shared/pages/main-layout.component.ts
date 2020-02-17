@@ -49,10 +49,8 @@ import {ConfigurationService} from '~/app/shared/services/configuration.service'
   `
 })
 export class MainLayoutComponent {
-  constructor(
-              private readonly configService: ConfigurationService,
-              ) {
-  }
+  constructor(private readonly configService: ConfigurationService) {
+    }
   protected checkToken() {
     return !!this.configService.fetchToken('accessToken');
   }
