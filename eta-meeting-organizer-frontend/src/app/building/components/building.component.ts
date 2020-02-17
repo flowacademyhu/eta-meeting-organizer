@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import {Observable} from 'rxjs';
 import {Building} from '~/app/models/building.model';
@@ -29,15 +29,15 @@ import {ApiCommunicationService} from '~/app/shared/services/api-communication.s
     <div class="row justify-content-center">
       <table mat-table [dataSource]="building$ | async" class="mat-elevation-z8">
         <ng-container matColumnDef="city">
-          <th mat-header-cell *matHeaderCellDef>{{'building.city' | translate}} </th>
+          <th mat-header-cell *matHeaderCellDef> </th>
           <td mat-cell *matCellDef="let building"> {{building.city}} </td>
         </ng-container>
         <ng-container matColumnDef="address">
-          <th mat-header-cell *matHeaderCellDef> {{'building.address' | translate}} </th>
+          <th mat-header-cell *matHeaderCellDef>  </th>
           <td mat-cell *matCellDef="let building"> {{building.address}} </td>
         </ng-container>
         <ng-container matColumnDef="delete">
-          <th mat-header-cell *matHeaderCellDef> {{'building.delete' | translate}} </th>
+          <th mat-header-cell *matHeaderCellDef>  </th>
           <td mat-cell *matCellDef="let building">
             <button mat-raised-button color="warn">
               {{'building.deleteButton' | translate}}
@@ -51,19 +51,16 @@ import {ApiCommunicationService} from '~/app/shared/services/api-communication.s
   `
 })
 
-export class BuildingComponent implements OnInit {
+export class BuildingComponent {
   public building$: Observable<Building[]>;
-  public displayedColumns: string[] = ['city', 'address', 'delete'];
 
   constructor(private readonly api: ApiCommunicationService,
               private readonly dialog: MatDialog,
-  ) {
+  ) {  this.building$ = this.api.building()
+    .getBuildings();
   }
 
-  public ngOnInit() {
-    this.building$ = this.api.building()
-      .getBuildings();
-  }
+  public displayedColumns: string[] = ['city', 'address', 'delete'];
 
   public openDialog(): void {
     this.dialog.open(BuildingRegisterComponent, {

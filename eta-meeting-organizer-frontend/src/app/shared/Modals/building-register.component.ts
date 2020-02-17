@@ -58,5 +58,8 @@ export class BuildingRegisterComponent implements OnInit {
       .subscribe((data) => {
         this.building = data;
       });
+    if (this.buildingForm.valid) {
+      this.buildingForm.reset();
+    }
   }
 }
