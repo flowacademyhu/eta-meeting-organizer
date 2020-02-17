@@ -11,6 +11,23 @@ spring:
     database-platform: org.hibernate.dialect.MySQL5Dialect
     hibernate:
       ddl-auto: create-drop
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            clientId: 160652702041-mvfvg4h4rloclmjh2k9gpdo2hsq3la9b.apps.googleusercontent.com
+            clientSecret: JgxeWFNIeJ4mEIKd8gH5VGw_
+            redirectUri: "{baseUrl}/oauth2/callback/{registrationId}"
+            scope:
+              - email
+              - profile
+role:
+  admins:
+    - vajgi90@gmail.com
+  readers:
+    - vajgely.tamas@gmail.com
+
 
 ---
 spring:
@@ -33,3 +50,4 @@ spring:
         jdbc:
           lob:
             non_contextual_creation: true
+

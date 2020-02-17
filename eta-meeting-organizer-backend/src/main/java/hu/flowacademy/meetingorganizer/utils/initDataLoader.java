@@ -3,11 +3,9 @@ package hu.flowacademy.meetingorganizer.utils;
 import hu.flowacademy.meetingorganizer.persistence.model.Building;
 import hu.flowacademy.meetingorganizer.persistence.model.MeetingRoom;
 import hu.flowacademy.meetingorganizer.persistence.model.Reservation;
-import hu.flowacademy.meetingorganizer.persistence.model.Role;
 import hu.flowacademy.meetingorganizer.persistence.repository.BuildingRepository;
 import hu.flowacademy.meetingorganizer.persistence.repository.MeetingRoomRepository;
-import hu.flowacademy.meetingorganizer.persistence.repository.ReservationRepository;
-import hu.flowacademy.meetingorganizer.persistence.model.User;
+import hu.flowacademy.meetingorganizer.persistence.repository.*;
 import hu.flowacademy.meetingorganizer.persistence.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -84,7 +82,7 @@ public class initDataLoader {
         .startingTime(LocalDateTime.now())
         .endingTime(LocalDateTime.now()).build());
 
-    userRepository.save(User.builder()
+/*    userRepository.save(User.builder()
         .id(1l)
         .name("Bandi")
         .email("bandi@gmail.com")
@@ -108,7 +106,7 @@ public class initDataLoader {
         .id(5l)
         .name("Béla")
         .email("bela@gmail.com")
-        .role(Role.USER).build());
+        .role(Role.USER).build());*/
 
     meetingRoomRepository.save(MeetingRoom.builder()
         .id(1l)
