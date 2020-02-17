@@ -29,5 +29,9 @@ jobs:
     - script:
       - "npm run build"
       name: "Frontend build"
+      before_script:
+      - "cd eta-meeting-organizer-frontend"
+      - "npm install"
+
       language: node_js
 
