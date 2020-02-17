@@ -13,8 +13,9 @@ matrix:
       - "cd eta-meeting-organizer-backend"
       - "./mvnw clean test -Dspring.profiles.active=travis"
     - language: node_js
-      node_js: "8.15"
+      node_js: "12.0"
       script:
       - "cd eta-meeting-organizer-frontend"
-      - "npm install -g @angular/cli && npm install"
-      - "ng build --aot"
+      - "npm install"
+      - "npm run lint"
+      - "npm run build"
