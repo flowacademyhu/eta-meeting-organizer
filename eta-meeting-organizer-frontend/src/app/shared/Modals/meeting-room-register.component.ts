@@ -32,13 +32,12 @@ import { MeetingRoom } from './../../models/meetingroom.model';
            matInput placeholder="{{'meeting-room.seats' | translate}}">
        </mat-form-field>
      <br>
-     <mat-slide-toggle  [checked]="checked" class="toggle"
-      formControlName="projector">{{'meeting-room.projector' | translate}}
+     <mat-slide-toggle [checked]="checked" formControlName="projector">{{'meeting-room.projector' | translate}}
      </mat-slide-toggle>
 
      <div class="space">
        <button mat-button [mat-dialog-close]>cancel</button>
-       <button mat-button type="submit" cdkFocusInitial>Ok</button>
+       <button mat-button type="submit" cdkFocusInitial value="reset">Ok</button>
      </div>
    </form>
  </div>`,
@@ -46,8 +45,7 @@ import { MeetingRoom } from './../../models/meetingroom.model';
 
 export class MeetingRoomRegisterComponent implements OnInit {
   @Input()
-  public checked: boolean;
-
+  public checked: boolean = true;
   public meetingRoom$: Observable<MeetingRoom[]>;
   public meetingRoomForm: FormGroup;
   public meetingRoom: MeetingRoom;
@@ -63,7 +61,6 @@ export class MeetingRoomRegisterComponent implements OnInit {
       numberOfSeats : new FormControl('', Validators.required),
       projector : new FormControl('', Validators.required),
       });
-      this.checked = true;
     }
 
   public onSubmit() {
@@ -71,7 +68,6 @@ export class MeetingRoomRegisterComponent implements OnInit {
       .postMeetingRoom(this.meetingRoomForm.getRawValue())
       .subscribe((data) => {
         this.meetingRoom = data;
-        console.log(this.meetingRoom);
       });
   }
 }
