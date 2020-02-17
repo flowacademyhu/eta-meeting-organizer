@@ -34,12 +34,17 @@ import { UserDeleteDialogComponent } from './../../shared/Modals/user-delete-dia
           <th mat-header-cell *matHeaderCellDef> {{'profile.role' | translate}} </th>
           <td mat-cell *matCellDef="let user">{{user.role}}</td>
         </ng-container>
-        <ng-container matColumnDef="delete">
+        <ng-container matColumnDef="action">
           <th mat-header-cell *matHeaderCellDef></th>
           <td mat-cell *matCellDef="let user">
           <button mat-raised-button color="primary" (click)="openDialog(user.id)">
           <mat-icon aria-label="Delete Icon" color="warn">
             delete
+          </mat-icon>
+           </button>
+           <button *ngIf="user.role == 'USER'" mat-raised-button color="primary">
+          <mat-icon aria-label="User Icon" color="warn">
+            perm_identity
           </mat-icon>
            </button>
           </td>
@@ -53,7 +58,7 @@ import { UserDeleteDialogComponent } from './../../shared/Modals/user-delete-dia
 
 export class UsersTableComponent implements OnInit{
   public users$: Observable<User[]>;
-  public displayedColumns: string[] = ['id', 'name', 'email', 'role', 'delete'];
+  public displayedColumns: string[] = ['id', 'name', 'email', 'role', 'action'];
 
   constructor(private readonly api: ApiCommunicationService,
               private readonly dialog: MatDialog) {
