@@ -1,3 +1,5 @@
+cache: false
+
 jobs:
   include:
     - stage: test
