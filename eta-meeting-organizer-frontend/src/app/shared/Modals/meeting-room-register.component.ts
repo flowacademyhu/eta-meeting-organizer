@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
@@ -22,16 +22,18 @@ import { MeetingRoom } from './../../models/meetingroom.model';
    <form [formGroup]="meetingRoomForm" (ngSubmit)="onSubmit()">
      <mat-form-field>
        <mat-label>{{'meeting-room.text' | translate}}</mat-label>
-         <input type="text" name="name" formControlName="name" matInput placeholder="{{'building.text' | translate}}">
+         <input type="text" name="name" formControlName="name"
+          matInput placeholder="{{'meeting-room.text' | translate}}">
      </mat-form-field>
      <br>
      <mat-form-field>
        <mat-label>{{'meeting-room.seats' | translate}}</mat-label>
          <input  type="number" name="numberOfSeats" formControlName="numberOfSeats"
-           matInput placeholder="{{'building.seats' | translate}}">
+           matInput placeholder="{{'meeting-room.seats' | translate}}">
        </mat-form-field>
-       <br>
-     <mat-slide-toggle  [checked]="checked" class="toggle" formControlName="projector">{{'meeting-room.projector' | translate}}
+     <br>
+     <mat-slide-toggle  [checked]="checked" class="toggle"
+      formControlName="projector">{{'meeting-room.projector' | translate}}
      </mat-slide-toggle>
 
      <div class="space">
