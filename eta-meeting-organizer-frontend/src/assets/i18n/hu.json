@@ -12,7 +12,9 @@
   "building": {
     "city": "Város",
     "address":"Cím",
-    "saveButton":"Mentés"
+    "saveButton":"Mentés",
+    "delete":"Épület törlése",
+    "deleteButton":"törlés"
   },
   "profile": {
     "username": "Felhasználói név",
@@ -23,15 +25,15 @@
     "delete": "Törlés"
   },
   "meeting-room": {
-    "text": "név",
-    "building": "épület",
-    "building1": "épület1",
-    "seats": "ülőhely",
+    "text": "Tárgyaló neve",
+    "building": "Épület",
+    "seats": "Ülőhely",
     "placeholderName": "Írd be a neved",
     "placeholderSeats": "ülőhelyek száma",
     "selectBuilding":"Válasz telephelyet",
     "projector":"Projektor",
-    "saveButton":"Mentés"
+    "saveButton":"Mentés",
+    "delete": "Törlés"
   },
   "navbar": {
     "calendar": "Naptár",
