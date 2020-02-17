@@ -2,9 +2,13 @@ package hu.flowacademy.meetingorganizer.service;
 
 import hu.flowacademy.meetingorganizer.persistence.model.User;
 import hu.flowacademy.meetingorganizer.persistence.repository.UserRepository;
+import java.util.ArrayList;
 import java.util.Optional;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,8 +22,10 @@ public class UserService {
   @Autowired
   private UserRepository userRepository;
 
-  public List<User> findAll() {
-    return userRepository.findAll();
+  public List<User> listByPage(Integer pageNumber, Integer pageSize) {
+    Pageable pageable = PageRequest.of(pageNumber, pageSize);
+    Page<User> pagedResult = userRepository.findAll(pageable);
+    return pagedResult.hasContent() ? pagedResult.getContent() : new ArrayList<User>();
   }
 
   public Optional<User> findOne(Long id) {
