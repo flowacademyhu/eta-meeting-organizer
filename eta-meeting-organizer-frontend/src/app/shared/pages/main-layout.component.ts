@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {ConfigurationService} from '~/app/shared/services/configuration.service';
 
 @Component({
   selector: 'app-welcome-layout',
@@ -34,7 +35,7 @@ import { Component } from '@angular/core';
     </mat-toolbar>
     <mat-sidenav-container color="accent">
       <mat-sidenav id="nav-sidebar" color="accent" #drawer mode="side" opened role="navigation">
-        <mat-nav-list id="navbar-list" color="accent">
+        <mat-nav-list *ngIf="checkToken()" id="navbar-list" color="accent">
           <a mat-list-item routerLink="/first">{{'navbar.calendar' | translate}}</a>
           <a mat-list-item routerLink="/second">{{'navbar.meetingRoomEditor' | translate}}</a>
           <a mat-list-item routerLink="/second">{{'navbar.profile' | translate}}</a>
@@ -48,5 +49,11 @@ import { Component } from '@angular/core';
   `
 })
 export class MainLayoutComponent {
-
+  constructor(
+              private readonly configService: ConfigurationService,
+              ) {
+  }
+  protected checkToken() {
+    return !!this.configService.fetchToken('accessToken');
+  }
 }

@@ -1,28 +1,5 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-
-import { Router } from '@angular/router';
-import {
-  AuthService,
-  AuthServiceConfig,
-  SocialUser,
-} from 'angularx-social-login';
-import { GoogleLoginProvider } from 'angularx-social-login';
-import { Subscription } from 'rxjs';
-import { ConfigurationService } from '~/app/shared/services/configuration.service';
-import { environment } from '~/environment/environment';
-
-const config = new AuthServiceConfig([
-  {
-    id: GoogleLoginProvider.PROVIDER_ID,
-    provider: new GoogleLoginProvider(
-      environment.googleKey
-    )
-  }
-]);
-
-export function provideConfig() {
-  return config;
-}
+import { Component,  OnInit } from '@angular/core';
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-login',
@@ -73,44 +50,31 @@ export function provideConfig() {
           <mat-card-title>{{ "login.title" | translate }}</mat-card-title>
           <br />
           <mat-card-content>
+            <a href="http://localhost:8080/oauth2/authorize/google">
             <div id="customBtn" class="customGPlusSignIn">
               <span class="icon">
                 <img src="../../../assets/googlelogo.png" />
               </span>
-              <span class="buttonText" (click)="signInWithGoogle()">{{
+              <span class="buttonText">{{
                 "login.loginButton" | translate
               }}</span>
             </div>
+            </a>
           </mat-card-content>
         </mat-card>
       </div>
     </div>
   `
 })
-export class LoginComponent implements OnInit, OnDestroy {
-  private user: SocialUser;
-  private subscription: Subscription;
+export class LoginComponent implements OnInit {
+  constructor(private readonly route: ActivatedRoute) {}
 
-  constructor(
-    private readonly authService: AuthService,
-    private readonly configService: ConfigurationService,
-    private readonly router: Router
-  ) {}
-
-  public ngOnInit() {}
-
-  public signInWithGoogle(): void {
-    this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
-    this.subscription = this.authService.authState.subscribe((user) => {
-      this.user = user;
-      this.configService.setStringToken(this.user.idToken);
-      if (this.user.idToken !== null) {
-        this.router.navigate(['./welcome']);
+  public ngOnInit(): void {
+    this.route.queryParams.subscribe((params) => {
+      const token = params['token'];
+      if (token) {
+        console.log(token);
       }
     });
-  }
-
-  public ngOnDestroy() {
-    this.subscription.unsubscribe();
   }
 }
