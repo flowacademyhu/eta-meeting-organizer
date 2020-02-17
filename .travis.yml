@@ -14,8 +14,12 @@ matrix:
       - "./mvnw clean test -Dspring.profiles.active=travis"
     - language: node_js
       node_js: "12.0"
-      script:
+      before_script:
       - "cd eta-meeting-organizer-frontend"
       - "npm install"
+      cache:
+        directories:
+          - "node_modules"
+      script:
       - "npm run lint"
       - "npm run build"
