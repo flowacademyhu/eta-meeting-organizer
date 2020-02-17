@@ -19,9 +19,9 @@ jobs:
     - stage: test
       name: "Frontend lint"
       language: node_js
-      cache:
-        directories:
-          - "node_modules"
+      #cache:
+      #  directories:
+      #    - "node_modules"
       before_script:
       - "cd eta-meeting-organizer-frontend"
       - "npm install"
@@ -30,9 +30,9 @@ jobs:
     - stage: test
       name: "Frontend build"
       language: node_js
-      cache:
-        directories:
-          - "node_modules"
+      #cache:
+      #  directories:
+      #    - "node_modules"
       before_script:
       - "cd eta-meeting-organizer-frontend"
       - "npm install"
