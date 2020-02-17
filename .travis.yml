@@ -20,9 +20,9 @@ jobs:
       name: "Frontend lint"
       language: node_js
       node_js: "12.0"
-      #cache:
-      #  directories:
-      #    - "node_modules"
+      cache:
+        directories:
+          - "node_modules"
       before_script:
       - "cd eta-meeting-organizer-frontend"
       - "npm install"
@@ -32,9 +32,9 @@ jobs:
       name: "Frontend build"
       language: node_js
       node_js: "12.0"
-      #cache:
-      #  directories:
-      #    - "node_modules"
+      cache:
+        directories:
+          - "node_modules"
       before_script:
       - "cd eta-meeting-organizer-frontend"
       - "npm install"
