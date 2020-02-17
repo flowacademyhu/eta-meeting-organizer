@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
@@ -12,8 +12,7 @@ import { TranslateService } from '@ngx-translate/core';
 export class AppComponent {
 
   constructor(private readonly translate: TranslateService,
-              private readonly router: Router,
-              private readonly route: ActivatedRoute) {
+              private readonly router: Router) {
     this.initTranslations();
     this.setupRouterEvents();
   }
@@ -31,15 +30,6 @@ export class AppComponent {
         return;
       }
       window.scrollTo(0, 0);
-    });
-  }
-
-  public ngOnInit(): void {
-    this.route.queryParams.subscribe((params) => {
-      const token = params['token'];
-      if (token) {
-        console.log(token);
-      }
     });
   }
 }
