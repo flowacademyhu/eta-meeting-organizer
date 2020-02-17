@@ -84,7 +84,7 @@ public class initDataLoader {
         .user(userRepository.getOne(1l))
         .title("Napi meeting")
         .summary("Megbeszéljük ki mivel haladt tegnap és mivel fog ma foglalkozni.")
-        .startingTime(LocalDateTime.now())
+        .startingTime(LocalDateTime.of(2020, 2, 17, 16, 00))
         .endingTime(LocalDateTime.of(2020, 2, 17, 18, 00)).build());
     reservationRepository.save(Reservation.builder()
         .id(2l)
