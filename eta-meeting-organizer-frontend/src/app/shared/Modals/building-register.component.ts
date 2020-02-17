@@ -5,7 +5,6 @@ import { Observable, Subscription } from 'rxjs';
 import { Building } from '~/app/models/building.model';
 import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
 
-
 @Component({
   selector: 'app-building-register',
   styles: [`
@@ -16,7 +15,6 @@ import { ApiCommunicationService } from '~/app/shared/services/api-communication
   }
   `],
   template: `
-
 <div mat-dialog-content>
   <form [formGroup]="buildingForm" (ngSubmit)="onSubmit()">
     <mat-form-field>
@@ -36,6 +34,7 @@ import { ApiCommunicationService } from '~/app/shared/services/api-communication
   </form>
 </div>`,
 })
+
 export class BuildingRegisterComponent implements OnInit {
 
   public building$: Observable<Building>;
@@ -53,14 +52,11 @@ export class BuildingRegisterComponent implements OnInit {
       });
     }
 
-
-
   public onSubmit() {
     this.api.building()
       .postBuilding(this.buildingForm.getRawValue())
       .subscribe((data) => {
         this.building = data;
-        console.log(this.building);
       });
   }
 }
