@@ -1,0 +1,20 @@
+matrix:
+  include:
+    - language: java
+      jdk: openjdk11
+      #services:
+      - postgresql
+      before_script:
+      - createuser meetingorganizer
+      - psql -c "alter user meetingorganizer with encrypted password 'KkN7{/uvw}?CKi).hDY8YSM0}YMC3QT';" -U postgres
+      - psql -c "create database meetingorganizer;" -U postgres
+      - psql -c "grant all privileges on database meetingorganizer to meetingorganizer;" -U postgres
+      script:
+      - "cd eta-meeting-organizer-backend"
+      - "./mvnw clean test -Dspring.profiles.active=travis"
+    - language: node_js
+      node_js: "8.15"
+      script:
+      - "cd eta-meeting-organizer-frontend"
+      - "npm install -g @angular/cli && npm install"
+      - "ng build --aot"
