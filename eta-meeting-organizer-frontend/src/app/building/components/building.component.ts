@@ -1,9 +1,9 @@
-import { Component } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { Observable } from 'rxjs';
-import { Building } from '~/app/models/building.model';
-import { BuildingRegisterComponent } from '~/app/shared/Modals/building-register.component';
-import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
+import {Component, OnInit} from '@angular/core';
+import {MatDialog} from '@angular/material/dialog';
+import {Observable} from 'rxjs';
+import {Building} from '~/app/models/building.model';
+import {BuildingRegisterComponent} from '~/app/shared/Modals/building-register.component';
+import {ApiCommunicationService} from '~/app/shared/services/api-communication.service';
 
 @Component({
   selector: 'app-building-list',
@@ -11,20 +11,21 @@ import { ApiCommunicationService } from '~/app/shared/services/api-communication
     .row {
       min-height: calc(100vh - 60px);
     }
+
     table {
       width: 100%;
     }
+
     .addButton {
       width: 100%;
     }
   `],
   template: `
-
-  <button mat-raised-button color="warn"
-          class="addButton"
-          (click)="openDialog()">
-          {{'building.add' | translate}}
-  </button>
+    <button mat-raised-button color="warn"
+            class="addButton"
+            (click)="openDialog()">
+      {{'building.add' | translate}}
+    </button>
     <div class="row justify-content-center">
       <table mat-table [dataSource]="building$ | async" class="mat-elevation-z8">
         <ng-container matColumnDef="city">
@@ -50,22 +51,23 @@ import { ApiCommunicationService } from '~/app/shared/services/api-communication
   `
 })
 
-export class BuildingComponent {
+export class BuildingComponent implements OnInit {
   public building$: Observable<Building[]>;
+  public displayedColumns: string[] = ['city', 'address', 'delete'];
 
   constructor(private readonly api: ApiCommunicationService,
               private readonly dialog: MatDialog,
   ) {
-    this.building$ = this.api.building()
-    .getBuildings();
-   }
+  }
 
-  public displayedColumns: string[] = ['city', 'address', 'delete'];
+  public ngOnInit() {
+    this.building$ = this.api.building()
+      .getBuildings();
+  }
 
   public openDialog(): void {
     this.dialog.open(BuildingRegisterComponent, {
       width: '400px',
-
     });
   }
 }

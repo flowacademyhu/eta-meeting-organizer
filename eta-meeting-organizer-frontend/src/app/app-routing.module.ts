@@ -35,7 +35,7 @@ const routes: Routes = [
       .then((m) => m.MeetingRoomModule),
     path: 'meetingroom',
     pathMatch: 'full',
-  }
+  },
 ];
 
 @NgModule({
