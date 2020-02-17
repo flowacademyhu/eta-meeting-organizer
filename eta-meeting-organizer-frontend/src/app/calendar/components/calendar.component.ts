@@ -52,7 +52,8 @@ export class CalendarComponent implements OnInit {
     };
 
     this.api.reservation()
-    .getOneReservationById(this.id).subscribe(
+    .getOneReservationById(this.id)
+    .subscribe(
       (data) => {
         this.reservation = data;
         this.calendarEvents.push(
