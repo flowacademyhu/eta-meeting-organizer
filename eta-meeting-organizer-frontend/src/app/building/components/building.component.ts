@@ -47,5 +47,5 @@ export class BuildingComponent {
     this.building$ = this.api.building()
     .getBuildings();
    }
-   public displayedColumns: string[] = ['city', 'address','delete'];
+   public displayedColumns: string[] = ['city', 'address', 'delete'];
 }

@@ -1,20 +1,44 @@
-matrix:
+cache: false
+
+jobs:
   include:
-    - language: java
+    - stage: test
+      name: "Backend tests"
+      language: java
       jdk: openjdk11
-      #services:
+      services:
       - postgresql
       before_script:
       - createuser meetingorganizer
       - psql -c "alter user meetingorganizer with encrypted password 'KkN7{/uvw}?CKi).hDY8YSM0}YMC3QT';" -U postgres
       - psql -c "create database meetingorganizer;" -U postgres
       - psql -c "grant all privileges on database meetingorganizer to meetingorganizer;" -U postgres
-      script:
       - "cd eta-meeting-organizer-backend"
-      - "./mvnw clean test -Dspring.profiles.active=travis"
-    - language: node_js
-      node_js: "8.15"
       script:
+      - "./mvnw clean test -Dspring.profiles.active=travis"
+    - stage: test
+      name: "Frontend lint"
+      language: node_js
+      node_js: "12.0"
+      cache:
+        directories:
+          - "node_modules"
+      before_script:
       - "cd eta-meeting-organizer-frontend"
-      - "npm install -g @angular/cli && npm install"
-      - "ng build --aot"
+      - "npm install"
+      script:
+      - "npm run lint"
+    - stage: test
+      name: "Frontend build"
+      language: node_js
+      node_js: "12.0"
+      cache:
+        directories:
+          - "node_modules"
+      before_script:
+      - "cd eta-meeting-organizer-frontend"
+      - "npm install"
+      script:
+      - "npm run build"
+
+
