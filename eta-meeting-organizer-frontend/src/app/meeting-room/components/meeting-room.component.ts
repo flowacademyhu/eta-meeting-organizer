@@ -78,7 +78,7 @@ export class MeetingRoomComponent implements OnInit {
     });
   }
 
-  public deleteDialog(id: number){
+  public deleteDialog(id: number) {
     const dialogRef = this.dialog.open(MeetingRoomDeleteComponent);
     dialogRef.afterClosed()
     .subscribe((result) => {
