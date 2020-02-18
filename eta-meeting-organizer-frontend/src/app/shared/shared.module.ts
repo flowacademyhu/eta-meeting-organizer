@@ -10,6 +10,7 @@ import { ApiCommunicationService } from '~/app/shared/services/api-communication
 import { ConfigurationService } from '~/app/shared/services/configuration.service';
 import { HeaderComponent } from './components/header-layout.component';
 import { BuildingRegisterComponent } from './Modals/building-register.component';
+import { MeetingRoomDeleteComponent } from './Modals/meeting-room-delete.component';
 import { MeetingRoomRegisterComponent } from './Modals/meeting-room-register.component';
 
 @NgModule({
@@ -19,6 +20,7 @@ import { MeetingRoomRegisterComponent } from './Modals/meeting-room-register.com
     FooterComponent,
     MeetingRoomRegisterComponent,
     BuildingRegisterComponent,
+    MeetingRoomDeleteComponent,
   ],
   exports: [
     CommonModule,
