@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { MeetingRoomDeleteComponent } from './../../shared/Modals/meeting-room-delete.component';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
@@ -45,7 +46,8 @@ import { MeetingRoomRegisterComponent } from './../../shared/Modals/meeting-room
         <ng-container matColumnDef="delete">
           <th mat-header-cell *matHeaderCellDef> {{'meeting-room.delete' | translate}} </th>
           <td mat-cell *matCellDef="let meetingRoom">
-            <button mat-raised-button color="warn">{{'meeting-room.delete' | translate}}</button>
+            <button mat-raised-button color="warn" (click)="deleteDialog(meetingRoom.id)">
+              {{'meeting-room.delete' | translate}}</button>
           </td>
         </ng-container>
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -55,20 +57,45 @@ import { MeetingRoomRegisterComponent } from './../../shared/Modals/meeting-room
   `
 })
 
-export class MeetingRoomComponent {
+export class MeetingRoomComponent implements OnInit {
 
   public meetingRoom$: Observable<MeetingRoom[]>;
+  public displayedColumns: string[] = ['name', 'numberOfSeat', 'projector', 'building', 'delete'];
 
   constructor(private readonly api: ApiCommunicationService,
-              private readonly dialog: MatDialog) {
-    this.meetingRoom$ = this.api.meetingRoom()
-    .getMeetingRooms();
-   }
-   public displayedColumns: string[] = ['name', 'numberOfSeat', 'projector', 'building', 'delete'];
+              private readonly dialog: MatDialog) { }
+
+public ngOnInit() {
+  this.api.meetingRoom()
+  .getMeetingRooms();
+  this.meetingRoom$ = this.api.meetingRoom()
+  .meetingRoomSub;
+}
 
    public openDialog(): void {
     this.dialog.open(MeetingRoomRegisterComponent, {
       width: '400px',
     });
   }
+
+  public deleteDialog(id: number){
+    const dialogRef = this.dialog.open(MeetingRoomDeleteComponent);
+    dialogRef.afterClosed()
+    .subscribe((result) => {
+      if (result === 'true') {
+        this.deleteMeetingRoom(id);
+      }
+    });
+  }
+
+  public deleteMeetingRoom(id: number) {
+    this.api.meetingRoom()
+    .deleteMeetingRoomById(id)
+    .subscribe(() => {
+      this.api.meetingRoom()
+      .getMeetingRooms();
+    });
+   }
+
+
 }
