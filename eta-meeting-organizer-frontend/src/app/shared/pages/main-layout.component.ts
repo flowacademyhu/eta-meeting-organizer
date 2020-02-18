@@ -8,7 +8,9 @@ import {ConfigurationService} from '~/app/shared/services/configuration.service'
         height: 60px;
         font-size: 20px;
       }
-
+      .container {
+        min-height: calc(100vh - 60px);
+      }
       a {
         font: 400 32px/44px Roboto,"Helvetica Neue",sans-serif;
       }
@@ -16,7 +18,9 @@ import {ConfigurationService} from '~/app/shared/services/configuration.service'
   ],
   template: `
     <app-header></app-header>
+        <div class="container">
         <router-outlet></router-outlet>
+        </div>
     <app-footer></app-footer>
   `
 })

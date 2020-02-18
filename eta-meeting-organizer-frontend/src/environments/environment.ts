@@ -4,6 +4,7 @@
 
 export const environment = {
   baseUrl: 'http://localhost:8080/api',
+  googleAuthLink: 'http://localhost:8080/oauth2/authorize/google',
   production: false,
   storagePrefix: 'meeting_organizer_',
 };
