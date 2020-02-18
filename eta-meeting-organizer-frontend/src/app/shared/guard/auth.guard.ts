@@ -14,7 +14,7 @@ export class AuthGuard implements CanActivate {
     const token = this.config.fetchToken('accessToken');
     if (!token) {
       return this.router.createUrlTree(['login']);
-    } else if (!this.isUserRepresent()) {
+    } else if (!token && !this.isUserRepresent()) {
       this.authService.decodeAndSaveUser(token);
       return (this.isUserRepresent()) ? true : this.router.createUrlTree(['login']);
     }
