@@ -26,8 +26,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @RequiredArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-  @NonNull
-  private final HttpCookieOAuth2AuthorizationRequestRepository cookieOAuth2AuthorizationRequestRepository;
+  @NonNull private final HttpCookieOAuth2AuthorizationRequestRepository cookieOAuth2AuthorizationRequestRepository;
   @NonNull private final OAuth2UserServiceImpl customOAuth2UserService;
   @NonNull private final Oauth2AuthenticationSuccessHandler oAuth2AuthenticationSuccessHandler;
   @NonNull private final Oauth2AuthenticationFailureHandler oAuth2AuthenticationFailureHandler;

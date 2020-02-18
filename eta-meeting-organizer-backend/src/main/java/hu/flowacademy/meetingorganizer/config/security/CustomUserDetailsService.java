@@ -25,6 +25,7 @@ public class CustomUserDetailsService implements UserDetailsService {
   }
 
   @Transactional(readOnly = true)
-  public UserDetails loadUserById(String id) { return userRepository.findById(id).orElseThrow();
+  public UserDetails loadUserById(String id) {
+    return userRepository.findById(id).orElseThrow();
   }
 }

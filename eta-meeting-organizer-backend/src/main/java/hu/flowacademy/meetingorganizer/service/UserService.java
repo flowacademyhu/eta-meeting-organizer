@@ -1,6 +1,6 @@
 package hu.flowacademy.meetingorganizer.service;
 
-import hu.flowacademy.meetingorganizer.persistence.model.UserPrincipal;
+import hu.flowacademy.meetingorganizer.persistence.model.User;
 import hu.flowacademy.meetingorganizer.persistence.repository.UserRepository;
 import java.util.Optional;
 import lombok.AllArgsConstructor;
@@ -18,24 +18,24 @@ public class UserService {
   @Autowired
   private UserRepository userRepository;
 
-  public List<UserPrincipal> findAll() {
+  public List<User> findAll() {
     return userRepository.findAll();
   }
 
-  public Optional<UserPrincipal> findOne(String id) {
+  public Optional<User> findOne(String id) {
     return userRepository.findById(id);
   }
 
-  public UserPrincipal createUser(UserPrincipal userPrincipal) {
-    return userRepository.save(userPrincipal);
+  public User createUser(User user) {
+    return userRepository.save(user);
   }
 
   public void deleteUser(String id) {
     userRepository.deleteById(id);
   }
 
-  public UserPrincipal updateUser(String id, UserPrincipal userPrincipal) {
-    userPrincipal.setId(id);
-    return userRepository.save(userPrincipal);
+  public User updateUser(String id, User user) {
+    user.setId(id);
+    return userRepository.save(user);
   }
 }

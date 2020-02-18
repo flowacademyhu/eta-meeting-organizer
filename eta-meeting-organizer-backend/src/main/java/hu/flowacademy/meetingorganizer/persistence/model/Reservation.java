@@ -32,7 +32,7 @@ public class Reservation {
   private Long id;
 
   @ManyToOne
-  private UserPrincipal userPrincipal;
+  private User user;
 
   @OneToOne
   private MeetingRoom meetingRoom;

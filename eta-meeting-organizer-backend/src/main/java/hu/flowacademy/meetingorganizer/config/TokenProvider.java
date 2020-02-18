@@ -3,7 +3,7 @@ package hu.flowacademy.meetingorganizer.config;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import hu.flowacademy.meetingorganizer.persistence.model.Role;
-import hu.flowacademy.meetingorganizer.persistence.model.UserPrincipal;
+import hu.flowacademy.meetingorganizer.persistence.model.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
@@ -29,24 +29,24 @@ public class TokenProvider {
   private final ObjectMapper objectMapper = new ObjectMapper();
 
   public String createToken(Authentication authentication) {
-    UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
+    User user = (User) authentication.getPrincipal();
 
     Date now = new Date();
     Date expiryDate = new Date(now.getTime() + TOKEN_EXPIRATION_MSEC);
 
     return Jwts.builder()
-        .setPayload(setupPayload(userPrincipal, expiryDate))
+        .setPayload(setupPayload(user, expiryDate))
         .signWith(SignatureAlgorithm.HS512, TOKEN_SECRET)
         .compact();
   }
 
-  private String setupPayload(UserPrincipal userPrincipal, Date expiryDate) {
+  private String setupPayload(User user, Date expiryDate) {
     try {
       return objectMapper.writeValueAsString(
-          JwtPayload.builder().username(userPrincipal.getUsername())
-              .role(userPrincipal.getRole())
-              .isVerified(userPrincipal.isVerifiedByAdmin())
-              .sub(userPrincipal.getId())
+          JwtPayload.builder().username(user.getUsername())
+              .role(user.getRole())
+              .isVerified(user.isVerifiedByAdmin())
+              .sub(user.getId())
               .expr(expiryDate)
               .iat(new Date())
               .build());

@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @ConfigurationProperties(prefix = "role")
-public class Yaml {
+public class RoleConfigs {
 
   private List<String> admins;
 

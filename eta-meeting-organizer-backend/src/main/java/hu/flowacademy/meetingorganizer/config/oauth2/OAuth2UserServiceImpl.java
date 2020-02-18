@@ -1,15 +1,14 @@
 package hu.flowacademy.meetingorganizer.config.oauth2;
 
 
-import hu.flowacademy.meetingorganizer.config.Yaml;
+import hu.flowacademy.meetingorganizer.config.RoleConfigs;
 import hu.flowacademy.meetingorganizer.persistence.model.Role;
-import hu.flowacademy.meetingorganizer.persistence.model.UserPrincipal;
+import hu.flowacademy.meetingorganizer.persistence.model.User;
 import hu.flowacademy.meetingorganizer.persistence.repository.UserRepository;
 import java.util.stream.Collectors;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
@@ -24,9 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class OAuth2UserServiceImpl extends DefaultOAuth2UserService {
 
     @NonNull private final UserRepository userRepository;
-
-    @Autowired
-    Yaml yaml;
+    @NonNull private final RoleConfigs roleConfigs;
 
     @Override
     public OAuth2User loadUser(OAuth2UserRequest oAuth2UserRequest) throws OAuth2AuthenticationException {
@@ -35,27 +32,27 @@ public class OAuth2UserServiceImpl extends DefaultOAuth2UserService {
         return userRepository.findById(oAuth2User.getName()).orElseGet(() -> createUser(oAuth2User));
     }
 
-    private UserPrincipal convert(DefaultOAuth2User oAuth2User) {
-        return UserPrincipal.builder().id(oAuth2User.getName()).username(oAuth2User.getAttribute("email"))
+    private User convert(DefaultOAuth2User oAuth2User) {
+        return User.builder().id(oAuth2User.getName()).username(oAuth2User.getAttribute("email"))
                 .enabled(true).accountNonExpired(true).accountNonLocked(true).attributes(oAuth2User.getAttributes())
                 .isVerifiedByAdmin(verificationSetter(oAuth2User))
                 .role(decideRole(oAuth2User))
-                .authorities(oAuth2User.getAuthorities().stream().map(UserPrincipal.UserAuthority::new).collect(Collectors.toList()))
+                .authorities(oAuth2User.getAuthorities().stream().map(User.UserAuthority::new).collect(Collectors.toList()))
                 .build();
     }
 
     @Transactional
-    private UserPrincipal createUser(DefaultOAuth2User oAuth2User) {
-        UserPrincipal user = convert(oAuth2User);
+    private User createUser(DefaultOAuth2User oAuth2User) {
+        User user = convert(oAuth2User);
         user.setAuthorities(user.getAuthorities().stream().peek(authority -> authority.setUser(user)).collect(Collectors.toList()));
         user.setRole(decideRole(oAuth2User));
         return userRepository.save(user);
     }
 
     private Role decideRole(DefaultOAuth2User oAuth2User) {
-        if (yaml.getAdmins().contains(oAuth2User.getAttribute("email"))) {
+        if (roleConfigs.getAdmins().contains(oAuth2User.getAttribute("email"))) {
             return Role.ADMIN;
-        } else if(yaml.getReaders().contains(oAuth2User.getAttribute("email"))) {
+        } else if(roleConfigs.getReaders().contains(oAuth2User.getAttribute("email"))) {
             return Role.READER;
         } else {
             return Role.USER;
@@ -63,12 +60,7 @@ public class OAuth2UserServiceImpl extends DefaultOAuth2UserService {
     }
 
     private boolean verificationSetter(DefaultOAuth2User oAuth2User) {
-        if (yaml.getAdmins().contains(oAuth2User.getAttribute("email"))) {
-            return true;
-        } else if(yaml.getReaders().contains(oAuth2User.getAttribute("email"))) {
-            return true;
-        } else {
-            return false;
-        }
+        return (roleConfigs.getAdmins().contains(oAuth2User.getAttribute("email")) || roleConfigs.getReaders().contains(oAuth2User.getAttribute("email"))) ?
+            true : false;
     }
 }

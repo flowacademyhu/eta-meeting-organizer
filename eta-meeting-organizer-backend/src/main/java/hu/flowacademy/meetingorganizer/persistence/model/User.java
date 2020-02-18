@@ -31,7 +31,7 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserPrincipal implements OAuth2User, UserDetails {
+public class User implements OAuth2User, UserDetails {
 
   private static final String DEFAULT_TRUE = "BOOLEAN default true";
 
@@ -82,7 +82,7 @@ public class UserPrincipal implements OAuth2User, UserDetails {
     private String authority;
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
-    private UserPrincipal user;
+    private User user;
     public UserAuthority(GrantedAuthority grantedAuthority) {
       this.authority = grantedAuthority.getAuthority();
     }

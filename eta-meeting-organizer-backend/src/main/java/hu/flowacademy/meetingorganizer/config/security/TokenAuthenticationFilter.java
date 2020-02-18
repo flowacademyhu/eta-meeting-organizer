@@ -22,8 +22,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 @Slf4j
 public class TokenAuthenticationFilter extends OncePerRequestFilter {
 
-  @NonNull
-  private TokenProvider tokenProvider;
+  @NonNull private TokenProvider tokenProvider;
   @NonNull private CustomUserDetailsService customUserDetailsService;
 
   @Override
