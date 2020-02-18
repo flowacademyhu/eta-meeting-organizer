@@ -14,24 +14,28 @@ import { UserDeleteDialogComponent } from './../../shared/Modals/user-delete-dia
     table {
       width: 100%;
     }
+    .center {
+      text-align: center;
+      font-size: larger;
+    }
   `],
   template: `
   <div class="row justify-content-center">
       <table mat-table [dataSource]="users$ | async" class="mat-elevation-z8">
         <ng-container matColumnDef="id">
-          <th mat-header-cell *matHeaderCellDef>{{'profile.id' | translate}} </th>
+          <th mat-header-cell *matHeaderCellDef class="center">{{'profile.id' | translate}} </th>
           <td mat-cell  *matCellDef="let user"> {{user.id}} </td>
         </ng-container>
         <ng-container matColumnDef="name">
-          <th mat-header-cell *matHeaderCellDef> {{'profile.username' | translate}} </th>
+          <th mat-header-cell *matHeaderCellDef class="center"> {{'profile.username' | translate}} </th>
           <td mat-cell *matCellDef="let user"> {{user.name}} </td>
         </ng-container>
         <ng-container matColumnDef="email">
-          <th mat-header-cell *matHeaderCellDef> {{'profile.email' | translate}} </th>
+          <th mat-header-cell *matHeaderCellDef class="center"> {{'profile.email' | translate}} </th>
           <td mat-cell *matCellDef="let user">{{user.email}}</td>
         </ng-container>
         <ng-container matColumnDef="role">
-          <th mat-header-cell *matHeaderCellDef> {{'profile.role' | translate}} </th>
+          <th mat-header-cell *matHeaderCellDef class="center"> {{'profile.role' | translate}} </th>
           <td mat-cell *matCellDef="let user">{{user.role}}</td>
         </ng-container>
         <ng-container matColumnDef="action">
@@ -50,7 +54,7 @@ import { UserDeleteDialogComponent } from './../../shared/Modals/user-delete-dia
           </td>
         </ng-container>
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;" ></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" align="center" ></tr>
       </table>
     </div>
   `
