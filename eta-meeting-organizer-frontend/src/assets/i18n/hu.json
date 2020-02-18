@@ -35,7 +35,8 @@
     "selectBuilding":"Válasz telephelyet",
     "projector":"Projektor",
     "saveButton":"Mentés",
-    "delete": "Törlés"
+    "delete": "Törlés",
+    "add":"Iroda hozzáadás"
   },
   "navbar": {
     "calendar": "Naptár",

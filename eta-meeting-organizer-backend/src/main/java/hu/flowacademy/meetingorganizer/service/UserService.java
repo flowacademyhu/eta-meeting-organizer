@@ -5,6 +5,7 @@ import hu.flowacademy.meetingorganizer.persistence.repository.UserRepository;
 import java.util.Optional;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,8 +19,8 @@ public class UserService {
   @Autowired
   private UserRepository userRepository;
 
-  public List<User> findAll() {
-    return userRepository.findAll();
+  public List<User> findAll(Integer pageNumber, Integer pageSize) {
+    return userRepository.findAll(PageRequest.of(pageNumber, pageSize)).getContent();
   }
 
   public Optional<User> findOne(Long id) {
