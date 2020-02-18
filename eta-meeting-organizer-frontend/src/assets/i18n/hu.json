@@ -45,6 +45,12 @@
   },
   "header": {
     "button": "EN"
-
+  },
+  "meeting-room-delete": {
+    "meetingRoomDelete": "Tárgyaló törlése",
+    "verification": "Biztosan törölni akarja a tárgyalót?",
+    "yes": "Igen",
+    "no": "Nem"
+  }
 }
 
