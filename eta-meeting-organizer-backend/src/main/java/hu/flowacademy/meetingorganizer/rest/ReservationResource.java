@@ -33,8 +33,7 @@ public class ReservationResource {
 
   @GetMapping("/{userId}/users")
   public ResponseEntity<List<Reservation>> findReservationsByUserId(@PathVariable Long userId) {
-    List<Reservation> reservations = reservationService.findReservationsByUserId(userId);
-    return new ResponseEntity<>(reservations, HttpStatus.OK);
+    return new ResponseEntity<>(reservationService.findReservationsByUserId(userId), HttpStatus.OK);
   }
 
   @GetMapping("/{id}")

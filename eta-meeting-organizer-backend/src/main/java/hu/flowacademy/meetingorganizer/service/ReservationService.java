@@ -21,7 +21,7 @@ public class ReservationService {
   }
 
   public List<Reservation> findReservationsByUserId(Long id) {
-    return reservationRepository.findReservationsByUserId(id);
+    return reservationRepository.findByUser_Id(id);
   }
 
   public Optional<Reservation> findOne(Long id) {

@@ -9,6 +9,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ReservationRepository extends JpaRepository<Reservation, Long> {
 
-  @Query("from Reservation r where r.user.id = ?1")
-  List<Reservation> findReservationsByUserId(Long id);
+  List<Reservation> findByUser_Id(Long id);
+
 }
