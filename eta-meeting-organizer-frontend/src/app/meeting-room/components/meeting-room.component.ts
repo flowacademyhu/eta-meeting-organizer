@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
 import { MeetingRoom } from './../../models/meetingroom.model';
 import { MeetingRoomDeleteComponent } from './../../shared/Modals/meeting-room-delete.component';
@@ -57,10 +57,11 @@ import { MeetingRoomRegisterComponent } from './../../shared/Modals/meeting-room
   `
 })
 
-export class MeetingRoomComponent implements OnInit {
+export class MeetingRoomComponent implements OnInit, OnDestroy{
 
   public meetingRoom$: Observable<MeetingRoom[]>;
   public displayedColumns: string[] = ['name', 'numberOfSeat', 'projector', 'building', 'delete'];
+  public unsubFromDialog: Subscription;
 
   constructor(private readonly api: ApiCommunicationService,
               private readonly dialog: MatDialog) { }
@@ -80,12 +81,16 @@ export class MeetingRoomComponent implements OnInit {
 
   public deleteDialog(id: number) {
     const dialogRef = this.dialog.open(MeetingRoomDeleteComponent);
-    dialogRef.afterClosed()
+    this.unsubFromDialog = dialogRef.afterClosed()
     .subscribe((result) => {
       if (result === 'true') {
         this.deleteMeetingRoom(id);
       }
     });
+  }
+
+  public ngOnDestroy() {
+    this.unsubFromDialog.unsubscribe();
   }
 
   public deleteMeetingRoom(id: number) {
@@ -95,5 +100,5 @@ export class MeetingRoomComponent implements OnInit {
       this.api.meetingRoom()
       .getMeetingRooms();
     });
-   }
+  }
 }
