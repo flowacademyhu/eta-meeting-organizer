@@ -48,6 +48,7 @@ import {ConfigurationService} from '~/app/shared/services/configuration.service'
     <app-footer></app-footer>
   `
 })
+
 export class MainLayoutComponent {
   constructor(private readonly configService: ConfigurationService) {
     }
