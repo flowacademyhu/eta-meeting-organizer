@@ -11,6 +11,13 @@ const routes: Routes = [
   },
   {
     component: MainLayoutComponent,
+    loadChildren: () => import('./calendar/calendar.module')
+      .then((m) => m.CalendarModule),
+    path: 'calendar',
+    pathMatch: 'full',
+  },
+  {
+    component: MainLayoutComponent,
     loadChildren: () => import('./login/login.module')
       .then((m) => m.LoginModule),
     path: 'login',

@@ -35,10 +35,7 @@ import {ConfigurationService} from '~/app/shared/services/configuration.service'
     </mat-toolbar>
     <mat-sidenav-container color="accent">
       <mat-sidenav id="nav-sidebar" color="accent" #drawer mode="side" opened role="navigation">
-        <mat-nav-list *ngIf="checkToken()" id="navbar-list" color="accent">
-          <a mat-list-item routerLink="/first">{{'navbar.calendar' | translate}}</a>
-          <a mat-list-item routerLink="/second">{{'navbar.meetingRoomEditor' | translate}}</a>
-          <a mat-list-item routerLink="/profile">{{'navbar.profile' | translate}}</a>
+        <mat-nav-list id="navbar-list" color="accent">
         </mat-nav-list>
       </mat-sidenav>
       <mat-sidenav-content color="accent">
@@ -48,6 +45,7 @@ import {ConfigurationService} from '~/app/shared/services/configuration.service'
     <app-footer></app-footer>
   `
 })
+
 export class MainLayoutComponent {
   constructor(private readonly configService: ConfigurationService) {
     }
