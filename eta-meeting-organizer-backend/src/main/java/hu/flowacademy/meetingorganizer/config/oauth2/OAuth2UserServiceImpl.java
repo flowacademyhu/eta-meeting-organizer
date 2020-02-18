@@ -60,7 +60,6 @@ public class OAuth2UserServiceImpl extends DefaultOAuth2UserService {
     }
 
     private boolean verificationSetter(DefaultOAuth2User oAuth2User) {
-        return (roleConfigs.getAdmins().contains(oAuth2User.getAttribute("email")) || roleConfigs.getReaders().contains(oAuth2User.getAttribute("email"))) ?
-            true : false;
+        return (roleConfigs.getAdmins().contains(oAuth2User.getAttribute("email")) || roleConfigs.getReaders().contains(oAuth2User.getAttribute("email")));
     }
 }
