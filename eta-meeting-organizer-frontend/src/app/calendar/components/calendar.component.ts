@@ -30,7 +30,10 @@ import { ApiCommunicationService } from '~/app/shared/services/api-communication
       [slotDuration]="'00:15:00'"
       [minTime]="'06:00:00'"
       [maxTime]="'22:00:00'"
-      [slotLabelFormat]="options.titleFormat"
+      [slotLabelFormat]="options.slotLabelFormat"
+      [columnHeaderFormat]="options.columnHeaderFormat"
+      [titleFormat]="options.titleFormat"
+      [nowIndicator]="true"
     ></full-calendar>
   `
 })
@@ -55,14 +58,22 @@ export class CalendarComponent implements OnInit, AfterViewInit {
 
   public ngOnInit() {
     this.options = {
+      columnHeaderFormat: {
+        weekday: 'long'
+      },
       header: {
         center: 'title',
         left: 'prev next',
         right: 'today'
       },
-      titleFormat: {
+      slotLabelFormat: {
         hour: '2-digit',
-        minute: '2-digit'
+        minute: '2-digit',
+      },
+      titleFormat: {
+        day: '2-digit',
+        month: 'long',
+        year: 'numeric'
       }
     };
 
@@ -75,8 +86,10 @@ export class CalendarComponent implements OnInit, AfterViewInit {
           this.calendarEvents.push(
             {
               end: this.reservations[i].endingTime,
+              overlap: false,
               start: this.reservations[i].startingTime,
               title: this.reservations[i].title
+              + '\n' + 'meetingroom-name',
             }
           );
         }
