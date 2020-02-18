@@ -16,9 +16,9 @@ import { MeetingRoomRegisterComponent } from './../../shared/Modals/meeting-room
     }
   `],
   template: `
-  <button mat-fab color="primary"
+  <button mat-icon-button color="primary"
           (click)="openDialog()">
-          <i class="material-icons">add</i>
+          <mat-icon>add</mat-icon>
   </button>
     <div class="row justify-content-center">
       <table mat-table [dataSource]="meetingRoom$ | async" class="mat-elevation-z8">
@@ -41,16 +41,12 @@ import { MeetingRoomRegisterComponent } from './../../shared/Modals/meeting-room
         <ng-container matColumnDef="delete">
           <th mat-header-cell *matHeaderCellDef></th>
           <td mat-cell *matCellDef="let meetingRoom">
-          <button mat-raised-button color="accent">
-            <i class="material-icons">
-            edit
-            </i>
-            </button>
-            <button mat-raised-button color="primary">
-            <i class="material-icons">
-            delete
-            </i>
-            </button>
+          <button mat-icon-button color="accent">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button color="primary">
+            <mat-icon>delete</mat-icon>
+          </button>
           </td>
         </ng-container>
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
