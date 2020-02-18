@@ -13,12 +13,20 @@ import { ApiCommunicationService } from '~/app/shared/services/api-communication
 import { AuthService } from '~/app/shared/services/auth.service';
 import { ConfigurationService } from '~/app/shared/services/configuration.service';
 import { HeaderComponent } from './components/header-layout.component';
+<<<<<<< HEAD
+=======
+import { AuthService } from './services/auth.service';
+import { BuildingRegisterComponent } from './Modals/building-register.component';
+import { MeetingRoomRegisterComponent } from './Modals/meeting-room-register.component';
+>>>>>>> 52f8e00befb90345d068957d80c00d86e275fcb6
 
 @NgModule({
   declarations: [
     MainLayoutComponent,
     HeaderComponent,
     FooterComponent,
+    MeetingRoomRegisterComponent,
+    BuildingRegisterComponent,
   ],
   exports: [
     CommonModule,
