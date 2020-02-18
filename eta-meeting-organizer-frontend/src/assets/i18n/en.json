@@ -14,7 +14,8 @@
     "address":"Address",
     "saveButton":"Save",
     "delete":"Delete building",
-    "deleteButton":"Delete"
+    "deleteButton":"Delete",
+    "add":"Add building"
   },
   "profile": {
     "username": "Username",
@@ -38,7 +39,8 @@
   "navbar": {
     "calendar": "Calendar",
     "profile" : "Profile",
-    "meetingRoomEditor": "Meetingroom Editor"
+    "meetingRoomEditor": "Meetingroom Editor",
+    "buildingEditor":"Building editor"
   },
   "header": {
     "button": "HUN",
