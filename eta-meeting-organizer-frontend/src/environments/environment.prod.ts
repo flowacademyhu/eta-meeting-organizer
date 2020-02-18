@@ -4,5 +4,3 @@ export const environment = {
   production: true,
   storagePrefix: 'meeting_organizer_',
 };
-
-

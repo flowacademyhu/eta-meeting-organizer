@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
 import { MeetingRoom } from './../../models/meetingroom.model';
+import { MeetingRoomRegisterComponent } from './../../shared/Modals/meeting-room-register.component';
 
 @Component({
   selector: 'app-meeting-room-listing',
@@ -12,8 +14,16 @@ import { MeetingRoom } from './../../models/meetingroom.model';
     table {
       width: 100%;
     }
+    .addButton {
+      width: 100%;
+    }
   `],
   template: `
+  <button mat-raised-button color="warn"
+          class="addButton"
+          (click)="openDialog()">
+          {{'meeting-room.add' | translate}}
+  </button>
     <div class="row justify-content-center">
       <table mat-table [dataSource]="meetingRoom$ | async" class="mat-elevation-z8">
         <ng-container matColumnDef="name">
@@ -49,9 +59,16 @@ export class MeetingRoomComponent {
 
   public meetingRoom$: Observable<MeetingRoom[]>;
 
-  constructor(private readonly api: ApiCommunicationService) {
+  constructor(private readonly api: ApiCommunicationService,
+              private readonly dialog: MatDialog) {
     this.meetingRoom$ = this.api.meetingRoom()
     .getMeetingRooms();
    }
    public displayedColumns: string[] = ['name', 'numberOfSeat', 'projector', 'building', 'delete'];
+
+   public openDialog(): void {
+    this.dialog.open(MeetingRoomRegisterComponent, {
+      width: '400px',
+    });
+  }
 }

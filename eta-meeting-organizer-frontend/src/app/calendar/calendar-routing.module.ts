@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ProfileComponent } from './components/profile.components';
+import { CalendarComponent } from './components/calendar.component';
 
 const routes: Routes = [
   {
-    component: ProfileComponent,
+    component: CalendarComponent,
     path: '',
   },
 ];
@@ -14,4 +14,4 @@ const routes: Routes = [
   exports: [RouterModule],
   imports: [RouterModule.forChild(routes)],
 })
-export class ProfileRoutingModule { }
+export class CalendarRoutingModule { }

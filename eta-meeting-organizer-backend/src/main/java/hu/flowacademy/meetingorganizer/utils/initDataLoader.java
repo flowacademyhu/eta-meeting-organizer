@@ -51,38 +51,7 @@ public class initDataLoader {
         .address("Győri utca 28 3/28")
         .build());
 
-    reservationRepository.save(Reservation.builder()
-        .id(1l)
-        .title("Napi meeting")
-        .summary("Megbeszéljük ki mivel haladt tegnap és mivel fog ma foglalkozni.")
-        .startingTime(LocalDateTime.now())
-        .endingTime(LocalDateTime.now()).build());
-    reservationRepository.save(Reservation.builder()
-        .id(2l)
-        .title("Flow tárgyalás")
-        .summary("Új ügyfelek felkutatása.")
-        .startingTime(LocalDateTime.now())
-        .endingTime(LocalDateTime.now()).build());
-    reservationRepository.save(Reservation.builder()
-        .id(3l)
-        .title("Húsvét")
-        .summary("húsvéti program megbeszélése Pennywise-al")
-        .startingTime(LocalDateTime.now())
-        .endingTime(LocalDateTime.now()).build());
-    reservationRepository.save(Reservation.builder()
-        .id(4l)
-        .title("Karácsony")
-        .summary("Megbeszéljük hogy mikor tartsuk illetve ki melyik zenekart szeretné ")
-        .startingTime(LocalDateTime.now())
-        .endingTime(LocalDateTime.now()).build());
-    reservationRepository.save(Reservation.builder()
-        .id(5l)
-        .title("Tesla")
-        .summary("Tesla gyár látogatásának időpontja")
-        .startingTime(LocalDateTime.now())
-        .endingTime(LocalDateTime.now()).build());
-
-/*    userRepository.save(User.builder()
+    userRepository.save(User.builder()
         .id(1l)
         .name("Bandi")
         .email("bandi@gmail.com")
@@ -106,7 +75,40 @@ public class initDataLoader {
         .id(5l)
         .name("Béla")
         .email("bela@gmail.com")
-        .role(Role.USER).build());*/
+        .role(Role.USER).build());
+
+    reservationRepository.save(Reservation.builder()
+        .id(1l)
+        .user(userRepository.getOne(1l))
+        .title("Napi meeting")
+        .summary("Megbeszéljük ki mivel haladt tegnap és mivel fog ma foglalkozni.")
+        .startingTime(LocalDateTime.of(2020, 2, 17, 16, 00))
+        .endingTime(LocalDateTime.of(2020, 2, 17, 18, 00)).build());
+    reservationRepository.save(Reservation.builder()
+        .id(2l)
+        .user(userRepository.getOne(1l))
+        .title("Flow tárgyalás")
+        .summary("Új ügyfelek felkutatása.")
+        .startingTime(LocalDateTime.now())
+        .endingTime(LocalDateTime.now()).build());
+    reservationRepository.save(Reservation.builder()
+        .id(3l)
+        .title("Húsvét")
+        .summary("húsvéti program megbeszélése Pennywise-al")
+        .startingTime(LocalDateTime.now())
+        .endingTime(LocalDateTime.now()).build());
+    reservationRepository.save(Reservation.builder()
+        .id(4l)
+        .title("Karácsony")
+        .summary("Megbeszéljük hogy mikor tartsuk illetve ki melyik zenekart szeretné ")
+        .startingTime(LocalDateTime.now())
+        .endingTime(LocalDateTime.now()).build());
+    reservationRepository.save(Reservation.builder()
+        .id(5l)
+        .title("Tesla")
+        .summary("Tesla gyár látogatásának időpontja")
+        .startingTime(LocalDateTime.now())
+        .endingTime(LocalDateTime.now()).build());
 
     meetingRoomRepository.save(MeetingRoom.builder()
         .id(1l)

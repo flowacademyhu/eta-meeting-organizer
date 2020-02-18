@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -16,36 +17,38 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 @NgModule({
   declarations: [],
   exports: [
-    MatToolbarModule,
+    FormsModule,
+    ReactiveFormsModule,
     MatButtonModule,
     MatCardModule,
+    MatDialogModule,
     MatFormFieldModule,
-    FormsModule,
-    MatInputModule,
-    MatSelectModule,
-    MatRadioModule,
-    MatSlideToggleModule,
-    ReactiveFormsModule,
-    MatSidenavModule,
-    MatListModule,
     MatIconModule,
+    MatInputModule,
+    MatListModule,
+    MatRadioModule,
+    MatSelectModule,
+    MatSidenavModule,
+    MatSlideToggleModule,
     MatTableModule,
+    MatToolbarModule,
   ],
   imports: [
-    MatToolbarModule,
+    FormsModule,
+    ReactiveFormsModule,
     MatButtonModule,
     MatCardModule,
+    MatDialogModule,
     MatFormFieldModule,
-    FormsModule,
-    MatInputModule,
-    MatSelectModule,
-    MatRadioModule,
-    MatSlideToggleModule,
-    ReactiveFormsModule,
-    MatSidenavModule,
-    MatListModule,
     MatIconModule,
+    MatInputModule,
+    MatListModule,
+    MatRadioModule,
+    MatSelectModule,
+    MatSidenavModule,
+    MatSlideToggleModule,
     MatTableModule,
+    MatToolbarModule,
   ],
 })
 export class MaterialModule { }
