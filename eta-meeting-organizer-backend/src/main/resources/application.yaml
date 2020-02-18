@@ -41,14 +41,26 @@ spring:
 
   jpa:
     show-sql: true
-    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    database-platform: org.hibernate.dialect.PostgreSQL94Dialect
     hibernate:
       ddl-auto: create-drop
       naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
-    properties:
-      hibernate:
-        #                dialect: org.hibernate.dialect.PostgreSQLDialect
-        jdbc:
-          lob:
-            non_contextual_creation: true
-
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            clientId: 160652702041-mvfvg4h4rloclmjh2k9gpdo2hsq3la9b.apps.googleusercontent.com
+            clientSecret: JgxeWFNIeJ4mEIKd8gH5VGw_
+            redirectUri: "{baseUrl}/oauth2/callback/{registrationId}"
+            scope:
+              - email
+              - profile
+app:
+  redirectUri: http://localhost:4200/auth
+  tokenSecret: JgxeWFNIeJ4mEIKd8gH5VGw_
+role:
+  admins:
+    - vajgi90@gmail.com
+  readers:
+    - vajgely.tamas@gmail.com
