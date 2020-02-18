@@ -5,41 +5,27 @@ import {ConfigurationService} from '~/app/shared/services/configuration.service'
 
 @Component({
   selector: 'app-header',
-  template: `
-  <mat-toolbar class="header" color="primary">
-    <mat-toolbar-row >
-      <h1>
-        <img src="../../../assets/wysio_arrow.png" height="50" />
-      </h1>
-      <h1 class="white">
-      </h1>
-      <button color="warn" mat-raised-button class="ml-auto"
-              (click)="onLanguageChange()">{{'header.button' | translate}}</button>
-              <div>
-            <a mat-button *ngIf="checkToken()" (click)="logout()" class="white">
-            {{'header.exit' | translate}}
-            </a>
-      </div>
-  styles: [`
-    #row {
-  height: 60px;
-  position: fixed;
-  top: 0px;
-  text-align: center;
-  position: fixed;
-  z-index:999;
-  font-size: smaller;
-  align-items: center;
-  position: sticky;
-  }
-  .email{
+  styles: [
+    `
+      #row {
+      height: 60px;
+      position: fixed;
+      top: 0px;
+      text-align: center;
+      position: fixed;
+      z-index:999;
+      font-size: smaller;
+      align-items: center;
+      position: sticky;
+      }
+      .email{
       font-size: 12px;
-    }
-  #logout{
+      }
+      #logout{
       padding-top: 15px;
-    }
+      }
     `,
-  ],
+],
   template: `
   <mat-toolbar id="row" class="my-0" color="accent" >
   <p class="mr-3"><img src="../../../assets/wysio_arrow.png" height="55" /></p>
