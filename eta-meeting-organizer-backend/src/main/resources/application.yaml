@@ -27,8 +27,7 @@ role:
     - vajgi90@gmail.com
   readers:
     - vajgely.tamas@gmail.com
-
-
+    -
 ---
 spring:
   profiles: travis
