@@ -1,6 +1,5 @@
 package hu.flowacademy.meetingorganizer.persistence.model.dto;
 
-import hu.flowacademy.meetingorganizer.persistence.model.Building;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,6 +17,6 @@ public class MeetingRoomDTO {
 
   private Boolean projector;
 
-  private Building building;
+  private BuildingDTO building;
 
 }

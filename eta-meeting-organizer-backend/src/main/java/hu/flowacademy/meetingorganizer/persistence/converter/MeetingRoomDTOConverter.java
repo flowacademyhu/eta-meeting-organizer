@@ -1,26 +1,24 @@
 package hu.flowacademy.meetingorganizer.persistence.converter;
 
 import hu.flowacademy.meetingorganizer.persistence.model.MeetingRoom;
+import hu.flowacademy.meetingorganizer.persistence.model.dto.BuildingDTO;
 import hu.flowacademy.meetingorganizer.persistence.model.dto.MeetingRoomDTO;
-import hu.flowacademy.meetingorganizer.service.MeetingRoomService;
 import java.util.ArrayList;
 import java.util.List;
-import lombok.Data;
 import org.springframework.stereotype.Component;
 
-@Data
 @Component
 public class MeetingRoomDTOConverter {
-
-  private MeetingRoomService meetingRoomService;
 
   public MeetingRoomDTO convert(MeetingRoom model) {
     MeetingRoomDTO dto = new MeetingRoomDTO();
     dto.setId(model.getId());
     dto.setNumberOfSeats(model.getNumberOfSeats());
     dto.setProjector(model.getProjector());
-    dto.setBuilding(model.getBuilding());
-    dto.setGeneratedName(model.getBuilding().getCity() + " – " + model.getBuilding().getAddress() + " – " + model.getName());
+    dto.setBuilding(BuildingDTO.convert(model.getBuilding()));
+    dto.setGeneratedName(
+        model.getBuilding().getCity() + " – " + model.getBuilding().getAddress() + " – " + model
+            .getName());
     return dto;
   }
 
