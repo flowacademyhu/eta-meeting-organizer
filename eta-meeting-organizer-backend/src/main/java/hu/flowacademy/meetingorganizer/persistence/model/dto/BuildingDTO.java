@@ -16,7 +16,10 @@ public class BuildingDTO {
 
   private String address;
 
-  public static BuildingDTO convert(Building building) {
-    return new BuildingDTO(building.getId(), building.getCity(), building.getAddress());
+  public BuildingDTO(Building building) {
+    this.id = building.getId();
+    this.city = building.getCity();
+    this.address = building.getAddress();
   }
+  
 }

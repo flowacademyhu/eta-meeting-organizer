@@ -15,7 +15,7 @@ public class MeetingRoomDTOConverter {
     dto.setId(model.getId());
     dto.setNumberOfSeats(model.getNumberOfSeats());
     dto.setProjector(model.getProjector());
-    dto.setBuilding(BuildingDTO.convert(model.getBuilding()));
+    dto.setBuilding(new BuildingDTO(model.getBuilding()));
     dto.setGeneratedName(
         model.getBuilding().getCity() + " – " + model.getBuilding().getAddress() + " – " + model
             .getName());
