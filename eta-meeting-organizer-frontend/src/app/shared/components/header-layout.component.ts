@@ -4,21 +4,37 @@ import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-header',
   styles: [`
-    .email{
+    #row {
+  height: 60px;
+  position: fixed;
+  top: 0px;
+  text-align: center;
+  position: fixed;
+  z-index:999;
+  font-size: smaller;
+  align-items: center;
+  position: sticky;
+  }
+  .email{
       font-size: 12px;
+    }
+  #logout{
+
+  padding-top: 15px;
+
     }
     `,
   ],
   template: `
-  <mat-toolbar class="my-0" color="primary" >
+  <mat-toolbar id="row" class="my-0" color="accent" >
   <p class="mr-3"><img src="../../../assets/wysio_arrow.png" height="55" /></p>
   <a class="mr-3" mat-stroked-button routerLink="/first">{{'navbar.calendar' | translate}}</a>
   <a class="mr-3" mat-stroked-button routerLink="/second">{{'navbar.meetingRoomEditor' | translate}}</a>
   <a class="mr-3" mat-stroked-button routerLink="/profile">{{'navbar.profile' | translate}}</a>
   <button mat-button class="ml-auto"(click)="onLanguageChange()">{{'header.button' | translate}}</button>
   <p class="email">kolbaszjoska@citromail.hu</p>
-  <button mat-stroked-button class="ml-2">
-    <mat-icon>logout</mat-icon>
+  <button mat-button id="logout" class="ml-2">
+  <p><img padding="20" src="../../../assets/logout.png" height="50"/></p>
   </button>
 </mat-toolbar>`
 })
