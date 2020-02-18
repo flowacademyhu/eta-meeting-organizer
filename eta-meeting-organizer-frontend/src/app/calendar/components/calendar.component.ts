@@ -47,7 +47,6 @@ export class CalendarComponent implements OnInit, AfterViewInit {
   public calendarPlugins: object[] = [dayGridPlugin, timeGridPlugin];
 
   public reservations: Reservation[];
-  public reservation: Reservation;
 
   constructor(private readonly api: ApiCommunicationService) {}
 
@@ -82,13 +81,13 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     .subscribe(
       (data) => {
         this.reservations = data;
-        for (let i = 0; i < this.reservations.length; i++) {
+        for (const reservation of this.reservations) {
           this.calendarEvents.push(
             {
-              end: this.reservations[i].endingTime,
+              end: reservation.endingTime,
               overlap: false,
-              start: this.reservations[i].startingTime,
-              title: this.reservations[i].title
+              start: reservation.startingTime,
+              title: reservation.title
               + '\n' + 'meetingroom-name',
             }
           );
