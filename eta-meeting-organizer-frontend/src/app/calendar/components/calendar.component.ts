@@ -3,7 +3,6 @@ import { OptionsInput } from '@fullcalendar/core';
 import { EventInput } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
-import { Observable } from 'rxjs';
 import { Reservation } from '~/app/models/reservation.model';
 import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
 
@@ -26,12 +25,12 @@ import { ApiCommunicationService } from '~/app/shared/services/api-communication
   `
 })
 export class CalendarComponent implements OnInit {
-  public id: number = 1;
+  public userId: number = 1;
 
   public options: OptionsInput;
   public calendarPlugins: object[] = [dayGridPlugin, timeGridPlugin];
 
-  public reservation$: Observable<Reservation>;
+  public reservations: Reservation[];
   public reservation: Reservation;
 
   constructor(private readonly api: ApiCommunicationService) {}
@@ -52,13 +51,19 @@ export class CalendarComponent implements OnInit {
     };
 
     this.api.reservation()
-    .getOneReservationById(this.id)
+    .getReservationsByUserId(this.userId)
     .subscribe(
       (data) => {
-        this.reservation = data;
-        this.calendarEvents.push(
-          {title: this.reservation.title, start: this.reservation.startingTime, end: this.reservation.endingTime}
-        );
+        this.reservations = data;
+        for (let i = 0; i < this.reservations.length; i++) {
+          this.calendarEvents.push(
+            {
+              end: this.reservations[i].endingTime,
+              start: this.reservations[i].startingTime,
+              title: this.reservations[i].title
+            }
+          );
+        }
       }
     );
   }
