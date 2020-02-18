@@ -73,11 +73,11 @@ export function provideConfig() {
           <mat-card-title>{{ "login.title" | translate }}</mat-card-title>
           <br />
           <mat-card-content>
-            <div id="customBtn" class="customGPlusSignIn">
+            <div id="customBtn" class="customGPlusSignIn" style="cursor: pointer;">
               <span class="icon">
                 <img src="../../../assets/googlelogo.png" />
               </span>
-              <span class="buttonText" (click)="signInWithGoogle()">{{
+              <span (click)="signInWithGoogle()">{{
                 "login.loginButton" | translate
               }}</span>
             </div>
