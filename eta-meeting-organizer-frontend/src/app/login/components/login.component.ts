@@ -39,14 +39,13 @@ import { environment } from '~/environment/environment';
         justify-content: center;
       }
       .row {
-      height: 100vh;
+      min-height: calc(100vh - 60px);
       }
     }
     `,
   ],
   template: `
-    <div class="container">
-      <div class="row h-100 d-flex align-items-center justify-content-center">
+      <div class="row h-100 align-items-center justify-content-center">
         <div class="col-sm-4 my-auto">
           <mat-card id="login">
             <mat-card-title>{{ "login.title" | translate }}</mat-card-title>
@@ -66,7 +65,6 @@ import { environment } from '~/environment/environment';
           </mat-card>
         </div>
       </div>
-    </div>
   `
 })
 export class LoginComponent {

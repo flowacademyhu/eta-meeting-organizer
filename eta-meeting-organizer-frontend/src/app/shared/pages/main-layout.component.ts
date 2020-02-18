@@ -1,33 +1,34 @@
 import { Component } from '@angular/core';
-import {ConfigurationService} from '~/app/shared/services/configuration.service';
+import { ConfigurationService } from '~/app/shared/services/configuration.service';
 
 @Component({
   selector: 'app-welcome-layout',
   styles: [
-    ` .mat-list-base .mat-list-item {
+    `
+      .mat-list-base .mat-list-item {
         height: 60px;
         font-size: 20px;
       }
-      .container {
+      .row {
         min-height: calc(100vh - 60px);
       }
       a {
-        font: 400 32px/44px Roboto,"Helvetica Neue",sans-serif;
+        font: 400 32px/44px Roboto, "Helvetica Neue", sans-serif;
       }
     `,
   ],
   template: `
     <app-header></app-header>
-        <div class="container">
+    <div class="row">
+      <div class="col-12">
         <router-outlet></router-outlet>
-        </div>
+      </div>
+    </div>
     <app-footer></app-footer>
   `
 })
-
 export class MainLayoutComponent {
-  constructor(private readonly configService: ConfigurationService) {
-    }
+  constructor(private readonly configService: ConfigurationService) {}
   protected checkToken() {
     return !!this.configService.fetchToken('accessToken');
   }
