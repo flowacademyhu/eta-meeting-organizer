@@ -17,6 +17,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
@@ -25,7 +26,8 @@ import org.springframework.stereotype.Service;
 public class TokenProvider {
 
   private static final int TOKEN_EXPIRATION_MSEC = 1800000;
-  private static final String TOKEN_SECRET = "JgxeWFNIeJ4mEIKd8gH5VGw_";
+  @Value("${app.tokenSecret}")
+  private String TOKEN_SECRET;
   private final ObjectMapper objectMapper = new ObjectMapper();
 
   public String createToken(Authentication authentication) {
