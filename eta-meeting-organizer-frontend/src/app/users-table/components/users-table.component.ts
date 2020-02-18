@@ -60,13 +60,12 @@ import { UserDeleteDialogComponent } from './../../shared/Modals/user-delete-dia
   `
 })
 
-export class UsersTableComponent implements OnInit{
+export class UsersTableComponent implements OnInit {
   public users$: Observable<User[]>;
   public displayedColumns: string[] = ['id', 'name', 'email', 'role', 'action'];
 
   constructor(private readonly api: ApiCommunicationService,
-              private readonly dialog: MatDialog) {
-   }
+              private readonly dialog: MatDialog) { }
 
    public ngOnInit() {
     this.api.user()
