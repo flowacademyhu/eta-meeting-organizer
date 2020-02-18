@@ -34,7 +34,8 @@
     "selectBuilding":"Select building",
     "projector":"Projector",
     "saveButton":"Save",
-    "delete": "Delete"
+    "delete": "Delete",
+    "add":"Add meeting room"
   },
   "navbar": {
     "calendar": "Calendar",
