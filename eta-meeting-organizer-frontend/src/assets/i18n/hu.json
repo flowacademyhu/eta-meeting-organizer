@@ -14,7 +14,8 @@
     "address":"Cím",
     "saveButton":"Mentés",
     "delete":"Épület törlése",
-    "deleteButton":"törlés"
+    "deleteButton":"törlés",
+    "add":"Épület hozzáadás"
   },
   "profile": {
     "id": "Azonosító",
@@ -39,7 +40,8 @@
   "navbar": {
     "calendar": "Naptár",
     "profile" : "Profil",
-    "meetingRoomEditor": "Tárgyaló kezelő"
+    "meetingRoomEditor": "Tárgyaló kezelő",
+    "buildingEditor":"Épületkezelő"
   },
   "header": {
     "button": "ENG",
