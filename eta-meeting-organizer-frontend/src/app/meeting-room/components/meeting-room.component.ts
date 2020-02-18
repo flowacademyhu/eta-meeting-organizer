@@ -1,9 +1,9 @@
-import { MeetingRoomDeleteComponent } from './../../shared/Modals/meeting-room-delete.component';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
 import { MeetingRoom } from './../../models/meetingroom.model';
+import { MeetingRoomDeleteComponent } from './../../shared/Modals/meeting-room-delete.component';
 import { MeetingRoomRegisterComponent } from './../../shared/Modals/meeting-room-register.component';
 
 @Component({
@@ -65,12 +65,12 @@ export class MeetingRoomComponent implements OnInit {
   constructor(private readonly api: ApiCommunicationService,
               private readonly dialog: MatDialog) { }
 
-public ngOnInit() {
-  this.api.meetingRoom()
-  .getMeetingRooms();
-  this.meetingRoom$ = this.api.meetingRoom()
-  .meetingRoomSub;
-}
+  public ngOnInit() {
+    this.api.meetingRoom()
+      .getMeetingRooms();
+    this.meetingRoom$ = this.api.meetingRoom()
+      .meetingRoomSub;
+  }
 
    public openDialog(): void {
     this.dialog.open(MeetingRoomRegisterComponent, {
@@ -96,6 +96,4 @@ public ngOnInit() {
       .getMeetingRooms();
     });
    }
-
-
 }
