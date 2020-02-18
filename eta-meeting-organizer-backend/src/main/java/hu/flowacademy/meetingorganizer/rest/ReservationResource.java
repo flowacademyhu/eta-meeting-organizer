@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/reservations")
 @AllArgsConstructor
-@CrossOrigin("*")
 public class ReservationResource {
 
   private ReservationService reservationService;
