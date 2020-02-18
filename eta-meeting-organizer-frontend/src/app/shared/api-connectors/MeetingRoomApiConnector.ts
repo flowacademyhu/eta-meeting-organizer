@@ -1,12 +1,15 @@
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { MeetingRoom } from '~/app/models/meetingroom.model';
 import { AbstractApiConnector } from '~/app/shared/api-connectors/AbstractApiConnector';
 
 export class MeetingRoomApiConnector extends AbstractApiConnector {
   protected readonly apiRoute: string = `${this.apiBaseUrl}`;
+  public meetingRoomSub: BehaviorSubject<MeetingRoom[]> = new BehaviorSubject<MeetingRoom[]>([]);
 
-  public getMeetingRooms(): Observable<MeetingRoom[]> {
-    return this.http.get<MeetingRoom[]>(`${this.apiRoute}/meetingrooms`);
+  public getMeetingRooms() {
+   this.http.get<MeetingRoom[]>(`${this.apiRoute}/meetingrooms`)
+   .subscribe((data) => {this.meetingRoomSub.next(data);
+   });
   }
 
   public getOneMeetingRoomById(id: number): Observable<MeetingRoom> {
