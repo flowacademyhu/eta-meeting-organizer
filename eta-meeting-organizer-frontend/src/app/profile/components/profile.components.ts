@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
 import { User } from '~/app/models/user.model';
 import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
@@ -29,7 +29,7 @@ import { ApiCommunicationService } from '~/app/shared/services/api-communication
   `
 })
 
-export class ProfileComponent implements OnInit {
+export class ProfileComponent {
   public id: number = 3;
 
   public user$: Observable<User>;
@@ -38,8 +38,5 @@ export class ProfileComponent implements OnInit {
     this.user$ = this.api.user()
     .getOneUserById(this.id);
    }
-
-  ngOnInit() {
-}
 
 }
