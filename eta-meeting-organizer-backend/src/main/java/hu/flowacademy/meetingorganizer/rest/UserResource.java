@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -25,9 +26,10 @@ public class UserResource {
   private UserService userService;
 
   @GetMapping
-  public ResponseEntity<List<User>> findAll() {
-    List<User> users = userService.findAll();
-    return new ResponseEntity<>(users, HttpStatus.OK);
+  public ResponseEntity<List<User>> findAll(
+      @RequestParam(defaultValue = "0") Integer pageNumber,
+      @RequestParam(defaultValue = "10") Integer pageSize) {
+    return new ResponseEntity<>(userService.findAll(pageNumber, pageSize), HttpStatus.OK);
   }
 
   @GetMapping("/{id}")

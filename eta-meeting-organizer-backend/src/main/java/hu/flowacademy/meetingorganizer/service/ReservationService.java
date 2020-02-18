@@ -17,7 +17,11 @@ public class ReservationService {
   private ReservationRepository reservationRepository;
 
   public List<Reservation> findAll() {
-    return reservationRepository.findAll();
+      return reservationRepository.findAll();
+  }
+
+  public List<Reservation> findReservationsByUserId(Long id) {
+    return reservationRepository.findByUser_Id(id);
   }
 
   public Optional<Reservation> findOne(Long id) {

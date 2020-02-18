@@ -35,9 +35,6 @@ import { Component } from '@angular/core';
     <mat-sidenav-container color="accent">
       <mat-sidenav id="nav-sidebar" color="accent" #drawer mode="side" opened role="navigation">
         <mat-nav-list id="navbar-list" color="accent">
-          <a mat-list-item routerLink="/first">{{'navbar.calendar' | translate}}</a>
-          <a mat-list-item routerLink="/second">{{'navbar.meetingRoomEditor' | translate}}</a>
-          <a mat-list-item routerLink="/profile">{{'navbar.profile' | translate}}</a>
         </mat-nav-list>
       </mat-sidenav>
       <mat-sidenav-content color="accent">
@@ -47,6 +44,4 @@ import { Component } from '@angular/core';
     <app-footer></app-footer>
   `
 })
-export class MainLayoutComponent {
-
-}
+export class MainLayoutComponent { }

@@ -51,14 +51,42 @@ public class initDataLoader {
         .address("Győri utca 28 3/28")
         .build());
 
+    userRepository.save(User.builder()
+        .id(1l)
+        .name("Bandi")
+        .email("bandi@gmail.com")
+        .role(Role.USER).build());
+    userRepository.save(User.builder()
+        .id(2l)
+        .name("Károly")
+        .email("karcsi@gmail.com")
+        .role(Role.ADMIN).build());
+    userRepository.save(User.builder()
+        .id(3l)
+        .name("Zita")
+        .email("zita@gmail.com")
+        .role(Role.ADMIN).build());
+    userRepository.save(User.builder()
+        .id(4l)
+        .name("Zsuzsa")
+        .email("tuzes_zsuzsi@gmail.com")
+        .role(Role.USER).build());
+    userRepository.save(User.builder()
+        .id(5l)
+        .name("Béla")
+        .email("bela@gmail.com")
+        .role(Role.USER).build());
+
     reservationRepository.save(Reservation.builder()
         .id(1l)
+        .user(userRepository.getOne(1l))
         .title("Napi meeting")
         .summary("Megbeszéljük ki mivel haladt tegnap és mivel fog ma foglalkozni.")
-        .startingTime(LocalDateTime.now())
-        .endingTime(LocalDateTime.now()).build());
+        .startingTime(LocalDateTime.of(2020, 2, 17, 16, 00))
+        .endingTime(LocalDateTime.of(2020, 2, 17, 18, 00)).build());
     reservationRepository.save(Reservation.builder()
         .id(2l)
+        .user(userRepository.getOne(1l))
         .title("Flow tárgyalás")
         .summary("Új ügyfelek felkutatása.")
         .startingTime(LocalDateTime.now())
