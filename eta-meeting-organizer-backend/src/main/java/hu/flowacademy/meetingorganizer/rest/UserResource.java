@@ -29,8 +29,7 @@ public class UserResource {
   public ResponseEntity<List<User>> findAll(
       @RequestParam(defaultValue = "0") Integer pageNumber,
       @RequestParam(defaultValue = "10") Integer pageSize) {
-    List<User> users = userService.findAll(pageNumber, pageSize);
-    return new ResponseEntity<>(users, HttpStatus.OK);
+    return new ResponseEntity<>(userService.findAll(pageNumber, pageSize), HttpStatus.OK);
   }
 
   @GetMapping("/{id}")

@@ -29,8 +29,7 @@ public class MeetingRoomResource {
   public ResponseEntity<List<MeetingRoom>> findAll(
       @RequestParam(defaultValue = "0") Integer pageNumber,
       @RequestParam(defaultValue = "10") Integer pageSize) {
-    List<MeetingRoom> meetingrooms = meetingRoomService.findAll(pageNumber, pageSize);
-    return new ResponseEntity<>(meetingrooms, HttpStatus.OK);
+    return new ResponseEntity<>(meetingRoomService.findAll(pageNumber, pageSize), HttpStatus.OK);
   }
 
   @GetMapping("/{id}")
