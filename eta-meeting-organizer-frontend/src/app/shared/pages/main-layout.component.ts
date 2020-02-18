@@ -19,6 +19,4 @@ import { Component } from '@angular/core';
     <app-footer></app-footer>
   `
 })
-export class MainLayoutComponent {
-
-}
+export class MainLayoutComponent { }

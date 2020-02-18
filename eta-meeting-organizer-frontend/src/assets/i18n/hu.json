@@ -14,7 +14,8 @@
     "address":"Cím",
     "saveButton":"Mentés",
     "delete":"Épület törlése",
-    "deleteButton":"törlés"
+    "deleteButton":"törlés",
+    "add":"Épület hozzáadás"
   },
   "profile": {
     "username": "Felhasználói név",
@@ -33,12 +34,14 @@
     "selectBuilding":"Válasz telephelyet",
     "projector":"Projektor",
     "saveButton":"Mentés",
-    "delete": "Törlés"
+    "delete": "Törlés",
+    "add":"Iroda hozzáadás"
   },
   "navbar": {
     "calendar": "Naptár",
     "profile" : "Profil",
-    "meetingRoomEditor": "Tárgyaló kezelő"
+    "meetingRoomEditor": "Tárgyaló kezelő",
+    "buildingEditor":"Épületkezelő"
   },
   "header": {
     "button": "EN"
