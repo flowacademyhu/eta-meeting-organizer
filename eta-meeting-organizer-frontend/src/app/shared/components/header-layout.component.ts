@@ -31,6 +31,8 @@ import { TranslateService } from '@ngx-translate/core';
   <a class="mr-3" mat-stroked-button routerLink="/first">{{'navbar.calendar' | translate}}</a>
   <a class="mr-3" mat-stroked-button routerLink="/second">{{'navbar.meetingRoomEditor' | translate}}</a>
   <a class="mr-3" mat-stroked-button routerLink="/profile">{{'navbar.profile' | translate}}</a>
+  <a class="mr-3" mat-stroked-button routerLink="/building">{{'navbar.buildingEditor' | translate}}</a>
+
   <button mat-button class="ml-auto"(click)="onLanguageChange()">{{'header.button' | translate}}</button>
   <p class="email">kolbaszjoska@citromail.hu</p>
   <button mat-button id="logout" class="ml-2">
