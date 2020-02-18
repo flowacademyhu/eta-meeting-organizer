@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Observable, Subscription } from 'rxjs';
 import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
@@ -57,7 +57,7 @@ import { MeetingRoomRegisterComponent } from './../../shared/Modals/meeting-room
   `
 })
 
-export class MeetingRoomComponent implements OnInit, OnDestroy{
+export class MeetingRoomComponent implements OnInit, OnDestroy {
 
   public meetingRoom$: Observable<MeetingRoom[]>;
   public displayedColumns: string[] = ['name', 'numberOfSeat', 'projector', 'building', 'delete'];
