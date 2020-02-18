@@ -34,7 +34,8 @@
     "selectBuilding":"Válasz telephelyet",
     "projector":"Projektor",
     "saveButton":"Mentés",
-    "delete": "Törlés"
+    "delete": "Törlés",
+    "add":"Iroda hozzáadás"
   },
   "navbar": {
     "calendar": "Naptár",
@@ -43,8 +44,7 @@
     "buildingEditor":"Épületkezelő"
   },
   "header": {
-    "button": "ENG",
-    "exit": "Kilépés"
+    "button": "EN"
   }
-}
 
+}

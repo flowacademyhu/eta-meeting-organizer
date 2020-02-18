@@ -7,6 +7,7 @@ import hu.flowacademy.meetingorganizer.persistence.model.dto.MeetingRoomDTO;
 import hu.flowacademy.meetingorganizer.persistence.repository.MeetingRoomRepository;
 import java.util.Optional;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,8 +21,9 @@ public class MeetingRoomService {
   private MeetingRoomRepository meetingRoomRepository;
   private MeetingRoomDTOConverter meetingRoomDTOConverter;
 
-  public List<MeetingRoom> findAll() {
-    return meetingRoomRepository.findAll();
+  public List<MeetingRoom> findAll(Integer pageNumber, Integer pageSize) {
+    return meetingRoomRepository
+        .findAll(PageRequest.of(pageNumber, pageSize)).getContent();
   }
 
   public Optional<MeetingRoom> findOne(Long id) {
