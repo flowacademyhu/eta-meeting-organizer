@@ -23,7 +23,7 @@ public class UserService {
     return userRepository.findAll(PageRequest.of(pageNumber, pageSize)).getContent();
   }
 
-  public Optional<User> findOne(Long id) {
+  public Optional<User> findOne(String id) {
     return userRepository.findById(id);
   }
 
@@ -31,11 +31,11 @@ public class UserService {
     return userRepository.save(user);
   }
 
-  public void deleteUser(Long id) {
+  public void deleteUser(String id) {
     userRepository.deleteById(id);
   }
 
-  public User updateUser(Long id, User user) {
+  public User updateUser(String id, User user) {
     user.setId(id);
     return userRepository.save(user);
   }

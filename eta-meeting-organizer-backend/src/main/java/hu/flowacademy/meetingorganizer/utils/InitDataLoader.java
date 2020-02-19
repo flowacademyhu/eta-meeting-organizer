@@ -4,10 +4,10 @@ import hu.flowacademy.meetingorganizer.persistence.model.Building;
 import hu.flowacademy.meetingorganizer.persistence.model.MeetingRoom;
 import hu.flowacademy.meetingorganizer.persistence.model.Reservation;
 import hu.flowacademy.meetingorganizer.persistence.model.Role;
+import hu.flowacademy.meetingorganizer.persistence.model.User;
 import hu.flowacademy.meetingorganizer.persistence.repository.BuildingRepository;
 import hu.flowacademy.meetingorganizer.persistence.repository.MeetingRoomRepository;
-import hu.flowacademy.meetingorganizer.persistence.repository.ReservationRepository;
-import hu.flowacademy.meetingorganizer.persistence.model.User;
+import hu.flowacademy.meetingorganizer.persistence.repository.*;
 import hu.flowacademy.meetingorganizer.persistence.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
 @Component
 @Transactional
 @AllArgsConstructor
-public class initDataLoader {
+public class InitDataLoader {
 
   private final BuildingRepository buildingRepository;
   private final ReservationRepository reservationRepository;
@@ -54,59 +54,92 @@ public class initDataLoader {
         .build());
 
     userRepository.save(User.builder()
-        .id(1l)
-        .name("Bandi")
-        .email("bandi@gmail.com")
-        .role(Role.USER).build());
+        .id("10769150350006150715113082367")
+        .username("misi@gmail.com")
+        .isVerifiedByAdmin(true)
+        .role(Role.ADMIN)
+        .accountNonExpired(true)
+        .accountNonLocked(true)
+        .enabled(true)
+        .build());
     userRepository.save(User.builder()
-        .id(2l)
-        .name("Károly")
-        .email("karcsi@gmail.com")
-        .role(Role.ADMIN).build());
+        .id("10769150350006150715113077777")
+        .username("isti@gmail.com")
+        .isVerifiedByAdmin(false)
+        .role(Role.USER)
+        .accountNonExpired(true)
+        .accountNonLocked(true)
+        .enabled(true)
+        .build());
     userRepository.save(User.builder()
-        .id(3l)
-        .name("Zita")
-        .email("zita@gmail.com")
-        .role(Role.ADMIN).build());
+        .id("99999150350006150715113077777")
+        .username("klau@gmail.com")
+        .isVerifiedByAdmin(false)
+        .role(Role.USER)
+        .accountNonExpired(true)
+        .accountNonLocked(true)
+        .enabled(true)
+        .build());
     userRepository.save(User.builder()
-        .id(4l)
-        .name("Zsuzsa")
-        .email("tuzes_zsuzsi@gmail.com")
-        .role(Role.USER).build());
+        .id("8888150350006150715113077777")
+        .username("htpeti@gmail.com")
+        .isVerifiedByAdmin(true)
+        .role(Role.READER)
+        .accountNonExpired(true)
+        .accountNonLocked(true)
+        .enabled(true)
+        .build());
     userRepository.save(User.builder()
-        .id(5l)
-        .name("Béla")
-        .email("bela@gmail.com")
-        .role(Role.USER).build());
+        .id("11111110350006150715113077777")
+        .username("berentep@gmail.com")
+        .isVerifiedByAdmin(true)
+        .role(Role.ADMIN)
+        .accountNonExpired(true)
+        .accountNonLocked(true)
+        .enabled(true)
+        .build());
+    userRepository.save(User.builder()
+        .id("99999910350006150715113077777")
+        .username("schlange@gmail.com")
+        .isVerifiedByAdmin(true)
+        .role(Role.READER)
+        .accountNonExpired(true)
+        .accountNonLocked(true)
+        .enabled(true)
+        .build());
+
 
     reservationRepository.save(Reservation.builder()
         .id(1l)
-        .user(userRepository.getOne(1l))
+        .user(userRepository.findById("99999150350006150715113077777").orElse(null))
         .title("Napi meeting")
         .summary("Megbeszéljük ki mivel haladt tegnap és mivel fog ma foglalkozni.")
         .startingTime(LocalDateTime.of(2020, 2, 17, 16, 00))
         .endingTime(LocalDateTime.of(2020, 2, 17, 18, 00)).build());
     reservationRepository.save(Reservation.builder()
         .id(2l)
-        .user(userRepository.getOne(1l))
+        .user(userRepository.findById("99999150350006150715113077777").orElse(null))
         .title("Flow tárgyalás")
         .summary("Új ügyfelek felkutatása.")
         .startingTime(LocalDateTime.now())
         .endingTime(LocalDateTime.now()).build());
     reservationRepository.save(Reservation.builder()
         .id(3l)
+        .user(userRepository.findById("10769150350006150715113077777").orElse(null))
         .title("Húsvét")
         .summary("húsvéti program megbeszélése Pennywise-al")
         .startingTime(LocalDateTime.now())
         .endingTime(LocalDateTime.now()).build());
     reservationRepository.save(Reservation.builder()
         .id(4l)
+        .user(userRepository.findById("10769150350006150715113077777").orElse(null))
         .title("Karácsony")
         .summary("Megbeszéljük hogy mikor tartsuk illetve ki melyik zenekart szeretné ")
         .startingTime(LocalDateTime.now())
         .endingTime(LocalDateTime.now()).build());
     reservationRepository.save(Reservation.builder()
         .id(5l)
+        .user(userRepository.findById("10769150350006150715113082367").orElse(null))
         .title("Tesla")
         .summary("Tesla gyár látogatásának időpontja")
         .startingTime(LocalDateTime.now())

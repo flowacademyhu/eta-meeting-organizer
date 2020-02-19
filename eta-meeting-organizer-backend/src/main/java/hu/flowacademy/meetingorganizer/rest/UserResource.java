@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/users")
+@CrossOrigin("*")
 public class UserResource {
 
   @Autowired
@@ -33,10 +35,9 @@ public class UserResource {
   }
 
   @GetMapping("/{id}")
-  public ResponseEntity<User> getOne(@PathVariable Long id) {
+  public ResponseEntity<User> getOne(@PathVariable String id) {
     Optional<User> userOptional = userService.findOne(id);
-    return userOptional.isPresent() ? ResponseEntity.ok(userOptional.get())
-        : ResponseEntity.notFound().build();
+    return userOptional.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
   }
 
   @PostMapping
@@ -45,13 +46,13 @@ public class UserResource {
   }
 
   @DeleteMapping("/{id}")
-  public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
+  public ResponseEntity<Void> deleteUser(@PathVariable String id) {
     userService.deleteUser(id);
     return ResponseEntity.noContent().build();
   }
 
   @PutMapping("/{id}")
-  public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User user) {
+  public ResponseEntity<User> updateUser(@PathVariable String id, @RequestBody User user) {
     userService.updateUser(id, user);
     return ResponseEntity.accepted().build();
   }

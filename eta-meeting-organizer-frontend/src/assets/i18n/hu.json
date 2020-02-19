@@ -18,6 +18,7 @@
     "add":"Épület hozzáadás"
   },
   "profile": {
+    "id": "Azonosító",
     "username": "Felhasználói név",
     "lastName": "Vezetéknév",
     "firstName": "Keresztnév",
@@ -54,6 +55,12 @@
     "no": "Nem",
     "button": "EN",
     "exit": "Kilépés"
+  },
+  "user-delete-dialog": {
+    "userDelete": "Felhasználó törlése",
+    "verification": "Biztosan törölni akarja a felhasználót?",
+    "yes": "Igen",
+    "no": "Nem"
   },
   "authentication": {
     "answer": "A regisztráció admin általi jóváhagyásra vár!"

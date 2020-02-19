@@ -59,6 +59,13 @@ const routes: Routes = [
     path: 'meetingroom',
     pathMatch: 'full',
   },
+  {
+    component: MainLayoutComponent,
+    loadChildren: () => import('./users-table/users-table.module')
+      .then((m) => m.UsersTableModule),
+    path: 'users-table',
+    pathMatch: 'full',
+  },
 ];
 
 @NgModule({

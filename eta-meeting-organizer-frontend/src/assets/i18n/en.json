@@ -18,6 +18,7 @@
     "add":"Add building"
   },
   "profile": {
+    "id": "Identifier",
     "username": "Username",
     "lastName": "Lastname",
     "firstName": "Firstname",
@@ -49,7 +50,11 @@
   },
   "meeting-room-delete":{
     "meetingRoomDelete": "Meeting room deletion",
-    "verification": "Are you sure you want to delete meeting room?",
+    "verification": "Are you sure you want to delete meeting room?"
+  },
+  "user-delete-dialog": {
+    "userDelete": "User deletion",
+    "verification": "Are you sure you want to delete user?",
     "yes": "Yes",
     "no": "No"
   },
