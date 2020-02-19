@@ -33,7 +33,7 @@ public class UserResource {
   }
 
   @GetMapping("/{id}")
-  public ResponseEntity<User> getOne(@PathVariable Long id) {
+  public ResponseEntity<User> getOne(@PathVariable String id) {
     Optional<User> userOptional = userService.findOne(id);
     return userOptional.isPresent() ? ResponseEntity.ok(userOptional.get())
         : ResponseEntity.notFound().build();
@@ -45,13 +45,13 @@ public class UserResource {
   }
 
   @DeleteMapping("/{id}")
-  public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
+  public ResponseEntity<Void> deleteUser(@PathVariable String id) {
     userService.deleteUser(id);
     return ResponseEntity.noContent().build();
   }
 
   @PutMapping("/{id}")
-  public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User user) {
+  public ResponseEntity<User> updateUser(@PathVariable String id, @RequestBody User user) {
     userService.updateUser(id, user);
     return ResponseEntity.accepted().build();
   }
