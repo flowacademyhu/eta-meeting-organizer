@@ -8,9 +8,9 @@ export class MeetingRoomService {
 
   public _meetingRoomSub: BehaviorSubject<MeetingRoom[]> = new BehaviorSubject<MeetingRoom[]>([]);
 
-  constructor(private readonly meetingRoomCom: ApiCommunicationService){}
+  constructor(private readonly meetingRoomCom: ApiCommunicationService) {}
 
-  public get meetingRoomSub(){
+  public get meetingRoomSub() {
     return this._meetingRoomSub;
   }
 
