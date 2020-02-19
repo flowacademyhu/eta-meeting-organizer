@@ -3,7 +3,7 @@ spring:
     - default
     - dev
   datasource:
-    url: jdbc:mysql://localhost:3306/meetingorganizer
+    url: jdbc:mysql://localhost:3306/meetingorganizer?useUnicode=yes&characterEncoding=UTF-8
     username: meetingorganizer
     password: KkN7{/uvw}?CKi).hDY8YSM0}YMC3QT
   jpa:
