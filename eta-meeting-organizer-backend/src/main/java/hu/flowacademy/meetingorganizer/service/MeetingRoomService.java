@@ -39,6 +39,10 @@ public class MeetingRoomService {
     return meetingRoomRepository.save(meetingRoom);
   }
 
+  public List<MeetingRoom> findByBuildingId(Long id) {
+    return meetingRoomRepository.findByBuilding_Id(id);
+  }
+
   public MeetingRoomDTO create(MeetingRoom meetingRoom) {
     return new MeetingRoomDTO(meetingRoomRepository.save(meetingRoom));
   }
