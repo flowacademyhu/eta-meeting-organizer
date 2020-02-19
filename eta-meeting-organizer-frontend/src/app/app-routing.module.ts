@@ -10,6 +10,7 @@ const routes: Routes = [
     redirectTo: 'login',
   },
   {
+    canActivate: [AuthGuard],
     component: MainLayoutComponent,
     loadChildren: () => import('./calendar/calendar.module')
       .then((m) => m.CalendarModule),
