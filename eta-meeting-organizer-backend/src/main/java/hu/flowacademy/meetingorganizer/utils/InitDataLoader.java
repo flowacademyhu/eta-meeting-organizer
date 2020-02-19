@@ -54,7 +54,7 @@ public class InitDataLoader {
         .build());
 
     userRepository.save(User.builder()
-        .id("10769150350006150715113082367")
+        .id("111455286747437812553")
         .username("misi@gmail.com")
         .isVerifiedByAdmin(true)
         .role(Role.ADMIN)
@@ -111,14 +111,14 @@ public class InitDataLoader {
 
     reservationRepository.save(Reservation.builder()
         .id(1l)
-        .user(userRepository.findById("99999150350006150715113077777").orElse(null))
+        .user(userRepository.findById("111455286747437812553").orElse(null))
         .title("Napi meeting")
         .summary("Megbeszéljük ki mivel haladt tegnap és mivel fog ma foglalkozni.")
         .startingTime(LocalDateTime.of(2020, 2, 17, 16, 00))
         .endingTime(LocalDateTime.of(2020, 2, 17, 18, 00)).build());
     reservationRepository.save(Reservation.builder()
         .id(2l)
-        .user(userRepository.findById("99999150350006150715113077777").orElse(null))
+        .user(userRepository.findById("111455286747437812553").orElse(null))
         .title("Flow tárgyalás")
         .summary("Új ügyfelek felkutatása.")
         .startingTime(LocalDateTime.now())
