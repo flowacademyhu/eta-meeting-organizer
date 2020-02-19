@@ -1,7 +1,9 @@
 package hu.flowacademy.meetingorganizer.rest;
 
 import hu.flowacademy.meetingorganizer.persistence.model.MeetingRoom;
+import hu.flowacademy.meetingorganizer.persistence.model.dto.MeetingRoomDTO;
 import hu.flowacademy.meetingorganizer.service.MeetingRoomService;
+import java.util.List;
 import java.util.Optional;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -15,8 +17,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/meetingrooms")
@@ -34,15 +34,14 @@ public class MeetingRoomResource {
 
   @GetMapping("/{id}")
   public ResponseEntity<MeetingRoom> findOne(@PathVariable Long id) {
-    Optional<MeetingRoom> meetingRoomOptional = meetingRoomService.findOne(id);
-    return meetingRoomOptional.isPresent() ? ResponseEntity.ok(meetingRoomOptional.get())
-        : ResponseEntity.notFound().build();
+    return meetingRoomService.findOne(id).map(ResponseEntity::ok)
+        .orElseGet(() -> ResponseEntity.notFound().build());
 
   }
 
   @PostMapping
-  public ResponseEntity<MeetingRoom> createMeetingRoom(@RequestBody MeetingRoom meetingRoom) {
-    return new ResponseEntity<>(meetingRoomService.createMeetingRoom(meetingRoom),
+  public ResponseEntity<MeetingRoomDTO> createMeetingRoom(@RequestBody MeetingRoom meetingRoom) {
+    return new ResponseEntity<>(meetingRoomService.create(meetingRoom),
         HttpStatus.CREATED);
   }
 

@@ -40,8 +40,8 @@ public class BuildingResource {
   @GetMapping("/{id}")
   public ResponseEntity<Building> findOne(@PathVariable Long id) {
     Optional<Building> buildingOptional = buildingService.findOne(id);
-    return buildingOptional.isPresent() ? ResponseEntity.ok(buildingOptional.get())
-        : ResponseEntity.notFound().build();
+    return buildingOptional.map(ResponseEntity::ok)
+        .orElseGet(() -> ResponseEntity.notFound().build());
   }
 
   @PutMapping("/{id}")
