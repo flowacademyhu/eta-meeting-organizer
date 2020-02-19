@@ -4,6 +4,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { ApiCommunicationService } from '../services/api-communication.service';
 import { MeetingRoom } from './../../models/meetingroom.model';
+import { Building } from '~/app/models/building.model';
 
 @Component({
   selector: 'app-meeting-room-register',
@@ -20,6 +21,14 @@ import { MeetingRoom } from './../../models/meetingroom.model';
  template: `
  <div mat-dialog-content>
    <form [formGroup]="meetingRoomForm" (ngSubmit)="onSubmit()">
+   <mat-form-field>
+       <mat-label>Épület</mat-label>
+       <mat-select formControlName="select">
+    <mat-option *ngFor="let building of buildings$ | async" [value]="building.value">
+    {{building.city}}
+    </mat-option>
+  </mat-select>
+     </mat-form-field>
      <mat-form-field>
        <mat-label>{{'meeting-room.text' | translate}}</mat-label>
          <input type="text" name="name" formControlName="name"
@@ -47,6 +56,7 @@ export class MeetingRoomRegisterComponent implements OnInit {
   @Input()
   public checked: boolean = true;
   public meetingRoom$: Observable<MeetingRoom[]>;
+  public buildings$: Observable<Building[]>;
   public meetingRoomForm: FormGroup;
   public meetingRoom: MeetingRoom;
 
@@ -56,10 +66,14 @@ export class MeetingRoomRegisterComponent implements OnInit {
     }
 
     public ngOnInit() {
+      this.buildings$ = this.api.building()
+      .getBuildings();
+      console.log(this.buildings$);
       this.meetingRoomForm = new FormGroup({
       name : new FormControl('', Validators.required ),
       numberOfSeats : new FormControl('', Validators.required),
       projector : new FormControl('', Validators.required),
+      select : new FormControl('', Validators.required),
       });
     }
 
