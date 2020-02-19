@@ -44,7 +44,10 @@
     "buildingEditor":"Épületkezelő"
   },
   "header": {
-    "button": "EN"
+    "button": "EN",
+    "exit": "Kilépés"
+  },
+  "authentication": {
+    "answer": "A regisztráció admin általi jóváhagyásra vár!"
   }
-
 }

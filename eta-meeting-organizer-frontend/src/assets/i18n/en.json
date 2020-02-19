@@ -44,7 +44,10 @@
     "buildingEditor":"Building editor"
   },
   "header": {
-    "button": "HU"
+    "button": "HU",
+    "exit": "Sign Out"
+  },
+  "authentication": {
+    "answer": "Your registration has not been verified by admin yet!"
   }
-
 }
