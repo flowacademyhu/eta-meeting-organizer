@@ -35,8 +35,7 @@ public class UserResource {
   @GetMapping("/{id}")
   public ResponseEntity<User> getOne(@PathVariable String id) {
     Optional<User> userOptional = userService.findOne(id);
-    return userOptional.isPresent() ? ResponseEntity.ok(userOptional.get())
-        : ResponseEntity.notFound().build();
+    return userOptional.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
   }
 
   @PostMapping
