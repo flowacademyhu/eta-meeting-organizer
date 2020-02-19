@@ -1,14 +1,14 @@
 package hu.flowacademy.meetingorganizer.service;
 
 import hu.flowacademy.meetingorganizer.persistence.model.MeetingRoom;
+import hu.flowacademy.meetingorganizer.persistence.model.dto.MeetingRoomDTO;
 import hu.flowacademy.meetingorganizer.persistence.repository.MeetingRoomRepository;
+import java.util.List;
 import java.util.Optional;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 @Service
 @AllArgsConstructor
@@ -41,5 +41,9 @@ public class MeetingRoomService {
 
   public List<MeetingRoom> findByBuildingId(Long id) {
     return meetingRoomRepository.findByBuilding_Id(id);
+  }
+
+  public MeetingRoomDTO create(MeetingRoom meetingRoom) {
+    return new MeetingRoomDTO(meetingRoomRepository.save(meetingRoom));
   }
 }
