@@ -8,9 +8,6 @@ import { UserService } from './../../shared/services/user.service';
 @Component({
   selector: 'app-users-table',
   styles: [`
-    .row {
-      min-height: calc(100vh - 60px);
-    }
     table {
       width: 100%;
     }
