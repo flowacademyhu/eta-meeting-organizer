@@ -28,6 +28,7 @@ app:
 role:
   admins:
     - vajgi90@gmail.com
+    - hpeti1988@gmail.com
   readers:
     - vajgely.tamas@gmail.com
 ---
@@ -62,5 +63,6 @@ app:
 role:
   admins:
     - vajgi90@gmail.com
+    - hpeti1988@gmail.com
   readers:
     - vajgely.tamas@gmail.com
