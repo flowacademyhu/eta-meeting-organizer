@@ -15,15 +15,11 @@ import { MeetingRoomService } from './../../shared/services/meeting-room.service
     table {
       width: 100%;
     }
-    .addButton {
-      width: 100%;
-    }
   `],
   template: `
-  <button mat-raised-button color="warn"
-          class="addButton"
+  <button mat-icon-button color="primary"
           (click)="openDialog()">
-          {{'meeting-room.add' | translate}}
+          <mat-icon>add</mat-icon>
   </button>
     <div class="row justify-content-center">
       <table mat-table [dataSource]="meetingRoom$ | async" class="mat-elevation-z8">
@@ -44,10 +40,14 @@ import { MeetingRoomService } from './../../shared/services/meeting-room.service
           <td mat-cell *matCellDef="let meetingRoom">{{meetingRoom.building}</td>
         </ng-container>
         <ng-container matColumnDef="delete">
-          <th mat-header-cell *matHeaderCellDef> {{'meeting-room.delete' | translate}} </th>
+          <th mat-header-cell *matHeaderCellDef></th>
           <td mat-cell *matCellDef="let meetingRoom">
-            <button mat-raised-button color="warn" (click)="deleteDialog(meetingRoom.id)">
-              {{'meeting-room.delete' | translate}}</button>
+          <button mat-icon-button color="accent" (click)="deleteDialog(meetingRoom.id)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button color="primary">
+            <mat-icon>delete</mat-icon>
+          </button>
           </td>
         </ng-container>
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

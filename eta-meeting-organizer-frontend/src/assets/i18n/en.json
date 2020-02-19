@@ -44,14 +44,16 @@
     "buildingEditor":"Building editor"
   },
   "header": {
-    "button": "HU"
+    "button": "HU",
+    "exit": "Sign Out"
   },
-  "meeting-room-delete": {
+  "meeting-room-delete":{
     "meetingRoomDelete": "Meeting room deletion",
     "verification": "Are you sure you want to delete meeting room?",
     "yes": "Yes",
     "no": "No"
+  },
+  "authentication": {
+    "answer": "Your registration has not been verified by admin yet!"
   }
-
-
 }
