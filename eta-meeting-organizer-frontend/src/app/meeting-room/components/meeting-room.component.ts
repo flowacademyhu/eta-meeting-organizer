@@ -1,10 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Observable, Subscription } from 'rxjs';
-import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
 import { MeetingRoom } from './../../models/meetingroom.model';
 import { MeetingRoomDeleteComponent } from './../../shared/Modals/meeting-room-delete.component';
 import { MeetingRoomRegisterComponent } from './../../shared/Modals/meeting-room-register.component';
+import { MeetingRoomService } from './../../shared/services/meeting-room.service';
 
 @Component({
   selector: 'app-meeting-room-listing',
@@ -63,14 +63,13 @@ export class MeetingRoomComponent implements OnInit, OnDestroy {
   public displayedColumns: string[] = ['name', 'numberOfSeat', 'projector', 'building', 'delete'];
   public unsubFromDialog: Subscription;
 
-  constructor(private readonly api: ApiCommunicationService,
+  constructor(private readonly meetingRoomService: MeetingRoomService,
               private readonly dialog: MatDialog) { }
 
   public ngOnInit() {
-    this.api.meetingRoom()
-      .getMeetingRooms();
-    this.meetingRoom$ = this.api.meetingRoom()
-      .meetingRoomSub;
+  this.meetingRoomService.getAllMeetingRooms();
+  this.meetingRoom$ = this.meetingRoomService
+  .meetingRoomSub;
   }
 
    public openDialog(): void {
@@ -94,11 +93,10 @@ export class MeetingRoomComponent implements OnInit, OnDestroy {
   }
 
   public deleteMeetingRoom(id: number) {
-    this.api.meetingRoom()
-    .deleteMeetingRoomById(id)
+    this.meetingRoomService.deleteMeetingRoom(id)
     .subscribe(() => {
-      this.api.meetingRoom()
-      .getMeetingRooms();
+      this.meetingRoomService
+      .getAllMeetingRooms();
     });
   }
 }
