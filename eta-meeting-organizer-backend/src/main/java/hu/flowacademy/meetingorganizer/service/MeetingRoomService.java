@@ -38,4 +38,8 @@ public class MeetingRoomService {
     meetingRoom.setId(id);
     return meetingRoomRepository.save(meetingRoom);
   }
+
+  public List<MeetingRoom> findByBuildingId(Long id) {
+    return meetingRoomRepository.findByBuilding_Id(id);
+  }
 }

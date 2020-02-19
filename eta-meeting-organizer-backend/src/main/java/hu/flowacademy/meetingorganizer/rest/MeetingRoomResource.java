@@ -37,7 +37,11 @@ public class MeetingRoomResource {
     Optional<MeetingRoom> meetingRoomOptional = meetingRoomService.findOne(id);
     return meetingRoomOptional.isPresent() ? ResponseEntity.ok(meetingRoomOptional.get())
         : ResponseEntity.notFound().build();
+  }
 
+  @GetMapping("/{buildingId}/buildings")
+  public ResponseEntity<List<MeetingRoom>> findByBuildingId(@PathVariable Long buildingId) {
+    return new ResponseEntity<>(meetingRoomService.findByBuildingId(buildingId), HttpStatus.OK);
   }
 
   @PostMapping

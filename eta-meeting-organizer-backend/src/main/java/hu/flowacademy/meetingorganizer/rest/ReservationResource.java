@@ -32,13 +32,14 @@ public class ReservationResource {
   }
 
   @GetMapping("/{userId}/users")
-  public ResponseEntity<List<Reservation>> findReservationsByUserId(@PathVariable Long userId) {
+  public ResponseEntity<List<Reservation>> findByUserId(@PathVariable Long userId) {
     return new ResponseEntity<>(reservationService.findReservationsByUserId(userId), HttpStatus.OK);
   }
 
   @GetMapping("/{meetingRoomId}/meetingrooms")
-  public ResponseEntity<List<Reservation>> findReservationsByMeetingRoomId(@PathVariable Long meetingRoomId) {
-    return new ResponseEntity<>(reservationService.findReservationsByMeetingRoomId(meetingRoomId), HttpStatus.OK);
+  public ResponseEntity<List<Reservation>> findByMeetingRoomId(@PathVariable Long meetingRoomId) {
+    return new ResponseEntity<>(reservationService.findReservationsByMeetingRoomId(meetingRoomId),
+        HttpStatus.OK);
   }
 
   @GetMapping("/{id}")

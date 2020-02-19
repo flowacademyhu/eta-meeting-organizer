@@ -41,4 +41,8 @@ public class BuildingService {
   public List<String> findAllCities() {
     return buildingRepository.findAllCities();
   }
+
+  public List<Building> findByCity(String city) {
+    return buildingRepository.findByCity(city);
+  }
 }
