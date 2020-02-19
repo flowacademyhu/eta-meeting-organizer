@@ -5,15 +5,19 @@ import { AbstractApiConnector } from '~/app/shared/api-connectors/AbstractApiCon
 export class UserApiConnector extends AbstractApiConnector {
   protected readonly apiRoute: string = `${this.apiBaseUrl}`;
 
-  public getUsers(): Observable<User[]> {
-    return this.http.get<User[]>(`${this.apiRoute}/users`);
+  public getUsers() {
+   return this.http.get<User[]>(`${this.apiRoute}/users`);
   }
 
-  public getOneUserById(id: number): Observable<User> {
+  public getOneUserById(id: string): Observable<User> {
     return this.http.get<User>(`${this.apiRoute}/users/` + id);
   }
 
-  public deleteUserById(id: number) {
+  public deleteUserById(id: string) {
     return this.http.delete(`${this.apiRoute}/users/` + id);
+  }
+
+  public updateUserById(id: string) {
+    return this.http.put(`${this.apiRoute}/users/` + id, {verifiedByAdmin: true} );
   }
 }

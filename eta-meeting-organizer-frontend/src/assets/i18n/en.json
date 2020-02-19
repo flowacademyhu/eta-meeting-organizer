@@ -18,6 +18,7 @@
     "add":"Add building"
   },
   "profile": {
+    "id": "Identifier",
     "username": "Username",
     "lastName": "Lastname",
     "firstName": "Firstname",
@@ -46,6 +47,16 @@
   "header": {
     "button": "HU",
     "exit": "Sign Out"
+  },
+  "meeting-room-delete":{
+    "meetingRoomDelete": "Meeting room deletion",
+    "verification": "Are you sure you want to delete meeting room?"
+  },
+  "user-delete-dialog": {
+    "userDelete": "User deletion",
+    "verification": "Are you sure you want to delete user?",
+    "yes": "Yes",
+    "no": "No"
   },
   "authentication": {
     "answer": "Your registration has not been verified by admin yet!"
