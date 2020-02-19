@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-
+import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-user-delete-dialog',
   template: `
@@ -13,4 +13,8 @@ import { Component } from '@angular/core';
 })
 
 export class UserDeleteDialogComponent {
+  constructor(private snackbar: MatSnackBar) {}
+  public openSnackBar(message: string, action: string) {
+  this.snackbar.open(message, action, {duration: 2000});
+  }
 }
