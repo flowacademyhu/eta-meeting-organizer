@@ -12,6 +12,7 @@ import { HeaderComponent } from './components/header-layout.component';
 import { BuildingRegisterComponent } from './Modals/building-register.component';
 import { MeetingRoomDeleteComponent } from './Modals/meeting-room-delete.component';
 import { MeetingRoomRegisterComponent } from './Modals/meeting-room-register.component';
+import { MeetingRoomService } from './services/meeting-room.service';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { MeetingRoomRegisterComponent } from './Modals/meeting-room-register.com
   providers: [
     ApiCommunicationService,
     ConfigurationService,
+    MeetingRoomService,
   ],
 })
 export class SharedModule { }
