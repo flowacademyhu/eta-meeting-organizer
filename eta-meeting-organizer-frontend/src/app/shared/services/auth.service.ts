@@ -8,7 +8,7 @@ export class AuthService {
   private _user: UserToken;
 
   get user(): UserToken {
-    return this.user;
+    return this._user;
   }
 
   constructor(private readonly configService: ConfigurationService) {}

@@ -37,7 +37,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
 
   protected locales: Locale[] = [huLocale];
 
-  public userId: number = 1;
+  public userId: string = '111455286747437812553';
 
   public options: OptionsInput;
   public calendarPlugins: object[] = [dayGridPlugin, timeGridPlugin];
