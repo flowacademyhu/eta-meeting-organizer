@@ -15,12 +15,15 @@ import { ConfigurationService } from '~/app/shared/services/configuration.servic
 import { HeaderComponent } from './components/header-layout.component';
 import { BuildingRegisterComponent } from './Modals/building-register.component';
 import { MeetingRoomRegisterComponent } from './Modals/meeting-room-register.component';
+import { UserDeleteDialogComponent } from './Modals/user-delete-dialog';
+import { UserService } from './services/user.service';
 
 @NgModule({
   declarations: [
     MainLayoutComponent,
     HeaderComponent,
     FooterComponent,
+    UserDeleteDialogComponent,
     MeetingRoomRegisterComponent,
     BuildingRegisterComponent,
   ],
@@ -41,6 +44,7 @@ import { MeetingRoomRegisterComponent } from './Modals/meeting-room-register.com
   providers: [
     ApiCommunicationService,
     ConfigurationService,
+    UserService,
     AuthGuard,
     AuthService,
     {provide: HTTP_INTERCEPTORS, useClass: RequestInterceptorService, multi: true},

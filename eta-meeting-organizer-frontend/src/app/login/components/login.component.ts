@@ -1,27 +1,31 @@
 import { Component } from '@angular/core';
-import { environment } from '~/environment/environment';
 
 @Component({
   selector: 'app-login',
   styles: [
     `
+      #row {
+        min-height: calc(100vh - 60px);
+      }
       #customBtn {
         display: inline-block;
-        background: rgb(51, 51, 51);
+        background: rgb(59,59,59);
         color: rgb(243, 245, 237);
         width: 190px;
         border-radius: 5px;
-        box-shadow: 1px 1px 1px grey;
-        white-space: nowrap;
+        white-space: 10px;
+        padding-left: 10px;
+
       }
       img {
         background: transparent 5px 50% no-repeat;
         display: inline-block;
         vertical-align: middle;
-        width: 42px;
-        height: 42px;
+        width: 35px;
+        height: 35px;
       }
       span.buttonText {
+        color: white;
         display: inline-block;
         vertical-align: middle;
         padding-left: 42px;
@@ -31,34 +35,45 @@ import { environment } from '~/environment/environment';
         font-family: "Roboto", sans-serif;
       }
       mat-card {
-        margin-top: 20%;
+        justify-content: center;
+        background-color: rgb(51, 51, 51);
       }
       mat-card-title,
       mat-card-content {
         display: flex;
         justify-content: center;
+        padding-top: 20px;
       }
-    }
+      #image {
+        background: transparent 5px 50% no-repeat;
+        display: inline-block;
+        vertical-align: middle;
+        width: 150px;
+        height: 100px;
+      }
+      #googleicon{
+        padding-right: 10px;
+      }
     `,
   ],
   template: `
-    <div class="d-flex justify-content-center">
-      <mat-card id="login" class="w-50">
-        <mat-card-title>{{ "login.title" | translate }}</mat-card-title>
-        <br />
-        <mat-card-content>
-          <a href="${environment.googleAuthLink}">
-            <div id="customBtn" class="customGPlusSignIn">
-              <span class="icon">
+    <div id="row" class="row align-items-center justify-content-center">
+      <div class="col-sm-4">
+        <mat-card id="login" style="text-align: center;">
+            <img id="image" src="../../../assets/wysio_arrow.png"/>
+
+          <mat-card-content>
+            <button mat-stroked-button id="customBtn" class="customGPlusSignIn" style="cursor: pointer;">
+              <span class="icon" id="googleicon">
                 <img src="../../../assets/googlelogo.png" />
               </span>
-              <span class="buttonText">{{
+              <span (click)="signInWithGoogle()">{{
                 "login.loginButton" | translate
               }}</span>
-            </div>
-          </a>
-        </mat-card-content>
-      </mat-card>
+            </button>
+          </mat-card-content>
+        </mat-card>
+      </div>
     </div>
   `
 })
