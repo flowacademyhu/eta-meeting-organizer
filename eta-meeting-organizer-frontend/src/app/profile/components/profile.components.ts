@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { User } from '~/app/models/user.model';
 import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
@@ -29,14 +29,21 @@ import { ApiCommunicationService } from '~/app/shared/services/api-communication
   `
 })
 
-export class ProfileComponent {
-  public id: number = 3;
+export class ProfileComponent implements OnInit {
+  public id: string = '8888150350006150715113077777';
 
   public user$: Observable<User>;
 
   constructor(private readonly api: ApiCommunicationService) {
-    this.user$ = this.api.user()
-    .getOneUserById(this.id);
+
+   }
+
+   ngOnInit() {
+    this.api.user()
+    .getOneUserById(this.id)
+    .subscribe(data => {
+      console.log(data);
+    })
    }
 
 }
