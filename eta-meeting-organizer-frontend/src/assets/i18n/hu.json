@@ -53,5 +53,8 @@
     "verification": "Biztosan törölni akarja a felhasználót?",
     "yes": "Igen",
     "no": "Nem"
+  },
+  "authentication": {
+    "answer": "A regisztráció admin általi jóváhagyásra vár!"
   }
 }

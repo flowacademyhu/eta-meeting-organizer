@@ -53,6 +53,8 @@
     "verification": "Are you sure you want to delete user?",
     "yes": "Yes",
     "no": "No"
+  },
+  "authentication": {
+    "answer": "Your registration has not been verified by admin yet!"
   }
-
 }
