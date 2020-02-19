@@ -2,7 +2,6 @@ package hu.flowacademy.meetingorganizer.rest;
 
 import hu.flowacademy.meetingorganizer.persistence.model.Building;
 import hu.flowacademy.meetingorganizer.service.BuildingService;
-import java.util.Optional;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -39,9 +38,18 @@ public class BuildingResource {
 
   @GetMapping("/{id}")
   public ResponseEntity<Building> findOne(@PathVariable Long id) {
-    Optional<Building> buildingOptional = buildingService.findOne(id);
-    return buildingOptional.isPresent() ? ResponseEntity.ok(buildingOptional.get())
-        : ResponseEntity.notFound().build();
+    return buildingService.findOne(id).map(ResponseEntity::ok)
+        .orElseGet(() -> ResponseEntity.notFound().build());
+  }
+
+  @GetMapping("/cities/names")
+  public ResponseEntity<List<String>> findAllCities() {
+    return new ResponseEntity<>(buildingService.findAllCities(), HttpStatus.OK);
+  }
+
+  @GetMapping("/cities")
+  public ResponseEntity<List<Building>> findByCity(@RequestParam String city) {
+    return new ResponseEntity<>(buildingService.findByCity(city), HttpStatus.OK);
   }
 
   @PutMapping("/{id}")

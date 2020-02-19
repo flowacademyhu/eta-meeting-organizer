@@ -2,8 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
-import { ApiCommunicationService } from '../services/api-communication.service';
-import { MeetingRoom } from './../../models/meetingroom.model';
+import { MeetingRoom } from '~/app/models/meetingroom.model';
+import { MeetingRoomService } from './../services/meeting-room.service';
 
 @Component({
   selector: 'app-meeting-room-register',
@@ -52,7 +52,7 @@ export class MeetingRoomRegisterComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<MeetingRoomRegisterComponent>,
-    private readonly api: ApiCommunicationService) {
+    private readonly meetingRoomService: MeetingRoomService) {
     }
 
     public ngOnInit() {
@@ -64,10 +64,11 @@ export class MeetingRoomRegisterComponent implements OnInit {
     }
 
   public onSubmit() {
-    this.api.meetingRoom()
-      .postMeetingRoom(this.meetingRoomForm.getRawValue())
-      .subscribe((data) => {
+    this.meetingRoomService.
+    postMeetingRoom(this.meetingRoomForm.getRawValue())
+    .subscribe((data) => {
         this.meetingRoom = data;
+        this.meetingRoomService.getAllMeetingRooms();
       });
   }
 }
