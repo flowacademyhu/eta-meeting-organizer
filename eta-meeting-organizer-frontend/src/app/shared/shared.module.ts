@@ -39,6 +39,7 @@ import { UserDeleteDialogComponent } from './Modals/user-delete-dialog';
   providers: [
     ApiCommunicationService,
     ConfigurationService,
+    UserService,
   ],
 })
 export class SharedModule { }
