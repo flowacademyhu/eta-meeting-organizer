@@ -8,7 +8,7 @@ import { AuthService } from '~/app/shared/services/auth.service';
   styles: [
     `
     #message {
-      margin-top: 20%;
+      padding-top: 25%;
     }
     `,
   ],
