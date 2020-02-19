@@ -36,7 +36,7 @@ import {ConfigurationService} from '~/app/shared/services/configuration.service'
 
   <button mat-button class="ml-auto"(click)="onLanguageChange()">{{'header.button' | translate}}</button>
   <p class="email">kolbaszjoska@citromail.hu</p>
-  <button mat-button id="logout" class="ml-2">
+  <button mat-button id="logout" class="ml-2" (click)="logout()">
   <p><img padding="20" src="../../../assets/logout.png" height="50"/></p>
   </button>
 </mat-toolbar>`
