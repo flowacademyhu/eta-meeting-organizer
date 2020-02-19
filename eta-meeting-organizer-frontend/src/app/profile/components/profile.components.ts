@@ -14,6 +14,10 @@ import { Component } from '@angular/core';
   <div class="row justify-content-center align-items-center">
     <div class="col-4">
     <mat-card class="card">
+      <h2>{{'profile.username' | translate}}:  {{(user$ | async)?.username}} </h2>
+      <h2>{{'profile.role' | translate}}:  {{(user$ | async)?.role}}</h2>
+      <h2>{{'profile.lastName' | translate}}:</h2>
+      <h2>{{'profile.firstName' | translate}}:</h2>
       <button mat-raised-button color="primary">{{'profile.delete' | translate}}</button>
     </mat-card>
     </div>
@@ -22,6 +26,15 @@ import { Component } from '@angular/core';
 })
 
 export class ProfileComponent {
+
+  public id: string = '3';
+
+  public user$: Observable<User>;
+
+  constructor(private readonly api: ApiCommunicationService) {
+    this.user$ = this.api.user()
+    .getOneUserById(this.id);
+   }
 
   // tslint:disable-next-line: no-empty
   constructor() {}
