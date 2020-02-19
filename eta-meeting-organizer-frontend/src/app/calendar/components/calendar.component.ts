@@ -11,7 +11,6 @@ import { ApiCommunicationService } from '~/app/shared/services/api-communication
   selector: 'app-calendar',
   styles: [``],
   template: `
-    <app-calendar-header></app-calendar-header>
     <full-calendar
       deepChangeDetection="true"
       defaultView="timeGridWeek"
@@ -51,7 +50,7 @@ export class CalendarComponent implements OnInit {
     this.api
       .reservation()
       .getOneReservationById(this.id)
-      .subscribe(data => {
+      .subscribe((data) => {
         this.reservation = data;
         this.calendarEvents.push({
           end: this.reservation.endingTime,
