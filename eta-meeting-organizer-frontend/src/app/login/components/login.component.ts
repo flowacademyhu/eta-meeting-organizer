@@ -67,8 +67,7 @@ import { environment } from '~/environment/environment';
         <mat-card id="login" style="text-align: center;">
             <img id="image" src="../../../assets/wysio_arrow.png"/>
           <mat-card-content>
-            <button mat-stroked-button id="customBtn" class="customGPlusSignIn" style="cursor: pointer;">
-            <a href="${environment.googleAuthLink}">
+            <a href="${environment.googleAuthLink}" class="customGPlusSignIn" style="cursor: pointer;">
               <span class="icon" id="googleicon">
                 <img src="../../../assets/googlelogo.png" />
               </span>
@@ -76,7 +75,6 @@ import { environment } from '~/environment/environment';
                 "login.loginButton" | translate
               }}</span>
               </a>
-            </button>
           </mat-card-content>
         </mat-card>
       </div>
