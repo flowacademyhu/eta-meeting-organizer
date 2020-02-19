@@ -47,7 +47,7 @@ const routes: Routes = [
     component: MainLayoutComponent,
     loadChildren: () => import('./users-table/users-table.module')
       .then((m) => m.UsersTableModule),
-    path: 'userstable',
+    path: 'users-table',
     pathMatch: 'full',
   },
 ];

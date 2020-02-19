@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
-import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
 import { User } from './../../models/user.model';
 import { UserDeleteDialogComponent } from './../../shared/Modals/user-delete-dialog';
+import { UserService } from './../../shared/services/user.service';
 
 @Component({
   selector: 'app-users-table',
@@ -64,13 +64,12 @@ export class UsersTableComponent implements OnInit {
   public users$: Observable<User[]>;
   public displayedColumns: string[] = ['id', 'name', 'email', 'role', 'action'];
 
-  constructor(private readonly api: ApiCommunicationService,
+  constructor(private readonly userService: UserService,
               private readonly dialog: MatDialog) { }
 
    public ngOnInit() {
-    this.api.user()
-    .getUsers();
-    this.users$ = this.api.user()
+    this.userService.getAllUsers();
+    this.users$ = this.userService
     .userSub;
    }
 
@@ -85,11 +84,10 @@ export class UsersTableComponent implements OnInit {
    }
 
    public deleteUser(id: number) {
-    this.api.user()
-    .deleteUserById(id)
+    this.userService.deleteUser(id)
     .subscribe(() => {
-      this.api.user()
-      .getUsers();
-    });
+      this.userService
+      .getAllUsers();
+      });
    }
 }

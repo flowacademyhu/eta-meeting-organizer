@@ -12,6 +12,7 @@ import { HeaderComponent } from './components/header-layout.component';
 import { BuildingRegisterComponent } from './Modals/building-register.component';
 import { MeetingRoomRegisterComponent } from './Modals/meeting-room-register.component';
 import { UserDeleteDialogComponent } from './Modals/user-delete-dialog';
+import { UserService } from './services/user.service';
 
 @NgModule({
   declarations: [

@@ -1,4 +1,4 @@
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { User } from '~/app/models/user.model';
 import { AbstractApiConnector } from '~/app/shared/api-connectors/AbstractApiConnector';
 
