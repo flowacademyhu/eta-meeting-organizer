@@ -14,8 +14,10 @@ import { AuthService } from '~/app/shared/services/auth.service';
 import { ConfigurationService } from '~/app/shared/services/configuration.service';
 import { HeaderComponent } from './components/header-layout.component';
 import { BuildingRegisterComponent } from './Modals/building-register.component';
+import { MeetingRoomDeleteComponent } from './Modals/meeting-room-delete.component';
 import { MeetingRoomRegisterComponent } from './Modals/meeting-room-register.component';
 import { UserDeleteDialogComponent } from './Modals/user-delete-dialog';
+import { MeetingRoomService } from './services/meeting-room.service';
 import { UserService } from './services/user.service';
 
 @NgModule({
@@ -26,6 +28,7 @@ import { UserService } from './services/user.service';
     UserDeleteDialogComponent,
     MeetingRoomRegisterComponent,
     BuildingRegisterComponent,
+    MeetingRoomDeleteComponent,
   ],
   exports: [
     CommonModule,
@@ -44,6 +47,7 @@ import { UserService } from './services/user.service';
   providers: [
     ApiCommunicationService,
     ConfigurationService,
+    MeetingRoomService,
     UserService,
     AuthGuard,
     AuthService,

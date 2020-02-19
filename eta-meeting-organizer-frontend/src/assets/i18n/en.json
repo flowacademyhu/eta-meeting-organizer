@@ -48,6 +48,10 @@
     "button": "HU",
     "exit": "Sign Out"
   },
+  "meeting-room-delete":{
+    "meetingRoomDelete": "Meeting room deletion",
+    "verification": "Are you sure you want to delete meeting room?"
+  },
   "user-delete-dialog": {
     "userDelete": "User deletion",
     "verification": "Are you sure you want to delete user?",
