@@ -18,6 +18,6 @@ export class UserApiConnector extends AbstractApiConnector {
   }
 
   public updateUserById(id: string) {
-    return this.http.put(`${this.apiRoute}/users/` + id, {valid: true} );
+    return this.http.put(`${this.apiRoute}/users/` + id, {verifiedByAdmin: true} );
   }
 }

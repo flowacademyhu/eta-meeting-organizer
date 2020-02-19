@@ -30,7 +30,7 @@ import { ApiCommunicationService } from '~/app/shared/services/api-communication
 })
 
 export class ProfileComponent {
-  public id: number = 3;
+  public id: string = '3';
 
   public user$: Observable<User>;
 
