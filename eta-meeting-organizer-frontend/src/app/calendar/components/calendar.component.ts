@@ -9,12 +9,9 @@ import { ApiCommunicationService } from '~/app/shared/services/api-communication
 
 @Component({
   selector: 'app-calendar',
-  styles: [
-    `
-
-    `,
-  ],
+  styles: [``],
   template: `
+    <app-calendar-header></app-calendar-header>
     <full-calendar
       deepChangeDetection="true"
       defaultView="timeGridWeek"
@@ -42,7 +39,7 @@ export class CalendarComponent implements OnInit {
     this.options = {
       buttonText: {
         next: 'next week',
-        prev: 'previous week',
+        prev: 'previous week'
       },
       header: {
         center: 'title',
@@ -51,15 +48,16 @@ export class CalendarComponent implements OnInit {
       }
     };
 
-    this.api.reservation()
-    .getOneReservationById(this.id)
-    .subscribe(
-      (data) => {
+    this.api
+      .reservation()
+      .getOneReservationById(this.id)
+      .subscribe(data => {
         this.reservation = data;
-        this.calendarEvents.push(
-          {title: this.reservation.title, start: this.reservation.startingTime, end: this.reservation.endingTime}
-        );
-      }
-    );
+        this.calendarEvents.push({
+          end: this.reservation.endingTime,
+          start: this.reservation.startingTime,
+          title: this.reservation.title
+        });
+      });
   }
 }
