@@ -14,7 +14,7 @@ export class RequestInterceptorService implements HttpInterceptor {
       req = req.clone({
         setHeaders: {
           'Authorization': `Bearer ${accessToken}`,
-          'Content-Type': 'application/x-www-form-urlencoded'
+          'Content-Type': 'application/json'
         }
       });
     }
