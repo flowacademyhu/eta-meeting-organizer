@@ -41,16 +41,16 @@ import { UserService } from './../../shared/services/user.service';
         <ng-container matColumnDef="action">
           <th mat-header-cell *matHeaderCellDef></th>
           <td mat-cell *matCellDef="let user">
-          <button mat-raised-button color="primary" (click)="openDialog(user.id)">
-          <mat-icon aria-label="Delete Icon" color="warn">
+          <button mat-icon-button color="primary" (click)="openDialog(user.id)">
+          <mat-icon aria-label="Delete Icon">
             delete
           </mat-icon>
            </button>
-           <button *ngIf="user.role == 'USER'" mat-raised-button color="primary">
-          <mat-icon aria-label="User" color="warn">
+           <button *ngIf="user.role === 'USER'"  mat-icon-button color="primary">
+          <mat-icon aria-label="User">
             perm_identity
           </mat-icon>
-           </button>
+          </button>
           </td>
         </ng-container>
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
