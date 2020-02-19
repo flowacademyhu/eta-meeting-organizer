@@ -7,13 +7,13 @@ import { AuthService } from '~/app/shared/services/auth.service';
   selector: 'app-auth',
   styles: [
     `
-    .row {
-      min-height: calc(100vh - 60px);
+    #message {
+      margin-top: 20%;
     }
     `,
   ],
   template: `
-    <div class="row align-items-center justify-content-center">
+     <div id="message" class="d-flex justify-content-center">
       <h1 *ngIf="badAuthentication" class="mat-display-2">{{ "authentication.answer" | translate}}</h1>
     </div>
   `

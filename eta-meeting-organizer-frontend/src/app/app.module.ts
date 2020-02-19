@@ -38,7 +38,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     }),
   ],
   providers: [
-/*   {
+/*    {
     provide: LocationStrategy,
     useClass: HashLocationStrategy
   }, */

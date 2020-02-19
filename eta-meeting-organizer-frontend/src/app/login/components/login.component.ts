@@ -31,40 +31,35 @@ import { environment } from '~/environment/environment';
         font-family: "Roboto", sans-serif;
       }
       mat-card {
-        background-color: rgb(230, 75, 58);
+        margin-top: 20%;
       }
       mat-card-title,
       mat-card-content {
         display: flex;
         justify-content: center;
       }
-      .row {
-      min-height: calc(100vh - 60px);
-      }
     }
     `,
   ],
   template: `
-      <div class="row h-100 align-items-center justify-content-center">
-        <div class="col-sm-4 my-auto">
-          <mat-card id="login">
-            <mat-card-title>{{ "login.title" | translate }}</mat-card-title>
-            <br />
-            <mat-card-content>
-              <a href="${environment.googleAuthLink}">
-                <div id="customBtn" class="customGPlusSignIn">
-                  <span class="icon">
-                    <img src="../../../assets/googlelogo.png" />
-                  </span>
-                  <span class="buttonText">{{
-                    "login.loginButton" | translate
-                  }}</span>
-                </div>
-              </a>
-            </mat-card-content>
-          </mat-card>
-        </div>
-      </div>
+    <div class="d-flex justify-content-center">
+      <mat-card id="login" class="w-50">
+        <mat-card-title>{{ "login.title" | translate }}</mat-card-title>
+        <br />
+        <mat-card-content>
+          <a href="${environment.googleAuthLink}">
+            <div id="customBtn" class="customGPlusSignIn">
+              <span class="icon">
+                <img src="../../../assets/googlelogo.png" />
+              </span>
+              <span class="buttonText">{{
+                "login.loginButton" | translate
+              }}</span>
+            </div>
+          </a>
+        </mat-card-content>
+      </mat-card>
+    </div>
   `
 })
 export class LoginComponent {
