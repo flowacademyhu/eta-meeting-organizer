@@ -5,13 +5,8 @@ import { AbstractApiConnector } from '~/app/shared/api-connectors/AbstractApiCon
 export class UserApiConnector extends AbstractApiConnector {
   protected readonly apiRoute: string = `${this.apiBaseUrl}`;
 
-  public userSub: BehaviorSubject<User[]> = new BehaviorSubject<User[]>([]);
-
   public getUsers() {
-    this.http.get<User[]>(`${this.apiRoute}/users`)
-    .subscribe((data) => {
-      this.userSub.next(data);
-    });
+   return this.http.get<User[]>(`${this.apiRoute}/users`);
   }
 
   public getOneUserById(id: number): Observable<User> {
