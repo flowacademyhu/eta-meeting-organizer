@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
+import { UserVerificationDialogComponent } from '~/app/shared/Modals/user-verification-dialog';
 import { User } from './../../models/user.model';
 import { UserDeleteDialogComponent } from './../../shared/Modals/user-delete-dialog';
 import { UserService } from './../../shared/services/user.service';
-import { UserVerificationDialogComponent } from '~/app/shared/Modals/user-verification-dialog';
 
 @Component({
   selector: 'app-users-table',
