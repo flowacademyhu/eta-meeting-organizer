@@ -37,4 +37,8 @@ public class BuildingService {
   public List<Building> findAll(Integer pageNumber, Integer pageSize) {
     return buildingRepository.findAll(PageRequest.of(pageNumber, pageSize)).getContent();
   }
+
+  public List<String> findAllCities() {
+    return buildingRepository.findAllCities();
+  }
 }

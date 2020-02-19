@@ -44,6 +44,11 @@ public class BuildingResource {
         : ResponseEntity.notFound().build();
   }
 
+  @GetMapping("/cities")
+  public ResponseEntity<List<String>> findAllCities() {
+    return new ResponseEntity<>(buildingService.findAllCities(), HttpStatus.OK);
+  }
+
   @PutMapping("/{id}")
   public ResponseEntity<Building> updateBuilding(@PathVariable Long id,
       @RequestBody Building building) {
