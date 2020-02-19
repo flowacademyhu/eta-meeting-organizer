@@ -13,7 +13,7 @@ export class UserService {
     return this._userSub;
   }
 
-  public getUser(id: number) {
+  public getUser(id: string) {
     return this.userCom
     .user()
     .getOneUserById(id);
