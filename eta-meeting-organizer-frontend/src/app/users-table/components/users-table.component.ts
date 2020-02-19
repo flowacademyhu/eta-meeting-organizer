@@ -23,13 +23,9 @@ import { UserService } from './../../shared/services/user.service';
           <th mat-header-cell *matHeaderCellDef class="center">{{'profile.id' | translate}} </th>
           <td mat-cell  *matCellDef="let user"> {{user.id}} </td>
         </ng-container>
-        <ng-container matColumnDef="name">
-          <th mat-header-cell *matHeaderCellDef class="center"> {{'profile.username' | translate}} </th>
-          <td mat-cell *matCellDef="let user"> {{user.name}} </td>
-        </ng-container>
         <ng-container matColumnDef="email">
           <th mat-header-cell *matHeaderCellDef class="center"> {{'profile.email' | translate}} </th>
-          <td mat-cell *matCellDef="let user">{{user.email}}</td>
+          <td mat-cell *matCellDef="let user">{{user.username}}</td>
         </ng-container>
         <ng-container matColumnDef="role">
           <th mat-header-cell *matHeaderCellDef class="center"> {{'profile.role' | translate}} </th>
@@ -59,7 +55,7 @@ import { UserService } from './../../shared/services/user.service';
 
 export class UsersTableComponent implements OnInit {
   public users$: Observable<User[]>;
-  public displayedColumns: string[] = ['id', 'name', 'email', 'role', 'action'];
+  public displayedColumns: string[] = ['id', 'email', 'role', 'action'];
 
   constructor(private readonly userService: UserService,
               private readonly dialog: MatDialog) { }
@@ -70,7 +66,7 @@ export class UsersTableComponent implements OnInit {
     .userSub;
    }
 
-   public openDialog(id: number) {
+   public openDialog(id: string) {
     const dialogRef = this.dialog.open(UserDeleteDialogComponent);
     dialogRef.afterClosed()
     .subscribe((result) => {
@@ -80,7 +76,7 @@ export class UsersTableComponent implements OnInit {
     });
    }
 
-   public deleteUser(id: number) {
+   public deleteUser(id: string) {
     this.userService.deleteUser(id)
     .subscribe(() => {
       this.userService

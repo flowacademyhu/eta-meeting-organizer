@@ -13,7 +13,7 @@ export class UserApiConnector extends AbstractApiConnector {
     return this.http.get<User>(`${this.apiRoute}/users/` + id);
   }
 
-  public deleteUserById(id: number) {
+  public deleteUserById(id: string) {
     return this.http.delete(`${this.apiRoute}/users/` + id);
   }
 }

@@ -27,7 +27,7 @@ export class UserService {
     });
   }
 
-  public deleteUser(id: number) {
+  public deleteUser(id: string) {
     return this.userCom
     .user()
     .deleteUserById(id);
