@@ -40,7 +40,7 @@
   },
   "navbar": {
     "calendar": "Naptár",
-    "profile" : "Felhasználókezeló",
+    "usersManagement" : "Felhasználó-kezelés",
     "meetingRoomEditor": "Tárgyalókezelő",
     "buildingEditor":"Épületkezelő"
   },
@@ -64,5 +64,17 @@
   },
   "authentication": {
     "answer": "A regisztráció admin általi jóváhagyásra vár!"
+  },
+  "user-verification-dialog": {
+    "userVerification": "Felhasználó jováhagyása",
+    "verification": "Biztos engedélyezi a felhasználó beléptetését?",
+    "yes": "Igen",
+    "no": "Nem"
+  },
+  "delete-snackbar": {
+    "delete": "Felhasználó törölve"
+  },
+  "verification-snackbar": {
+    "verify": "Felhasználó jóváhagyva"
   }
 }

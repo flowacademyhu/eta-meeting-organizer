@@ -35,8 +35,9 @@ public class UserService {
     userRepository.deleteById(id);
   }
 
-  public User updateUser(String id, User user) {
-    user.setId(id);
-    return userRepository.save(user);
+  public User updateUser(String id) {
+    User u = userRepository.findById(id).orElseThrow();
+    u.setVerifiedByAdmin(true);
+    return userRepository.save(u);
   }
 }

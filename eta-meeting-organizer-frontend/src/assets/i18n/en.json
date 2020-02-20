@@ -40,9 +40,9 @@
   },
   "navbar": {
     "calendar": "Calendar",
-    "profile" : "Profile editor",
+    "usersManagement" : "User Management",
     "meetingRoomEditor": "Meetingroom Editor",
-    "buildingEditor":"Building editor"
+    "buildingEditor":"Building Editor"
   },
   "header": {
     "button": "HU",
@@ -60,5 +60,17 @@
   },
   "authentication": {
     "answer": "Your registration has not been verified by admin yet!"
+  },
+  "user-verification-dialog": {
+    "userVerification": "User verification",
+    "verification": "Are you sure you want to verify this user?",
+    "yes": "Yes",
+    "no": "No"
+  },
+  "delete-snackbar": {
+    "delete": "User has been deleted"
+  },
+  "verification-snackbar": {
+    "verify": "User has been verified"
   }
 }
