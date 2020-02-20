@@ -40,8 +40,8 @@
   },
   "navbar": {
     "calendar": "Naptár",
-    "profile" : "Profil",
-    "meetingRoomEditor": "Tárgyaló kezelő",
+    "profile" : "Felhasználókezeló",
+    "meetingRoomEditor": "Tárgyalókezelő",
     "buildingEditor":"Épületkezelő"
   },
   "header": {

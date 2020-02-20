@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Observable, Subscription } from 'rxjs';
 import { Building } from '~/app/models/building.model';
-import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
+import { BuildingService } from '~/app/shared/services/building.service';
 
 @Component({
   selector: 'app-building-register',
@@ -37,15 +37,18 @@ import { ApiCommunicationService } from '~/app/shared/services/api-communication
 
 export class BuildingRegisterComponent implements OnInit {
 
-  public building$: Observable<Building>;
+  public building$: Observable<Building[]>;
   public buildingForm: FormGroup;
   public building: Building;
   public subs: Subscription;
   constructor(
     public dialogRef: MatDialogRef<BuildingRegisterComponent>,
-    private readonly api: ApiCommunicationService) {}
+    private readonly buildingService: BuildingService) {}
 
     public ngOnInit() {
+      this.buildingService.getAllBuildings();
+      this.building$ = this.buildingService
+      .buildingSub;
       this.buildingForm = new FormGroup({
       address : new FormControl('', Validators.required ),
       city : new FormControl('', Validators.required),
@@ -53,13 +56,11 @@ export class BuildingRegisterComponent implements OnInit {
     }
 
   public onSubmit() {
-    this.api.building()
-      .postBuilding(this.buildingForm.getRawValue())
+    this.buildingService.
+      postBuilding(this.buildingForm.getRawValue())
       .subscribe((data) => {
         this.building = data;
+        this.buildingService.getAllBuildings();
       });
-    if (this.buildingForm.valid) {
-      this.buildingForm.reset();
-    }
   }
 }
