@@ -1,14 +1,12 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router, UrlTree } from '@angular/router';
-import { Subscription } from 'rxjs';
-import { UserToken } from '../models/user-token.model';
+import { map, take } from 'rxjs/operators';
 import { AuthService } from '../services/auth.service';
 import { ConfigurationService } from '../services/configuration.service';
 
+
 @Injectable()
 export class AuthGuard implements CanActivate {
-  private subs: Subscription;
-  private userToken: UserToken;
 
   constructor(private readonly router: Router,
               private readonly config: ConfigurationService,
@@ -26,11 +24,11 @@ export class AuthGuard implements CanActivate {
   }
 
   public isUserRepresent(): boolean {
-    this.subs = this.authService.user.subscribe((data) => {
-      this.userToken = data;
+    let isExist = false;
+    this.authService.user.pipe(take(1)), map((data) => {
+     isExist = !!data;
     });
-    this.subs.unsubscribe();
-    return !!this.userToken;
+    return isExist;
   }
 
 }
