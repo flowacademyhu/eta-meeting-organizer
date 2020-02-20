@@ -21,7 +21,7 @@ export class BuildingApiConnector extends AbstractApiConnector {
     return this.http.put(`${this.apiRoute}/buildings/` + id, building);
   }
 
-  public deleteMeetingRoomById(id: number) {
+  public deleteBuildingId(id: number) {
     return this.http.delete(`${this.apiRoute}/buildings/` + id);
   }
 }
