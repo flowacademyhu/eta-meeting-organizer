@@ -66,5 +66,11 @@
     "verification": "Are you sure you want to verify this user?",
     "yes": "Yes",
     "no": "No"
+  },
+  "delete-snackbar": {
+    "delete": "User has been deleted"
+  },
+  "verification-snackbar": {
+    "verify": "User has been verified"
   }
 }

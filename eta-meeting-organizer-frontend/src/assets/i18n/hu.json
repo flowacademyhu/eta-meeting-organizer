@@ -70,5 +70,11 @@
     "verification": "Biztos engedélyezi a felhasználó beléptetését?",
     "yes": "Igen",
     "no": "Nem"
+  },
+  "delete-snackbar": {
+    "delete": "Felhasználó törölve"
+  },
+  "verification-snackbar": {
+    "verify": "Felhasználó jóváhagyva"
   }
 }
