@@ -1,3 +1,4 @@
+import { TranslateService } from '@ngx-translate/core';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
@@ -39,7 +40,7 @@ import { MeetingRoomService } from './../services/meeting-room.service';
      <div class="space">
        <button mat-button [mat-dialog-close]>cancel</button>
        <button mat-button type="submit" cdkFocusInitial
-       (click)="openSnackBar('Meeting room has been saved!')">Ok</button>
+       (click)="openSnackBar()">Ok</button>
      </div>
    </form>
  </div>`,
@@ -55,7 +56,8 @@ export class MeetingRoomRegisterComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<MeetingRoomRegisterComponent>,
     private readonly meetingRoomService: MeetingRoomService,
-    private readonly _snackBar: MatSnackBar) {
+    private readonly _snackBar: MatSnackBar,
+    private readonly translate: TranslateService) {
     }
 
     public ngOnInit() {
@@ -75,7 +77,10 @@ export class MeetingRoomRegisterComponent implements OnInit {
     });
   }
 
-  public openSnackBar(message: string) {
-  this._snackBar.open(message, '' , { duration: 3000});
+  public openSnackBar() {
+    this._snackBar.open(this.translate
+      .instant(`snackbar-meeting-room.registerOk`), undefined, {
+      duration: 2500
+    });
   }
 }
