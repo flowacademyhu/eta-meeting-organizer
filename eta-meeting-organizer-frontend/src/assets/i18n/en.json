@@ -40,9 +40,9 @@
   },
   "navbar": {
     "calendar": "Calendar",
-    "profile" : "Profile",
+    "usersManagement" : "User Management",
     "meetingRoomEditor": "Meetingroom Editor",
-    "buildingEditor":"Building editor"
+    "buildingEditor":"Building Editor"
   },
   "header": {
     "button": "HU",

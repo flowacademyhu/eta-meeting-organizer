@@ -31,7 +31,7 @@ import {ConfigurationService} from '~/app/shared/services/configuration.service'
   <a class="mr-3"  routerLink="/calendar"><img src="../../../assets/wysio_arrow.png" height="55" /></a>
   <a class="mr-3" mat-stroked-button routerLink="/calendar">{{'navbar.calendar' | translate}}</a>
   <a class="mr-3" mat-stroked-button routerLink="/meetingroom">{{'navbar.meetingRoomEditor' | translate}}</a>
-  <a class="mr-3" mat-stroked-button routerLink="/users-table">{{'navbar.profile' | translate}}</a>
+  <a class="mr-3" mat-stroked-button routerLink="/users-table">{{'navbar.usersManagement' | translate}}</a>
   <a class="mr-3" mat-stroked-button routerLink="/building-register">{{'navbar.buildingEditor' | translate}}</a>
 
   <button mat-button class="ml-auto"(click)="onLanguageChange()">{{'header.button' | translate}}</button>
