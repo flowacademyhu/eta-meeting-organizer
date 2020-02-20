@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { environment } from '~/environment/environment';
 
 @Component({
   selector: 'app-login',
@@ -63,14 +64,16 @@ import { Component } from '@angular/core';
             <img id="image" src="../../../assets/wysio_arrow.png"/>
 
           <mat-card-content>
-            <button mat-stroked-button id="customBtn" class="customGPlusSignIn" style="cursor: pointer;">
-              <span class="icon" id="googleicon">
+          <a href="${environment.googleAuthLink}">
+            <div id="customBtn" class="customGPlusSignIn">
+              <span class="icon">
                 <img src="../../../assets/googlelogo.png" />
               </span>
-              <span (click)="signInWithGoogle()">{{
+              <span class="buttonText">{{
                 "login.loginButton" | translate
               }}</span>
-            </button>
+            </div>
+          </a>
           </mat-card-content>
         </mat-card>
       </div>
