@@ -1,9 +1,10 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import {Observable, Subscription} from 'rxjs';
 import {Building} from '~/app/models/building.model';
+import { BuildingDeleteComponent } from '~/app/shared/Modals/building-delete.component';
 import {BuildingRegisterComponent} from '~/app/shared/Modals/building-register.component';
-import {ApiCommunicationService} from '~/app/shared/services/api-communication.service';
+import { BuildingService } from '~/app/shared/services/building.service';
 
 @Component({
   selector: 'app-building-list',
@@ -37,7 +38,7 @@ import {ApiCommunicationService} from '~/app/shared/services/api-communication.s
           <button mat-icon-button color="accent">
             <mat-icon>edit</mat-icon>
           </button>
-          <button mat-icon-button color="primary" (click)="deleteDialog(meetingRoom.id)">
+          <button mat-icon-button color="primary" (click)="deleteDialog(building.id)">
             <mat-icon>delete</mat-icon>
           </button>
           </td>
@@ -54,12 +55,11 @@ export class BuildingComponent implements OnInit, OnDestroy{
   public unsubFromDialog: Subscription;
   public displayedColumns: string[] = ['city', 'address', 'delete'];
 
-  constructor(private readonly api: ApiCommunicationService,
-              private readonly dialog: MatDialog,
+  constructor(private readonly dialog: MatDialog,
               private readonly buildingService: BuildingService) { }
 
   public ngOnInit() {
-    this.api.getAllBuildings();
+    this.buildingService.getAllBuildings();
     this.building$ = this.buildingService
     .buildingSub;
     }
