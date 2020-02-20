@@ -19,7 +19,11 @@ import { ApiCommunicationService } from '~/app/shared/services/api-communication
           <div formGroupName="meetingRoomSelector" novalidate>
             <mat-form-field>
               <mat-label>Város</mat-label>
-              <mat-select formControlName="city" [disabled]="checked">
+              <mat-select 
+              (selectionChange)="getBuildings()"
+              formControlName="city"
+              [disabled]="checked"
+              [(ngModel)]="city">
                 <mat-option *ngFor="let city of cities" [value]="city">{{
                   city
                 }}</mat-option>
@@ -27,9 +31,13 @@ import { ApiCommunicationService } from '~/app/shared/services/api-communication
             </mat-form-field>
             <mat-form-field>
               <mat-label>Épület</mat-label>
-              <mat-select formControlName="building">
+              <mat-select 
+              (selectionChange)="getMeetingrooms()"
+              formControlName="building"
+              [disabled]="checked"
+              [(ngModel)]="building">
                 <mat-option *ngFor="let building of buildings" [value]="building">{{
-                  building
+                  building.address
                 }}</mat-option>
               </mat-select>
             </mat-form-field>
@@ -37,7 +45,7 @@ import { ApiCommunicationService } from '~/app/shared/services/api-communication
               <mat-label>Tárgyaló</mat-label>
               <mat-select formControlName="meetingRoom">
                 <mat-option *ngFor="let meetingRoom of meetingRooms" [value]="meetingRoom">{{
-                  meetingRoom
+                  meetingRoom.name
                 }}</mat-option>
               </mat-select>
             </mat-form-field>
@@ -51,8 +59,13 @@ import { ApiCommunicationService } from '~/app/shared/services/api-communication
 export class CalendarHeaderComponent implements OnInit {
   public checked: boolean = true;
 
+  public city: string;
+  public cities: string[];
+
+  public buildingId: number;
+  public building: Building;
   public buildings: Building[];
-  public cities: string[] = ['Szeged', 'Budapest'];
+
   public meetingRooms: MeetingRoom[];
   public contactForm: FormGroup;
 
@@ -76,6 +89,24 @@ export class CalendarHeaderComponent implements OnInit {
       .getCities()
       .subscribe((data) => {
         this.cities = data;
+      });
+  }
+
+  public getBuildings() {
+    this.api
+      .building()
+      .findByCity(this.city)
+      .subscribe((data) => {
+        this.buildings = data;
+      });
+  }
+
+  public getMeetingrooms() {
+    this.api
+      .meetingRoom()
+      .findByBuildingId(this.building.id)
+      .subscribe((data) => {
+        this.meetingRooms = data;
       });
   }
 
