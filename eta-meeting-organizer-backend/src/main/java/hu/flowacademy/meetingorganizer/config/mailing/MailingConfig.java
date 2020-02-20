@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 @Data
 public class MailingConfig {
 
-  private MailGun mailGun;
+  private Mailgun mailgun;
 
   private String mailFrom;
 

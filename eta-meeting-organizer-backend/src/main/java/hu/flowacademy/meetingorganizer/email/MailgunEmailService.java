@@ -16,7 +16,7 @@ import org.springframework.web.client.RestTemplate;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class MailGunEmailService implements EmailService {
+public class MailgunEmailService implements EmailService {
 
   @NonNull
   private final MailingConfig mailingConfig;
@@ -34,7 +34,7 @@ public class MailGunEmailService implements EmailService {
   private HttpHeaders createHeader() {
     HttpHeaders headers = new HttpHeaders();
     headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-    headers.setBasicAuth("api", mailingConfig.getMailGun().getApiKey());
+    headers.setBasicAuth("api", mailingConfig.getMailgun().getApiKey());
     return headers;
   }
 
@@ -43,7 +43,7 @@ public class MailGunEmailService implements EmailService {
     try {
       HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(body, headers);
       ResponseEntity<String> response = restTemplate
-          .postForEntity(mailingConfig.getMailGun().getMailSenderUrl() + "/messages",
+          .postForEntity(mailingConfig.getMailgun().getMailSenderUrl() + "/messages",
               request, String.class);
 
       log.info("Mail send with request [{}] and got [{}]", request, response);

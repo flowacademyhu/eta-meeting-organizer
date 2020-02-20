@@ -31,6 +31,12 @@ role:
     - hpeti1988@gmail.com
   readers:
     - vajgely.tamas@gmail.com
+  mailing:
+    mailgun:
+      apiKey:
+      mailSenderUrl: "https://api.mailgun.net/v3/sandbox71f5ca0439c64f98af51e1cd1915580a.mailgun.org"
+    mailFrom: "Mailgun Sandbox <postmaster@sandbox71f5ca0439c64f98af51e1cd1915580a.mailgun.org>"
+    messageTemplate: "Kedves Felhasználónk! Az admin jóváhagyta a belépési kérelmed, és mostmár beléphetsz a Wysio Meeting Organizer alkalmazásba. Szép napot!"
 ---
 spring:
   profiles: travis
