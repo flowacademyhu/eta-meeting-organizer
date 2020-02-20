@@ -32,4 +32,9 @@ export class UserService {
     .user()
     .deleteUserById(id);
   }
+
+  public updateUser(id: string) {
+    return this.userCom.user()
+    .updateUserById(id);
+  }
 }
