@@ -60,5 +60,11 @@
   },
   "authentication": {
     "answer": "Your registration has not been verified by admin yet!"
+  },
+  "user-verification-dialog": {
+    "userVerification": "User verification",
+    "verification": "Are you sure you want to verify this user?",
+    "yes": "Yes",
+    "no": "No"
   }
 }
