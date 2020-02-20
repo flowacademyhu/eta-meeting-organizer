@@ -39,7 +39,7 @@ import { MeetingRoomService } from './../services/meeting-room.service';
      <div class="space">
        <button mat-button [mat-dialog-close]>cancel</button>
        <button mat-button type="submit" cdkFocusInitial
-       (click)="openSnackBar('Meeting room has been saved!')">Ok</button>
+       (click)="openSnackBar()">Ok</button>
      </div>
    </form>
  </div>`,
