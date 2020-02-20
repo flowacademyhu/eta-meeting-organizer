@@ -25,48 +25,52 @@ import org.springframework.web.util.UriComponentsBuilder;
 @RequiredArgsConstructor
 public class Oauth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 
-    @NonNull private HttpCookieOAuth2AuthorizationRequestRepository httpCookieOAuth2AuthorizationRequestRepository;
-    @NonNull private TokenProvider tokenProvider;
+  @NonNull
+  private HttpCookieOAuth2AuthorizationRequestRepository httpCookieOAuth2AuthorizationRequestRepository;
+  @NonNull
+  private TokenProvider tokenProvider;
 
-    @Override
-    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
-        String targetUrl = determineTargetUrl(request, response, authentication);
+  @Override
+  public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
+      Authentication authentication) throws IOException, ServletException {
+    String targetUrl = determineTargetUrl(request, response, authentication);
 
-        if (response.isCommitted()) {
-            logger.debug("Response has already been committed. Unable to redirect to " + targetUrl);
-            return;
-        }
-
-        clearAuthenticationAttributes(request); // TODO maybe do something with the response
-        getRedirectStrategy().sendRedirect(request, response, targetUrl);
+    if (response.isCommitted()) {
+      logger.debug("Response has already been committed. Unable to redirect to " + targetUrl);
+      return;
     }
 
-    protected String determineTargetUrl(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
-        Optional<String> redirectUri = CookieUtils.getCookie(request, REDIRECT_URI_PARAM_COOKIE_NAME)
-                .map(Cookie::getValue);
+    clearAuthenticationAttributes(request); // TODO maybe do something with the response
+    getRedirectStrategy().sendRedirect(request, response, targetUrl);
+  }
 
-        if (redirectUri.isPresent() && !isAuthorizedRedirectUri(redirectUri.get())) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Sorry! We've got an Unauthorized Redirect URI and can't proceed with the authentication");
-        }
+  protected String determineTargetUrl(HttpServletRequest request, HttpServletResponse response,
+      Authentication authentication) {
+    Optional<String> redirectUri = CookieUtils.getCookie(request, REDIRECT_URI_PARAM_COOKIE_NAME)
+        .map(Cookie::getValue);
 
-        String targetUrl = redirectUri.orElse(getDefaultTargetUrl());
-
-        String token = tokenProvider.createToken(authentication);
-        return UriComponentsBuilder.fromUriString(targetUrl)
-                .queryParam("token", token)
-                .build().toUriString();
+    if (redirectUri.isPresent() && !isAuthorizedRedirectUri(redirectUri.get())) {
+      throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+          "Sorry! We've got an Unauthorized Redirect URI and can't proceed with the authentication");
     }
 
-    private boolean isAuthorizedRedirectUri(String uri) {
-        URI clientRedirectUri = URI.create(uri);
+    String targetUrl = redirectUri.orElse(getDefaultTargetUrl());
 
-        return Stream.of("http://localhost:4200/oauth2/redirect") // TODO extend it
-                .anyMatch(authorizedRedirectUri -> {
-                    // Only validate host and port. Let the clients use different paths if they want to
-                    URI authorizedURI = URI.create(authorizedRedirectUri);
-                    return authorizedURI.getHost().equalsIgnoreCase(clientRedirectUri.getHost())
-                            && authorizedURI.getPort() == clientRedirectUri.getPort();
-                });
-    }
+    String token = tokenProvider.createToken(authentication);
+    return UriComponentsBuilder.fromUriString(targetUrl)
+        .queryParam("token", token)
+        .build().toUriString();
+  }
 
+  private boolean isAuthorizedRedirectUri(String uri) {
+    URI clientRedirectUri = URI.create(uri);
+
+    return Stream.of("http://localhost:4200/oauth2/redirect") // TODO extend it
+        .anyMatch(authorizedRedirectUri -> {
+          // Only validate host and port. Let the clients use different paths if they want to
+          URI authorizedURI = URI.create(authorizedRedirectUri);
+          return authorizedURI.getHost().equalsIgnoreCase(clientRedirectUri.getHost())
+              && authorizedURI.getPort() == clientRedirectUri.getPort();
+        });
+  }
 }
