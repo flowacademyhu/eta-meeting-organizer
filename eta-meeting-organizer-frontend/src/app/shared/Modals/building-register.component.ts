@@ -32,7 +32,7 @@ import { ApiCommunicationService } from '~/app/shared/services/api-communication
     <div>
       <button mat-button [mat-dialog-close] >cancel</button>
       <button mat-button type="submit" cdkFocusInitial
-      (click)="openSnackBar('Meeting room has been saved!')">Ok</button>
+      (click)="openSnackBar()">Ok</button>
     </div>
   </form>
 </div>`,
