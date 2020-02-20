@@ -60,5 +60,8 @@
   },
   "authentication": {
     "answer": "Your registration has not been verified by admin yet!"
+  },
+  "snackbar-meeting-room": {
+    "registerOk":"Meeting room has been saved!"
   }
 }
