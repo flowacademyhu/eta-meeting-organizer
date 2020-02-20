@@ -4,6 +4,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { Observable, Subscription } from 'rxjs';
 import { Building } from '~/app/models/building.model';
 import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-building-register',
@@ -29,7 +30,8 @@ import { ApiCommunicationService } from '~/app/shared/services/api-communication
         </mat-form-field>
     <div>
       <button mat-button [mat-dialog-close] >cancel</button>
-      <button mat-button type="submit" cdkFocusInitial>Ok</button>
+      <button mat-button type="submit" cdkFocusInitial
+      (click)="openSnackBar('Meeting room has been saved!')">Ok</button>
     </div>
   </form>
 </div>`,
@@ -43,7 +45,8 @@ export class BuildingRegisterComponent implements OnInit {
   public subs: Subscription;
   constructor(
     public dialogRef: MatDialogRef<BuildingRegisterComponent>,
-    private readonly api: ApiCommunicationService) {}
+    private readonly api: ApiCommunicationService,
+    private readonly _snackBar: MatSnackBar) {}
 
     public ngOnInit() {
       this.buildingForm = new FormGroup({
@@ -62,4 +65,8 @@ export class BuildingRegisterComponent implements OnInit {
       this.buildingForm.reset();
     }
   }
+
+  public openSnackBar(message: string) {
+    this._snackBar.open(message, '' , { duration: 3000});
+    }
 }
