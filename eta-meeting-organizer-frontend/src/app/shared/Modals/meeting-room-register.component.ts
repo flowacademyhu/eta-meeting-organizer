@@ -51,7 +51,6 @@ export class MeetingRoomRegisterComponent implements OnInit {
   public meetingRoom$: Observable<MeetingRoom[]>;
   public meetingRoomForm: FormGroup;
   public meetingRoom: MeetingRoom;
-  public durationInSeconds: 2;
   constructor(
     public dialogRef: MatDialogRef<MeetingRoomRegisterComponent>,
     private readonly meetingRoomService: MeetingRoomService,
