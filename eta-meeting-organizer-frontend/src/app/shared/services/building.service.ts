@@ -43,7 +43,7 @@ export class BuildingService {
   public deleteBuilding(id: number) {
     return this.buildingCom
     .building()
-    .deleteBuildingId(id);
+    .deleteBuildingById(id);
   }
 
   public findAllCities() {
