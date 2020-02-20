@@ -22,14 +22,15 @@ import { environment } from '~/environment/environment';
         background: transparent 5px 50% no-repeat;
         display: inline-block;
         vertical-align: middle;
-        width: 35px;
+        width: 30px;
         height: 35px;
+        padding-bottom: 5px;
       }
       span.buttonText {
         color: white;
         display: inline-block;
         vertical-align: middle;
-        padding-left: 42px;
+        padding-left: 15px;
         padding-right: 42px;
         font-size: 14px;
         font-weight: bold;
