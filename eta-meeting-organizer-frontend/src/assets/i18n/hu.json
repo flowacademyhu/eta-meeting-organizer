@@ -64,5 +64,8 @@
   },
   "authentication": {
     "answer": "A regisztráció admin általi jóváhagyásra vár!"
+  },
+  "snackbar-meeting-room": {
+    "registerOk":"A regisztráció sikeres volt"
   }
 }
