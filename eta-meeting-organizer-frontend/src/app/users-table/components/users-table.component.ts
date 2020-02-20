@@ -40,7 +40,7 @@ import { UserService } from './../../shared/services/user.service';
             delete
           </mat-icon>
            </button>
-           <button *ngIf="user.valid == false"  mat-icon-button color="primary">
+           <button *ngIf="user.verifiedByAdmin == false"  mat-icon-button color="primary">
           <mat-icon aria-label="User"(click)="verificationDialog(user.id)">
             perm_identity
           </mat-icon>
