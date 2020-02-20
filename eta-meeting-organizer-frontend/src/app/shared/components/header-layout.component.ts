@@ -1,7 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import {Router} from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+import { Subscription } from 'rxjs';
+import { take } from 'rxjs/operators';
 import {ConfigurationService} from '~/app/shared/services/configuration.service';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -37,20 +40,28 @@ import {ConfigurationService} from '~/app/shared/services/configuration.service'
    *ngIf="checkToken()" mat-stroked-button routerLink="/building-register">{{'navbar.buildingEditor' | translate}}</a>
 
   <button mat-button class="ml-auto"(click)="onLanguageChange()">{{'header.button' | translate}}</button>
-  <p *ngIf="checkToken()" class="email">kolbaszjoska@citromail.hu</p>
+  <p *ngIf="checkToken()" class="email">{{ email }}</p>
   <button *ngIf="checkToken()" mat-button id="logout" (click)="logout()" class="ml-2">
   <p><img padding="20" src="../../../assets/logout.png" height="50"/></p>
   </button>
 </mat-toolbar>`
 })
 
-export class HeaderComponent {
+export class HeaderComponent implements OnDestroy {
+
   public language: string;
+  public email: string = '';
+  private subs: Subscription;
 
   constructor(private readonly translate: TranslateService,
               private readonly configService: ConfigurationService,
-              private  readonly router: Router) {
+              private  readonly router: Router,
+              private readonly authService: AuthService) {
     this.language = this.translate.currentLang;
+    this.subs = this.authService.user.pipe(take(1))
+    .subscribe((data) => {
+      this.email = data.username;
+    });
   }
 
   public onLanguageChange() {
@@ -65,5 +76,9 @@ export class HeaderComponent {
   protected logout() {
     this.configService.clearToken();
     this.router.navigate(['']);
+  }
+
+  public ngOnDestroy(): void {
+    this.subs.unsubscribe();
   }
 }
