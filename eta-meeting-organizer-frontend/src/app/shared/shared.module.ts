@@ -5,7 +5,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { FooterComponent } from '~/app/shared/components/footer-layout.component';
-import {AuthGuard} from '~/app/shared/guard/auth.guard';
+import {AdminGuard} from '~/app/shared/guards/admin.guard';
+import {AuthGuard} from '~/app/shared/guards/auth.guard';
 import {RequestInterceptorService} from '~/app/shared/interceptor/auth-interceptor.service';
 import { MaterialModule } from '~/app/shared/material.module';
 import { MainLayoutComponent } from '~/app/shared/pages/main-layout.component';
@@ -49,6 +50,7 @@ import { UserService } from './services/user.service';
     MeetingRoomService,
     UserService,
     AuthGuard,
+    AdminGuard,
     {provide: HTTP_INTERCEPTORS, useClass: RequestInterceptorService, multi: true},
   ],
 })
