@@ -36,7 +36,8 @@ public class UserService {
   }
 
   public User updateUser(String id, User user) {
-    user.setId(id);
-    return userRepository.save(user);
+    User u = userRepository.findById(id).get();
+    u.setVerifiedByAdmin(user.isVerifiedByAdmin());
+    return userRepository.save(u);
   }
 }
