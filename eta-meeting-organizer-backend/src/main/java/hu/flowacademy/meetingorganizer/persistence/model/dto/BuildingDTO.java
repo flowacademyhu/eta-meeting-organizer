@@ -21,5 +21,5 @@ public class BuildingDTO {
     this.city = building.getCity();
     this.address = building.getAddress();
   }
-  
+
 }
