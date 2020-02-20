@@ -16,8 +16,10 @@ import org.springframework.stereotype.Component;
 @Component
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class SimpleCorsFilter implements Filter {
+
   public SimpleCorsFilter() {
   }
+
   @Override
   public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain)
       throws IOException, ServletException {
@@ -34,9 +36,11 @@ public class SimpleCorsFilter implements Filter {
       chain.doFilter(req, res);
     }
   }
+
   @Override
   public void init(FilterConfig filterConfig) {
   }
+
   @Override
   public void destroy() {
   }
