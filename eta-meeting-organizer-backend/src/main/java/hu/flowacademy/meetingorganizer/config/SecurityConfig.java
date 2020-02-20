@@ -26,11 +26,16 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @RequiredArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-  @NonNull private final HttpCookieOAuth2AuthorizationRequestRepository cookieOAuth2AuthorizationRequestRepository;
-  @NonNull private final OAuth2UserServiceImpl customOAuth2UserService;
-  @NonNull private final Oauth2AuthenticationSuccessHandler oAuth2AuthenticationSuccessHandler;
-  @NonNull private final Oauth2AuthenticationFailureHandler oAuth2AuthenticationFailureHandler;
-  @NonNull private final TokenAuthenticationFilter tokenAuthenticationFilter;
+  @NonNull
+  private final HttpCookieOAuth2AuthorizationRequestRepository cookieOAuth2AuthorizationRequestRepository;
+  @NonNull
+  private final OAuth2UserServiceImpl customOAuth2UserService;
+  @NonNull
+  private final Oauth2AuthenticationSuccessHandler oAuth2AuthenticationSuccessHandler;
+  @NonNull
+  private final Oauth2AuthenticationFailureHandler oAuth2AuthenticationFailureHandler;
+  @NonNull
+  private final TokenAuthenticationFilter tokenAuthenticationFilter;
 
   @Bean(BeanIds.AUTHENTICATION_MANAGER)
   @Override
@@ -55,7 +60,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .and()
         .authorizeRequests()
         .antMatchers("/", "/error", "/favicon.ico", "/**/*.png",
-            "/**/*.gif", "/**/*.svg", "/**/*.jpg", "/**/*.html", "/**/*.css", "/**/*.js").permitAll()
+            "/**/*.gif", "/**/*.svg", "/**/*.jpg", "/**/*.html", "/**/*.css", "/**/*.js")
+        .permitAll()
         .antMatchers("/auth/**", "/oauth2/**", "/login/**").permitAll()
         .anyRequest().authenticated()
         .and()

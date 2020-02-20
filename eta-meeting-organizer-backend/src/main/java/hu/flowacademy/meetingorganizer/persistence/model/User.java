@@ -76,6 +76,7 @@ public class User implements OAuth2User, UserDetails {
   @NoArgsConstructor
   @AllArgsConstructor
   public static class UserAuthority implements GrantedAuthority {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -83,6 +84,7 @@ public class User implements OAuth2User, UserDetails {
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
+
     public UserAuthority(GrantedAuthority grantedAuthority) {
       this.authority = grantedAuthority.getAuthority();
     }
