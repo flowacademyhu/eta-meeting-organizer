@@ -1,6 +1,6 @@
-import {Component} from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
-import {Observable} from 'rxjs';
+import {Observable, Subscription} from 'rxjs';
 import {Building} from '~/app/models/building.model';
 import {BuildingRegisterComponent} from '~/app/shared/Modals/building-register.component';
 import {ApiCommunicationService} from '~/app/shared/services/api-communication.service';
@@ -37,7 +37,7 @@ import {ApiCommunicationService} from '~/app/shared/services/api-communication.s
           <button mat-icon-button color="accent">
             <mat-icon>edit</mat-icon>
           </button>
-          <button mat-icon-button color="primary">
+          <button mat-icon-button color="primary" (click)="deleteDialog(meetingRoom.id)">
             <mat-icon>delete</mat-icon>
           </button>
           </td>
@@ -49,20 +49,45 @@ import {ApiCommunicationService} from '~/app/shared/services/api-communication.s
   `
 })
 
-export class BuildingComponent {
+export class BuildingComponent implements OnInit, OnDestroy{
   public building$: Observable<Building[]>;
+  public unsubFromDialog: Subscription;
+  public displayedColumns: string[] = ['city', 'address', 'delete'];
 
   constructor(private readonly api: ApiCommunicationService,
               private readonly dialog: MatDialog,
-  ) {  this.building$ = this.api.building()
-    .getBuildings();
-  }
+              private readonly buildingService: BuildingService) { }
 
-  public displayedColumns: string[] = ['city', 'address', 'delete'];
+  public ngOnInit() {
+    this.api.getAllBuildings();
+    this.building$ = this.buildingService
+    .buildingSub;
+    }
 
   public openDialog(): void {
     this.dialog.open(BuildingRegisterComponent, {
       width: '400px',
+    });
+  }
+  public deleteDialog(id: number) {
+    const dialogRef = this.dialog.open(BuildingDeleteComponent);
+    this.unsubFromDialog = dialogRef.afterClosed()
+    .subscribe((result) => {
+      if (result === 'true') {
+        this.deleteBuilding(id);
+      }
+    });
+  }
+
+  public ngOnDestroy() {
+    this.unsubFromDialog.unsubscribe();
+  }
+
+  public deleteBuilding(id: number) {
+    this.buildingService.deleteBuilding(id)
+    .subscribe(() => {
+      this.buildingService
+      .getAllBuildings();
     });
   }
 }
