@@ -1,8 +1,8 @@
-import { TranslateService } from '@ngx-translate/core';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { MeetingRoom } from '~/app/models/meetingroom.model';
 import { MeetingRoomService } from './../services/meeting-room.service';
