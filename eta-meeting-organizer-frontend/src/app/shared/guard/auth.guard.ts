@@ -23,7 +23,7 @@ export class AuthGuard implements CanActivate {
   }
 
   public isUserRepresent(): boolean {
-    let isExist = false;
+    let isExist = true;
     this.authService.user.pipe(take(1)), map((data) => {
      isExist = !!data;
     });
