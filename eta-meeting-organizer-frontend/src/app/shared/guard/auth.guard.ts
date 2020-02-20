@@ -4,7 +4,6 @@ import { map, take } from 'rxjs/operators';
 import { AuthService } from '../services/auth.service';
 import { ConfigurationService } from '../services/configuration.service';
 
-
 @Injectable()
 export class AuthGuard implements CanActivate {
 
