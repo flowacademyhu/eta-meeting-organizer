@@ -9,7 +9,6 @@ import { environment } from '~/environment/environment';
         min-height: calc(100vh - 60px);
       }
       #customBtn {
-       
         display: inline-block;
         background: rgb(59,59,59);
         color: rgb(243, 245, 237);
