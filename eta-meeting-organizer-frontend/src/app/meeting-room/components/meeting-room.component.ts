@@ -6,7 +6,6 @@ import { MeetingRoomDeleteComponent } from './../../shared/Modals/meeting-room-d
 import { MeetingRoomRegisterComponent } from './../../shared/Modals/meeting-room-register.component';
 import { MeetingRoomService } from './../../shared/services/meeting-room.service';
 
-
 @Component({
   selector: 'app-meeting-room-listing',
   styles: [`
