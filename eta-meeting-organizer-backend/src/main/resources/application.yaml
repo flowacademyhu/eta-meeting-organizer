@@ -29,6 +29,7 @@ role:
   admins:
     - vajgi90@gmail.com
     - hpeti1988@gmail.com
+    - istvan.dumitras@gmail.com
   readers:
     - vajgely.tamas@gmail.com
 ---
@@ -64,5 +65,6 @@ role:
   admins:
     - vajgi90@gmail.com
     - hpeti1988@gmail.com
+    - istvan.dumitras@gmail.com
   readers:
     - vajgely.tamas@gmail.com
