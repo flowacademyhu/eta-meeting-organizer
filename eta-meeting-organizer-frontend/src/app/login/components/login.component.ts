@@ -22,14 +22,15 @@ import { environment } from '~/environment/environment';
         background: transparent 5px 50% no-repeat;
         display: inline-block;
         vertical-align: middle;
-        width: 35px;
+        width: 30px;
         height: 35px;
+        padding-bottom: 5px;
       }
       span.buttonText {
         color: white;
         display: inline-block;
         vertical-align: middle;
-        padding-left: 42px;
+        padding-left: 15px;
         padding-right: 42px;
         font-size: 14px;
         font-weight: bold;
@@ -67,14 +68,16 @@ import { environment } from '~/environment/environment';
         <mat-card id="login" style="text-align: center;">
             <img id="image" src="../../../assets/wysio_arrow.png"/>
           <mat-card-content>
-            <a href="${environment.googleAuthLink}" class="customGPlusSignIn" style="cursor: pointer;">
-              <span class="icon" id="googleicon">
+          <a href="${environment.googleAuthLink}">
+            <button mat-stroked-button id="customBtn" class="customGPlusSignIn">
+              <span class="icon">
                 <img src="../../../assets/googlelogo.png" />
               </span>
-              <span>{{
+              <span class="buttonText">{{
                 "login.loginButton" | translate
               }}</span>
-              </a>
+            </button>
+          </a>
           </mat-card-content>
         </mat-card>
       </div>

@@ -40,7 +40,7 @@
   },
   "navbar": {
     "calendar": "Calendar",
-    "profile" : "Profile",
+    "profile" : "Profile editor",
     "meetingRoomEditor": "Meetingroom Editor",
     "buildingEditor":"Building editor"
   },
