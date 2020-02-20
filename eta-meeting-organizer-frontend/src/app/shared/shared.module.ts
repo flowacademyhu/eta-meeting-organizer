@@ -17,6 +17,7 @@ import { BuildingRegisterComponent } from './Modals/building-register.component'
 import { MeetingRoomDeleteComponent } from './Modals/meeting-room-delete.component';
 import { MeetingRoomRegisterComponent } from './Modals/meeting-room-register.component';
 import { UserDeleteDialogComponent } from './Modals/user-delete-dialog';
+import { UserVerificationDialogComponent } from './Modals/user-verification-dialog';
 import { BuildingService } from './services/building.service';
 import { MeetingRoomService } from './services/meeting-room.service';
 import { UserService } from './services/user.service';
@@ -30,6 +31,7 @@ import { UserService } from './services/user.service';
     MeetingRoomRegisterComponent,
     BuildingRegisterComponent,
     MeetingRoomDeleteComponent,
+    UserVerificationDialogComponent,
   ],
   exports: [
     CommonModule,

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
+import { UserVerificationDialogComponent } from '~/app/shared/Modals/user-verification-dialog';
 import { User } from './../../models/user.model';
 import { UserDeleteDialogComponent } from './../../shared/Modals/user-delete-dialog';
 import { UserService } from './../../shared/services/user.service';
@@ -34,13 +35,13 @@ import { UserService } from './../../shared/services/user.service';
         <ng-container matColumnDef="action">
           <th mat-header-cell *matHeaderCellDef></th>
           <td mat-cell *matCellDef="let user">
-          <button mat-icon-button color="primary" (click)="openDialog(user.id)">
+          <button mat-icon-button color="primary" (click)="deleteDialog(user.id)">
           <mat-icon aria-label="Delete Icon">
             delete
           </mat-icon>
            </button>
-           <button *ngIf="user.role === 'USER'"  mat-icon-button color="primary">
-          <mat-icon aria-label="User">
+           <button *ngIf="user.verifiedByAdmin == false"  mat-icon-button color="primary">
+          <mat-icon aria-label="User"(click)="verificationDialog(user.id)">
             perm_identity
           </mat-icon>
           </button>
@@ -66,7 +67,7 @@ export class UsersTableComponent implements OnInit {
     .userSub;
    }
 
-   public openDialog(id: string) {
+   public deleteDialog(id: string) {
     const dialogRef = this.dialog.open(UserDeleteDialogComponent);
     dialogRef.afterClosed()
     .subscribe((result) => {
@@ -74,6 +75,25 @@ export class UsersTableComponent implements OnInit {
         this.deleteUser(id);
       }
     });
+   }
+
+   public verificationDialog(id: string) {
+    const dialogRef = this.dialog.open(UserVerificationDialogComponent);
+    dialogRef.afterClosed()
+    .subscribe((result) => {
+      if (result === 'true') {
+        this.verifyUser(id);
+      }
+    });
+   }
+
+   public verifyUser(id: string) {
+     this.userService
+     .updateUser(id)
+     .subscribe(() => {
+      this.userService
+      .getAllUsers();
+     });
    }
 
    public deleteUser(id: string) {
