@@ -1,6 +1,6 @@
-import { TranslateService } from '@ngx-translate/core';
 import { Component } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-user-delete-dialog',
   template: `
