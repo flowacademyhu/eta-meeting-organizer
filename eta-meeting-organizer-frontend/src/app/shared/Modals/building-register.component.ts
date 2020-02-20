@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { TranslateService } from '@ngx-translate/core';
 import { Observable, Subscription } from 'rxjs';
 import { Building } from '~/app/models/building.model';
 import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
@@ -46,7 +47,8 @@ export class BuildingRegisterComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<BuildingRegisterComponent>,
     private readonly api: ApiCommunicationService,
-    private readonly _snackBar: MatSnackBar) {}
+    private readonly _snackBar: MatSnackBar,
+    private readonly translate: TranslateService) {}
 
     public ngOnInit() {
       this.buildingForm = new FormGroup({
@@ -66,7 +68,10 @@ export class BuildingRegisterComponent implements OnInit {
     }
   }
 
-  public openSnackBar(message: string) {
-    this._snackBar.open(message, '' , { duration: 3000});
-    }
+  public openSnackBar() {
+    this._snackBar.open(this.translate
+      .instant(`snackbar-meeting-room.registerOk`), undefined, {
+      duration: 2000
+    });
+  }
 }
