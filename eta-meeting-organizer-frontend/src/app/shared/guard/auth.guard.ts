@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router, UrlTree } from '@angular/router';
-import { map, take } from 'rxjs/operators';
 import { AuthService } from '../services/auth.service';
 import { ConfigurationService } from '../services/configuration.service';
 
@@ -23,11 +22,7 @@ export class AuthGuard implements CanActivate {
   }
 
   public isUserRepresent(): boolean {
-    let isExist = true;
-    this.authService.user.pipe(take(1)), map((data) => {
-     isExist = !!data;
-    });
-    return isExist;
+    return !!this.authService.user.value;
   }
 
 }
