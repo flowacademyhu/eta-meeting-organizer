@@ -45,4 +45,16 @@ export class BuildingService {
     .building()
     .deleteBuildingId(id);
   }
+
+  public findAllCities() {
+    this.buildingCom
+    .building()
+    .findAllCities();
+  }
+
+  public findByCity(city: string) {
+    this.buildingCom
+    .building()
+    .findByCity(city);
+  }
 }
