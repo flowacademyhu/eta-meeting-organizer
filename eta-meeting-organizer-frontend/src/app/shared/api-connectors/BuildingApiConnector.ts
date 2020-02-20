@@ -6,7 +6,7 @@ export class BuildingApiConnector extends AbstractApiConnector {
   protected readonly apiRoute: string = `${this.apiBaseUrl}`;
 
   public getBuildings(): Observable<Building[]> {
-    return this.http.get<Building[]>(`${this.apiRoute}/buildings`);
+    return this.http.get<Building[]>(`${this.apiRoute}/buildings/`);
   }
 
   public getOneBuilding(id: number): Observable<Building> {
@@ -14,7 +14,7 @@ export class BuildingApiConnector extends AbstractApiConnector {
   }
 
   public postBuilding(building: Building): Observable<Building> {
-    return this.http.post<Building>(`${this.apiRoute}/buildings`, building);
+    return this.http.post<Building>(`${this.apiRoute}/buildings/`, + building);
   }
 
   public updateBuilding(id: number, building: Building) {
@@ -23,5 +23,13 @@ export class BuildingApiConnector extends AbstractApiConnector {
 
   public deleteBuildingId(id: number) {
     return this.http.delete(`${this.apiRoute}/buildings/` + id);
+  }
+
+  public findAllCities() {
+    return this.http.get<Building[]>(`${this.apiRoute}/buildings/cities/names`);
+  }
+
+  public findByCity(city: string): Observable<Building[]> {
+    return this.http.get<Building[]>(`${this.apiRoute}/buildings/cities/` + city);
   }
 }
