@@ -56,6 +56,12 @@
     "button": "EN",
     "exit": "Kilépés"
   },
+  "building-delete":{
+    "meetingRoomDelete": "Épület törlése",
+    "verification": "Biztosan törölni akarja az épületet?",
+    "yes": "Yes",
+    "no": "No"
+  },
   "user-delete-dialog": {
     "userDelete": "Felhasználó törlése",
     "verification": "Biztosan törölni akarja a felhasználót?",
