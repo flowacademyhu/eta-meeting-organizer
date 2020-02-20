@@ -20,7 +20,7 @@ public class ReservationService {
     return reservationRepository.findAll();
   }
 
-  public List<Reservation> findReservationsByUserId(Long id) {
+  public List<Reservation> findReservationsByUserId(String id) {
     return reservationRepository.findByUser_Id(id);
   }
 
