@@ -5,8 +5,8 @@ import { AbstractApiConnector } from '~/app/shared/api-connectors/AbstractApiCon
 export class MeetingRoomApiConnector extends AbstractApiConnector {
   protected readonly apiRoute: string = `${this.apiBaseUrl}`;
 
-  public getMeetingRooms(): Observable<MeetingRoom[]> {
-    return this.http.get<MeetingRoom[]>(`${this.apiRoute}/meetingrooms`);
+  public getMeetingRooms() {
+   return this.http.get<MeetingRoom[]>(`${this.apiRoute}/meetingrooms`);
   }
 
   public getOneMeetingRoomById(id: number): Observable<MeetingRoom> {

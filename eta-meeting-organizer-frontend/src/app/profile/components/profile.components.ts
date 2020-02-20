@@ -17,8 +17,7 @@ import { ApiCommunicationService } from '~/app/shared/services/api-communication
   <div class="row justify-content-center align-items-center">
     <div class="col-4">
     <mat-card class="card">
-      <h2>{{'profile.username' | translate}}:  {{(user$ | async)?.name}} </h2>
-      <h2>{{'profile.email' | translate}}:  {{(user$ | async)?.email}}</h2>
+      <h2>{{'profile.username' | translate}}:  {{(user$ | async)?.username}} </h2>
       <h2>{{'profile.role' | translate}}:  {{(user$ | async)?.role}}</h2>
       <h2>{{'profile.lastName' | translate}}:</h2>
       <h2>{{'profile.firstName' | translate}}:</h2>
@@ -30,7 +29,7 @@ import { ApiCommunicationService } from '~/app/shared/services/api-communication
 })
 
 export class ProfileComponent {
-  public id: number = 3;
+  public id: string = '3';
 
   public user$: Observable<User>;
 

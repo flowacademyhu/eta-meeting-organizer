@@ -4,7 +4,6 @@ import hu.flowacademy.meetingorganizer.persistence.model.MeetingRoom;
 import hu.flowacademy.meetingorganizer.persistence.model.dto.MeetingRoomDTO;
 import hu.flowacademy.meetingorganizer.service.MeetingRoomService;
 import java.util.List;
-import java.util.Optional;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,7 +35,11 @@ public class MeetingRoomResource {
   public ResponseEntity<MeetingRoom> findOne(@PathVariable Long id) {
     return meetingRoomService.findOne(id).map(ResponseEntity::ok)
         .orElseGet(() -> ResponseEntity.notFound().build());
+  }
 
+  @GetMapping("/{buildingId}/buildings")
+  public ResponseEntity<List<MeetingRoom>> findByBuildingId(@PathVariable Long buildingId) {
+    return new ResponseEntity<>(meetingRoomService.findByBuildingId(buildingId), HttpStatus.OK);
   }
 
   @PostMapping

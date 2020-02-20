@@ -48,6 +48,14 @@
     "button": "EN",
     "exit": "Kilépés"
   },
+  "meeting-room-delete": {
+    "meetingRoomDelete": "Tárgyaló törlése",
+    "verification": "Biztosan törölni akarja a tárgyalót?",
+    "yes": "Igen",
+    "no": "Nem",
+    "button": "EN",
+    "exit": "Kilépés"
+  },
   "user-delete-dialog": {
     "userDelete": "Felhasználó törlése",
     "verification": "Biztosan törölni akarja a felhasználót?",
