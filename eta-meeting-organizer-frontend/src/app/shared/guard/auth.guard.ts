@@ -14,7 +14,7 @@ export class AuthGuard implements CanActivate {
     const token = this.config.fetchToken('accessToken');
     if (!token) {
       return this.router.createUrlTree(['login']);
-    } else if (!token && !this.isUserRepresent()) {
+    } else if (!this.isUserRepresent()) {
       this.authService.decodeAndSaveUser(token);
       return (this.isUserRepresent()) ? true : this.router.createUrlTree(['login']);
     }
@@ -22,7 +22,7 @@ export class AuthGuard implements CanActivate {
   }
 
   public isUserRepresent(): boolean {
-    return !!this.authService.user;
+    return !!this.authService.user.value;
   }
 
 }
