@@ -62,6 +62,12 @@
     "yes": "Igen",
     "no": "Nem"
   },
+  "building-delete-dialog": {
+    "buildingDelete": "Épület törlése",
+    "verification": "Biztosan törölni akarja az épületet?",
+    "yes": "Igen",
+    "no": "Nem"
+  },
   "authentication": {
     "answer": "A regisztráció admin általi jóváhagyásra vár!"
   },
@@ -71,8 +77,11 @@
     "yes": "Igen",
     "no": "Nem"
   },
-  "delete-snackbar": {
+  "delete-user-snackbar": {
     "delete": "Felhasználó törölve"
+  },
+  "delete-building-snackbar": {
+    "delete": "Épület törölve"
   },
   "verification-snackbar": {
     "verify": "Felhasználó jóváhagyva"

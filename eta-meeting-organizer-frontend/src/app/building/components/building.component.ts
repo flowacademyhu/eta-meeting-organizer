@@ -4,6 +4,7 @@ import {Observable} from 'rxjs';
 import {Building} from '~/app/models/building.model';
 import {BuildingRegisterComponent} from '~/app/shared/Modals/building-register.component';
 import {ApiCommunicationService} from '~/app/shared/services/api-communication.service';
+import { BuildingDeleteDialogComponent } from '~/app/shared/Modals/building-delete-dialog';
 
 @Component({
   selector: 'app-building-list',
@@ -38,16 +39,16 @@ import {ApiCommunicationService} from '~/app/shared/services/api-communication.s
         <ng-container matColumnDef="action">
           <th mat-header-cell *matHeaderCellDef></th>
           <td mat-cell *matCellDef="let building">
-          <button mat-icon-button color="primary" (click)="deleteDialog(building.id)">
-          <mat-icon aria-label="Delete Icon">
-            delete
-          </mat-icon>
-           </button>
            <button mat-icon-button color="accent">
           <mat-icon aria-label="Edit">
             edit
           </mat-icon>
           </button>
+          <button mat-icon-button color="primary" (click)="deleteDialog(building.id)">
+          <mat-icon aria-label="Delete Icon">
+            delete
+          </mat-icon>
+           </button>
           </td>
         </ng-container>
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -73,4 +74,19 @@ export class BuildingComponent {
       width: '400px',
     });
   }
+  public deleteDialog(id: number) {
+    const dialogRef = this.dialog.open(BuildingDeleteDialogComponent);
+    dialogRef.afterClosed()
+    .subscribe((result) => {
+      if (result === 'true') {
+        this.deleteBuilding(id);
+      }
+    });
+   }
+
+  public deleteBuilding(id: number) {
+    this.api.building()
+    .deleteMeetingRoomById(id)
+    .subscribe();
+   }
 }
