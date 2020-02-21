@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { MeetingRoom } from '~/app/models/meetingroom.model';
 import { MeetingRoomService } from './../services/meeting-room.service';
@@ -37,7 +39,8 @@ import { MeetingRoomService } from './../services/meeting-room.service';
 
      <div class="space">
        <button mat-button [mat-dialog-close]>cancel</button>
-       <button mat-button type="submit" cdkFocusInitial value="reset">Ok</button>
+       <button mat-button type="submit" cdkFocusInitial
+       (click)="openSnackBar()">Ok</button>
      </div>
    </form>
  </div>`,
@@ -49,10 +52,11 @@ export class MeetingRoomRegisterComponent implements OnInit {
   public meetingRoom$: Observable<MeetingRoom[]>;
   public meetingRoomForm: FormGroup;
   public meetingRoom: MeetingRoom;
-
   constructor(
     public dialogRef: MatDialogRef<MeetingRoomRegisterComponent>,
-    private readonly meetingRoomService: MeetingRoomService) {
+    private readonly meetingRoomService: MeetingRoomService,
+    private readonly _snackBar: MatSnackBar,
+    private readonly translate: TranslateService) {
     }
 
     public ngOnInit() {
@@ -69,6 +73,13 @@ export class MeetingRoomRegisterComponent implements OnInit {
     .subscribe((data) => {
         this.meetingRoom = data;
         this.meetingRoomService.getAllMeetingRooms();
-      });
+    });
+  }
+
+  public openSnackBar() {
+    this._snackBar.open(this.translate
+      .instant(`snackbar-meeting-room.registerOk`), '', {
+      duration: 2500
+    });
   }
 }

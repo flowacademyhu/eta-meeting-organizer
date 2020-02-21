@@ -68,14 +68,16 @@ import { environment } from '~/environment/environment';
         <mat-card id="login" style="text-align: center;">
             <img id="image" src="../../../assets/wysio_arrow.png"/>
           <mat-card-content>
-            <a href="${environment.googleAuthLink}" class="customGPlusSignIn" style="cursor: pointer;">
-              <span class="icon" id="googleicon">
+          <a href="${environment.googleAuthLink}">
+            <div id="customBtn" class="customGPlusSignIn">
+              <span class="icon">
                 <img src="../../../assets/googlelogo.png" />
               </span>
               <span>{{
                 "login.loginButton" | translate
               }}</span>
-              </a>
+            </div>
+          </a>
           </mat-card-content>
         </mat-card>
       </div>

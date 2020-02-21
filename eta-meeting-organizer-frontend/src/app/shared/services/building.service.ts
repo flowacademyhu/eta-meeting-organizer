@@ -8,14 +8,14 @@ export class BuildingService {
 
   public _buildingSub: BehaviorSubject<Building[]> = new BehaviorSubject<Building[]>([]);
 
-  constructor(private readonly buildingCom: ApiCommunicationService) { }
+  constructor(private readonly buildingCom: ApiCommunicationService) {}
 
   public get buildingSub() {
     return this._buildingSub;
   }
 
   public getAllBuildings() {
-    this.buildingCom.building()
+   this.buildingCom.building()
     .getBuildings()
     .subscribe((building: Building[]) => {
       this._buildingSub.next(building);
