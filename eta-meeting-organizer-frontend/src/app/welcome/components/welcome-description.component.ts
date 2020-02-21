@@ -6,15 +6,9 @@ import { ApiCommunicationService } from '~/app/shared/services/api-communication
 
 @Component({
   selector: 'app-welcome-description',
-  styles: [
-    `
-      .row {
-        min-height: calc(100vh - 60px);
-      }
-    `,
-  ],
+  styles: [],
   template: `
-    <div class="row">
+    <div class="container">
     </div>
   `
 })

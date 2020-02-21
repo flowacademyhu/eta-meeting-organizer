@@ -28,27 +28,27 @@ public class InitDataLoader {
   @PostConstruct
   public void init() {
     buildingRepository.save(Building.builder()
-        .id(1l)
+        .id(1L)
         .city("Budapest")
         .address("Kelemen Jancsi utca 11 2/6")
         .build());
     buildingRepository.save(Building.builder()
-        .id(2l)
+        .id(2L)
         .city("Kecskemét")
         .address("Kis István utca 131")
         .build());
     buildingRepository.save(Building.builder()
-        .id(3l)
+        .id(3L)
         .city("Salgótarján")
         .address("Szegedi út 125")
         .build());
     buildingRepository.save(Building.builder()
-        .id(4l)
+        .id(4L)
         .city("Göd")
         .address("Vörös utca 38-40")
         .build());
     buildingRepository.save(Building.builder()
-        .id(5l)
+        .id(5L)
         .city("Győr")
         .address("Győri utca 28 3/28")
         .build());
@@ -108,37 +108,36 @@ public class InitDataLoader {
         .enabled(true)
         .build());
 
-
     reservationRepository.save(Reservation.builder()
-        .id(1l)
+        .id(1L)
         .user(userRepository.findById("99999150350006150715113077777").orElse(null))
         .title("Napi meeting")
         .summary("Megbeszéljük ki mivel haladt tegnap és mivel fog ma foglalkozni.")
         .startingTime(LocalDateTime.of(2020, 2, 17, 16, 00))
         .endingTime(LocalDateTime.of(2020, 2, 17, 18, 00)).build());
     reservationRepository.save(Reservation.builder()
-        .id(2l)
+        .id(2L)
         .user(userRepository.findById("99999150350006150715113077777").orElse(null))
         .title("Flow tárgyalás")
         .summary("Új ügyfelek felkutatása.")
         .startingTime(LocalDateTime.now())
         .endingTime(LocalDateTime.now()).build());
     reservationRepository.save(Reservation.builder()
-        .id(3l)
+        .id(3L)
         .user(userRepository.findById("10769150350006150715113077777").orElse(null))
         .title("Húsvét")
         .summary("húsvéti program megbeszélése Pennywise-al")
         .startingTime(LocalDateTime.now())
         .endingTime(LocalDateTime.now()).build());
     reservationRepository.save(Reservation.builder()
-        .id(4l)
+        .id(4L)
         .user(userRepository.findById("10769150350006150715113077777").orElse(null))
         .title("Karácsony")
         .summary("Megbeszéljük hogy mikor tartsuk illetve ki melyik zenekart szeretné ")
         .startingTime(LocalDateTime.now())
         .endingTime(LocalDateTime.now()).build());
     reservationRepository.save(Reservation.builder()
-        .id(5l)
+        .id(5L)
         .user(userRepository.findById("10769150350006150715113082367").orElse(null))
         .title("Tesla")
         .summary("Tesla gyár látogatásának időpontja")
@@ -146,27 +145,27 @@ public class InitDataLoader {
         .endingTime(LocalDateTime.now()).build());
 
     meetingRoomRepository.save(MeetingRoom.builder()
-        .id(1l)
+        .id(1L)
         .name("Ügyfél fogadó")
         .numberOfSeats(5)
         .projector(false).build());
     meetingRoomRepository.save(MeetingRoom.builder()
-        .id(2l)
+        .id(2L)
         .name("Igazgatói tárgyaló")
         .numberOfSeats(20)
         .projector(true).build());
     meetingRoomRepository.save(MeetingRoom.builder()
-        .id(3l)
+        .id(3L)
         .name("Kék ajtós iroda")
         .numberOfSeats(10)
         .projector(true).build());
     meetingRoomRepository.save(MeetingRoom.builder()
-        .id(4l)
+        .id(4L)
         .name("Piros ajtós iroda")
         .numberOfSeats(2)
         .projector(false).build());
     meetingRoomRepository.save(MeetingRoom.builder()
-        .id(5l)
+        .id(5L)
         .name("Zöld iroda")
         .numberOfSeats(8)
         .projector(false).build());
