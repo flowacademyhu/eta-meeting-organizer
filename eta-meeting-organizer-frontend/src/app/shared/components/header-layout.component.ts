@@ -35,7 +35,7 @@ import { AuthService } from '../services/auth.service';
   <mat-toolbar id="row" class="my-0" color="accent" >
   <a class="mr-3"  routerLink="/calendar"><img src="../../../assets/wysio_arrow.png" height="55" /></a>
   <a class="mr-3"
-  *ngIf="isAdmin" mat-stroked-button routerLink="/calendar">{{'navbar.calendar' | translate}}</a>
+  *ngIf="isToken" mat-stroked-button routerLink="/calendar">{{'navbar.calendar' | translate}}</a>
   <a class="mr-3"
   *ngIf="isAdmin" mat-stroked-button routerLink="/meetingroom">{{'navbar.meetingRoomEditor' | translate}}</a>
   <a class="mr-3"
