@@ -28,8 +28,8 @@ import { ApiCommunicationService } from '~/app/shared/services/api-communication
           matInput placeholder="{{'building.address' | translate}}">
         </mat-form-field>
     <div>
-      <button mat-button [mat-dialog-close] >cancel</button>
-      <button mat-button type="submit" cdkFocusInitial>Ok</button>
+      <button mat-button mat-dialog-close>{{'building.cancel' | translate}}</button>
+      <button mat-button type="submit" cdkFocusInitial>{{'building.saveButton' | translate}}</button>
     </div>
   </form>
 </div>`,

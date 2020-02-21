@@ -13,7 +13,7 @@
     "city": "City",
     "address":"Address",
     "saveButton":"Save",
-    "delete":"Delete building",
+    "cancel":"Cancel",
     "deleteButton":"Delete",
     "add":"Add building"
   },

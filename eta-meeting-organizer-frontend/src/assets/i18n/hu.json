@@ -13,7 +13,7 @@
     "city": "Város",
     "address":"Cím",
     "saveButton":"Mentés",
-    "delete":"Épület törlése",
+    "cancel":"Mégse",
     "deleteButton":"törlés",
     "add":"Épület hozzáadás"
   },
