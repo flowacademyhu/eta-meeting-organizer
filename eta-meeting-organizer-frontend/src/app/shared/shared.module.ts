@@ -10,7 +10,6 @@ import {RequestInterceptorService} from '~/app/shared/interceptor/auth-intercept
 import { MaterialModule } from '~/app/shared/material.module';
 import { MainLayoutComponent } from '~/app/shared/pages/main-layout.component';
 import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
-import { AuthService } from '~/app/shared/services/auth.service';
 import { ConfigurationService } from '~/app/shared/services/configuration.service';
 import { HeaderComponent } from './components/header-layout.component';
 import { BuildingRegisterComponent } from './Modals/building-register.component';
@@ -52,7 +51,6 @@ import { UserService } from './services/user.service';
     MeetingRoomService,
     UserService,
     AuthGuard,
-    AuthService,
     {provide: HTTP_INTERCEPTORS, useClass: RequestInterceptorService, multi: true},
   ],
 })
