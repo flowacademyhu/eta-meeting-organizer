@@ -1,21 +1,23 @@
 import { Injectable } from '@angular/core';
 import * as jwt_decode from 'jwt-decode';
+import { BehaviorSubject } from 'rxjs';
 import { UserToken } from '../models/user-token.model';
 import { ConfigurationService } from './configuration.service';
 
 @Injectable()
 export class AuthService {
-  private _user: UserToken;
+  private _user: BehaviorSubject<UserToken> = new BehaviorSubject<UserToken>({} as UserToken);
 
-  get user(): UserToken {
-    return this.user;
+  get user() {
+    return this._user;
   }
 
   constructor(private readonly configService: ConfigurationService) {}
 
   public decodeAndSaveUser(token: string): string {
-    this._user = jwt_decode(token);
-    if (this._user.verified) {
+    const userToken = jwt_decode(token);
+    this._user.next(userToken);
+    if (userToken.verified) {
       this.configService.setToken({accessToken: token});
       return 'Authentication is successfull!';
     } else {
