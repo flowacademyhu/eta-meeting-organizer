@@ -21,10 +21,9 @@ import {ApiCommunicationService} from '~/app/shared/services/api-communication.s
     }
   `],
   template: `
-    <button mat-raised-button color="warn"
-            class="addButton"
-            (click)="openDialog()">
-      {{'building.add' | translate}}
+     <button mat-icon-button color="primary"
+          (click)="openDialog()">
+          <mat-icon>add</mat-icon>
     </button>
     <div class="row justify-content-center">
       <table mat-table [dataSource]="building$ | async" class="mat-elevation-z8">
@@ -39,9 +38,12 @@ import {ApiCommunicationService} from '~/app/shared/services/api-communication.s
         <ng-container matColumnDef="delete">
           <th mat-header-cell *matHeaderCellDef>  </th>
           <td mat-cell *matCellDef="let building">
-            <button mat-raised-button color="warn">
-              {{'building.deleteButton' | translate}}
-            </button>
+          <button mat-icon-button color="accent">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button color="primary">
+            <mat-icon>delete</mat-icon>
+          </button>
           </td>
         </ng-container>
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

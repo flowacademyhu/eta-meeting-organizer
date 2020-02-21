@@ -1,6 +1,16 @@
 export interface User {
-  id: number;
-  name: string;
-  email: string;
-  role: string;
+  id: string;
+  username: string;
+  role: Role;
+  enabled: boolean;
+  accountNonExpired: boolean;
+  accountNonLocked: boolean;
+  credentialsNonExpired: boolean;
+  verifiedByAdmin: boolean;
+}
+
+export enum Role {
+  ADMIN,
+  USER,
+  READER
 }

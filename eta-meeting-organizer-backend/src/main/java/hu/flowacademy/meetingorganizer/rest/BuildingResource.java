@@ -2,7 +2,6 @@ package hu.flowacademy.meetingorganizer.rest;
 
 import hu.flowacademy.meetingorganizer.persistence.model.Building;
 import hu.flowacademy.meetingorganizer.service.BuildingService;
-import java.util.Optional;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -30,16 +30,26 @@ public class BuildingResource {
   }
 
   @GetMapping
-  public ResponseEntity<List<Building>> findAll() {
-    List<Building> buildings = buildingService.findAll();
-    return new ResponseEntity<>(buildings, HttpStatus.OK);
+  public ResponseEntity<List<Building>> findAll(
+      @RequestParam(defaultValue = "0") Integer pageNumber,
+      @RequestParam(defaultValue = "10") Integer pageSize) {
+    return new ResponseEntity<>(buildingService.findAll(pageNumber, pageSize), HttpStatus.OK);
   }
 
   @GetMapping("/{id}")
   public ResponseEntity<Building> findOne(@PathVariable Long id) {
-    Optional<Building> buildingOptional = buildingService.findOne(id);
-    return buildingOptional.isPresent() ? ResponseEntity.ok(buildingOptional.get())
-        : ResponseEntity.notFound().build();
+    return buildingService.findOne(id).map(ResponseEntity::ok)
+        .orElseGet(() -> ResponseEntity.notFound().build());
+  }
+
+  @GetMapping("/cities/names")
+  public ResponseEntity<List<String>> findAllCities() {
+    return new ResponseEntity<>(buildingService.findAllCities(), HttpStatus.OK);
+  }
+
+  @GetMapping("/cities")
+  public ResponseEntity<List<Building>> findByCity(@RequestParam String city) {
+    return new ResponseEntity<>(buildingService.findByCity(city), HttpStatus.OK);
   }
 
   @PutMapping("/{id}")

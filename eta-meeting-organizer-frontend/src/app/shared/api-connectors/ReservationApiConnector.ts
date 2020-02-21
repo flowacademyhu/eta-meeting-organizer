@@ -9,6 +9,10 @@ export class ReservationApiConnector extends AbstractApiConnector {
     return this.http.get<Reservation[]>(`${this.apiRoute}/reservations`);
   }
 
+  public getReservationsByUserId(userId: number): Observable<Reservation[]> {
+    return this.http.get<Reservation[]>(`${this.apiRoute}/reservations/${userId}/users`);
+  }
+
   public getOneReservationById(id: number): Observable<Reservation> {
     return this.http.get<Reservation>(`${this.apiRoute}/reservations/` + id);
   }

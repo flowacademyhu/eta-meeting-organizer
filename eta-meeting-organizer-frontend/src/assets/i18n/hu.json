@@ -18,6 +18,7 @@
     "add":"Épület hozzáadás"
   },
   "profile": {
+    "id": "Azonosító",
     "username": "Felhasználói név",
     "lastName": "Vezetéknév",
     "firstName": "Keresztnév",
@@ -34,17 +35,46 @@
     "selectBuilding":"Válasz telephelyet",
     "projector":"Projektor",
     "saveButton":"Mentés",
-    "delete": "Törlés"
+    "delete": "Törlés",
+    "add":"Iroda hozzáadás"
   },
   "navbar": {
     "calendar": "Naptár",
-    "profile" : "Profil",
-    "meetingRoomEditor": "Tárgyaló kezelő",
+    "usersManagement" : "Felhasználó-kezelés",
+    "meetingRoomEditor": "Tárgyalókezelő",
     "buildingEditor":"Épületkezelő"
   },
   "header": {
-    "button": "ENG",
+    "button": "EN",
     "exit": "Kilépés"
+  },
+  "meeting-room-delete": {
+    "meetingRoomDelete": "Tárgyaló törlése",
+    "verification": "Biztosan törölni akarja a tárgyalót?",
+    "yes": "Igen",
+    "no": "Nem",
+    "button": "EN",
+    "exit": "Kilépés"
+  },
+  "user-delete-dialog": {
+    "userDelete": "Felhasználó törlése",
+    "verification": "Biztosan törölni akarja a felhasználót?",
+    "yes": "Igen",
+    "no": "Nem"
+  },
+  "authentication": {
+    "answer": "A regisztráció admin általi jóváhagyásra vár!"
+  },
+  "user-verification-dialog": {
+    "userVerification": "Felhasználó jováhagyása",
+    "verification": "Biztos engedélyezi a felhasználó beléptetését?",
+    "yes": "Igen",
+    "no": "Nem"
+  },
+  "delete-snackbar": {
+    "delete": "Felhasználó törölve"
+  },
+  "verification-snackbar": {
+    "verify": "Felhasználó jóváhagyva"
   }
 }
-

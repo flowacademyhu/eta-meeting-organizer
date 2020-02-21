@@ -18,6 +18,7 @@
     "add":"Add building"
   },
   "profile": {
+    "id": "Identifier",
     "username": "Username",
     "lastName": "Lastname",
     "firstName": "Firstname",
@@ -34,17 +35,42 @@
     "selectBuilding":"Select building",
     "projector":"Projector",
     "saveButton":"Save",
-    "delete": "Delete"
+    "delete": "Delete",
+    "add":"Add meeting room"
   },
   "navbar": {
     "calendar": "Calendar",
-    "profile" : "Profile",
+    "usersManagement" : "User Management",
     "meetingRoomEditor": "Meetingroom Editor",
-    "buildingEditor":"Building editor"
+    "buildingEditor":"Building Editor"
   },
   "header": {
-    "button": "HUN",
+    "button": "HU",
     "exit": "Sign Out"
+  },
+  "meeting-room-delete":{
+    "meetingRoomDelete": "Meeting room deletion",
+    "verification": "Are you sure you want to delete meeting room?"
+  },
+  "user-delete-dialog": {
+    "userDelete": "User deletion",
+    "verification": "Are you sure you want to delete user?",
+    "yes": "Yes",
+    "no": "No"
+  },
+  "authentication": {
+    "answer": "Your registration has not been verified by admin yet!"
+  },
+  "user-verification-dialog": {
+    "userVerification": "User verification",
+    "verification": "Are you sure you want to verify this user?",
+    "yes": "Yes",
+    "no": "No"
+  },
+  "delete-snackbar": {
+    "delete": "User has been deleted"
+  },
+  "verification-snackbar": {
+    "verify": "User has been verified"
   }
-
 }
