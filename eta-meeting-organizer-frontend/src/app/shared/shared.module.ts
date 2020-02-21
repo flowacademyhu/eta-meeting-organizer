@@ -17,6 +17,7 @@ import { MeetingRoomDeleteComponent } from './Modals/meeting-room-delete.compone
 import { MeetingRoomRegisterComponent } from './Modals/meeting-room-register.component';
 import { UserDeleteDialogComponent } from './Modals/user-delete-dialog';
 import { UserVerificationDialogComponent } from './Modals/user-verification-dialog';
+import { AuthService } from './services/auth.service';
 import { BuildingService } from './services/building.service';
 import { MeetingRoomService } from './services/meeting-room.service';
 import { UserService } from './services/user.service';
@@ -52,11 +53,8 @@ import { UserService } from './services/user.service';
     MeetingRoomService,
     UserService,
     AuthGuard,
-<<<<<<< HEAD
     AuthService,
     BuildingService,
-=======
->>>>>>> master
     {provide: HTTP_INTERCEPTORS, useClass: RequestInterceptorService, multi: true},
   ],
 })
