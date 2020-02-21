@@ -2,9 +2,9 @@ import {Component} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import {Observable} from 'rxjs';
 import {Building} from '~/app/models/building.model';
+import { BuildingDeleteDialogComponent } from '~/app/shared/Modals/building-delete-dialog';
 import {BuildingRegisterComponent} from '~/app/shared/Modals/building-register.component';
 import {ApiCommunicationService} from '~/app/shared/services/api-communication.service';
-import { BuildingDeleteDialogComponent } from '~/app/shared/Modals/building-delete-dialog';
 
 @Component({
   selector: 'app-building-list',
