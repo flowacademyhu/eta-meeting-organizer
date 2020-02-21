@@ -29,7 +29,7 @@ public class ReservationResource {
   }
 
   @GetMapping("/{userId}/users")
-  public ResponseEntity<List<Reservation>> findByUserId(@PathVariable Long userId) {
+  public ResponseEntity<List<Reservation>> findByUserId(@PathVariable String userId) {
     return new ResponseEntity<>(reservationService.findReservationsByUserId(userId), HttpStatus.OK);
   }
 

@@ -31,14 +31,14 @@ import {ConfigurationService} from '~/app/shared/services/configuration.service'
   <a class="mr-3"  routerLink="/calendar"><img src="../../../assets/wysio_arrow.png" height="55" /></a>
   <a class="mr-3" mat-stroked-button routerLink="/calendar">{{'navbar.calendar' | translate}}</a>
   <a class="mr-3" mat-stroked-button routerLink="/meetingroom">{{'navbar.meetingRoomEditor' | translate}}</a>
-  <a class="mr-3" mat-stroked-button routerLink="/users-table">{{'navbar.profile' | translate}}</a>
+  <a class="mr-3" mat-stroked-button routerLink="/users-table">{{'navbar.usersManagement' | translate}}</a>
   <a class="mr-3" mat-stroked-button routerLink="/building-register">{{'navbar.buildingEditor' | translate}}</a>
 
   <button mat-button class="ml-auto"(click)="onLanguageChange()">{{'header.button' | translate}}</button>
   <p class="email">kolbaszjoska@citromail.hu</p>
-  <button mat-button id="logout" (click)="logout()" class="ml-2">
-  <p><img padding="20" src="../../../assets/logout.png" height="50"/></p>
-  </button>
+  <a id="logout" href="" (click)="logout()" class="ml-2">
+  <img padding="20" src="../../../assets/logout.png" height="50"/>
+</a>
 </mat-toolbar>`
 })
 
