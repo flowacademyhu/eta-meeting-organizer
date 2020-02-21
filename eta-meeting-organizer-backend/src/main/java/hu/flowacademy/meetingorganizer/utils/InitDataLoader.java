@@ -27,6 +27,7 @@ public class InitDataLoader {
 
   @PostConstruct
   public void init() {
+
     buildingRepository.save(Building.builder()
         .id(1l)
         .city("Budapest")
@@ -52,6 +53,33 @@ public class InitDataLoader {
         .city("Győr")
         .address("Győri utca 28 3/28")
         .build());
+
+    meetingRoomRepository.save(MeetingRoom.builder()
+        .id(1l)
+        .name("Ügyfél fogadó")
+        .building(buildingRepository.getOne(1l))
+        .numberOfSeats(5)
+        .projector(false).build());
+    meetingRoomRepository.save(MeetingRoom.builder()
+        .id(2l)
+        .name("Igazgatói tárgyaló")
+        .numberOfSeats(20)
+        .projector(true).build());
+    meetingRoomRepository.save(MeetingRoom.builder()
+        .id(3l)
+        .name("Kék ajtós iroda")
+        .numberOfSeats(10)
+        .projector(true).build());
+    meetingRoomRepository.save(MeetingRoom.builder()
+        .id(4l)
+        .name("Piros ajtós iroda")
+        .numberOfSeats(2)
+        .projector(false).build());
+    meetingRoomRepository.save(MeetingRoom.builder()
+        .id(5l)
+        .name("Zöld iroda")
+        .numberOfSeats(8)
+        .projector(false).build());
 
     userRepository.save(User.builder()
         .id("111455286747437812553")
@@ -110,9 +138,10 @@ public class InitDataLoader {
 
 
     reservationRepository.save(Reservation.builder()
-        .id(1l)
+        .id(3l)
         .user(userRepository.findById("111455286747437812553").orElse(null))
         .title("Napi meeting")
+        .meetingRoom(meetingRoomRepository.getOne(1l))
         .summary("Megbeszéljük ki mivel haladt tegnap és mivel fog ma foglalkozni.")
         .startingTime(LocalDateTime.of(2020, 2, 17, 16, 00))
         .endingTime(LocalDateTime.of(2020, 2, 17, 18, 00)).build());
@@ -144,31 +173,5 @@ public class InitDataLoader {
         .summary("Tesla gyár látogatásának időpontja")
         .startingTime(LocalDateTime.now())
         .endingTime(LocalDateTime.now()).build());
-
-    meetingRoomRepository.save(MeetingRoom.builder()
-        .id(1l)
-        .name("Ügyfél fogadó")
-        .numberOfSeats(5)
-        .projector(false).build());
-    meetingRoomRepository.save(MeetingRoom.builder()
-        .id(2l)
-        .name("Igazgatói tárgyaló")
-        .numberOfSeats(20)
-        .projector(true).build());
-    meetingRoomRepository.save(MeetingRoom.builder()
-        .id(3l)
-        .name("Kék ajtós iroda")
-        .numberOfSeats(10)
-        .projector(true).build());
-    meetingRoomRepository.save(MeetingRoom.builder()
-        .id(4l)
-        .name("Piros ajtós iroda")
-        .numberOfSeats(2)
-        .projector(false).build());
-    meetingRoomRepository.save(MeetingRoom.builder()
-        .id(5l)
-        .name("Zöld iroda")
-        .numberOfSeats(8)
-        .projector(false).build());
   }
 }
