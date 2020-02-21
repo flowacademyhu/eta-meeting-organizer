@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { MeetingRoom } from '~/app/models/meetingroom.model';
 import { MeetingRoomService } from './../services/meeting-room.service';
@@ -51,11 +52,11 @@ export class MeetingRoomRegisterComponent implements OnInit {
   public meetingRoom$: Observable<MeetingRoom[]>;
   public meetingRoomForm: FormGroup;
   public meetingRoom: MeetingRoom;
-  public durationInSeconds: 2;
   constructor(
     public dialogRef: MatDialogRef<MeetingRoomRegisterComponent>,
     private readonly meetingRoomService: MeetingRoomService,
-    private readonly _snackBar: MatSnackBar) {
+    private readonly _snackBar: MatSnackBar,
+    private readonly translate: TranslateService) {
     }
 
     public ngOnInit() {
@@ -75,7 +76,10 @@ export class MeetingRoomRegisterComponent implements OnInit {
     });
   }
 
-  public openSnackBar(message: string) {
-  this._snackBar.open(message, '' , { duration: 3000});
+  public openSnackBar() {
+    this._snackBar.open(this.translate
+      .instant(`snackbar-meeting-room.registerOk`), '', {
+      duration: 2500
+    });
   }
 }
