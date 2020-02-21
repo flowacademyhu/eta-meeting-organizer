@@ -5,7 +5,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable, Subscription } from 'rxjs';
 import { Building } from '~/app/models/building.model';
-import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
+import { BuildingService } from './../services/building.service';
+
 
 @Component({
   selector: 'app-building-register',
@@ -46,7 +47,7 @@ export class BuildingRegisterComponent implements OnInit {
   public subs: Subscription;
   constructor(
     public dialogRef: MatDialogRef<BuildingRegisterComponent>,
-    private readonly api: ApiCommunicationService,
+    private readonly buildingService: BuildingService,
     private readonly snackBar: MatSnackBar,
     private readonly translate: TranslateService) {}
 
@@ -58,10 +59,11 @@ export class BuildingRegisterComponent implements OnInit {
     }
 
   public onSubmit() {
-    this.api.building()
+    this.buildingService
       .postBuilding(this.buildingForm.getRawValue())
       .subscribe((data) => {
         this.building = data;
+        this.buildingService.getAllBuildings();
       });
     if (this.buildingForm.valid) {
       this.buildingForm.reset();
