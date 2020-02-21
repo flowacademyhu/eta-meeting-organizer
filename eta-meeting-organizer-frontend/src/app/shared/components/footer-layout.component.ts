@@ -34,7 +34,7 @@ background-size: contain;
   `],
   template: `
   <footer class="foot" color="primary">
-  <div class="flw"> <img src="../../../assets/footer_city.png"> </div>
+  <div></div>
   </footer>
  `
 })

@@ -19,6 +19,7 @@ export class AuthService {
     this._user.next(userToken);
     if (userToken.verified) {
       this.configService.setToken({accessToken: token});
+      console.log(userToken.verified);
       return 'Authentication is successfull!';
     } else {
       return 'Bad request!';
