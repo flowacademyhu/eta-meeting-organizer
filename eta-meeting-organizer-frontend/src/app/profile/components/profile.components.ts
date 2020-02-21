@@ -9,9 +9,6 @@ import { ApiCommunicationService } from '~/app/shared/services/api-communication
     .card {
       border-radius: 5%;
     }
-    .row {
-      min-height: calc(100vh - 60px);
-    }
   `],
   template: `
   <div class="row justify-content-center align-items-center">
