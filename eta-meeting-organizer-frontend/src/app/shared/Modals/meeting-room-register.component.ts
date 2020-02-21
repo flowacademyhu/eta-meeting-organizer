@@ -52,7 +52,6 @@ export class MeetingRoomRegisterComponent implements OnInit {
   public meetingRoom$: Observable<MeetingRoom[]>;
   public meetingRoomForm: FormGroup;
   public meetingRoom: MeetingRoom;
-  public durationInSeconds: 2;
   constructor(
     public dialogRef: MatDialogRef<MeetingRoomRegisterComponent>,
     private readonly meetingRoomService: MeetingRoomService,
@@ -79,7 +78,7 @@ export class MeetingRoomRegisterComponent implements OnInit {
 
   public openSnackBar() {
     this._snackBar.open(this.translate
-      .instant(`snackbar-meeting-room.registerOk`), undefined, {
+      .instant(`snackbar-meeting-room.registerOk`), '', {
       duration: 2500
     });
   }
