@@ -35,14 +35,13 @@ import { AuthService } from '../services/auth.service';
   <mat-toolbar id="row" class="my-0" color="accent" >
   <a class="mr-3"  routerLink="/calendar"><img src="../../../assets/wysio_arrow.png" height="55" /></a>
   <a class="mr-3"
-  *ngIf="isToken" mat-stroked-button routerLink="/calendar">{{'navbar.calendar' | translate}}</a>
+  *ngIf="isAdmin" mat-stroked-button routerLink="/calendar">{{'navbar.calendar' | translate}}</a>
   <a class="mr-3"
   *ngIf="isAdmin" mat-stroked-button routerLink="/meetingroom">{{'navbar.meetingRoomEditor' | translate}}</a>
   <a class="mr-3"
   *ngIf="isAdmin" mat-stroked-button routerLink="/users-table">{{'navbar.usersManagement' | translate}}</a>
   <a class="mr-3"
   *ngIf="isAdmin" mat-stroked-button routerLink="/building-register">{{'navbar.buildingEditor' | translate}}</a>
-
   <button mat-button class="ml-auto"(click)="onLanguageChange()">{{'header.button' | translate}}</button>
   <p *ngIf="isToken" class="email">{{ user.username }}</p>
   <button *ngIf="isToken" mat-button id="logout" (click)="logout()" class="ml-2">
