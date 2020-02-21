@@ -7,7 +7,6 @@ import { Observable, Subscription } from 'rxjs';
 import { Building } from '~/app/models/building.model';
 import { BuildingService } from './../services/building.service';
 
-
 @Component({
   selector: 'app-building-register',
   styles: [`
