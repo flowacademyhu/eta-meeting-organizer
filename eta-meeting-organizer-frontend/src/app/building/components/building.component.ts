@@ -1,10 +1,11 @@
-import {Component} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import {Observable} from 'rxjs';
 import {Building} from '~/app/models/building.model';
 import { BuildingDeleteDialogComponent } from '~/app/shared/Modals/building-delete-dialog';
 import {BuildingRegisterComponent} from '~/app/shared/Modals/building-register.component';
-import {ApiCommunicationService} from '~/app/shared/services/api-communication.service';
+import { BuildingService } from './../../shared/services/building.service';
+
 
 @Component({
   selector: 'app-building-list',
@@ -58,16 +59,17 @@ import {ApiCommunicationService} from '~/app/shared/services/api-communication.s
   `
 })
 
-export class BuildingComponent {
+export class BuildingComponent implements OnInit {
   public building$: Observable<Building[]>;
-
-  constructor(private readonly api: ApiCommunicationService,
-              private readonly dialog: MatDialog,
-  ) {  this.building$ = this.api.building()
-    .getBuildings();
-  }
-
   public displayedColumns: string[] = ['city', 'address', 'action'];
+
+  constructor(private readonly buildingService: BuildingService,
+              private readonly dialog: MatDialog) { }
+
+   public ngOnInit() {
+     this.building$ = this.buildingService
+     .buildingSub;
+   }
 
   public openDialog(): void {
     this.dialog.open(BuildingRegisterComponent, {
@@ -85,8 +87,8 @@ export class BuildingComponent {
    }
 
   public deleteBuilding(id: number) {
-    this.api.building()
-    .deleteMeetingRoomById(id)
+    this.buildingService
+    .deleteBuilding(id)
     .subscribe();
    }
 }
