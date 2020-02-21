@@ -88,8 +88,10 @@ export class MeetingRoomComponent implements OnInit, OnDestroy {
     });
   }
 
-  public ngOnDestroy() {
-    this.unsubFromDialog.unsubscribe();
+  public ngOnDestroy(): void {
+    if (this.unsubFromDialog) {
+      this.unsubFromDialog.unsubscribe();
+    }
   }
 
   public deleteMeetingRoom(id: number) {

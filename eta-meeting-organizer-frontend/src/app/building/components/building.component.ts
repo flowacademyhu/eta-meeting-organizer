@@ -35,14 +35,18 @@ import {ApiCommunicationService} from '~/app/shared/services/api-communication.s
           <th mat-header-cell *matHeaderCellDef>  </th>
           <td mat-cell *matCellDef="let building"> {{building.address}} </td>
         </ng-container>
-        <ng-container matColumnDef="delete">
-          <th mat-header-cell *matHeaderCellDef>  </th>
+        <ng-container matColumnDef="action">
+          <th mat-header-cell *matHeaderCellDef></th>
           <td mat-cell *matCellDef="let building">
-          <button mat-icon-button color="accent">
-            <mat-icon>edit</mat-icon>
-          </button>
-          <button mat-icon-button color="primary">
-            <mat-icon>delete</mat-icon>
+          <button mat-icon-button color="primary" (click)="deleteDialog(building.id)">
+          <mat-icon aria-label="Delete Icon">
+            delete
+          </mat-icon>
+           </button>
+           <button mat-icon-button color="accent">
+          <mat-icon aria-label="Edit">
+            edit
+          </mat-icon>
           </button>
           </td>
         </ng-container>
@@ -62,7 +66,7 @@ export class BuildingComponent {
     .getBuildings();
   }
 
-  public displayedColumns: string[] = ['city', 'address', 'delete'];
+  public displayedColumns: string[] = ['city', 'address', 'action'];
 
   public openDialog(): void {
     this.dialog.open(BuildingRegisterComponent, {
