@@ -3,7 +3,7 @@ import { BehaviorSubject } from 'rxjs';
 import { Building } from '~/app/models/building.model';
 import { ApiCommunicationService } from './api-communication.service';
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class BuildingService {
 
   public _buildingSub: BehaviorSubject<Building[]> = new BehaviorSubject<Building[]>([]);
@@ -22,14 +22,39 @@ export class BuildingService {
     });
   }
 
-  public deleteBuilding(id: number) {
+  public getOneBuilding(id: number) {
     return this.buildingCom
-      .building()
-      .deleteBuildingById(id);
+    .building()
+    .getOneBuilding(id);
   }
 
   public postBuilding(building: Building) {
-    return this.buildingCom.building()
-      .postBuilding(building);
+    return this.buildingCom
+    .building()
+    .postBuilding(building);
+  }
+
+  public updateBuilding(id: number, building: Building) {
+    return this.buildingCom
+    .building()
+    .updateBuilding(id, building);
+  }
+
+  public deleteBuilding(id: number) {
+    return this.buildingCom
+    .building()
+    .deleteBuildingById(id);
+  }
+
+  public findAllCities() {
+    this.buildingCom
+    .building()
+    .findAllCities();
+  }
+
+  public findByCity(city: string) {
+    this.buildingCom
+    .building()
+    .findByCity(city);
   }
 }
