@@ -90,6 +90,7 @@ public class TokenProvider {
   @NoArgsConstructor
   @AllArgsConstructor
   private static class JwtPayload {
+
     private String username;
     // Subject
     private String sub;
