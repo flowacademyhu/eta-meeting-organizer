@@ -73,7 +73,7 @@ import { environment } from '~/environment/environment';
               <span class="icon">
                 <img src="../../../assets/googlelogo.png" />
               </span>
-              <span>{{
+              <span class="buttonText">{{
                 "login.loginButton" | translate
               }}</span>
             </div>

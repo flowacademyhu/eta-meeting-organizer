@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MainLayoutComponent } from '~/app/shared/pages/main-layout.component';
-import { AuthGuard } from './shared/guard/auth.guard';
+import { AdminGuard } from './shared/guards/admin.guard';
+import { AuthGuard } from './shared/guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -38,7 +39,7 @@ const routes: Routes = [
     pathMatch: 'full',
   },
   {
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuard, AdminGuard],
     component: MainLayoutComponent,
     loadChildren: () => import('./building/building.module')
       .then((m) => m.BuildingModule),
@@ -53,7 +54,7 @@ const routes: Routes = [
       pathMatch: 'full',
   },
   {
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuard, AdminGuard],
     component: MainLayoutComponent,
     loadChildren: () => import('./meeting-room/meeting-room.module')
       .then((m) => m.MeetingRoomModule),
@@ -61,6 +62,7 @@ const routes: Routes = [
     pathMatch: 'full',
   },
   {
+    canActivate: [AuthGuard, AdminGuard],
     component: MainLayoutComponent,
     loadChildren: () => import('./users-table/users-table.module')
       .then((m) => m.UsersTableModule),

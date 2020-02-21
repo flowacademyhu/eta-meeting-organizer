@@ -3,7 +3,9 @@ import {Router} from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
+import { Role } from '~/app/models/user.model';
 import {ConfigurationService} from '~/app/shared/services/configuration.service';
+import { UserToken } from '../models/user-token.model';
 import { AuthService } from '../services/auth.service';
 
 @Component({
@@ -33,17 +35,16 @@ import { AuthService } from '../services/auth.service';
   <mat-toolbar id="row" class="my-0" color="accent" >
   <a class="mr-3"  routerLink="/calendar"><img src="../../../assets/wysio_arrow.png" height="55" /></a>
   <a class="mr-3"
-  *ngIf="checkToken()" mat-stroked-button routerLink="/calendar">{{'navbar.calendar' | translate}}</a>
+  *ngIf="isAdmin" mat-stroked-button routerLink="/calendar">{{'navbar.calendar' | translate}}</a>
   <a class="mr-3"
-  *ngIf="checkToken()" mat-stroked-button routerLink="/meetingroom">{{'navbar.meetingRoomEditor' | translate}}</a>
+  *ngIf="isAdmin" mat-stroked-button routerLink="/meetingroom">{{'navbar.meetingRoomEditor' | translate}}</a>
   <a class="mr-3"
-  *ngIf="checkToken()" mat-stroked-button routerLink="/users-table">{{'navbar.usersManagement' | translate}}</a>
+  *ngIf="isAdmin" mat-stroked-button routerLink="/users-table">{{'navbar.usersManagement' | translate}}</a>
   <a class="mr-3"
-  *ngIf="checkToken()" mat-stroked-button routerLink="/building-register">{{'navbar.buildingEditor' | translate}}</a>
-
+  *ngIf="isAdmin" mat-stroked-button routerLink="/building-register">{{'navbar.buildingEditor' | translate}}</a>
   <button mat-button class="ml-auto"(click)="onLanguageChange()">{{'header.button' | translate}}</button>
-  <p *ngIf="checkToken()" class="email">{{ email }}</p>
-  <button *ngIf="checkToken()" mat-button id="logout" (click)="logout()" class="ml-2">
+  <p *ngIf="isToken" class="email">{{ user.username }}</p>
+  <button *ngIf="isToken" mat-button id="logout" (click)="logout()" class="ml-2">
   <p><img padding="20" src="../../../assets/logout.png" height="50"/></p>
   </button>
 </mat-toolbar>`
@@ -52,8 +53,10 @@ import { AuthService } from '../services/auth.service';
 export class HeaderComponent implements OnDestroy {
 
   public language: string;
-  public email: string = '';
-  private subs: Subscription;
+  protected user: UserToken = {} as UserToken;
+  protected subs: Subscription;
+  protected isToken: boolean = false;
+  protected isAdmin: boolean = false;
 
   constructor(private readonly translate: TranslateService,
               private readonly configService: ConfigurationService,
@@ -62,8 +65,10 @@ export class HeaderComponent implements OnDestroy {
     this.language = this.translate.currentLang;
     this.subs = this.authService.user.pipe(take(1))
     .subscribe((data) => {
-      this.email = data.username;
+      this.user = data;
     });
+    this.checkToken();
+    this.checkAdmin();
   }
 
   public onLanguageChange() {
@@ -71,8 +76,12 @@ export class HeaderComponent implements OnDestroy {
     this.language = this.translate.currentLang;
   }
 
-  protected checkToken() {
-    return !!this.configService.fetchToken('accessToken');
+  protected checkToken(): void {
+    this.isToken = !!this.configService.fetchToken('accessToken');
+  }
+
+  protected checkAdmin(): void {
+    (this.isToken && this.user.role === Role.ADMIN) ? this.isAdmin = true : this.isAdmin = false;
   }
 
   protected logout() {
