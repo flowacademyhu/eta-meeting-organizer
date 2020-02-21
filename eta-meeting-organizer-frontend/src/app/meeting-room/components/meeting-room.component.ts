@@ -42,10 +42,10 @@ import { MeetingRoomService } from './../../shared/services/meeting-room.service
         <ng-container matColumnDef="delete">
           <th mat-header-cell *matHeaderCellDef></th>
           <td mat-cell *matCellDef="let meetingRoom">
-          <button mat-icon-button color="accent" (click)="deleteDialog(meetingRoom.id)">
+          <button mat-icon-button color="accent">
             <mat-icon>edit</mat-icon>
           </button>
-          <button mat-icon-button color="primary">
+          <button mat-icon-button color="primary" (click)="deleteDialog(meetingRoom.id)">
             <mat-icon>delete</mat-icon>
           </button>
           </td>

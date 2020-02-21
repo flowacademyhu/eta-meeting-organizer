@@ -67,6 +67,9 @@
   "authentication": {
     "answer": "Your registration has not been verified by admin yet!"
   },
+  "snackbar-meeting-room": {
+    "registerOk":"Meeting room has been saved!"
+  },
   "user-verification-dialog": {
     "userVerification": "User verification",
     "verification": "Are you sure you want to verify this user?",

@@ -70,7 +70,7 @@ export class BuildingRegisterComponent implements OnInit {
   }
 
   public openSnackBar() {
-    this.snackBar.open(this.translate.instant(`post-building-snackbar.post`), undefined, {
+    this.snackBar.open(this.translate.instant(`post-building-snackbar.post`), '', {
       duration: 2500
     });
   }
