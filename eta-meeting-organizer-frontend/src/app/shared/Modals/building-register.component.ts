@@ -1,3 +1,5 @@
+import { TranslateService } from '@ngx-translate/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
@@ -29,7 +31,8 @@ import { ApiCommunicationService } from '~/app/shared/services/api-communication
         </mat-form-field>
     <div>
       <button mat-button mat-dialog-close>{{'building.cancel' | translate}}</button>
-      <button mat-button type="submit" cdkFocusInitial>{{'building.saveButton' | translate}}</button>
+      <button mat-button mat-dialog-close type="submit" cdkFocusInitial
+      (click)="openSnackBar()">{{'building.saveButton' | translate}}</button>
     </div>
   </form>
 </div>`,
@@ -43,7 +46,9 @@ export class BuildingRegisterComponent implements OnInit {
   public subs: Subscription;
   constructor(
     public dialogRef: MatDialogRef<BuildingRegisterComponent>,
-    private readonly api: ApiCommunicationService) {}
+    private readonly api: ApiCommunicationService,
+    private readonly snackBar: MatSnackBar,
+    private readonly translate: TranslateService) {}
 
     public ngOnInit() {
       this.buildingForm = new FormGroup({
@@ -61,5 +66,11 @@ export class BuildingRegisterComponent implements OnInit {
     if (this.buildingForm.valid) {
       this.buildingForm.reset();
     }
+  }
+
+  public openSnackBar() {
+    this.snackBar.open(this.translate.instant(`post-building-snackbar.post`), undefined, {
+      duration: 2500
+    });
   }
 }

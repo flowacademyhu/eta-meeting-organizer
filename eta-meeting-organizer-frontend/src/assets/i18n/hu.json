@@ -83,6 +83,9 @@
   "delete-building-snackbar": {
     "delete": "Épület törölve"
   },
+  "post-building-snackbar": {
+    "post": "Épület létrehozva"
+  },
   "verification-snackbar": {
     "verify": "Felhasználó jóváhagyva"
   }
