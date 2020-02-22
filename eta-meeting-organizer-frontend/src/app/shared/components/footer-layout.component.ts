@@ -2,9 +2,39 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-footer',
+  styles: [`
+background-size: contain;
+  }
+  .top-arrow {
+    margin-bottom: 40px;
+    img {
+      width: 36px;
+      margin: 0 auto;
+    }
+  }
+  .flw {
+    margin: 0 auto;
+    margin-top: 150px;
+    text-align: center;
+    padding: 8px;
+    color: white;
+    font-size: 14px;
+    width: 80%;
+    a {
+      color: white;
+      &:hover {
+        color: $color-darkgray-bg;
+        outline: none;
+        text-decoration: none;
+      }
+    }
+  }
+}
+
+  `],
   template: `
-  <footer color="primary" class="footer-copyright text-center py-3">
-  <div align="center"> © 2020 Wysio</div>
+  <footer class="foot" color="primary">
+  <div></div>
   </footer>
  `
 })

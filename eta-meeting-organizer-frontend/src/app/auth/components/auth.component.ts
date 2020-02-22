@@ -30,8 +30,7 @@ export class AuthComponent implements OnDestroy {
       if (token) {
         const response = this.authService.decodeAndSaveUser(token);
         if (response === 'Authentication is successfull!' ) {
-          this.router.navigate(['./welcome']);
-          console.log('Auth service :::::::::::: ', this.authService.user);
+          this.router.navigate(['./calendar']);
         } else {
         this.badAuthentication = true;
         }

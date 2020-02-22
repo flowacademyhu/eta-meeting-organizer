@@ -18,6 +18,7 @@ import { ConfigurationService } from '~/app/shared/services/configuration.servic
     `,
   ],
   template: `
+  <div>
     <app-header></app-header>
     <div class="container">
         <router-outlet></router-outlet>
