@@ -63,6 +63,7 @@ public class InitDataLoader {
     meetingRoomRepository.save(MeetingRoom.builder()
         .id(2l)
         .name("Igazgatói tárgyaló")
+        .building(buildingRepository.getOne(2l))
         .numberOfSeats(20)
         .projector(true).build());
     meetingRoomRepository.save(MeetingRoom.builder()
@@ -138,7 +139,7 @@ public class InitDataLoader {
 
 
     reservationRepository.save(Reservation.builder()
-        .id(3l)
+        .id(1l)
         .user(userRepository.findById("111455286747437812553").orElse(null))
         .title("Napi meeting")
         .meetingRoom(meetingRoomRepository.getOne(1l))
@@ -156,9 +157,10 @@ public class InitDataLoader {
         .id(3l)
         .user(userRepository.findById("10769150350006150715113077777").orElse(null))
         .title("Húsvét")
+        .meetingRoom(meetingRoomRepository.getOne(2l))
         .summary("húsvéti program megbeszélése Pennywise-al")
-        .startingTime(LocalDateTime.now())
-        .endingTime(LocalDateTime.now()).build());
+        .startingTime(LocalDateTime.of(2020, 2, 18, 16, 00))
+        .endingTime(LocalDateTime.of(2020, 2, 18, 18, 00)).build());
     reservationRepository.save(Reservation.builder()
         .id(4l)
         .user(userRepository.findById("10769150350006150715113077777").orElse(null))
