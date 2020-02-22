@@ -49,7 +49,6 @@ import { ApiCommunicationService } from '~/app/shared/services/api-communication
             </mat-form-field>
         </form>
           <mat-checkbox [checked]="checked" (change)="onCheck($event)">Saját naptár</mat-checkbox>
-          {{checked}}
     </mat-toolbar>
     <app-calendar
     [meetingRoom]="meetingRoom"

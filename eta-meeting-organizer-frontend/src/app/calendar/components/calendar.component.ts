@@ -6,9 +6,13 @@ import { Locale } from '@fullcalendar/core/datelib/locale';
 import huLocale from '@fullcalendar/core/locales/hu';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
+import { Subscription } from 'rxjs';
+import { take } from 'rxjs/operators';
 import { MeetingRoom } from '~/app/models/meetingroom.model';
 import { Reservation } from '~/app/models/reservation.model';
+import { UserToken } from '~/app/shared/models/user-token.model';
 import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
+import { AuthService } from '~/app/shared/services/auth.service';
 
 @Component({
   selector: 'app-calendar',
@@ -38,7 +42,8 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnChanges {
 
   protected locales: Locale[] = [huLocale];
 
-  public userId: string = '111455286747437812553';
+  public subs: Subscription;
+  public user: UserToken = {} as UserToken;
 
   @Input('meetingRoom')
   public meetingRoom: MeetingRoom;
@@ -51,7 +56,13 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnChanges {
 
   public reservations: Reservation[];
 
-  constructor(private readonly api: ApiCommunicationService) {}
+  constructor(private readonly api: ApiCommunicationService,
+              private readonly authService: AuthService) {
+  this.subs = this.authService.user.pipe(take(1))
+  .subscribe((data) => {
+    this.user = data;
+  });
+  }
 
   public calendarEvents: EventInput[] = [];
 
@@ -61,8 +72,8 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnChanges {
   public ngOnInit() {
     this.options = {
       buttonText: {
-        next: 'next week',
-        prev: 'previous week'
+        next: 'Következő Hét',
+        prev: 'Előző Hét'
       },
       columnHeaderFormat: {
         weekday: 'long'
@@ -95,9 +106,8 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnChanges {
 
   public ngOnChanges(changes: SimpleChanges) {
     if (changes?.checked?.currentValue && this.checked) {
-      console.log('If ág')
       this.api.reservation()
-      .getReservationsByUserId(this.userId)
+      .getReservationsByUserId(this.user.sub)
       .subscribe(
         (data) => {
           this.reservations = data;
@@ -116,7 +126,6 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnChanges {
         }
       );
     } else if (changes?.meetingRoom?.currentValue || (!this.checked && this.meetingRoom !== undefined)) {
-      console.log(!this.checked);
       this.api.reservation()
       .findByMeetingRoomId(this.meetingRoom.id)
       .subscribe(
