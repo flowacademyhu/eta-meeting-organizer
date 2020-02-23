@@ -1,6 +1,8 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { Building } from '~/app/models/building.model';
+import { environment } from '~/environment/environment';
 import { ApiCommunicationService } from './api-communication.service';
 
 @Injectable({providedIn: 'root'})
@@ -8,10 +10,16 @@ export class BuildingService {
 
   public _buildingSub: BehaviorSubject<Building[]> = new BehaviorSubject<Building[]>([]);
 
-  constructor(private readonly buildingCom: ApiCommunicationService) {}
+  constructor(
+    private readonly buildingCom: ApiCommunicationService,
+    private http: HttpClient) {}
 
   public get buildingSub() {
     return this._buildingSub;
+  }
+
+  public getData(route: string) {
+    return this.http.get(this.createCompleteRoute(route, environment.baseUrl));
   }
 
   public getAllBuildings() {
@@ -57,4 +65,9 @@ export class BuildingService {
     .building()
     .findByCity(city);
   }
+
+  private createCompleteRoute(route: string, envAddress: string) {
+    return `${envAddress}/${route}`;
+  }
+
 }

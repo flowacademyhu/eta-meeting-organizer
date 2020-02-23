@@ -34,6 +34,7 @@ import { AuthService } from '../services/auth.service';
   template: `
   <mat-toolbar id="row" class="my-0" color="accent" >
   <a class="mr-3"  routerLink="/calendar"><img src="../../../assets/wysio_arrow.png" height="55" /></a>
+
   <a class="mr-3"
   *ngIf="isToken" mat-stroked-button routerLink="/calendar">{{'navbar.calendar' | translate}}</a>
   <a class="mr-3"
@@ -45,6 +46,7 @@ import { AuthService } from '../services/auth.service';
   <button mat-button class="ml-auto"(click)="onLanguageChange()">{{'header.button' | translate}}</button>
   <p *ngIf="isToken" class="email">{{ user.username }}</p>
   <button *ngIf="isToken" mat-button id="logout" (click)="logout()" class="ml-2">
+
   <p><img padding="20" src="../../../assets/logout.png" height="50"/></p>
   </button>
 </mat-toolbar>`
