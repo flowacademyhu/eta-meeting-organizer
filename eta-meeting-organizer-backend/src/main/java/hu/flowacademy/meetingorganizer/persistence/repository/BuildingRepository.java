@@ -7,8 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface
-BuildingRepository extends JpaRepository<Building, Long> {
+public interface BuildingRepository extends JpaRepository<Building, Long> {
 
   @Query("select distinct city from Building b")
   List<String> findAllCities();
