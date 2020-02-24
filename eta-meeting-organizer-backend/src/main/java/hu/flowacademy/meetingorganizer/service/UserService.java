@@ -1,11 +1,8 @@
 package hu.flowacademy.meetingorganizer.service;
 
-<<<<<<< HEAD
 import hu.flowacademy.meetingorganizer.email.EmailService;
 import hu.flowacademy.meetingorganizer.email.EmailType;
-=======
 import hu.flowacademy.meetingorganizer.persistence.model.Role;
->>>>>>> master
 import hu.flowacademy.meetingorganizer.persistence.model.User;
 import hu.flowacademy.meetingorganizer.persistence.repository.UserRepository;
 import java.util.Optional;
