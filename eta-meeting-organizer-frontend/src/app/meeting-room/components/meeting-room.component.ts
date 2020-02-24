@@ -76,6 +76,8 @@ export class MeetingRoomComponent implements OnInit, OnDestroy {
   public meetingRoom$: Observable<MeetingRoom[]>;
   public displayedColumns: string[] = ['name', 'numberOfSeat', 'projector', 'buildingName', 'building', 'delete'];
   public unsubFromDialog: Subscription;
+  public unsubFromDelete: Subscription;
+  public unsubFromUpdate: Subscription;
   public meetingRoom: MeetingRoom;
 
   constructor(private readonly meetingRoomService: MeetingRoomService,
@@ -97,7 +99,7 @@ export class MeetingRoomComponent implements OnInit, OnDestroy {
       height: '250px',
       width: '350px',
     });
-    this.unsubFromDialog = dialogRef.afterClosed()
+    this.unsubFromDelete = dialogRef.afterClosed()
       .subscribe((result) => {
         if (result === 'true') {
         this.deleteMeetingRoom(id);
@@ -111,13 +113,19 @@ export class MeetingRoomComponent implements OnInit, OnDestroy {
       width: '400px',
       data: id
     });
-    this.unsubFromDialog = dialogRef.afterClosed()
+    this.unsubFromUpdate = dialogRef.afterClosed()
     .subscribe();
   }
 
   public ngOnDestroy(): void {
     if (this.unsubFromDialog) {
       this.unsubFromDialog.unsubscribe();
+    }
+    if (this.unsubFromDelete) {
+      this.unsubFromDelete.unsubscribe();
+    }
+    if (this.unsubFromUpdate) {
+      this.unsubFromUpdate.unsubscribe();
     }
   }
 
