@@ -12,7 +12,6 @@ import hu.flowacademy.meetingorganizer.persistence.repository.MeetingRoomReposit
 import hu.flowacademy.meetingorganizer.persistence.repository.*;
 import hu.flowacademy.meetingorganizer.persistence.repository.UserRepository;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.PostConstruct;
@@ -177,6 +176,6 @@ public class InitDataLoader {
   }
 
   private void sendMail() {
-    emailService.send("claulotta@gmail.com","valami", EmailType.TEXT, "Vince");
+    emailService.send("claulotta@gmail.com", "valami", EmailType.TEXT, "Vince");
   }
 }

@@ -12,8 +12,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
 @EnableConfigurationProperties(AppProperties.class)
 public class MeetingorganizerApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(MeetingorganizerApplication.class, args);
-	}
-
+  public static void main(String[] args) {
+    SpringApplication.run(MeetingorganizerApplication.class, args);
+  }
 }
