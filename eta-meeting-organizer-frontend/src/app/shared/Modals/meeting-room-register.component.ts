@@ -72,7 +72,7 @@ export class MeetingRoomRegisterComponent implements OnInit {
     postMeetingRoom(this.meetingRoomForm.getRawValue())
     .subscribe((data) => {
         this.meetingRoom = data;
-        this.meetingRoomService.getAllMeetingRooms();
+        this.meetingRoomService.getAllMeetingRooms(0, 5);
     });
   }
 
