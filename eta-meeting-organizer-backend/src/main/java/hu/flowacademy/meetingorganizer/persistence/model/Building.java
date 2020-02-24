@@ -29,6 +29,8 @@ public class Building {
 
   private String address;
 
+  private String buildingName;
+
   @OneToMany
   private List<MeetingRoom> meetingRoom;
 }
