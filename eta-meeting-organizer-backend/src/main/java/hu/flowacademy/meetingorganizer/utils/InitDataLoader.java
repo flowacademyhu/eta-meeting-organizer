@@ -53,38 +53,9 @@ public class InitDataLoader {
         .address("Győri utca 28 3/28")
         .build());
 
-    meetingRoomRepository.save(MeetingRoom.builder()
-        .id(1l)
-        .name("Ügyfél fogadó")
-        .building(buildingRepository.getOne(1l))
-        .numberOfSeats(5)
-        .projector(false).build());
-    meetingRoomRepository.save(MeetingRoom.builder()
-        .id(2l)
-        .name("Igazgatói tárgyaló")
-        .building(buildingRepository.getOne(2l))
-        .numberOfSeats(20)
-        .projector(true).build());
-    meetingRoomRepository.save(MeetingRoom.builder()
-        .id(3l)
-        .name("Kék ajtós iroda")
-        .numberOfSeats(10)
-        .projector(true).build());
-    meetingRoomRepository.save(MeetingRoom.builder()
-        .id(4l)
-        .name("Piros ajtós iroda")
-        .numberOfSeats(2)
-        .projector(false).build());
-    meetingRoomRepository.save(MeetingRoom.builder()
-        .id(5l)
-        .name("Zöld iroda")
-        .numberOfSeats(8)
-        .projector(false).build());
-
     userRepository.save(User.builder()
         .id("111455286747437812553")
         .username("misi@gmail.com")
-        .isVerifiedByAdmin(true)
         .role(Role.ADMIN)
         .accountNonExpired(true)
         .accountNonLocked(true)
@@ -93,7 +64,6 @@ public class InitDataLoader {
     userRepository.save(User.builder()
         .id("10769150350006150715113077777")
         .username("isti@gmail.com")
-        .isVerifiedByAdmin(false)
         .role(Role.USER)
         .accountNonExpired(true)
         .accountNonLocked(true)
@@ -102,7 +72,6 @@ public class InitDataLoader {
     userRepository.save(User.builder()
         .id("99999150350006150715113077777")
         .username("klau@gmail.com")
-        .isVerifiedByAdmin(false)
         .role(Role.USER)
         .accountNonExpired(true)
         .accountNonLocked(true)
@@ -111,7 +80,6 @@ public class InitDataLoader {
     userRepository.save(User.builder()
         .id("8888150350006150715113077777")
         .username("htpeti@gmail.com")
-        .isVerifiedByAdmin(true)
         .role(Role.READER)
         .accountNonExpired(true)
         .accountNonLocked(true)
@@ -120,7 +88,6 @@ public class InitDataLoader {
     userRepository.save(User.builder()
         .id("11111110350006150715113077777")
         .username("berentep@gmail.com")
-        .isVerifiedByAdmin(true)
         .role(Role.ADMIN)
         .accountNonExpired(true)
         .accountNonLocked(true)
@@ -129,7 +96,6 @@ public class InitDataLoader {
     userRepository.save(User.builder()
         .id("99999910350006150715113077777")
         .username("schlange@gmail.com")
-        .isVerifiedByAdmin(true)
         .role(Role.READER)
         .accountNonExpired(true)
         .accountNonLocked(true)
@@ -173,5 +139,37 @@ public class InitDataLoader {
         .summary("Tesla gyár látogatásának időpontja")
         .startingTime(LocalDateTime.now())
         .endingTime(LocalDateTime.now()).build());
+
+    meetingRoomRepository.save(MeetingRoom.builder()
+        .id(1l)
+        .name("Ügyfél fogadó")
+        .numberOfSeats(5)
+        .building(buildingRepository.getOne(1l))
+        .projector(false).build());
+    meetingRoomRepository.save(MeetingRoom.builder()
+        .id(2l)
+        .name("Igazgatói tárgyaló")
+        .numberOfSeats(20)
+        .building(buildingRepository.getOne(2l))
+        .projector(true).build());
+    meetingRoomRepository.save(MeetingRoom.builder()
+        .id(3l)
+        .name("Kék ajtós iroda")
+        .numberOfSeats(10)
+        .building(buildingRepository.getOne(3l))
+        .projector(true).build());
+    meetingRoomRepository.save(MeetingRoom.builder()
+        .id(4l)
+        .name("Piros ajtós iroda")
+        .numberOfSeats(2)
+        .building(buildingRepository.getOne(4l))
+        .projector(false).build());
+    meetingRoomRepository.save(MeetingRoom.builder()
+        .id(5l)
+        .name("Zöld iroda")
+        .numberOfSeats(8)
+        .projector(false)
+        .building(buildingRepository.getOne(5l))
+        .build());
   }
 }
