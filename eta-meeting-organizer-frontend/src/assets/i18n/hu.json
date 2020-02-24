@@ -54,7 +54,8 @@
     "yes": "Igen",
     "no": "Nem",
     "button": "EN",
-    "exit": "Kilépés"
+    "exit": "Kilépés",
+    "deleted":"A tárgyaló törlésre került"
   },
   "user-delete-dialog": {
     "userDelete": "Felhasználó törlése",
