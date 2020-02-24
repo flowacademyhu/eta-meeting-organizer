@@ -1,6 +1,5 @@
 package hu.flowacademy.meetingorganizer.rest;
 
-import hu.flowacademy.meetingorganizer.email.EmailService;
 import hu.flowacademy.meetingorganizer.persistence.model.User;
 import hu.flowacademy.meetingorganizer.service.UserService;
 import lombok.AllArgsConstructor;
@@ -21,7 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/users")
-@CrossOrigin("*")
 @AllArgsConstructor
 public class UserResource {
 

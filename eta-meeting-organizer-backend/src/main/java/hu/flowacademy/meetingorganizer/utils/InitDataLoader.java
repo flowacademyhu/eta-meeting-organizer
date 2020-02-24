@@ -1,7 +1,6 @@
 package hu.flowacademy.meetingorganizer.utils;
 
 import hu.flowacademy.meetingorganizer.email.EmailService;
-import hu.flowacademy.meetingorganizer.email.EmailType;
 import hu.flowacademy.meetingorganizer.persistence.model.Building;
 import hu.flowacademy.meetingorganizer.persistence.model.MeetingRoom;
 import hu.flowacademy.meetingorganizer.persistence.model.Reservation;
