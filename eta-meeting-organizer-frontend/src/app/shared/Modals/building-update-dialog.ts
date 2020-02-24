@@ -12,18 +12,17 @@ import { BuildingService } from './../services/building.service';
   <form [formGroup]="buildingForm" (ngSubmit)="onSubmit()">
   <mat-form-field>
       <mat-label>{{'building.buildingName' | translate}}</mat-label>
-        <input matInput type="text" name="buildingName"
-        formControlName="buildingName" [(ngModel)]="building.buildingName">
+        <input matInput type="text" name="buildingName" formControlName="buildingName">
     </mat-form-field>
     <br>
     <mat-form-field>
       <mat-label>{{'building.city' | translate}}</mat-label>
-        <input matInput type="text" name="city" formControlName="city" [(ngModel)]="building.city">
+        <input matInput type="text" name="city" formControlName="city">
     </mat-form-field>
     <br>
     <mat-form-field>
       <mat-label>{{'building.address' | translate}}</mat-label>
-        <input matInput type="text" name="address" formControlName="address" [(ngModel)]="building.address">
+        <input matInput type="text" name="address" formControlName="address">
         </mat-form-field>
     <div>
       <button mat-button mat-dialog-close>{{'building.cancel' | translate}}</button>
@@ -38,15 +37,17 @@ export class BuildingUpdateDialogComponent implements OnInit {
   public building: Building = {} as Building;
 
   constructor(@Inject(MAT_DIALOG_DATA)
-              private readonly data: number,
+              private readonly buildingData: Building,
               private readonly snackBar: MatSnackBar,
               private readonly buildingService: BuildingService,
               private readonly translate: TranslateService) { }
 
   public ngOnInit() {
-    this.buildingService.getOneBuilding(this.data)
-    .subscribe((res) => {
-      this.building = res;
+    this.building = this.buildingData;
+    this.buildingForm.setValue({
+      buildingName: this.building.buildingName,
+      city: this.building.city,
+      address: this.building.address,
     });
   }
 
@@ -57,8 +58,9 @@ export class BuildingUpdateDialogComponent implements OnInit {
   });
 
   public onSubmit() {
+    this.building = this.buildingForm.getRawValue();
     this.buildingService
-    .updateBuilding(this.data, this.building)
+    .updateBuilding(this.buildingData.id, this.building)
     .subscribe(() =>
     this.buildingService
     .getAllBuildings());

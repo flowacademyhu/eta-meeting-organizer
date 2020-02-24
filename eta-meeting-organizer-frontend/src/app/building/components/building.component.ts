@@ -45,7 +45,7 @@ import { BuildingService } from './../../shared/services/building.service';
         <ng-container matColumnDef="action">
           <th mat-header-cell *matHeaderCellDef></th>
           <td mat-cell *matCellDef="let building">
-           <button mat-icon-button color="accent" (click)="updateDialog(building.id)">
+           <button mat-icon-button color="accent" (click)="updateDialog(building)">
           <mat-icon aria-label="Edit">
             edit
           </mat-icon>
@@ -83,9 +83,9 @@ export class BuildingComponent implements OnInit {
     });
   }
 
-  public updateDialog(id: number) {
+  public updateDialog(buildingData: Building) {
     const dialogRef = this.dialog.open(BuildingUpdateDialogComponent, {
-      data: id
+      data: buildingData
     });
     dialogRef.afterClosed()
     .subscribe();
