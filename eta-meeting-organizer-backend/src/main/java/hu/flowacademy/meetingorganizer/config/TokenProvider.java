@@ -47,7 +47,6 @@ public class TokenProvider {
       return objectMapper.writeValueAsString(
           JwtPayload.builder().username(user.getUsername())
               .role(user.getRole())
-              .isVerified(user.isVerifiedByAdmin())
               .sub(user.getId())
               .expr(expiryDate)
               .iat(new Date())
@@ -99,6 +98,5 @@ public class TokenProvider {
     // ExpirationDate
     private Date expr;
     private Role role;
-    private boolean isVerified;
   }
 }
