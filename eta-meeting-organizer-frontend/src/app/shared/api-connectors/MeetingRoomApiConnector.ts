@@ -24,4 +24,8 @@ export class MeetingRoomApiConnector extends AbstractApiConnector {
   public deleteMeetingRoomById(id: number) {
     return this.http.delete(`${this.apiRoute}/meetingrooms/` + id);
   }
+
+  public findByBuildingId(buildingId: number): Observable<MeetingRoom[]> {
+    return this.http.get<MeetingRoom[]>(`${this.apiRoute}/meetingrooms/${buildingId}/buildings`);
+  }
 }
