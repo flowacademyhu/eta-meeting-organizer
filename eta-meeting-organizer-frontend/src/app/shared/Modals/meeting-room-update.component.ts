@@ -6,7 +6,6 @@ import { TranslateService } from '@ngx-translate/core';
 import { MeetingRoom } from '~/app/models/meetingroom.model';
 import { MeetingRoomService } from '../services/meeting-room.service';
 
-
 @Component({
   selector: 'app-meeting-room-update',
   styles: [`
