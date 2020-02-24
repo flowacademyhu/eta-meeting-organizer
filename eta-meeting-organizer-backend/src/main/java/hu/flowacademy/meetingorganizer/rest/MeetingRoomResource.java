@@ -1,6 +1,5 @@
 package hu.flowacademy.meetingorganizer.rest;
 
-import hu.flowacademy.meetingorganizer.persistence.model.MeetingRoom;
 import hu.flowacademy.meetingorganizer.persistence.model.dto.MeetingRoomDTO;
 import hu.flowacademy.meetingorganizer.service.MeetingRoomService;
 import java.util.List;

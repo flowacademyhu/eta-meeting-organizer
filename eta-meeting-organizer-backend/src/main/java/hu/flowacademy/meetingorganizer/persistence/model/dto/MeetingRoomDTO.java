@@ -1,6 +1,5 @@
 package hu.flowacademy.meetingorganizer.persistence.model.dto;
 
-import com.fasterxml.jackson.databind.util.BeanUtil;
 import hu.flowacademy.meetingorganizer.persistence.model.MeetingRoom;
 import lombok.AllArgsConstructor;
 import lombok.Data;
