@@ -50,7 +50,12 @@
   },
   "meeting-room-delete":{
     "meetingRoomDelete": "Meeting room deletion",
-    "verification": "Are you sure you want to delete meeting room?"
+    "verification": "Are you sure you want to delete meeting room?",
+    "yes": "Yes",
+    "no": "No",
+    "button": "EN",
+    "exit": "exit",
+    "deleted":"Meeting room has been deleted"
   },
   "user-delete-dialog": {
     "userDelete": "User deletion",
