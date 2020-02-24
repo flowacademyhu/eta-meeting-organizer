@@ -18,7 +18,7 @@ import { ConfigurationService } from '~/app/shared/services/configuration.servic
     `,
   ],
   template: `
-  <div [ngStyle]="{'background' : 'url(./assets/background.png)'}">
+  <div>
     <app-header></app-header>
     <div class="container">
         <router-outlet></router-outlet>

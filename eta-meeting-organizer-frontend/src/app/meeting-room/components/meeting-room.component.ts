@@ -35,17 +35,18 @@ import { MeetingRoomService } from './../../shared/services/meeting-room.service
           <th mat-header-cell *matHeaderCellDef> {{'meeting-room.projector' | translate}} </th>
           <td mat-cell *matCellDef="let meetingRoom">{{meetingRoom.projector}}</td>
         </ng-container>
-        <ng-container matColumnDef="building">
+       <ng-container matColumnDef="building">
           <th mat-header-cell *matHeaderCellDef> {{'meeting-room.building' | translate}} </th>
-          <td mat-cell *matCellDef="let meetingRoom">{{meetingRoom.building}</td>
+          <td mat-cell *matCellDef="let meetingRoom">
+            {{meetingRoom.building.city}} - {{meetingRoom.building.address}}</td>
         </ng-container>
         <ng-container matColumnDef="delete">
           <th mat-header-cell *matHeaderCellDef></th>
           <td mat-cell *matCellDef="let meetingRoom">
-          <button mat-icon-button color="accent" (click)="deleteDialog(meetingRoom.id)">
+          <button mat-icon-button color="accent">
             <mat-icon>edit</mat-icon>
           </button>
-          <button mat-icon-button color="primary">
+          <button mat-icon-button color="primary" (click)="deleteDialog(meetingRoom.id)">
             <mat-icon>delete</mat-icon>
           </button>
           </td>
@@ -56,28 +57,22 @@ import { MeetingRoomService } from './../../shared/services/meeting-room.service
     </div>
   `
 })
-
 export class MeetingRoomComponent implements OnInit, OnDestroy {
-
   public meetingRoom$: Observable<MeetingRoom[]>;
   public displayedColumns: string[] = ['name', 'numberOfSeat', 'projector', 'building', 'delete'];
   public unsubFromDialog: Subscription;
-
   constructor(private readonly meetingRoomService: MeetingRoomService,
               private readonly dialog: MatDialog) { }
-
   public ngOnInit() {
   this.meetingRoomService.getAllMeetingRooms();
   this.meetingRoom$ = this.meetingRoomService
   .meetingRoomSub;
   }
-
-   public openDialog(): void {
+  public openDialog(): void {
     this.dialog.open(MeetingRoomRegisterComponent, {
       width: '400px',
     });
   }
-
   public deleteDialog(id: number) {
     const dialogRef = this.dialog.open(MeetingRoomDeleteComponent);
     this.unsubFromDialog = dialogRef.afterClosed()
@@ -87,11 +82,11 @@ export class MeetingRoomComponent implements OnInit, OnDestroy {
       }
     });
   }
-
-  public ngOnDestroy() {
-    this.unsubFromDialog.unsubscribe();
+  public ngOnDestroy(): void {
+    if (this.unsubFromDialog) {
+      this.unsubFromDialog.unsubscribe();
+    }
   }
-
   public deleteMeetingRoom(id: number) {
     this.meetingRoomService.deleteMeetingRoom(id)
     .subscribe(() => {

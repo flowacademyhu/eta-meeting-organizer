@@ -59,6 +59,7 @@
     // https://palantir.github.io/tslint/rules/no-parameter-properties/
     "no-parameter-properties": false,
     // https://palantir.github.io/tslint/rules/prefer-object-spread/
+    "object-literal-sort-keys": false,
     "prefer-object-spread": true,
     // https://palantir.github.io/tslint/rules/variable-name/
     "variable-name": {

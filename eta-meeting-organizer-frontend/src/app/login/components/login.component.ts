@@ -6,7 +6,7 @@ import { environment } from '~/environment/environment';
   styles: [
     `
       #row {
-        min-height: calc(100vh - 60px);
+        padding-top: 20%;
       }
       #customBtn {
         display: inline-block;
@@ -56,6 +56,10 @@ import { environment } from '~/environment/environment';
       #googleicon{
         padding-right: 10px;
       }
+      a {
+        color: white;
+        text-decoration: none;
+      }
     `,
   ],
   template: `
@@ -63,17 +67,16 @@ import { environment } from '~/environment/environment';
       <div class="col-sm-4">
         <mat-card id="login" style="text-align: center;">
             <img id="image" src="../../../assets/wysio_arrow.png"/>
-
           <mat-card-content>
           <a href="${environment.googleAuthLink}">
-            <button mat-stroked-button id="customBtn" class="customGPlusSignIn">
+            <div id="customBtn" class="customGPlusSignIn">
               <span class="icon">
                 <img src="../../../assets/googlelogo.png" />
               </span>
               <span class="buttonText">{{
                 "login.loginButton" | translate
               }}</span>
-            </button>
+            </div>
           </a>
           </mat-card-content>
         </mat-card>

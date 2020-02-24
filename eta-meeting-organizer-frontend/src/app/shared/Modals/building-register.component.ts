@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { TranslateService } from '@ngx-translate/core';
 import { Observable, Subscription } from 'rxjs';
 import { Building } from '~/app/models/building.model';
 import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
@@ -29,7 +31,8 @@ import { ApiCommunicationService } from '~/app/shared/services/api-communication
         </mat-form-field>
     <div>
       <button mat-button [mat-dialog-close] >cancel</button>
-      <button mat-button type="submit" cdkFocusInitial>Ok</button>
+      <button mat-button type="submit" cdkFocusInitial
+      (click)="openSnackBar()">Ok</button>
     </div>
   </form>
 </div>`,
@@ -43,7 +46,9 @@ export class BuildingRegisterComponent implements OnInit {
   public subs: Subscription;
   constructor(
     public dialogRef: MatDialogRef<BuildingRegisterComponent>,
-    private readonly api: ApiCommunicationService) {}
+    private readonly api: ApiCommunicationService,
+    private readonly _snackBar: MatSnackBar,
+    private readonly translate: TranslateService) {}
 
     public ngOnInit() {
       this.buildingForm = new FormGroup({
@@ -61,5 +66,12 @@ export class BuildingRegisterComponent implements OnInit {
     if (this.buildingForm.valid) {
       this.buildingForm.reset();
     }
+  }
+
+  public openSnackBar() {
+    this._snackBar.open(this.translate
+      .instant(`snackbar-meeting-room.registerOk`), '', {
+      duration: 2000
+    });
   }
 }
