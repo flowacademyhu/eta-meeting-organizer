@@ -27,29 +27,28 @@ public class InitDataLoader {
 
   @PostConstruct
   public void init() {
-
     buildingRepository.save(Building.builder()
-        .id(1L)
+        .id(1l)
         .city("Budapest")
         .address("Kelemen Jancsi utca 11 2/6")
         .build());
     buildingRepository.save(Building.builder()
-        .id(2L)
+        .id(2l)
         .city("Kecskemét")
         .address("Kis István utca 131")
         .build());
     buildingRepository.save(Building.builder()
-        .id(3L)
+        .id(3l)
         .city("Salgótarján")
         .address("Szegedi út 125")
         .build());
     buildingRepository.save(Building.builder()
-        .id(4L)
+        .id(4l)
         .city("Göd")
         .address("Vörös utca 38-40")
         .build());
     buildingRepository.save(Building.builder()
-        .id(5L)
+        .id(5l)
         .city("Győr")
         .address("Győri utca 28 3/28")
         .build());
@@ -138,22 +137,22 @@ public class InitDataLoader {
         .build());
 
     reservationRepository.save(Reservation.builder()
-        .id(1L)
-        .user(userRepository.findById("99999150350006150715113077777").orElse(null))
+        .id(1l)
+        .user(userRepository.findById("111455286747437812553").orElse(null))
         .title("Napi meeting")
         .meetingRoom(meetingRoomRepository.getOne(1l))
         .summary("Megbeszéljük ki mivel haladt tegnap és mivel fog ma foglalkozni.")
         .startingTime(LocalDateTime.of(2020, 2, 17, 16, 00))
         .endingTime(LocalDateTime.of(2020, 2, 17, 18, 00)).build());
     reservationRepository.save(Reservation.builder()
-        .id(2L)
-        .user(userRepository.findById("99999150350006150715113077777").orElse(null))
+        .id(2l)
+        .user(userRepository.findById("111455286747437812553").orElse(null))
         .title("Flow tárgyalás")
         .summary("Új ügyfelek felkutatása.")
-        .startingTime(LocalDateTime.now())
-        .endingTime(LocalDateTime.now()).build());
+        .startingTime(LocalDateTime.of(2020, 2, 17, 10, 00))
+        .endingTime(LocalDateTime.of(2020, 2, 17, 10, 15)).build());
     reservationRepository.save(Reservation.builder()
-        .id(3L)
+        .id(3l)
         .user(userRepository.findById("10769150350006150715113077777").orElse(null))
         .title("Húsvét")
         .meetingRoom(meetingRoomRepository.getOne(2l))
@@ -161,44 +160,18 @@ public class InitDataLoader {
         .startingTime(LocalDateTime.of(2020, 2, 18, 16, 00))
         .endingTime(LocalDateTime.of(2020, 2, 18, 18, 00)).build());
     reservationRepository.save(Reservation.builder()
-        .id(4L)
+        .id(4l)
         .user(userRepository.findById("10769150350006150715113077777").orElse(null))
         .title("Karácsony")
         .summary("Megbeszéljük hogy mikor tartsuk illetve ki melyik zenekart szeretné ")
         .startingTime(LocalDateTime.now())
         .endingTime(LocalDateTime.now()).build());
     reservationRepository.save(Reservation.builder()
-        .id(5L)
+        .id(5l)
         .user(userRepository.findById("10769150350006150715113082367").orElse(null))
         .title("Tesla")
         .summary("Tesla gyár látogatásának időpontja")
         .startingTime(LocalDateTime.now())
         .endingTime(LocalDateTime.now()).build());
-
-    meetingRoomRepository.save(MeetingRoom.builder()
-        .id(1L)
-        .name("Ügyfél fogadó")
-        .numberOfSeats(5)
-        .projector(false).build());
-    meetingRoomRepository.save(MeetingRoom.builder()
-        .id(2L)
-        .name("Igazgatói tárgyaló")
-        .numberOfSeats(20)
-        .projector(true).build());
-    meetingRoomRepository.save(MeetingRoom.builder()
-        .id(3L)
-        .name("Kék ajtós iroda")
-        .numberOfSeats(10)
-        .projector(true).build());
-    meetingRoomRepository.save(MeetingRoom.builder()
-        .id(4L)
-        .name("Piros ajtós iroda")
-        .numberOfSeats(2)
-        .projector(false).build());
-    meetingRoomRepository.save(MeetingRoom.builder()
-        .id(5L)
-        .name("Zöld iroda")
-        .numberOfSeats(8)
-        .projector(false).build());
   }
 }
