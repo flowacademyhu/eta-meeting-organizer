@@ -22,5 +22,4 @@ public class EmailConfig {
   public EmailService getEmailService() {
     return new GmailService(mailSender, emailFactory);
   }
-
 }

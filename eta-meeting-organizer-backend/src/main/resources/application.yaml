@@ -49,7 +49,13 @@ mailing:
     apiKey: ${MAILGUN_API_KEY:}
     mailSenderUrl: "https://api.mailgun.net/v3/sandbox71f5ca0439c64f98af51e1cd1915580a.mailgun.org"
   mailFrom: "Mailgun Sandbox <postmaster@sandbox71f5ca0439c64f98af51e1cd1915580a.mailgun.org>"
-  messageTemplate: "Kedves %s! Az admin jóváhagyta a belépési kérelmed, és mostmár beléphetsz a Wysio Meeting Organizer alkalmazásba. Szép napot!"
+  messageTemplate: "Kedves Felhasználónk!
+                     \n \nAz admin jóváhagyta kérelmed: mostantól beléphetsz a Wysio Meeting Organizer alkalmazásba.
+                     \nTovábbi szép napot kívánunk!
+                     \n \n -----
+                     \n \nDear User,
+                     \n \nOur admins approved your request to enter the site. From now on, you can use the Wysio Meeting Organizer application.
+                     \nHave a pleasant day!"
 ---
 spring:
   profiles: travis
@@ -92,8 +98,13 @@ mailing:
     apiKey: ${MAILGUN_API_KEY:}
     mailSenderUrl: "https://api.mailgun.net/v3/sandbox71f5ca0439c64f98af51e1cd1915580a.mailgun.org"
   mailFrom: "Mailgun Sandbox <postmaster@sandbox71f5ca0439c64f98af51e1cd1915580a.mailgun.org>"
-  messageTemplate: "Kedves Felhasználónk! Az admin jóváhagyta a belépési kérelmed, és mostmár beléphetsz a Wysio Meeting Organizer alkalmazásba. Szép napot!"
-
+  messageTemplate: "Kedves Felhasználónk!
+                     \n \nAz admin jóváhagyta kérelmed: mostantól beléphetsz a Wysio Meeting Organizer alkalmazásba.
+                     \nTovábbi szép napot kívánunk!
+                     \n \n -----
+                     \n \nDear User!
+                     \n \nOur admins approved your request to enter the site. From now on, you can use the Wysio Meeting Organizer application.
+                     \nHave a pleasant day!"
 app:
   redirectUri: http://localhost:4200/auth
   tokenSecret: JgxeWFNIeJ4mEIKd8gH5VGw_

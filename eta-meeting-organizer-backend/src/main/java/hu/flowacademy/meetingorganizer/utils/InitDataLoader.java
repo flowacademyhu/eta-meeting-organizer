@@ -30,7 +30,6 @@ public class InitDataLoader {
 
   @PostConstruct
   public void init() {
-    sendMail(); // TODO remove
     buildingRepository.save(Building.builder()
         .id(1L)
         .city("Budapest")
@@ -173,9 +172,5 @@ public class InitDataLoader {
         .name("Zöld iroda")
         .numberOfSeats(8)
         .projector(false).build());
-  }
-
-  private void sendMail() {
-    emailService.send("claulotta@gmail.com", "valami", EmailType.TEXT, "Vince");
   }
 }
