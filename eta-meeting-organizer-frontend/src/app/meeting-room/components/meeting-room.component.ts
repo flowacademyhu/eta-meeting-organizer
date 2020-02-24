@@ -1,7 +1,9 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { OnInit, Component } from '@angular/core';
+import { PageEvent } from '@angular/material';
 import { MatDialog } from '@angular/material/dialog';
 import { Observable, Subscription } from 'rxjs';
 import { MeetingRoom } from './../../models/meetingroom.model';
+import { Page } from './../../models/page';
 import { MeetingRoomDeleteComponent } from './../../shared/Modals/meeting-room-delete.component';
 import { MeetingRoomRegisterComponent } from './../../shared/Modals/meeting-room-register.component';
 import { MeetingRoomService } from './../../shared/services/meeting-room.service';
@@ -21,7 +23,7 @@ import { MeetingRoomService } from './../../shared/services/meeting-room.service
           (click)="openDialog()">
           <mat-icon>add</mat-icon>
   </button>
-    <div class="row justify-content-center">
+    <div class="mat-elevation-z8">
       <table mat-table [dataSource]="meetingRoom$ | async" class="mat-elevation-z8">
         <ng-container matColumnDef="name">
           <th mat-header-cell *matHeaderCellDef>{{'meeting-room.text' | translate}} </th>
@@ -35,18 +37,17 @@ import { MeetingRoomService } from './../../shared/services/meeting-room.service
           <th mat-header-cell *matHeaderCellDef> {{'meeting-room.projector' | translate}} </th>
           <td mat-cell *matCellDef="let meetingRoom">{{meetingRoom.projector}}</td>
         </ng-container>
-       <ng-container matColumnDef="building">
+        <ng-container matColumnDef="building">
           <th mat-header-cell *matHeaderCellDef> {{'meeting-room.building' | translate}} </th>
-          <td mat-cell *matCellDef="let meetingRoom">
-            {{meetingRoom.building.city}} - {{meetingRoom.building.address}}</td>
+          <td mat-cell *matCellDef="let meetingRoom">{{meetingRoom.building}</td>
         </ng-container>
         <ng-container matColumnDef="delete">
           <th mat-header-cell *matHeaderCellDef></th>
           <td mat-cell *matCellDef="let meetingRoom">
-          <button mat-icon-button color="accent">
+          <button mat-icon-button color="accent" (click)="deleteDialog(meetingRoom.id)">
             <mat-icon>edit</mat-icon>
           </button>
-          <button mat-icon-button color="primary" (click)="deleteDialog(meetingRoom.id)">
+          <button mat-icon-button color="primary">
             <mat-icon>delete</mat-icon>
           </button>
           </td>
@@ -54,25 +55,51 @@ import { MeetingRoomService } from './../../shared/services/meeting-room.service
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       </table>
+
+  <mat-paginator #PAGINATOR
+    showFirstLastButtons
+    [pageSizeOptions]="[5, 10, 20]"
+    [length]="(meetingRoom$ | async)?.totalElements"
+    [pageSize]="5"
+    [pageIndex]="1"
+    (page)="pageEvent = getMeetingRooms($event)"></mat-paginator>
+
     </div>
   `
 })
-export class MeetingRoomComponent implements OnInit, OnDestroy {
-  public meetingRoom$: Observable<MeetingRoom[]>;
+
+export class MeetingRoomComponent implements OnInit{
+  public meetingRoom$: Observable<Page<MeetingRoom[]>>;
   public displayedColumns: string[] = ['name', 'numberOfSeat', 'projector', 'building', 'delete'];
   public unsubFromDialog: Subscription;
+
   constructor(private readonly meetingRoomService: MeetingRoomService,
               private readonly dialog: MatDialog) { }
+
+  //@ViewChild(MatPaginator) private paginator: MatPaginator;
+
   public ngOnInit() {
-  this.meetingRoomService.getAllMeetingRooms();
-  this.meetingRoom$ = this.meetingRoomService
-  .meetingRoomSub;
+//    this.paginator.firstPage();
+//    this.meetingRoomService.getAllMeetingRooms();
+    this.meetingRoom$ = this.meetingRoomService.meetingRoomSub;
+    this.meetingRoomService.getAllMeetingRooms(1, 5);
+
   }
-  public openDialog(): void {
+
+  public getMeetingRooms(event: PageEvent) {
+    if (!event) {
+      return;
+    }
+
+    this.meetingRoomService.getAllMeetingRooms(event.pageIndex, event.pageSize);
+  }
+
+   public openDialog(): void {
     this.dialog.open(MeetingRoomRegisterComponent, {
       width: '400px',
     });
   }
+
   public deleteDialog(id: number) {
     const dialogRef = this.dialog.open(MeetingRoomDeleteComponent);
     this.unsubFromDialog = dialogRef.afterClosed()
@@ -82,16 +109,16 @@ export class MeetingRoomComponent implements OnInit, OnDestroy {
       }
     });
   }
-  public ngOnDestroy(): void {
-    if (this.unsubFromDialog) {
-      this.unsubFromDialog.unsubscribe();
-    }
+
+  public ngOnDestroy() {
+    this.unsubFromDialog.unsubscribe();
   }
+
   public deleteMeetingRoom(id: number) {
     this.meetingRoomService.deleteMeetingRoom(id)
     .subscribe(() => {
       this.meetingRoomService
-      .getAllMeetingRooms();
+      .getAllMeetingRooms(0, 5);
     });
   }
-}
+  }

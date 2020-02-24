@@ -1,12 +1,14 @@
 import { Observable } from 'rxjs';
 import { MeetingRoom } from '~/app/models/meetingroom.model';
 import { AbstractApiConnector } from '~/app/shared/api-connectors/AbstractApiConnector';
+import { Page } from './../../models/page';
 
 export class MeetingRoomApiConnector extends AbstractApiConnector {
   protected readonly apiRoute: string = `${this.apiBaseUrl}`;
 
-  public getMeetingRooms() {
-   return this.http.get<MeetingRoom[]>(`${this.apiRoute}/meetingrooms`);
+  public getMeetingRooms(pageNumber: number, pageSize: number) {
+   return this.http.get<Page<MeetingRoom[]>>
+   (`${this.apiRoute}/meetingrooms?pageNumber=${pageNumber}&pageSize=${pageSize}`);
   }
 
   public getOneMeetingRoomById(id: number): Observable<MeetingRoom> {

@@ -2,11 +2,16 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { MeetingRoom } from '~/app/models/meetingroom.model';
 import { ApiCommunicationService } from './api-communication.service';
+import { Page } from './../../models/page';
+
 
 @Injectable()
 export class MeetingRoomService {
-
-  public _meetingRoomSub: BehaviorSubject<MeetingRoom[]> = new BehaviorSubject<MeetingRoom[]>([]);
+  public _meetingRoomSub: BehaviorSubject<Page<MeetingRoom[]>> = new BehaviorSubject<Page<MeetingRoom[]>>(
+    {
+      content: [],
+      totalElements: 0}
+    );
 
   constructor(private readonly meetingRoomCom: ApiCommunicationService) {}
 
@@ -14,11 +19,14 @@ export class MeetingRoomService {
     return this._meetingRoomSub;
   }
 
-  public getAllMeetingRooms() {
-   this.meetingRoomCom.meetingRoom()
-    .getMeetingRooms()
-    .subscribe((meetingRoom: MeetingRoom[]) => {
-      this._meetingRoomSub.next(meetingRoom);
+  public getAllMeetingRooms(pageIndex: number, pageSize: number) {
+    if (!event) {
+      return;
+    }
+    this.meetingRoomCom.meetingRoom()
+    .getMeetingRooms(pageIndex, pageSize)
+    .subscribe((page: Page<MeetingRoom[]>) => {
+      this._meetingRoomSub.next(page);
     });
   }
 
@@ -32,4 +40,5 @@ export class MeetingRoomService {
     return this.meetingRoomCom.meetingRoom()
       .postMeetingRoom(meetingRoom);
   }
+
 }
