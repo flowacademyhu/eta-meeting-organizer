@@ -1,6 +1,5 @@
 package hu.flowacademy.meetingorganizer.config.oauth2;
 
-import hu.flowacademy.meetingorganizer.config.RoleConfigs;
 import hu.flowacademy.meetingorganizer.persistence.model.Role;
 import hu.flowacademy.meetingorganizer.persistence.model.User;
 import hu.flowacademy.meetingorganizer.persistence.repository.UserRepository;
@@ -8,6 +7,7 @@ import java.util.stream.Collectors;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
@@ -23,8 +23,8 @@ public class OAuth2UserServiceImpl extends DefaultOAuth2UserService {
 
   @NonNull
   private final UserRepository userRepository;
-  @NonNull
-  private final RoleConfigs roleConfigs;
+  @Value("${role.firstAdmin}")
+  private String firstAdmin;
 
   @Override
   public OAuth2User loadUser(OAuth2UserRequest oAuth2UserRequest)
@@ -38,7 +38,6 @@ public class OAuth2UserServiceImpl extends DefaultOAuth2UserService {
     return User.builder().id(oAuth2User.getName()).username(oAuth2User.getAttribute("email"))
         .enabled(true).accountNonExpired(true).accountNonLocked(true)
         .attributes(oAuth2User.getAttributes())
-        .isVerifiedByAdmin(verificationSetter(oAuth2User))
         .role(decideRole(oAuth2User))
         .authorities(oAuth2User.getAuthorities().stream().map(User.UserAuthority::new)
             .collect(Collectors.toList()))
@@ -55,17 +54,7 @@ public class OAuth2UserServiceImpl extends DefaultOAuth2UserService {
   }
 
   private Role decideRole(DefaultOAuth2User oAuth2User) {
-    if (roleConfigs.getAdmins().contains(oAuth2User.getAttribute("email"))) {
-      return Role.ADMIN;
-    } else if (roleConfigs.getReaders().contains(oAuth2User.getAttribute("email"))) {
-      return Role.READER;
-    } else {
-      return Role.USER;
-    }
+    return ((oAuth2User.getAttribute("email")).equals(firstAdmin)) ? Role.ADMIN : Role.PENDING;
   }
 
-  private boolean verificationSetter(DefaultOAuth2User oAuth2User) {
-    return (roleConfigs.getAdmins().contains(oAuth2User.getAttribute("email")) || roleConfigs
-        .getReaders().contains(oAuth2User.getAttribute("email")));
-  }
 }
