@@ -17,7 +17,7 @@ export class AuthService {
   public decodeAndSaveUser(token: string): string {
     const userToken = jwt_decode(token);
     this._user.next(userToken);
-    if (userToken.role === 'PENDING') {
+    if (userToken.role !== 'PENDING') {
       this.configService.setToken({accessToken: token});
       return 'Authentication is successfull!';
     } else {
