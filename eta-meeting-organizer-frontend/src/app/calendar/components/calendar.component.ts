@@ -3,11 +3,13 @@ import { FullCalendarComponent } from '@fullcalendar/angular';
 import { OptionsInput } from '@fullcalendar/core';
 import { EventInput } from '@fullcalendar/core';
 import { Locale } from '@fullcalendar/core/datelib/locale';
+import enGbLocale from '@fullcalendar/core/locales/en-gb';
 import huLocale from '@fullcalendar/core/locales/hu';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
-import { Subscription } from 'rxjs';
-import { take } from 'rxjs/operators';
+import { TranslateService } from '@ngx-translate/core';
+import { Subject, Subscription } from 'rxjs';
+import { take, takeUntil } from 'rxjs/operators';
 import { MeetingRoom } from '~/app/models/meetingroom.model';
 import { Reservation } from '~/app/models/reservation.model';
 import { UserToken } from '~/app/shared/models/user-token.model';
@@ -40,7 +42,9 @@ import { AuthService } from '~/app/shared/services/auth.service';
 })
 export class CalendarComponent implements OnInit, AfterViewInit, OnChanges {
 
-  protected locales: Locale[] = [huLocale];
+  protected locales: Locale[] = [huLocale, enGbLocale];
+
+  private destroy$: Subject<boolean> = new Subject<boolean>();
 
   public subs: Subscription;
   public user: UserToken = {} as UserToken;
@@ -57,11 +61,12 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnChanges {
   public reservations: Reservation[];
 
   constructor(private readonly api: ApiCommunicationService,
-              private readonly authService: AuthService) {
-  this.subs = this.authService.user.pipe(take(1))
-  .subscribe((data) => {
-    this.user = data;
-  });
+              private readonly authService: AuthService,
+              private readonly translate: TranslateService) {
+    this.subs = this.authService.user.pipe(take(1))
+    .subscribe((data) => {
+      this.user = data;
+    });
   }
 
   public calendarEvents: EventInput[] = [];
@@ -72,8 +77,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnChanges {
   public ngOnInit() {
     this.options = {
       buttonText: {
-        next: 'Következő Hét',
-        prev: 'Előző Hét'
+        today: 'Ma'
       },
       columnHeaderFormat: {
         weekday: 'long'
@@ -86,22 +90,35 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnChanges {
       slotLabelFormat: {
         hour: '2-digit',
         minute: '2-digit',
+        meridiem: false
       },
       titleFormat: {
         day: '2-digit',
         month: 'long',
         year: 'numeric'
-      }
+      },
+      locale: 'hu'
     };
   }
 
   public ngAfterViewInit() {
-    // this.calendarComponent.locales = [huLocale];
-    // this.calendarComponent.locale = 'hu';
+    this.translate.onLangChange
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((params) => {
+        this.setCalendarLang(params.lang);
+      });
+  }
+
+  private setCalendarLang(lang: string) {
+    if (lang === 'en') {
+      lang = 'en-gb';
+      if (this.options.buttonText) { this.options.buttonText.today = 'Today'; }
+    } else {
+      if (this.options.buttonText) { this.options.buttonText.today = 'Ma'; }
+      lang = 'hu';
+    }
     this.calendarComponent.getApi()
-    .setOption('locales', this.locales);
-    this.calendarComponent.getApi()
-    .setOption('locale', 'hu');
+      .setOption('locale', lang);
   }
 
   public ngOnChanges(changes: SimpleChanges) {

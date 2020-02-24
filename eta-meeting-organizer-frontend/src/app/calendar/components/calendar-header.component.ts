@@ -18,7 +18,7 @@ import { ApiCommunicationService } from '~/app/shared/services/api-communication
     <mat-toolbar color="primary">
         <form [formGroup]="meetingRoomSelector" novalidate>
             <mat-form-field>
-              <mat-label>Város</mat-label>
+              <mat-label>{{'calendar-header.city' | translate}}</mat-label>
               <mat-select
               (selectionChange)="getBuildings()"
               formControlName="city">
@@ -28,7 +28,7 @@ import { ApiCommunicationService } from '~/app/shared/services/api-communication
               </mat-select>
             </mat-form-field>
             <mat-form-field>
-              <mat-label>Épület</mat-label>
+              <mat-label>{{'calendar-header.building' | translate}}</mat-label>
               <mat-select
               (selectionChange)="getMeetingrooms()"
               formControlName="building">
@@ -38,7 +38,7 @@ import { ApiCommunicationService } from '~/app/shared/services/api-communication
               </mat-select>
             </mat-form-field>
             <mat-form-field>
-              <mat-label>Tárgyaló</mat-label>
+              <mat-label>{{'calendar-header.meeting-room' | translate}}</mat-label>
               <mat-select
               formControlName="meetingRoom"
               [(ngModel)]="meetingRoom">
@@ -48,7 +48,11 @@ import { ApiCommunicationService } from '~/app/shared/services/api-communication
               </mat-select>
             </mat-form-field>
         </form>
-          <mat-checkbox [checked]="checked" (change)="onCheck($event)">Saját naptár</mat-checkbox>
+          <mat-slide-toggle
+          [checked]="checked"
+          (change)="onCheck($event)">
+          {{'calendar-header.own-appointments' | translate}}
+          </mat-slide-toggle>
     </mat-toolbar>
     <app-calendar
     [meetingRoom]="meetingRoom"
