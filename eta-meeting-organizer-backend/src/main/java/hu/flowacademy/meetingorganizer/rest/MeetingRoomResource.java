@@ -25,32 +25,32 @@ public class MeetingRoomResource {
   private MeetingRoomService meetingRoomService;
 
   @GetMapping
-  public ResponseEntity<List<MeetingRoom>> findAll(
+  public ResponseEntity<List<MeetingRoomDTO>> findAll(
       @RequestParam(defaultValue = "0") Integer pageNumber,
       @RequestParam(defaultValue = "10") Integer pageSize) {
     return new ResponseEntity<>(meetingRoomService.findAll(pageNumber, pageSize), HttpStatus.OK);
   }
 
   @GetMapping("/{id}")
-  public ResponseEntity<MeetingRoom> findOne(@PathVariable Long id) {
+  public ResponseEntity<MeetingRoomDTO> findOne(@PathVariable Long id) {
     return meetingRoomService.findOne(id).map(ResponseEntity::ok)
         .orElseGet(() -> ResponseEntity.notFound().build());
   }
 
   @GetMapping("/{buildingId}/buildings")
-  public ResponseEntity<List<MeetingRoom>> findByBuildingId(@PathVariable Long buildingId) {
+  public ResponseEntity<List<MeetingRoomDTO>> findByBuildingId(@PathVariable Long buildingId) {
     return new ResponseEntity<>(meetingRoomService.findByBuildingId(buildingId), HttpStatus.OK);
   }
 
   @PostMapping
-  public ResponseEntity<MeetingRoomDTO> createMeetingRoom(@RequestBody MeetingRoom meetingRoom) {
+  public ResponseEntity<MeetingRoomDTO> createMeetingRoom(@RequestBody MeetingRoomDTO meetingRoom) {
     return new ResponseEntity<>(meetingRoomService.create(meetingRoom),
         HttpStatus.CREATED);
   }
 
   @PutMapping("/{id}")
-  public ResponseEntity<MeetingRoom> updateMeetingRoom(@PathVariable Long id,
-      @RequestBody MeetingRoom meetingRoom) {
+  public ResponseEntity<MeetingRoomDTO> updateMeetingRoom(@PathVariable Long id,
+      @RequestBody MeetingRoomDTO meetingRoom) {
     meetingRoomService.updateMeetingRoom(id, meetingRoom);
     return ResponseEntity.accepted().build();
   }
