@@ -16,7 +16,8 @@
     "saveButton":"Mentés",
     "cancel":"Mégse",
     "deleteButton":"törlés",
-    "add":"Épület hozzáadás"
+    "add":"Épület hozzáadás",
+    "update": "Módosítás"
   },
   "profile": {
     "id": "Azonosító",
@@ -89,6 +90,9 @@
   },
   "post-building-snackbar": {
     "post": "Épület létrehozva"
+  },
+  "update-building-snackbar": {
+    "update": "Épület módosítva."
   },
   "verification-snackbar": {
     "verify": "Felhasználó jóváhagyva"

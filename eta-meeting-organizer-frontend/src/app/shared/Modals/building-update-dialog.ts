@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { MAT_DIALOG_DATA } from '@angular/material';
+import { MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
+import { TranslateService } from '@ngx-translate/core';
 import { Building } from '~/app/models/building.model';
 import { BuildingService } from './../services/building.service';
 
@@ -11,9 +12,10 @@ import { BuildingService } from './../services/building.service';
   <form [formGroup]="buildingForm" (ngSubmit)="onSubmit()">
   <mat-form-field>
       <mat-label>{{'building.buildingName' | translate}}</mat-label>
-        <input matInput type="text" name="buildingName" 
+        <input matInput type="text" name="buildingName"
         formControlName="buildingName" [(ngModel)]="building.buildingName">
     </mat-form-field>
+    <br>
     <mat-form-field>
       <mat-label>{{'building.city' | translate}}</mat-label>
         <input matInput type="text" name="city" formControlName="city" [(ngModel)]="building.city">
@@ -24,8 +26,9 @@ import { BuildingService } from './../services/building.service';
         <input matInput type="text" name="address" formControlName="address" [(ngModel)]="building.address">
         </mat-form-field>
     <div>
-      <button mat-button mat-dialog-close>Mégse</button>
-      <button mat-button mat-dialog-close type="submit" cdkFocusInitial>Mentés</button>
+      <button mat-button mat-dialog-close>{{'building.cancel' | translate}}</button>
+      <button mat-button mat-dialog-close type="submit" cdkFocusInitial
+      (click)="openSnackBar()">{{'building.update' | translate}}</button>
     </div>
   </form>
 </div>`,
@@ -34,14 +37,15 @@ import { BuildingService } from './../services/building.service';
 export class BuildingUpdateDialogComponent implements OnInit {
   public building: Building = {} as Building;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: number,
-              private readonly buildingService: BuildingService) { }
+  constructor(@Inject(MAT_DIALOG_DATA)
+              private readonly data: number,
+              private readonly snackBar: MatSnackBar,
+              private readonly buildingService: BuildingService,
+              private readonly translate: TranslateService) { }
 
-  ngOnInit() {
-    console.log(this.data)
+  public ngOnInit() {
     this.buildingService.getOneBuilding(this.data)
     .subscribe((res) => {
-      console.log(res);
       this.building = res;
     });
   }
@@ -53,12 +57,17 @@ export class BuildingUpdateDialogComponent implements OnInit {
   });
 
   public onSubmit() {
-    console.log(this.building);
     this.buildingService
     .updateBuilding(this.data, this.building)
-    .subscribe(() => 
+    .subscribe(() =>
     this.buildingService
     .getAllBuildings());
+  }
+
+  public openSnackBar() {
+    this.snackBar.open(this.translate.instant(`update-building-snackbar.update`), '', {
+      duration: 2500
+    });
   }
 
 }

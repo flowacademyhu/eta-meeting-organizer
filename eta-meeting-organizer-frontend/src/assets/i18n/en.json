@@ -16,7 +16,8 @@
     "saveButton":"Save",
     "cancel":"Cancel",
     "deleteButton":"Delete",
-    "add":"Add building"
+    "add":"Add building",
+    "update": "Update"
   },
   "profile": {
     "id": "Identifier",
@@ -85,6 +86,9 @@
   },
   "post-building-snackbar": {
     "post": "Building has been created."
+  },
+  "update-building-snackbar": {
+    "update": "Building has been updated."
   },
   "verification-snackbar": {
     "verify": "User has been verified"
