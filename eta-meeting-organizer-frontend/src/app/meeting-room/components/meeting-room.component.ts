@@ -75,7 +75,6 @@ import { MeetingRoomService } from './../../shared/services/meeting-room.service
 export class MeetingRoomComponent implements OnInit, OnDestroy {
   public meetingRoom$: Observable<MeetingRoom[]>;
   public displayedColumns: string[] = ['name', 'numberOfSeat', 'projector', 'buildingName', 'building', 'delete'];
-  public unsubFromDialog: Subscription;
   public unsubFromDelete: Subscription;
   public unsubFromUpdate: Subscription;
   public meetingRoom: MeetingRoom;
@@ -118,9 +117,6 @@ export class MeetingRoomComponent implements OnInit, OnDestroy {
   }
 
   public ngOnDestroy(): void {
-    if (this.unsubFromDialog) {
-      this.unsubFromDialog.unsubscribe();
-    }
     if (this.unsubFromDelete) {
       this.unsubFromDelete.unsubscribe();
     }
