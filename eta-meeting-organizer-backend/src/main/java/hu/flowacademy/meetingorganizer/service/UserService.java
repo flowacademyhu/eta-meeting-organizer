@@ -1,5 +1,6 @@
 package hu.flowacademy.meetingorganizer.service;
 
+import hu.flowacademy.meetingorganizer.persistence.model.Role;
 import hu.flowacademy.meetingorganizer.persistence.model.User;
 import hu.flowacademy.meetingorganizer.persistence.repository.UserRepository;
 import java.util.Optional;
@@ -37,7 +38,7 @@ public class UserService {
 
   public User updateUser(String id) {
     User u = userRepository.findById(id).orElseThrow();
-    u.setVerifiedByAdmin(true);
+    u.setRole(Role.USER);
     return userRepository.save(u);
   }
 }

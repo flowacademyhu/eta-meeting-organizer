@@ -26,12 +26,7 @@ app:
   redirectUri: http://localhost:4200/auth
   tokenSecret: JgxeWFNIeJ4mEIKd8gH5VGw_
 role:
-  admins:
-    - vajgi90@gmail.com
-    - hpeti1988@gmail.com
-    - istvan.dumitras@gmail.com
-  readers:
-    - vajgely.tamas@gmail.com
+  firstAdmin: eta.meeting.organizer@gmail.com
 ---
 spring:
   profiles: travis
@@ -62,9 +57,4 @@ app:
   redirectUri: http://localhost:4200/auth
   tokenSecret: JgxeWFNIeJ4mEIKd8gH5VGw_
 role:
-  admins:
-    - vajgi90@gmail.com
-    - hpeti1988@gmail.com
-    - istvan.dumitras@gmail.com
-  readers:
-    - vajgely.tamas@gmail.com
+  firstAdmin: eta.meeting.organizer@gmail.com
