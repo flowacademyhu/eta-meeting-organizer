@@ -31,26 +31,31 @@ public class InitDataLoader {
         .id(1L)
         .city("Budapest")
         .address("Kelemen Jancsi utca 11 2/6")
+        .buildingName("Épület 1")
         .build());
     buildingRepository.save(Building.builder()
         .id(2L)
         .city("Kecskemét")
         .address("Kis István utca 131")
+        .buildingName("Épület 2")
         .build());
     buildingRepository.save(Building.builder()
         .id(3L)
         .city("Salgótarján")
         .address("Szegedi út 125")
+        .buildingName("Épület 3")
         .build());
     buildingRepository.save(Building.builder()
         .id(4L)
         .city("Göd")
         .address("Vörös utca 38-40")
+        .buildingName("Épület 4")
         .build());
     buildingRepository.save(Building.builder()
         .id(5L)
         .city("Győr")
         .address("Győri utca 28 3/28")
+        .buildingName("Épület 5")
         .build());
 
     userRepository.save(User.builder()
