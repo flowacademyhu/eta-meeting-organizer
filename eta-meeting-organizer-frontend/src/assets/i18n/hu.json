@@ -79,5 +79,8 @@
   },
   "verification-snackbar": {
     "verify": "Felhasználó jóváhagyva"
+  },
+  "meeting-room-update": {
+    "update": "Tárgyaló frissítve!"
   }
 }
