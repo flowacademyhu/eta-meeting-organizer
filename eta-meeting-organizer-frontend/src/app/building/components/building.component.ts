@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {MatDialog} from '@angular/material/dialog';
-import {Observable} from 'rxjs';
-import {Building} from '~/app/models/building.model';
+import { MatDialog } from '@angular/material/dialog';
+import { Observable } from 'rxjs';
+import { Building } from '~/app/models/building.model';
 import { BuildingDeleteDialogComponent } from '~/app/shared/Modals/building-delete-dialog';
-import {BuildingRegisterComponent} from '~/app/shared/Modals/building-register.component';
+import { BuildingRegisterComponent } from '~/app/shared/Modals/building-register.component';
+import { BuildingUpdateDialogComponent } from '~/app/shared/Modals/building-update-dialog';
 import { BuildingService } from './../../shared/services/building.service';
 
 @Component({
@@ -40,7 +41,7 @@ import { BuildingService } from './../../shared/services/building.service';
         <ng-container matColumnDef="action">
           <th mat-header-cell *matHeaderCellDef></th>
           <td mat-cell *matCellDef="let building">
-           <button mat-icon-button color="accent">
+           <button mat-icon-button color="accent" (click)="updateDialog(building.id)">
           <mat-icon aria-label="Edit">
             edit
           </mat-icon>
@@ -77,6 +78,15 @@ export class BuildingComponent implements OnInit {
       width: '400px',
     });
   }
+
+  public updateDialog(id: number) {
+    const dialogRef = this.dialog.open(BuildingUpdateDialogComponent, {
+      data: id
+    });
+    dialogRef.afterClosed()
+    .subscribe();
+  }
+  
   public deleteDialog(id: number) {
     const dialogRef = this.dialog.open(BuildingDeleteDialogComponent);
     dialogRef.afterClosed()

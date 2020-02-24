@@ -15,6 +15,7 @@ import { ConfigurationService } from '~/app/shared/services/configuration.servic
 import { HeaderComponent } from './components/header-layout.component';
 import { BuildingDeleteDialogComponent } from './Modals/building-delete-dialog';
 import { BuildingRegisterComponent } from './Modals/building-register.component';
+import { BuildingUpdateDialogComponent } from './Modals/building-update-dialog';
 import { MeetingRoomDeleteComponent } from './Modals/meeting-room-delete.component';
 import { MeetingRoomRegisterComponent } from './Modals/meeting-room-register.component';
 import { UserDeleteDialogComponent } from './Modals/user-delete-dialog';
@@ -34,6 +35,7 @@ import { UserService } from './services/user.service';
     MeetingRoomDeleteComponent,
     UserVerificationDialogComponent,
     BuildingDeleteDialogComponent,
+    BuildingUpdateDialogComponent,
   ],
   exports: [
     CommonModule,
