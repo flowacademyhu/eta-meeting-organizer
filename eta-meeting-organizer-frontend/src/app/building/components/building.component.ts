@@ -30,6 +30,10 @@ import { BuildingService } from './../../shared/services/building.service';
     </button>
     <div class="row justify-content-center">
       <table mat-table [dataSource]="building$ | async" class="mat-elevation-z8">
+      <ng-container matColumnDef="buildingName">
+          <th mat-header-cell *matHeaderCellDef class="center">{{'building.buildingName' | translate}}</th>
+          <td mat-cell *matCellDef="let building"> {{building.buildingName}} </td>
+        </ng-container>
         <ng-container matColumnDef="city">
           <th mat-header-cell *matHeaderCellDef class="center">{{'building.city' | translate}}</th>
           <td mat-cell *matCellDef="let building"> {{building.city}} </td>
@@ -62,7 +66,7 @@ import { BuildingService } from './../../shared/services/building.service';
 
 export class BuildingComponent implements OnInit {
   public building$: Observable<Building[]>;
-  public displayedColumns: string[] = ['city', 'address', 'action'];
+  public displayedColumns: string[] = ['buildingName', 'city', 'address', 'action'];
 
   constructor(private readonly buildingService: BuildingService,
               private readonly dialog: MatDialog) { }
@@ -86,7 +90,7 @@ export class BuildingComponent implements OnInit {
     dialogRef.afterClosed()
     .subscribe();
   }
-  
+
   public deleteDialog(id: number) {
     const dialogRef = this.dialog.open(BuildingDeleteDialogComponent);
     dialogRef.afterClosed()

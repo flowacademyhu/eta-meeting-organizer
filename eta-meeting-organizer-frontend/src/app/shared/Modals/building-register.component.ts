@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
@@ -19,6 +19,12 @@ import { BuildingService } from './../services/building.service';
   template: `
 <div mat-dialog-content>
   <form [formGroup]="buildingForm" (ngSubmit)="onSubmit()">
+  <mat-form-field>
+      <mat-label>{{'building.buildingName' | translate}}</mat-label>
+        <input type="text" name="city" formControlName="buildingName"
+         matInput placeholder="{{'building.buildingName' | translate}}">
+    </mat-form-field>
+    <br>
     <mat-form-field>
       <mat-label>{{'building.city' | translate}}</mat-label>
         <input type="text" name="city" formControlName="city" matInput placeholder="{{'building.city' | translate}}">
@@ -52,8 +58,9 @@ export class BuildingRegisterComponent implements OnInit {
 
     public ngOnInit() {
       this.buildingForm = new FormGroup({
-      address : new FormControl('', Validators.required ),
-      city : new FormControl('', Validators.required),
+      address : new FormControl(),
+      city : new FormControl(),
+      buildingName: new FormControl(),
       });
     }
 

@@ -10,6 +10,7 @@
     "button": "Switch to Hungarian"
   },
   "building": {
+    "buildingName": "Building name",
     "city": "City",
     "address":"Address",
     "saveButton":"Save",

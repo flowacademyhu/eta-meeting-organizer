@@ -10,6 +10,7 @@
     "button": "Váltás angol nyelvre"
   },
   "building": {
+    "buildingName": "Épület megnevezése",
     "city": "Város",
     "address":"Cím",
     "saveButton":"Mentés",

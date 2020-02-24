@@ -2,7 +2,6 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material';
 import { Building } from '~/app/models/building.model';
-import { ApiCommunicationService } from './../services/api-communication.service';
 import { BuildingService } from './../services/building.service';
 
 @Component({
@@ -10,6 +9,11 @@ import { BuildingService } from './../services/building.service';
   template: `
   <div mat-dialog-content>
   <form [formGroup]="buildingForm" (ngSubmit)="onSubmit()">
+  <mat-form-field>
+      <mat-label>{{'building.buildingName' | translate}}</mat-label>
+        <input matInput type="text" name="buildingName" 
+        formControlName="buildingName" [(ngModel)]="building.buildingName">
+    </mat-form-field>
     <mat-form-field>
       <mat-label>{{'building.city' | translate}}</mat-label>
         <input matInput type="text" name="city" formControlName="city" [(ngModel)]="building.city">
@@ -45,6 +49,7 @@ export class BuildingUpdateDialogComponent implements OnInit {
   public buildingForm: FormGroup = new FormGroup({
     city: new FormControl(),
     address: new FormControl(),
+    buildingName: new FormControl(),
   });
 
   public onSubmit() {
