@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { Building } from '~/app/models/building.model';
 import { BuildingDeleteDialogComponent } from '~/app/shared/Modals/building-delete-dialog';
 import { BuildingRegisterComponent } from '~/app/shared/Modals/building-register.component';
@@ -25,7 +25,7 @@ import { BuildingService } from './../../shared/services/building.service';
   `],
   template: `
      <button mat-icon-button color="primary"
-          (click)="openDialog()">
+          (click)="postDialog()">
           <mat-icon>add</mat-icon>
     </button>
     <div class="row justify-content-center">
@@ -64,10 +64,12 @@ import { BuildingService } from './../../shared/services/building.service';
   `
 })
 
-export class BuildingComponent implements OnInit {
+export class BuildingComponent implements OnInit, OnDestroy {
   public building$: Observable<Building[]>;
   public displayedColumns: string[] = ['buildingName', 'city', 'address', 'action'];
-
+  public deleteUnsub: Subscription;
+  public updateUnsub: Subscription;
+  public postUnsub: Subscription;
   constructor(private readonly buildingService: BuildingService,
               private readonly dialog: MatDialog) { }
 
@@ -77,23 +79,25 @@ export class BuildingComponent implements OnInit {
      .buildingSub;
    }
 
-  public openDialog(): void {
-    this.dialog.open(BuildingRegisterComponent, {
+  public postDialog(): void {
+    const dialogRef = this.dialog.open(BuildingRegisterComponent, {
       width: '400px',
     });
+    this.postUnsub = dialogRef.afterClosed()
+    .subscribe();
   }
 
   public updateDialog(buildingData: Building) {
     const dialogRef = this.dialog.open(BuildingUpdateDialogComponent, {
       data: buildingData
     });
-    dialogRef.afterClosed()
+    this.updateUnsub = dialogRef.afterClosed()
     .subscribe();
   }
 
   public deleteDialog(id: number) {
     const dialogRef = this.dialog.open(BuildingDeleteDialogComponent);
-    dialogRef.afterClosed()
+    this.deleteUnsub = dialogRef.afterClosed()
     .subscribe((result) => {
       if (result === 'true') {
         this.deleteBuilding(id);
@@ -108,5 +112,17 @@ export class BuildingComponent implements OnInit {
       this.buildingService
       .getAllBuildings();
     });
+   }
+
+   public ngOnDestroy(): void {
+    if (this.deleteUnsub) {
+      this.deleteUnsub.unsubscribe();
+    }
+    if (this.updateUnsub) {
+      this.updateUnsub.unsubscribe();
+    }
+    if (this.postUnsub) {
+      this.postUnsub.unsubscribe();
+    }
    }
 }
