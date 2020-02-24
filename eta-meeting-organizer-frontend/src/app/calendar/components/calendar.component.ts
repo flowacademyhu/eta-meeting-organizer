@@ -37,6 +37,7 @@ import { AuthService } from '~/app/shared/services/auth.service';
       [columnHeaderFormat]="options.columnHeaderFormat"
       [titleFormat]="options.titleFormat"
       [nowIndicator]="true"
+      [locale]="'hu'"
     ></full-calendar>
   `
 })
@@ -97,7 +98,6 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnChanges {
         month: 'long',
         year: 'numeric'
       },
-      locale: 'hu'
     };
   }
 
