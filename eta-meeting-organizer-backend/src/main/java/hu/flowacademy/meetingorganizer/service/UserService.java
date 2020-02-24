@@ -36,8 +36,8 @@ public class UserService {
     userRepository.deleteById(id);
   }
 
-  public User updateUser(String id, User user) {
-    userRepository.findById(id).orElseThrow();
+  public User updateUser(String id) {
+    User user = userRepository.findById(id).orElseThrow();
     user.setVerifiedByAdmin(true);
     emailService.send(user.getUsername(), "validation", EmailType.TEXT);
     return userRepository.save(user);

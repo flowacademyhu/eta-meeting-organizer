@@ -1,5 +1,7 @@
 package hu.flowacademy.meetingorganizer.utils;
 
+import hu.flowacademy.meetingorganizer.email.EmailService;
+import hu.flowacademy.meetingorganizer.email.EmailType;
 import hu.flowacademy.meetingorganizer.persistence.model.Building;
 import hu.flowacademy.meetingorganizer.persistence.model.MeetingRoom;
 import hu.flowacademy.meetingorganizer.persistence.model.Reservation;
@@ -10,6 +12,7 @@ import hu.flowacademy.meetingorganizer.persistence.repository.MeetingRoomReposit
 import hu.flowacademy.meetingorganizer.persistence.repository.*;
 import hu.flowacademy.meetingorganizer.persistence.repository.UserRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.PostConstruct;
@@ -24,9 +27,11 @@ public class InitDataLoader {
   private final ReservationRepository reservationRepository;
   private final UserRepository userRepository;
   private final MeetingRoomRepository meetingRoomRepository;
+  private final EmailService emailService;
 
   @PostConstruct
   public void init() {
+    sendMail(); // TODO remove
     buildingRepository.save(Building.builder()
         .id(1L)
         .city("Budapest")
@@ -169,5 +174,9 @@ public class InitDataLoader {
         .name("Zöld iroda")
         .numberOfSeats(8)
         .projector(false).build());
+  }
+
+  private void sendMail() {
+    emailService.send("claulotta@gmail.com","valami", EmailType.TEXT, "Vince");
   }
 }

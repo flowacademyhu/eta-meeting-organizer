@@ -14,7 +14,6 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 @Slf4j
-@Service
 @RequiredArgsConstructor
 public class MailgunEmailService implements EmailService {
 

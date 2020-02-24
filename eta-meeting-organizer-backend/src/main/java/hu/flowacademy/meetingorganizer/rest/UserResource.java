@@ -52,8 +52,8 @@ public class UserResource {
   }
 
   @PutMapping("/{id}")
-  public ResponseEntity<User> updateUser(@PathVariable String id, User user) {
-    userService.updateUser(id, user);
+  public ResponseEntity<User> updateUser(@PathVariable String id) {
+    userService.updateUser(id);
     return ResponseEntity.accepted().build();
   }
 }
