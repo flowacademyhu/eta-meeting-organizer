@@ -5,7 +5,6 @@ import hu.flowacademy.meetingorganizer.email.EmailType;
 import hu.flowacademy.meetingorganizer.persistence.model.User;
 import hu.flowacademy.meetingorganizer.persistence.repository.UserRepository;
 import java.util.Optional;
-import javax.validation.constraints.Email;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
