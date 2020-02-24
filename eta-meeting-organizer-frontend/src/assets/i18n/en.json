@@ -75,5 +75,8 @@
   },
   "verification-snackbar": {
     "verify": "User has been verified"
+  },
+  "meeting-room-update": {
+    "update": "Meeting room has been updated"
   }
 }
