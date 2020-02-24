@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Observable, Subscription } from 'rxjs';
+import { take } from 'rxjs/operators';
 import { UserVerificationDialogComponent } from '~/app/shared/Modals/user-verification-dialog';
 import { UserToken } from '~/app/shared/models/user-token.model';
+import { AuthService } from '~/app/shared/services/auth.service';
 import { User } from './../../models/user.model';
 import { UserDeleteDialogComponent } from './../../shared/Modals/user-delete-dialog';
 import { UserService } from './../../shared/services/user.service';
-import { AuthService } from '~/app/shared/services/auth.service';
-import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-users-table',
