@@ -17,7 +17,7 @@ export class UserApiConnector extends AbstractApiConnector {
     return this.http.delete(`${this.apiRoute}/users/` + id);
   }
 
-  public updateUserById(id: string) {
-    return this.http.put(`${this.apiRoute}/users/` + id, {verifiedByAdmin: true} );
+  public userRoleSet(id: string, roleset: string) {
+    return this.http.put(`${this.apiRoute}/users/` + id + `/role`, {role: roleset});
   }
 }
