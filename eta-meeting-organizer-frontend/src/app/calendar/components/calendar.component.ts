@@ -1,4 +1,5 @@
 import { AfterViewInit, Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { FullCalendarComponent } from '@fullcalendar/angular';
 import { OptionsInput } from '@fullcalendar/core';
 import { EventInput } from '@fullcalendar/core';
@@ -6,6 +7,7 @@ import { Locale } from '@fullcalendar/core/datelib/locale';
 import enGbLocale from '@fullcalendar/core/locales/en-gb';
 import huLocale from '@fullcalendar/core/locales/hu';
 import dayGridPlugin from '@fullcalendar/daygrid';
+import interactionPlugin from '@fullcalendar/interaction';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import { TranslateService } from '@ngx-translate/core';
 import { Subject, Subscription } from 'rxjs';
@@ -15,6 +17,8 @@ import { Reservation } from '~/app/models/reservation.model';
 import { UserToken } from '~/app/shared/models/user-token.model';
 import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
 import { AuthService } from '~/app/shared/services/auth.service';
+import { ReservationBookingComponent } from '~/app/shared/Modals/reservation-book.component';
+
 
 @Component({
   selector: 'app-calendar',
@@ -38,6 +42,10 @@ import { AuthService } from '~/app/shared/services/auth.service';
       [titleFormat]="options.titleFormat"
       [nowIndicator]="true"
       [locale]="'hu'"
+      [selectable]="true"
+      [selectMirror]="true"
+      [selectOverlap]="false"
+      (select)="openDialog()"
     ></full-calendar>
   `
 })
@@ -57,13 +65,14 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnChanges {
   public checked: boolean;
 
   public options: OptionsInput;
-  public calendarPlugins: object[] = [dayGridPlugin, timeGridPlugin];
+  public calendarPlugins: object[] = [dayGridPlugin, timeGridPlugin, interactionPlugin];
 
   public reservations: Reservation[];
 
   constructor(private readonly api: ApiCommunicationService,
               private readonly authService: AuthService,
-              private readonly translate: TranslateService) {
+              private readonly translate: TranslateService,
+              private readonly dialog: MatDialog) {
     this.subs = this.authService.user.pipe(take(1))
     .subscribe((data) => {
       this.user = data;
@@ -163,6 +172,11 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnChanges {
       }
     );
     }
+  }
+  public openDialog() {
+    this.dialog.open(ReservationBookingComponent, {
+      width: '400px',
+    });
   }
 
 }

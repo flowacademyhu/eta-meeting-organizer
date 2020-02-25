@@ -26,7 +26,7 @@ app:
   redirectUri: http://localhost:4200/auth
   tokenSecret: JgxeWFNIeJ4mEIKd8gH5VGw_
 role:
-  firstAdmin: eta.meeting.organizer@gmail.com
+  firstAdmin: dombimihaly89@gmail.com
 ---
 spring:
   profiles: travis
@@ -56,4 +56,4 @@ app:
   redirectUri: http://localhost:4200/auth
   tokenSecret: JgxeWFNIeJ4mEIKd8gH5VGw_
 role:
-  firstAdmin: eta.meeting.organizer@gmail.com
+  firstAdmin: dombimihaly89@gmail.com

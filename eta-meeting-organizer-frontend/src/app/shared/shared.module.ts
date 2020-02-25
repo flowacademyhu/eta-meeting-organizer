@@ -23,6 +23,8 @@ import { UserVerificationDialogComponent } from './Modals/user-verification-dial
 import { BuildingService } from './services/building.service';
 import { MeetingRoomService } from './services/meeting-room.service';
 import { UserService } from './services/user.service';
+import { ReservationService } from './services/reservation.service';
+import { ReservationBookingComponent } from './Modals/reservation-book.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +38,7 @@ import { UserService } from './services/user.service';
     UserVerificationDialogComponent,
     BuildingDeleteDialogComponent,
     BuildingUpdateDialogComponent,
+    ReservationBookingComponent,
   ],
   exports: [
     CommonModule,
@@ -59,6 +62,7 @@ import { UserService } from './services/user.service';
     AuthGuard,
     AdminGuard,
     BuildingService,
+    ReservationService,
     {provide: HTTP_INTERCEPTORS, useClass: RequestInterceptorService, multi: true},
   ],
 })

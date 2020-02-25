@@ -98,5 +98,9 @@
     "building": "Building",
     "meeting-room": "Meetingroom",
     "own-appointments": "Own Appointments"
+  },
+  "reservation": {
+    "title": "Title",
+    "summary": "Summary"
   }
 }
