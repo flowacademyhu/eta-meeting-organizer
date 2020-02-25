@@ -3,9 +3,13 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { Observable, Subscription } from 'rxjs';
 import { UserVerificationDialogComponent } from '~/app/shared/Modals/user-verification-dialog';
 import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
+import { Observable, Subscription } from 'rxjs';
+import { take } from 'rxjs/operators';
+import { UserVerificationDialogComponent } from '~/app/shared/Modals/user-verification-dialog';
+import { UserToken } from '~/app/shared/models/user-token.model';
+import { AuthService } from '~/app/shared/services/auth.service';
 import { User } from './../../models/user.model';
 import { UserDeleteDialogComponent } from './../../shared/Modals/user-delete-dialog';
 import { UserService } from './../../shared/services/user.service';
@@ -50,7 +54,8 @@ th.mat-header-cell {
         <ng-container matColumnDef="action">
           <th mat-header-cell *matHeaderCellDef></th>
           <td mat-cell *matCellDef="let user">
-          <button mat-icon-button color="primary" (click)="deleteDialog(user.id)">
+          <button *ngIf="user.username !== currentAdmin.username"
+          mat-icon-button color="primary" (click)="deleteDialog(user.id)">
           <mat-icon aria-label="Delete Icon">
             delete
           </mat-icon>
@@ -77,15 +82,22 @@ th.mat-header-cell {
 export class UsersTableComponent implements OnInit, OnDestroy, AfterViewInit {
   public users$: Observable<User[]>;
   public displayedColumns: string[] = ['id', 'email', 'role', 'action'];
+  protected currentAdmin: UserToken = {} as UserToken;
+  protected subs: Subscription;
 
   @ViewChild(MatSort) public sort: MatSort;
   @ViewChild(MatPaginator) public paginator: MatPaginator;
 
   constructor(private readonly api: ApiCommunicationService,
               private readonly userService: UserService,
-              private readonly dialog: MatDialog) {
+              private readonly dialog: MatDialog
+             private readonly authService: AuthService) {
       this.users$ = this.api.user()
     .getUsers();
+    this.subs = this.authService.user.pipe(take(1))
+    .subscribe((data) => {
+    this.currentAdmin = data;
+    });
      }
 
      public dataSource: MatTableDataSource<User> = new MatTableDataSource<User>();
