@@ -1,14 +1,13 @@
-import { Component, OnInit, AfterViewInit, ViewChild} from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { Building } from '~/app/models/building.model';
 import { BuildingRegisterComponent } from '~/app/shared/Modals/building-register.component';
 import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
 import { BuildingService } from '~/app/shared/services/building.service';
-
 
 @Component({
   selector: 'app-building-list',
@@ -28,9 +27,6 @@ th.mat-header-cell {
       min-height: calc(100vh - 60px);
     }
 
-    table {
-      width: 100%;
-    }
   `],
   template: `
      <button mat-icon-button color="primary"
@@ -41,17 +37,17 @@ th.mat-header-cell {
     <mat-form-field fxFlex="20%">
     <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Filter">
   </mat-form-field>
-      <table mat-table [dataSource]="building$ | async" class="mat-elevation-z8" matSort>
+      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
         <ng-container matColumnDef="city">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> </th>
+          <th mat-header-cell *matHeaderCellDef class="center" mat-sort-header>{{'building.city' | translate}} </th>
           <td mat-cell *matCellDef="let building"> {{building.city}} </td>
         </ng-container>
         <ng-container matColumnDef="address">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>  </th>
+          <th mat-header-cell *matHeaderCellDef class="center" mat-sort-header> {{'building.address' | translate}} </th>
           <td mat-cell *matCellDef="let building"> {{building.address}} </td>
         </ng-container>
         <ng-container matColumnDef="delete">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>  </th>
+          <th mat-header-cell *matHeaderCellDef class="center" mat-sort-header> {{'building.edit' | translate}} </th>
           <td mat-cell *matCellDef="let building">
           <button mat-icon-button color="accent">
             <mat-icon>edit</mat-icon>
@@ -64,54 +60,61 @@ th.mat-header-cell {
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       </table>
-
-<mat-paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 20]">
-</mat-paginator>
+      <mat-paginator
+        [pageSize]="5"
+        [pageSizeOptions]="[5, 10, 20]"
+        showFirstLastButton>
+      </mat-paginator>
     </div>
   `
 })
 
-export class BuildingComponent implements OnInit, AfterViewInit{
-  public building$: Observable<Building[]>;
-  public dataSource = new MatTableDataSource<Building>();
+export class BuildingComponent implements OnInit, OnDestroy, AfterViewInit {
 
-  @ViewChild(MatSort) private sort: MatSort;
-  @ViewChild(MatPaginator) private paginator: MatPaginator;
+  public building$: Observable<Building[]>;
+
+  public displayedColumns: string[] = ['city', 'address', 'delete'];
+
+  @ViewChild(MatSort) public sort: MatSort;
+  @ViewChild(MatPaginator) public paginator: MatPaginator;
 
   constructor(private readonly api: ApiCommunicationService,
               private readonly dialog: MatDialog,
-              private repoService: BuildingService,
-  ) {  this.building$ = this.api.building()
-    .getBuildings();
+              private readonly repoService: BuildingService) {
+                  this.building$ = this.api.building()
+                                           .getBuildings();
   }
 
+  public dataSource: MatTableDataSource<Building> = new MatTableDataSource<Building>();
+
+  public dataSub: Subscription;
+
   public ngOnInit() {
-    this.getBuildings();
-  }
+    this.dataSource.paginator = this.paginator;
+    this.dataSub = this.repoService.getBuildings()
+      .subscribe((res) => {
+        this.dataSource.data = (res as unknown as Building[]);
+      });
+    }
 
   public ngAfterViewInit(): void {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
  }
 
- public getBuildings = () => {
-  this.repoService.getData('api/buildings')
-  .subscribe(res => {
-    this.dataSource.data = res as Building[];
-  });
-}
-
  public doFilter = (value: string) => {
    this.dataSource.filter = value.trim()
     .toLocaleLowerCase();
  }
 
-//------------------------------------------------------------------------
-  public displayedColumns: string[] = ['city', 'address', 'delete'];
 
   public openDialog(): void {
     this.dialog.open(BuildingRegisterComponent, {
       width: '400px',
     });
+  }
+
+  public ngOnDestroy() {
+    this.dataSub.unsubscribe();
   }
 }

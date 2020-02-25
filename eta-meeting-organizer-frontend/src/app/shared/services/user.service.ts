@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { User } from '~/app/models/user.model';
 import { ApiCommunicationService } from './api-communication.service';
 
@@ -17,6 +17,12 @@ export class UserService {
     return this.userCom
     .user()
     .getOneUserById(id);
+  }
+
+  public getUsers(): Observable<User[]> {
+    return this.userCom
+    .user()
+    .getUsers();
   }
 
   public getAllUsers() {

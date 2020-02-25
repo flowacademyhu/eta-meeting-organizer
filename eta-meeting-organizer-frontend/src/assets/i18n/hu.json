@@ -15,7 +15,8 @@
     "saveButton":"Mentés",
     "delete":"Épület törlése",
     "deleteButton":"törlés",
-    "add":"Épület hozzáadás"
+    "add":"Épület hozzáadás",
+    "edit":"Szerkesztés"
   },
   "profile": {
     "id": "Azonosító",

@@ -15,7 +15,9 @@
     "saveButton":"Save",
     "delete":"Delete building",
     "deleteButton":"Delete",
-    "add":"Add building"
+    "add":"Add building",
+    "edit":"Edit"
+
   },
   "profile": {
     "id": "Identifier",

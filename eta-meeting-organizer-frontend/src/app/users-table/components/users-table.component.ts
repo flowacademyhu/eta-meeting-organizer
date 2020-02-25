@@ -1,7 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Observable } from 'rxjs';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
+import { Observable, Subscription } from 'rxjs';
 import { UserVerificationDialogComponent } from '~/app/shared/Modals/user-verification-dialog';
+import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
 import { User } from './../../models/user.model';
 import { UserDeleteDialogComponent } from './../../shared/Modals/user-delete-dialog';
 import { UserService } from './../../shared/services/user.service';
@@ -9,28 +13,39 @@ import { UserService } from './../../shared/services/user.service';
 @Component({
   selector: 'app-users-table',
   styles: [`
-    table {
-      width: 100%;
+table {
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+th.mat-header-cell {
+    text-align: left;
+    max-width: 300px!important;
+}
+
+    .row {
+      min-height: calc(100vh - 60px);
     }
-    .center {
-      text-align: center;
-      font-size: larger;
-    }
+
   `],
   template: `
-  <div class="row justify-content-center">
-      <table mat-table [dataSource]="users$ | async" class="mat-elevation-z8">
+    <div fxLayout fxLayoutAlign="center center">
+    <mat-form-field fxFlex="20%">
+    <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Filter">
+    </mat-form-field>
+      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
         <ng-container matColumnDef="id">
-          <th mat-header-cell *matHeaderCellDef class="center">{{'profile.id' | translate}} </th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'profile.id' | translate}} </th>
           <td mat-cell  *matCellDef="let user"> {{user.id}} </td>
         </ng-container>
         <ng-container matColumnDef="email">
-          <th mat-header-cell *matHeaderCellDef class="center"> {{'profile.email' | translate}} </th>
-          <td mat-cell *matCellDef="let user">{{user.username}}</td>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'profile.email' | translate}} </th>
+          <td mat-cell *matCellDef="let user"> {{user.username}} </td>
         </ng-container>
         <ng-container matColumnDef="role">
-          <th mat-header-cell *matHeaderCellDef class="center"> {{'profile.role' | translate}} </th>
-          <td mat-cell *matCellDef="let user">{{user.role}}</td>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'profile.role' | translate}} </th>
+          <td mat-cell *matCellDef="let user"> {{user.role}} </td>
         </ng-container>
         <ng-container matColumnDef="action">
           <th mat-header-cell *matHeaderCellDef></th>
@@ -48,25 +63,56 @@ import { UserService } from './../../shared/services/user.service';
           </td>
         </ng-container>
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;" align="center" ></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" ></tr>
       </table>
-    </div>
+      <mat-paginator
+        [pageSize]="5"
+        [pageSizeOptions]="[5, 10, 20]"
+        showFirstLastButton>
+      </mat-paginator>
+
   `
 })
 
-export class UsersTableComponent implements OnInit {
+export class UsersTableComponent implements OnInit, OnDestroy, AfterViewInit {
   public users$: Observable<User[]>;
   public displayedColumns: string[] = ['id', 'email', 'role', 'action'];
 
-  constructor(private readonly userService: UserService,
-              private readonly dialog: MatDialog) { }
+  @ViewChild(MatSort) public sort: MatSort;
+  @ViewChild(MatPaginator) public paginator: MatPaginator;
+
+
+  constructor(private readonly api: ApiCommunicationService,
+              private readonly userService: UserService,
+              private readonly dialog: MatDialog) {
+      this.users$ = this.api.user()
+    .getUsers();
+     }
+
+     public dataSource: MatTableDataSource<User> = new MatTableDataSource<User>();
+
+     public dataSub: Subscription;
 
    public ngOnInit() {
+    this.dataSource.paginator = this.paginator;
+    this.dataSub = this.userService.getUsers()
+      .subscribe((res) => {
+    this.dataSource.data = (res as unknown as User[]);
+  });
     this.userService.getAllUsers();
     this.users$ = this.userService
     .userSub;
    }
 
+   public ngAfterViewInit(): void {
+    this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
+ }
+
+ public doFilter = (value: string) => {
+  this.dataSource.filter = value.trim()
+   .toLocaleLowerCase();
+}
    public deleteDialog(id: string) {
     const dialogRef = this.dialog.open(UserDeleteDialogComponent);
     dialogRef.afterClosed()
@@ -103,4 +149,9 @@ export class UsersTableComponent implements OnInit {
       .getAllUsers();
       });
    }
+
+   public ngOnDestroy() {
+    this.dataSub.unsubscribe();
+  }
+
 }
