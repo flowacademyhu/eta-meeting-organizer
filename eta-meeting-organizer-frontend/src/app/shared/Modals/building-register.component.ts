@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable, Subscription } from 'rxjs';
 import { Building } from '~/app/models/building.model';
-import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
+import { BuildingService } from './../services/building.service';
 
 @Component({
   selector: 'app-building-register',
@@ -19,6 +19,12 @@ import { ApiCommunicationService } from '~/app/shared/services/api-communication
   template: `
 <div mat-dialog-content>
   <form [formGroup]="buildingForm" (ngSubmit)="onSubmit()">
+  <mat-form-field>
+      <mat-label>{{'building.buildingName' | translate}}</mat-label>
+        <input type="text" name="city" formControlName="buildingName"
+         matInput placeholder="{{'building.buildingName' | translate}}">
+    </mat-form-field>
+    <br>
     <mat-form-field>
       <mat-label>{{'building.city' | translate}}</mat-label>
         <input type="text" name="city" formControlName="city" matInput placeholder="{{'building.city' | translate}}">
@@ -30,9 +36,9 @@ import { ApiCommunicationService } from '~/app/shared/services/api-communication
           matInput placeholder="{{'building.address' | translate}}">
         </mat-form-field>
     <div>
-      <button mat-button [mat-dialog-close] >cancel</button>
-      <button mat-button type="submit" cdkFocusInitial
-      (click)="openSnackBar()">Ok</button>
+      <button mat-button mat-dialog-close>{{'building.cancel' | translate}}</button>
+      <button mat-button mat-dialog-close type="submit" cdkFocusInitial
+      (click)="openSnackBar()">{{'building.saveButton' | translate}}</button>
     </div>
   </form>
 </div>`,
@@ -46,22 +52,24 @@ export class BuildingRegisterComponent implements OnInit {
   public subs: Subscription;
   constructor(
     public dialogRef: MatDialogRef<BuildingRegisterComponent>,
-    private readonly api: ApiCommunicationService,
-    private readonly _snackBar: MatSnackBar,
+    private readonly buildingService: BuildingService,
+    private readonly snackBar: MatSnackBar,
     private readonly translate: TranslateService) {}
 
     public ngOnInit() {
       this.buildingForm = new FormGroup({
-      address : new FormControl('', Validators.required ),
-      city : new FormControl('', Validators.required),
+      address : new FormControl(),
+      city : new FormControl(),
+      buildingName: new FormControl(),
       });
     }
 
   public onSubmit() {
-    this.api.building()
+    this.buildingService
       .postBuilding(this.buildingForm.getRawValue())
       .subscribe((data) => {
         this.building = data;
+        this.buildingService.getAllBuildings();
       });
     if (this.buildingForm.valid) {
       this.buildingForm.reset();
@@ -69,9 +77,8 @@ export class BuildingRegisterComponent implements OnInit {
   }
 
   public openSnackBar() {
-    this._snackBar.open(this.translate
-      .instant(`snackbar-meeting-room.registerOk`), '', {
-      duration: 2000
+    this.snackBar.open(this.translate.instant(`post-building-snackbar.post`), '', {
+      duration: 2500
     });
   }
 }

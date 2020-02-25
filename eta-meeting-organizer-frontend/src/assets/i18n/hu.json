@@ -10,12 +10,14 @@
     "button": "Váltás angol nyelvre"
   },
   "building": {
+    "buildingName": "Épület megnevezése",
     "city": "Város",
     "address":"Cím",
     "saveButton":"Mentés",
-    "delete":"Épület törlése",
+    "cancel":"Mégse",
     "deleteButton":"törlés",
-    "add":"Épület hozzáadás"
+    "add":"Épület hozzáadás",
+    "update": "Módosítás"
   },
   "profile": {
     "id": "Azonosító",
@@ -63,6 +65,12 @@
     "yes": "Igen",
     "no": "Nem"
   },
+  "building-delete-dialog": {
+    "buildingDelete": "Épület törlése",
+    "verification": "Biztosan törölni akarja az épületet?",
+    "yes": "Igen",
+    "no": "Nem"
+  },
   "authentication": {
     "answer": "A regisztráció admin általi jóváhagyásra vár!"
   },
@@ -75,8 +83,17 @@
     "yes": "Igen",
     "no": "Nem"
   },
-  "delete-snackbar": {
+  "delete-user-snackbar": {
     "delete": "Felhasználó törölve"
+  },
+  "delete-building-snackbar": {
+    "delete": "Épület törölve"
+  },
+  "post-building-snackbar": {
+    "post": "Épület létrehozva"
+  },
+  "update-building-snackbar": {
+    "update": "Épület módosítva."
   },
   "verification-snackbar": {
     "verify": "Felhasználó jóváhagyva"
