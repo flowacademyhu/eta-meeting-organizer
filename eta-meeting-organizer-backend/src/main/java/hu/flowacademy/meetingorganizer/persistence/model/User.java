@@ -45,8 +45,6 @@ public class User implements OAuth2User, UserDetails {
   private String password;
   @Enumerated(EnumType.STRING)
   private Role role;
-  @Column(columnDefinition = DEFAULT_TRUE)
-  private boolean isVerifiedByAdmin;
   @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
   @Transient
   @JsonIgnore
@@ -89,5 +87,4 @@ public class User implements OAuth2User, UserDetails {
       this.authority = grantedAuthority.getAuthority();
     }
   }
-
 }
