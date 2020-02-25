@@ -89,8 +89,8 @@ export class UsersTableComponent implements OnInit, OnDestroy, AfterViewInit {
 
   constructor(private readonly api: ApiCommunicationService,
               private readonly userService: UserService,
-              private readonly dialog: MatDialog
-             private readonly authService: AuthService) {
+              private readonly dialog: MatDialog,
+              private readonly authService: AuthService) {
       this.users$ = this.api.user()
     .getUsers();
       this.subs = this.authService.user.pipe(take(1))
