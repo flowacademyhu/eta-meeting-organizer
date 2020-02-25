@@ -107,7 +107,6 @@ export class BuildingComponent implements OnInit, OnDestroy, AfterViewInit {
     .toLocaleLowerCase();
  }
 
-
   public openDialog(): void {
     this.dialog.open(BuildingRegisterComponent, {
       width: '400px',
