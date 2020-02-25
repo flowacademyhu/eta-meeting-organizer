@@ -22,11 +22,37 @@ spring:
             scope:
               - email
               - profile
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ${GOOGLE_MAIL_USERNAME:}
+    password: ${GOOGLE_MAIL_PASSWORD:}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
 app:
   redirectUri: http://localhost:4200/auth
   tokenSecret: JgxeWFNIeJ4mEIKd8gH5VGw_
 role:
-  firstAdmin: dombimihaly89@gmail.com
+
+firstAdmin: dombimihaly89@gmail.com
+mailing:
+  mailgun:
+    apiKey: ${MAILGUN_API_KEY:}
+    mailSenderUrl: "https://api.mailgun.net/v3/sandbox71f5ca0439c64f98af51e1cd1915580a.mailgun.org"
+  mailFrom: "Mailgun Sandbox <postmaster@sandbox71f5ca0439c64f98af51e1cd1915580a.mailgun.org>"
+  messageTemplate: "Kedves Felhasználónk!
+                    \n\nAz admin jóváhagyta kérelmét: mostantól beléphet a Wysio Meeting Organizer alkalmazásba.
+                    \nTovábbi szép napot kívánunk!
+                    \n\nEz egy automatikus rendszerüzenet, kérjük hogy, ne válaszoljon rá!
+                    \n\n -----
+                    \n\nDear User,
+                    \n\nOur admins approved your request to enter the site. From now on, you can use the Wysio Meeting Organizer application.
+                    \nHave a pleasant day!
+                    \n\nThis is an automated message - please do not reply to it!"
 ---
 spring:
   profiles: travis
@@ -52,6 +78,31 @@ spring:
             scope:
               - email
               - profile
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ${GOOGLE_MAIL_USERNAME:}
+    password: ${GOOGLE_MAIL_PASSWORD:}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+mailing:
+  mailgun:
+    apiKey: ${MAILGUN_API_KEY:}
+    mailSenderUrl: "https://api.mailgun.net/v3/sandbox71f5ca0439c64f98af51e1cd1915580a.mailgun.org"
+  mailFrom: "Mailgun Sandbox <postmaster@sandbox71f5ca0439c64f98af51e1cd1915580a.mailgun.org>"
+  messageTemplate: "Kedves Felhasználónk!
+                    \n\nAz admin jóváhagyta kérelmét: mostantól beléphet a Wysio Meeting Organizer alkalmazásba.
+                    \nTovábbi szép napot kívánunk!
+                    \n\nEz egy automatikus rendszerüzenet, kérjük hogy, ne válaszoljon rá!
+                    \n\n -----
+                    \n\nDear User,
+                    \n\nOur admins approved your request to enter the site. From now on, you can use the Wysio Meeting Organizer application.
+                    \nHave a pleasant day!
+                    \n\nThis is an automated message - please do not reply to it!"
 app:
   redirectUri: http://localhost:4200/auth
   tokenSecret: JgxeWFNIeJ4mEIKd8gH5VGw_

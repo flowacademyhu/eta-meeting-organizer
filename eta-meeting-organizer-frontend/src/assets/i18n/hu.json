@@ -56,7 +56,8 @@
     "yes": "Igen",
     "no": "Nem",
     "button": "EN",
-    "exit": "Kilépés"
+    "exit": "Kilépés",
+    "deleted":"A tárgyaló törlésre került"
   },
   "user-delete-dialog": {
     "userDelete": "Felhasználó törlése",
@@ -96,6 +97,9 @@
   },
   "verification-snackbar": {
     "verify": "Felhasználó jóváhagyva"
+  },
+  "meeting-room-update": {
+    "update": "Tárgyaló frissítve!"
   },
   "calendar-header": {
     "city": "Város",
