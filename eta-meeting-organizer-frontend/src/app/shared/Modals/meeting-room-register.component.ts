@@ -1,10 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
+import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
-import { Observable } from 'rxjs';
+import { Building } from '~/app/models/building.model';
 import { MeetingRoom } from '~/app/models/meetingroom.model';
+import { BuildingService } from '../services/building.service';
 import { MeetingRoomService } from './../services/meeting-room.service';
 
 @Component({
@@ -13,7 +13,10 @@ import { MeetingRoomService } from './../services/meeting-room.service';
   .mat-dialog-content{
     display: flex;
     justify-content: center;
-    height: 300px;
+    height: 380px;
+  }
+  .mat-form-field {
+    width:340px;
   }
   .space{
     margin-top: 20%;
@@ -21,64 +24,122 @@ import { MeetingRoomService } from './../services/meeting-room.service';
   `],
  template: `
  <div mat-dialog-content>
-   <form [formGroup]="meetingRoomForm" (ngSubmit)="onSubmit()">
+   <form [formGroup]="meetingForm" (ngSubmit)="onSubmit()" align="center">
+<!-- város kilistázás -->
+     <mat-form-field>
+       <mat-label>{{'building.city' | translate}}</mat-label>
+       <mat-select (selectionChange)="getBuildings()" formControlName="city">
+         <mat-option *ngFor="let city of cities" [value]="city" >{{city}}</mat-option>
+       </mat-select>
+     </mat-form-field>
+
+<!-- címek kilistázása -->
+     <mat-form-field>
+       <mat-label>{{'building.address' | translate}}</mat-label>
+         <mat-select (selectionChange)="getMeetingRooms()"formControlName="building">
+           <mat-option *ngFor="let building of buildings" [value]="building">{{building.address}}</mat-option>
+         </mat-select>
+     </mat-form-field>
+
+<!-- tárgyaló neve -->
      <mat-form-field>
        <mat-label>{{'meeting-room.text' | translate}}</mat-label>
          <input type="text" name="name" formControlName="name"
-          matInput placeholder="{{'meeting-room.text' | translate}}">
+           matInput placeholder="{{'meeting-room.text' | translate}}">
      </mat-form-field>
      <br>
+
+<!-- űlőhelyek száma -->
      <mat-form-field>
        <mat-label>{{'meeting-room.seats' | translate}}</mat-label>
          <input  type="number" name="numberOfSeats" formControlName="numberOfSeats"
            matInput placeholder="{{'meeting-room.seats' | translate}}">
-       </mat-form-field>
-     <br>
-     <mat-slide-toggle [checked]="checked" formControlName="projector">{{'meeting-room.projector' | translate}}
-     </mat-slide-toggle>
+     </mat-form-field>
 
+<!-- projector -->
+     <br>
+     <div align="left">
+       <br>
+       <mat-slide-toggle formControlName="projector" ngDefaultControl [(ngModel)]="checked">
+         {{'meeting-room.projector' | translate}}
+       </mat-slide-toggle>
+     </div>
+
+<!-- gombok -->
      <div class="space">
-       <button mat-button [mat-dialog-close]>cancel</button>
-       <button mat-button type="submit" cdkFocusInitial
-       (click)="openSnackBar()">Ok</button>
+       <button mat-stroked-button mat-dialog-close style="float: left; color: primary;" >cancel</button>
+       <button mat-stroked-button mat-dialog-close type="submit" style="float: right;"
+         (click)="openSnackBar() "backgroundcolor="primary">
+         Ok
+       </button>
      </div>
    </form>
- </div>`,
+ </div>
+ `
 })
 
 export class MeetingRoomRegisterComponent implements OnInit {
   @Input()
-  public checked: boolean = true;
-  public meetingRoom$: Observable<MeetingRoom[]>;
-  public meetingRoomForm: FormGroup;
+  public cities: string[];
+  public buildings: Building[];
+  public meetingRooms: MeetingRoom[];
   public meetingRoom: MeetingRoom;
-  constructor(
-    public dialogRef: MatDialogRef<MeetingRoomRegisterComponent>,
-    private readonly meetingRoomService: MeetingRoomService,
-    private readonly _snackBar: MatSnackBar,
-    private readonly translate: TranslateService) {
-    }
+  public checked: boolean = false;
+  public meetingF: FormGroup;
 
-    public ngOnInit() {
-      this.meetingRoomForm = new FormGroup({
-      name : new FormControl('', Validators.required ),
-      numberOfSeats : new FormControl('', Validators.required),
-      projector : new FormControl('', Validators.required),
+  constructor(
+    private readonly changeDetectorRef: ChangeDetectorRef,
+    private readonly snackBar: MatSnackBar,
+    private meetingRoomService: MeetingRoomService,
+    private buildigService: BuildingService,
+    private readonly translate: TranslateService,
+  ) {}
+
+  public ngOnInit() {
+    this.buildigService.findAllCities()
+      .subscribe((data) => {
+        this.cities = data;
       });
-    }
+  }
+
+  public meetingForm: FormGroup = new FormGroup({
+    building: new FormControl(''),
+    city : new FormControl(''), // kiszedve , Validators.required
+    name : new FormControl(''),
+    numberOfSeats : new FormControl(''),
+    projector : new FormControl(''),
+  });
+
+  public getBuildings() {
+    this.buildigService.findByCity(this.meetingForm.controls.city.value)
+      .subscribe((data) => {
+        this.buildings = data;
+      });
+  }
+
+  public getMeetingRooms() {
+    this.meetingRoomService
+    .findByBuildingId(this.meetingForm.controls.building.value.id)
+      .subscribe((data) => {
+        this.meetingRooms = data;
+        this.changeDetectorRef.detectChanges();
+      });
+  }
 
   public onSubmit() {
-    this.meetingRoomService.
-    postMeetingRoom(this.meetingRoomForm.getRawValue())
-    .subscribe((data) => {
+    this.meetingRoomService
+      .postMeetingRoom(this.meetingForm.getRawValue())
+      .subscribe((data) => {
         this.meetingRoom = data;
         this.meetingRoomService.getAllMeetingRooms();
-    });
+      });
+    if (this.meetingForm.valid) {
+    this.meetingForm.reset();
+    }
   }
 
   public openSnackBar() {
-    this._snackBar.open(this.translate
-      .instant(`snackbar-meeting-room.registerOk`), '', {
+    this.snackBar.open(this.translate.instant(`snackbar-meeting-room.registerOk`), '', {
       duration: 2500
     });
   }
