@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { UserVerificationDialogComponent } from '~/app/shared/Modals/user-verification-dialog';
 import { User } from './../../models/user.model';
 import { UserDeleteDialogComponent } from './../../shared/Modals/user-delete-dialog';
@@ -59,10 +59,11 @@ import { UserService } from './../../shared/services/user.service';
   `
 })
 
-export class UsersTableComponent implements OnInit {
+export class UsersTableComponent implements OnInit, OnDestroy {
   public users$: Observable<User[]>;
   public displayedColumns: string[] = ['id', 'email', 'role', 'action'];
-
+  public deleteUnsub: Subscription;
+  public verifyUnsub: Subscription;
   constructor(private readonly userService: UserService,
               private readonly dialog: MatDialog) { }
 
@@ -74,7 +75,7 @@ export class UsersTableComponent implements OnInit {
 
    public deleteDialog(id: string) {
     const dialogRef = this.dialog.open(UserDeleteDialogComponent);
-    dialogRef.afterClosed()
+    this.deleteUnsub = dialogRef.afterClosed()
     .subscribe((result) => {
       if (result === 'true') {
         this.deleteUser(id);
@@ -84,29 +85,35 @@ export class UsersTableComponent implements OnInit {
 
    public verificationDialog(id: string) {
     const dialogRef = this.dialog.open(UserVerificationDialogComponent);
-    dialogRef.afterClosed()
+    this.verifyUnsub = dialogRef.afterClosed()
     .subscribe((roleSet) => {
-      console.log(roleSet);
       this.verifyUser(id, roleSet);
     });
    }
 
    public verifyUser(id: string, roleSet: string) {
     this.userService
-     .userRoleSet(id, roleSet)
-       .subscribe(() => {
-         console.log(id);
-         console.log(roleSet);
-         this.userService
-        .getAllUsers();
-       });
-    }
+    .userRoleSet(id, roleSet)
+    .subscribe(() => {
+      this.userService
+      .getAllUsers();
+     });
+   }
 
    public deleteUser(id: string) {
     this.userService.deleteUser(id)
     .subscribe(() => {
       this.userService
       .getAllUsers();
-      });
+    });
+   }
+
+   public ngOnDestroy(): void {
+    if (this.deleteUnsub) {
+      this.deleteUnsub.unsubscribe();
+    }
+    if (this.verifyUnsub) {
+      this.verifyUnsub.unsubscribe();
+    }
    }
 }
