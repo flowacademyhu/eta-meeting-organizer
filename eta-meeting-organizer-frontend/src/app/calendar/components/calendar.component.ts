@@ -38,6 +38,8 @@ import { AuthService } from '~/app/shared/services/auth.service';
       [titleFormat]="options.titleFormat"
       [nowIndicator]="true"
       [locale]="'hu'"
+      [height]="'auto'"
+      [footer]="'auto'"
     ></full-calendar>
   `
 })
