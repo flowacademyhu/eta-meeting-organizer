@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatMenuModule } from '@angular/material';
@@ -60,7 +59,6 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     MatToolbarModule,
     MatSnackBarModule,
     MatPaginatorModule,
-    FlexLayoutModule,
     MatSortModule,
     MatMenuModule,
   ],

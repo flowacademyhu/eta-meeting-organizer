@@ -33,8 +33,8 @@ th.mat-header-cell {
           (click)="openDialog()">
           <mat-icon>add</mat-icon>
     </button>
-    <div fxLayout fxLayoutAlign="center center">
-    <mat-form-field fxFlex="20%">
+    <div>
+    <mat-form-field>
     <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Filter">
   </mat-form-field>
       <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
