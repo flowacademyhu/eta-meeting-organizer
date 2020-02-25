@@ -83,5 +83,11 @@
   },
   "meeting-room-update": {
     "update": "Tárgyaló frissítve!"
+  },
+  "calendar-header": {
+    "city": "Város",
+    "building": "Épület",
+    "meeting-room": "Tárgyaló",
+    "own-appointments": "Saját Foglalásaim"
   }
 }

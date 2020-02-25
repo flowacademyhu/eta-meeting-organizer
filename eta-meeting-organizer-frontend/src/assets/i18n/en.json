@@ -83,5 +83,11 @@
   },
   "meeting-room-update": {
     "update": "Meeting room has been updated"
+  },
+  "calendar-header": {
+    "city": "City",
+    "building": "Building",
+    "meeting-room": "Meetingroom",
+    "own-appointments": "Own Appointments"
   }
 }

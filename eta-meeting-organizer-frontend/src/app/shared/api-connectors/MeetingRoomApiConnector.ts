@@ -13,6 +13,10 @@ export class MeetingRoomApiConnector extends AbstractApiConnector {
     return this.http.get<MeetingRoom>(`${this.apiRoute}/meetingrooms/` + id);
   }
 
+  public findByBuildingId(buildingId: number): Observable<MeetingRoom[]> {
+    return this.http.get<MeetingRoom[]>(`${this.apiRoute}/meetingrooms/${buildingId}/buildings`);
+  }
+
   public postMeetingRoom(meetingRoom: MeetingRoom): Observable<MeetingRoom> {
     return this.http.post<MeetingRoom>(`${this.apiRoute}/meetingrooms`, meetingRoom);
   }
