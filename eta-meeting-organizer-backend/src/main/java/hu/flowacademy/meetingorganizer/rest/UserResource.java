@@ -2,7 +2,7 @@ package hu.flowacademy.meetingorganizer.rest;
 
 import hu.flowacademy.meetingorganizer.persistence.model.User;
 import hu.flowacademy.meetingorganizer.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -20,10 +20,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/users")
-@CrossOrigin("*")
+@AllArgsConstructor
 public class UserResource {
 
-  @Autowired
   private UserService userService;
 
   @GetMapping

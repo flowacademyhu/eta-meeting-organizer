@@ -87,5 +87,4 @@ public class User implements OAuth2User, UserDetails {
       this.authority = grantedAuthority.getAuthority();
     }
   }
-
 }
