@@ -82,6 +82,7 @@
     "admin": "Adminisztrátor",
     "user": "Felhasználó",
     "reader": "Megtekintő",
+    "pending": "Függőben",
     "setRole": "Szerepkör jóváhagyása",
     "cancel": "Mégse"
   },

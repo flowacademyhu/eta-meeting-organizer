@@ -30,7 +30,12 @@ import { UserService } from './../../shared/services/user.service';
         </ng-container>
         <ng-container matColumnDef="role">
           <th mat-header-cell *matHeaderCellDef class="center"> {{'profile.role' | translate}} </th>
-          <td mat-cell *matCellDef="let user">{{user.role}}</td>
+          <td mat-cell *matCellDef="let user" [ngSwitch]="user.role">
+            <p *ngSwitchCase="'ADMIN'">{{'user-verification-dialog.admin' | translate}}</p>
+            <p *ngSwitchCase="'USER'">{{'user-verification-dialog.user' | translate}}</p>
+            <p *ngSwitchCase="'READER'">{{'user-verification-dialog.reader' | translate}}</p>
+            <p *ngSwitchDefault>{{'user-verification-dialog.pending' | translate}}</p>
+          </td>
         </ng-container>
         <ng-container matColumnDef="action">
           <th mat-header-cell *matHeaderCellDef></th>

@@ -78,6 +78,7 @@
     "admin": "Administrator",
     "user": "User",
     "reader": "Reader",
+    "pending": "Pending",
     "setRole": "Approve role",
     "cancel": "Cancel"
   },
