@@ -12,5 +12,6 @@ export interface User {
 export enum Role {
   ADMIN = 'ADMIN',
   USER = 'USER',
-  READER = 'READER'
+  READER = 'READER',
+  PENDING = 'PENDING'
 }
