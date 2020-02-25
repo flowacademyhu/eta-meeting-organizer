@@ -2,6 +2,7 @@ package hu.flowacademy.meetingorganizer.persistence.model;
 
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -31,23 +32,27 @@ public class Reservation {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @ManyToOne
-  private User user;
-
-  @OneToOne
-  private MeetingRoom meetingRoom;
-
   @JsonSerialize(using = LocalDateTimeSerializer.class)
   @JsonDeserialize(using = LocalDateTimeDeserializer.class)
   @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
+  @Column(nullable = false)
   private LocalDateTime startingTime;
 
   @JsonSerialize(using = LocalDateTimeSerializer.class)
   @JsonDeserialize(using = LocalDateTimeDeserializer.class)
   @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
+  @Column(nullable = false)
   private LocalDateTime endingTime;
 
+  @Column(nullable = false)
   private String title;
 
+  @Column(nullable = false)
   private String summary;
+
+  @ManyToOne
+  private User user;
+
+  @OneToOne
+  private MeetingRoom meetingRoom;
 }

@@ -38,26 +38,35 @@ public class User implements OAuth2User, UserDetails {
   @Id
   @Column(length = 100)
   private String id;
+
   @Column(unique = true, length = 100)
   private String username;
+
   @Transient
   @JsonIgnore
   private String password;
+
   @Enumerated(EnumType.STRING)
   private Role role;
+
   @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
   @Transient
   @JsonIgnore
   private Collection<UserAuthority> authorities;
+
   @Transient
   @JsonIgnore
   private Map<String, Object> attributes;
+
   @Column(columnDefinition = DEFAULT_TRUE)
   private boolean enabled;
+
   @Column(columnDefinition = DEFAULT_TRUE)
   private boolean accountNonExpired;
+
   @Column(columnDefinition = DEFAULT_TRUE)
   private boolean accountNonLocked;
+
   @Column(columnDefinition = DEFAULT_TRUE)
   private boolean credentialsNonExpired;
 
@@ -78,7 +87,9 @@ public class User implements OAuth2User, UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String authority;
+
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
