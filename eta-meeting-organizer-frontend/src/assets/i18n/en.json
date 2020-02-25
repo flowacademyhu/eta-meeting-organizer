@@ -73,10 +73,13 @@
     "registerOk":"Meeting room has been saved!"
   },
   "user-verification-dialog": {
-    "userVerification": "User verification",
-    "verification": "Are you sure you want to verify this user?",
-    "yes": "Yes",
-    "no": "No"
+    "roleSetting": "User role setting",
+    "roles": "Available roles",
+    "admin": "Administrator",
+    "user": "User",
+    "reader": "Reader",
+    "setRole": "Approve role",
+    "cancel": "Cancel"
   },
   "delete-user-snackbar": {
     "delete": "User has been deleted"
