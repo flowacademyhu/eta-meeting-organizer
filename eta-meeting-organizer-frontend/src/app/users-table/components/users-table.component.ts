@@ -64,6 +64,7 @@ export class UsersTableComponent implements OnInit, OnDestroy {
   public displayedColumns: string[] = ['id', 'email', 'role', 'action'];
   public deleteUnsub: Subscription;
   public verifyUnsub: Subscription;
+  public subs: Subscription;
   constructor(private readonly userService: UserService,
               private readonly dialog: MatDialog) { }
 
@@ -114,6 +115,9 @@ export class UsersTableComponent implements OnInit, OnDestroy {
     }
     if (this.verifyUnsub) {
       this.verifyUnsub.unsubscribe();
+    }
+    if (this.subs) {
+      this.subs.unsubscribe();
     }
    }
 }
