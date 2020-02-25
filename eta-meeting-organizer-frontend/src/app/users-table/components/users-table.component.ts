@@ -80,21 +80,22 @@ export class UsersTableComponent implements OnInit {
    public verificationDialog(id: string) {
     const dialogRef = this.dialog.open(UserVerificationDialogComponent);
     dialogRef.afterClosed()
-    .subscribe((result) => {
-      if (result === 'true') {
-        this.verifyUser(id);
-      }
+    .subscribe((roleSet) => {
+      console.log(roleSet);
+      this.verifyUser(id, roleSet);
     });
    }
 
-   public verifyUser(id: string) {
-     this.userService
-     .updateUser(id)
-     .subscribe(() => {
-      this.userService
-      .getAllUsers();
-     });
-   }
+   public verifyUser(id: string, roleSet: string) {
+    this.userService
+     .userRoleSet(id, roleSet)
+       .subscribe(() => {
+         console.log(id);
+         console.log(roleSet);
+         this.userService
+        .getAllUsers();
+       });
+    }
 
    public deleteUser(id: string) {
     this.userService.deleteUser(id)
