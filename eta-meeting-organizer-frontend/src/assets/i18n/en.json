@@ -52,7 +52,12 @@
   },
   "meeting-room-delete":{
     "meetingRoomDelete": "Meeting room deletion",
-    "verification": "Are you sure you want to delete meeting room?"
+    "verification": "Are you sure you want to delete meeting room?",
+    "yes": "Yes",
+    "no": "No",
+    "button": "EN",
+    "exit": "exit",
+    "deleted":"Meeting room has been deleted"
   },
   "user-delete-dialog": {
     "userDelete": "User deletion",
@@ -96,6 +101,9 @@
   },
   "verification-snackbar": {
     "verify": "User has been verified"
+  },
+  "meeting-room-update": {
+    "update": "Meeting room has been updated"
   },
   "calendar-header": {
     "city": "City",

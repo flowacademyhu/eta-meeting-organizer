@@ -18,6 +18,7 @@ import { BuildingRegisterComponent } from './Modals/building-register.component'
 import { BuildingUpdateDialogComponent } from './Modals/building-update-dialog';
 import { MeetingRoomDeleteComponent } from './Modals/meeting-room-delete.component';
 import { MeetingRoomRegisterComponent } from './Modals/meeting-room-register.component';
+import { MeetingRoomUpdateComponent } from './Modals/meeting-room-update.component';
 import { UserDeleteDialogComponent } from './Modals/user-delete-dialog';
 import { UserVerificationDialogComponent } from './Modals/user-verification-dialog';
 import { BuildingService } from './services/building.service';
@@ -34,6 +35,7 @@ import { UserService } from './services/user.service';
     BuildingRegisterComponent,
     MeetingRoomDeleteComponent,
     UserVerificationDialogComponent,
+    MeetingRoomUpdateComponent,
     BuildingDeleteDialogComponent,
     BuildingUpdateDialogComponent,
   ],
@@ -55,6 +57,7 @@ import { UserService } from './services/user.service';
     ApiCommunicationService,
     ConfigurationService,
     MeetingRoomService,
+    MeetingRoomRegisterComponent,
     UserService,
     AuthGuard,
     AdminGuard,

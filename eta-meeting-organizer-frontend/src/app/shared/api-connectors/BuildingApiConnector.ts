@@ -30,7 +30,7 @@ export class BuildingApiConnector extends AbstractApiConnector {
   }
 
   public findAllCities() {
-    return this.http.get<Building[]>(`${this.apiRoute}/buildings/cities/names`);
+    return this.http.get<string[]>(`${this.apiRoute}/buildings/cities/names`);
   }
 
   public findByCity(city: string): Observable<Building[]> {
