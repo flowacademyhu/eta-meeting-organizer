@@ -1,5 +1,6 @@
 package hu.flowacademy.meetingorganizer.persistence.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -29,6 +30,9 @@ public class Building {
 
   private String address;
 
+  private String buildingName;
+
   @OneToMany
+  @JsonIgnore
   private List<MeetingRoom> meetingRoom;
 }

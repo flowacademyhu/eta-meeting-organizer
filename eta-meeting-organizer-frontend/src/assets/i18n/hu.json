@@ -10,12 +10,14 @@
     "button": "Váltás angol nyelvre"
   },
   "building": {
+    "buildingName": "Épület megnevezése",
     "city": "Város",
     "address":"Cím",
     "saveButton":"Mentés",
-    "delete":"Épület törlése",
+    "cancel":"Mégse",
     "deleteButton":"törlés",
-    "add":"Épület hozzáadás"
+    "add":"Épület hozzáadás",
+    "update": "Módosítás"
   },
   "profile": {
     "id": "Azonosító",
@@ -54,11 +56,18 @@
     "yes": "Igen",
     "no": "Nem",
     "button": "EN",
-    "exit": "Kilépés"
+    "exit": "Kilépés",
+    "deleted":"A tárgyaló törlésre került"
   },
   "user-delete-dialog": {
     "userDelete": "Felhasználó törlése",
     "verification": "Biztosan törölni akarja a felhasználót?",
+    "yes": "Igen",
+    "no": "Nem"
+  },
+  "building-delete-dialog": {
+    "buildingDelete": "Épület törlése",
+    "verification": "Biztosan törölni akarja az épületet?",
     "yes": "Igen",
     "no": "Nem"
   },
@@ -74,10 +83,28 @@
     "yes": "Igen",
     "no": "Nem"
   },
-  "delete-snackbar": {
+  "delete-user-snackbar": {
     "delete": "Felhasználó törölve"
+  },
+  "delete-building-snackbar": {
+    "delete": "Épület törölve"
+  },
+  "post-building-snackbar": {
+    "post": "Épület létrehozva"
+  },
+  "update-building-snackbar": {
+    "update": "Épület módosítva."
   },
   "verification-snackbar": {
     "verify": "Felhasználó jóváhagyva"
+  },
+  "meeting-room-update": {
+    "update": "Tárgyaló frissítve!"
+  },
+  "calendar-header": {
+    "city": "Város",
+    "building": "Épület",
+    "meeting-room": "Tárgyaló",
+    "own-appointments": "Saját Foglalásaim"
   }
 }

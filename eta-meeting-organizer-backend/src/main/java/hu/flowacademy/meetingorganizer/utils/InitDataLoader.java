@@ -27,36 +27,46 @@ public class InitDataLoader {
 
   @PostConstruct
   public void init() {
-    buildingRepository.save(Building.builder()
+    final var building1 = buildingRepository.save(Building.builder()
         .id(1L)
         .city("Budapest")
         .address("Kelemen Jancsi utca 11 2/6")
+        .buildingName("Kék épület")
         .build());
-    buildingRepository.save(Building.builder()
+    final var building2 = buildingRepository.save(Building.builder()
         .id(2L)
         .city("Kecskemét")
         .address("Kis István utca 131")
+        .buildingName("Sarki zöld épület")
         .build());
-    buildingRepository.save(Building.builder()
+    final var building3 = buildingRepository.save(Building.builder()
         .id(3L)
         .city("Salgótarján")
         .address("Szegedi út 125")
+        .buildingName("Piac melletti épület")
         .build());
-    buildingRepository.save(Building.builder()
+    final var building4 = buildingRepository.save(Building.builder()
         .id(4L)
         .city("Göd")
         .address("Vörös utca 38-40")
+        .buildingName("Marika ABC melletti épület")
         .build());
-    buildingRepository.save(Building.builder()
+    final var building5 = buildingRepository.save(Building.builder()
         .id(5L)
         .city("Győr")
         .address("Győri utca 28 3/28")
+        .buildingName("Kék osztriga bár melletti épület")
+        .build());
+    final var building6 = buildingRepository.save(Building.builder()
+        .id(6L)
+        .city("Budapest")
+        .address("Kelemen Ákos utca 12 2/6")
+        .buildingName("Kék kakas")
         .build());
 
     userRepository.save(User.builder()
         .id("10769150350006150715113082367")
         .username("misi@gmail.com")
-        .isVerifiedByAdmin(true)
         .role(Role.ADMIN)
         .accountNonExpired(true)
         .accountNonLocked(true)
@@ -65,7 +75,6 @@ public class InitDataLoader {
     userRepository.save(User.builder()
         .id("10769150350006150715113077777")
         .username("isti@gmail.com")
-        .isVerifiedByAdmin(false)
         .role(Role.USER)
         .accountNonExpired(true)
         .accountNonLocked(true)
@@ -74,7 +83,6 @@ public class InitDataLoader {
     userRepository.save(User.builder()
         .id("99999150350006150715113077777")
         .username("klau@gmail.com")
-        .isVerifiedByAdmin(false)
         .role(Role.USER)
         .accountNonExpired(true)
         .accountNonLocked(true)
@@ -83,7 +91,6 @@ public class InitDataLoader {
     userRepository.save(User.builder()
         .id("8888150350006150715113077777")
         .username("htpeti@gmail.com")
-        .isVerifiedByAdmin(true)
         .role(Role.READER)
         .accountNonExpired(true)
         .accountNonLocked(true)
@@ -92,7 +99,6 @@ public class InitDataLoader {
     userRepository.save(User.builder()
         .id("11111110350006150715113077777")
         .username("berentep@gmail.com")
-        .isVerifiedByAdmin(true)
         .role(Role.ADMIN)
         .accountNonExpired(true)
         .accountNonLocked(true)
@@ -101,7 +107,6 @@ public class InitDataLoader {
     userRepository.save(User.builder()
         .id("99999910350006150715113077777")
         .username("schlange@gmail.com")
-        .isVerifiedByAdmin(true)
         .role(Role.READER)
         .accountNonExpired(true)
         .accountNonLocked(true)
@@ -145,29 +150,35 @@ public class InitDataLoader {
         .endingTime(LocalDateTime.now()).build());
 
     meetingRoomRepository.save(MeetingRoom.builder()
-        .id(1L)
+        .id(1l)
         .name("Ügyfél fogadó")
         .numberOfSeats(5)
+        .building(building1)
         .projector(false).build());
     meetingRoomRepository.save(MeetingRoom.builder()
-        .id(2L)
+        .id(2l)
         .name("Igazgatói tárgyaló")
         .numberOfSeats(20)
+        .building(building2)
         .projector(true).build());
     meetingRoomRepository.save(MeetingRoom.builder()
-        .id(3L)
+        .id(3l)
         .name("Kék ajtós iroda")
         .numberOfSeats(10)
+        .building(building3)
         .projector(true).build());
     meetingRoomRepository.save(MeetingRoom.builder()
-        .id(4L)
+        .id(4l)
         .name("Piros ajtós iroda")
         .numberOfSeats(2)
+        .building(building4)
         .projector(false).build());
     meetingRoomRepository.save(MeetingRoom.builder()
-        .id(5L)
+        .id(5l)
         .name("Zöld iroda")
         .numberOfSeats(8)
-        .projector(false).build());
+        .projector(false)
+        .building(building5)
+        .build());
   }
 }
