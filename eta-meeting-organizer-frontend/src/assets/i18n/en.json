@@ -75,5 +75,11 @@
   },
   "verification-snackbar": {
     "verify": "User has been verified"
+  },
+  "calendar-header": {
+    "city": "City",
+    "building": "Building",
+    "meeting-room": "Meetingroom",
+    "own-appointments": "Own Appointments"
   }
 }
