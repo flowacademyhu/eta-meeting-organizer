@@ -1,6 +1,5 @@
 package hu.flowacademy.meetingorganizer.utils;
 
-import hu.flowacademy.meetingorganizer.email.EmailService;
 import hu.flowacademy.meetingorganizer.persistence.model.Building;
 import hu.flowacademy.meetingorganizer.persistence.model.MeetingRoom;
 import hu.flowacademy.meetingorganizer.persistence.model.Reservation;
@@ -25,7 +24,6 @@ public class InitDataLoader {
   private final ReservationRepository reservationRepository;
   private final UserRepository userRepository;
   private final MeetingRoomRepository meetingRoomRepository;
-  private final EmailService emailService;
 
   @PostConstruct
   public void init() {
