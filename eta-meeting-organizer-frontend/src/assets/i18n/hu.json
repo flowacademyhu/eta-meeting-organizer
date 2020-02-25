@@ -96,5 +96,11 @@
   },
   "verification-snackbar": {
     "verify": "Felhasználó jóváhagyva"
+  },
+  "calendar-header": {
+    "city": "Város",
+    "building": "Épület",
+    "meeting-room": "Tárgyaló",
+    "own-appointments": "Saját Foglalásaim"
   }
 }
