@@ -11,6 +11,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import javax.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -32,6 +33,7 @@ public class Building {
   private String city;
 
   @Column(nullable = false, unique = true)
+  @Pattern()
   private String address;
 
   @Column(nullable = false, unique = true)
