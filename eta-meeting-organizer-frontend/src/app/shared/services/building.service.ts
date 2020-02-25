@@ -15,7 +15,7 @@ export class BuildingService {
     return this._buildingSub;
   }
 
-  public getAllBuilding() {
+  public getAllBuildings() {
     this.buildingCom
      .building()
      .getBuildings();
