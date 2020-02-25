@@ -32,4 +32,20 @@ export class MeetingRoomService {
     return this.meetingRoomCom.meetingRoom()
       .postMeetingRoom(meetingRoom);
   }
+
+  public getOneMeetingRoom(id: number) {
+    return this.meetingRoomCom
+    .meetingRoom()
+    .getOneMeetingRoomById(id);
+  }
+  public updateMeetingRoom(id: number, meetingRoom: MeetingRoom) {
+    return this.meetingRoomCom
+    .meetingRoom()
+    .updateMeetingRoom(id, meetingRoom);
+  }
+  public findByBuildingId(id: number) {
+  return this.meetingRoomCom
+  .meetingRoom()
+  .findByBuildingId(id);
+  }
 }
