@@ -6,6 +6,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Observable, Subscription } from 'rxjs';
 import { Building } from '~/app/models/building.model';
+import { BuildingDeleteDialogComponent } from '~/app/shared/Modals/building-delete-dialog';
 import { BuildingRegisterComponent } from '~/app/shared/Modals/building-register.component';
 import { BuildingUpdateDialogComponent } from '~/app/shared/Modals/building-update-dialog';
 import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
