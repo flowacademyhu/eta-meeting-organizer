@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Building } from '~/app/models/building.model';
 import { ApiCommunicationService } from './api-communication.service';
 
@@ -46,14 +46,14 @@ export class BuildingService {
     .deleteBuildingById(id);
   }
 
-  public findAllCities() {
-    this.buildingCom
+  public findAllCities(): Observable<string[]> {
+    return this.buildingCom
     .building()
     .findAllCities();
   }
 
   public findByCity(city: string) {
-    this.buildingCom
+    return this.buildingCom
     .building()
     .findByCity(city);
   }
