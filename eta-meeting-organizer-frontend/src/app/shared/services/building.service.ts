@@ -51,14 +51,14 @@ export class BuildingService {
     .deleteBuildingById(id);
   }
 
-  public findAllCities() {
-    this.buildingCom
+  public findAllCities(): Observable<string[]> {
+    return this.buildingCom
     .building()
     .findAllCities();
   }
 
   public findByCity(city: string) {
-    this.buildingCom
+    return this.buildingCom
     .building()
     .findByCity(city);
   }

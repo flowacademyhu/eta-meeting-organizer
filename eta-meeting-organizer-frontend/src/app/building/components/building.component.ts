@@ -1,3 +1,4 @@
+
 import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
@@ -7,30 +8,36 @@ import { Observable, Subscription } from 'rxjs';
 import { Building } from '~/app/models/building.model';
 import { BuildingRegisterComponent } from '~/app/shared/Modals/building-register.component';
 import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
-import { BuildingService } from '~/app/shared/services/building.service';
+import { BuildingDeleteDialogComponent } from '~/app/shared/Modals/building-delete-dialog';
+import { BuildingUpdateDialogComponent } from '~/app/shared/Modals/building-update-dialog';
+import { BuildingService } from './../../shared/services/building.service';
 
 @Component({
   selector: 'app-building-list',
   styles: [`
-table {
-    width: 100%;
-    overflow-x: auto;
-    overflow-y: hidden;
-}
-
-th.mat-header-cell {
-    text-align: left;
-    max-width: 300px!important;
-}
-
+    table {
+      width: 100%;
+      overflow-x: auto;
+      overflow-y: hidden;
+    }
+    th.mat-header-cell {
+      text-align: left;
+      max-width: 300px!important;
+    }
     .row {
       min-height: calc(100vh - 60px);
     }
-
+    .center {
+      text-align: center;
+      font-size: larger;
+    }
+    .addButton {
+      width: 100%;
+    }
   `],
   template: `
      <button mat-icon-button color="primary"
-          (click)="openDialog()">
+          (click)="postDialog()">
           <mat-icon>add</mat-icon>
     </button>
     <div>
@@ -49,16 +56,20 @@ th.mat-header-cell {
         <ng-container matColumnDef="delete">
           <th mat-header-cell *matHeaderCellDef class="center" mat-sort-header> {{'building.edit' | translate}} </th>
           <td mat-cell *matCellDef="let building">
-          <button mat-icon-button color="accent">
-            <mat-icon>edit</mat-icon>
+           <button mat-icon-button color="accent" (click)="updateDialog(building)">
+          <mat-icon aria-label="Edit">
+            edit
+          </mat-icon>
           </button>
-          <button mat-icon-button color="primary">
-            <mat-icon>delete</mat-icon>
-          </button>
+          <button mat-icon-button color="primary" (click)="deleteDialog(building.id)">
+          <mat-icon aria-label="Delete Icon">
+            delete
+          </mat-icon>
+           </button>
           </td>
         </ng-container>
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" align="center"></tr>
       </table>
       <mat-paginator
         [pageSize]="5"
@@ -72,6 +83,12 @@ th.mat-header-cell {
 export class BuildingComponent implements OnInit, OnDestroy, AfterViewInit {
 
   public building$: Observable<Building[]>;
+  public displayedColumns: string[] = ['buildingName', 'city', 'address', 'action'];
+  public deleteUnsub: Subscription;
+  public updateUnsub: Subscription;
+  public postUnsub: Subscription;
+  constructor(private readonly buildingService: BuildingService,
+              private readonly dialog: MatDialog) { }
 
   public displayedColumns: string[] = ['city', 'address', 'delete'];
 
@@ -107,13 +124,51 @@ export class BuildingComponent implements OnInit, OnDestroy, AfterViewInit {
     .toLocaleLowerCase();
  }
 
-  public openDialog(): void {
-    this.dialog.open(BuildingRegisterComponent, {
+  public postDialog(): void {
+    const dialogRef = this.dialog.open(BuildingRegisterComponent, {
       width: '400px',
     });
+    this.postUnsub = dialogRef.afterClosed()
+    .subscribe();
   }
 
-  public ngOnDestroy() {
-    this.dataSub.unsubscribe();
+  public updateDialog(buildingData: Building) {
+    const dialogRef = this.dialog.open(BuildingUpdateDialogComponent, {
+      data: buildingData
+    });
+    this.updateUnsub = dialogRef.afterClosed()
+    .subscribe();
   }
+
+  public deleteDialog(id: number) {
+    const dialogRef = this.dialog.open(BuildingDeleteDialogComponent);
+    this.deleteUnsub = dialogRef.afterClosed()
+    .subscribe((result) => {
+      if (result === 'true') {
+        this.deleteBuilding(id);
+      }
+    });
+   }
+
+  public deleteBuilding(id: number) {
+    this.buildingService
+    .deleteBuilding(id)
+    .subscribe(() => {
+      this.buildingService
+      .getAllBuildings();
+    });
+   }
+
+   public ngOnDestroy(): void {
+    this.dataSub.unsubscribe();
+    if (this.deleteUnsub) {
+      this.deleteUnsub.unsubscribe();
+    }
+    if (this.updateUnsub) {
+      this.updateUnsub.unsubscribe();
+    }
+    if (this.postUnsub) {
+      this.postUnsub.unsubscribe();
+    }
+   }
 }

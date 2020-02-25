@@ -5,6 +5,10 @@ import { AbstractApiConnector } from '~/app/shared/api-connectors/AbstractApiCon
 export class BuildingApiConnector extends AbstractApiConnector {
   protected readonly apiRoute: string = `${this.apiBaseUrl}`;
 
+  public getCities(): Observable<string[]> {
+    return this.http.get<string[]>(`${this.apiRoute}/buildings/cities/names`);
+  }
+
   public getBuildings(): Observable<Building[]> {
     return this.http.get<Building[]>(`${this.apiRoute}/buildings`);
   }
@@ -26,10 +30,10 @@ export class BuildingApiConnector extends AbstractApiConnector {
   }
 
   public findAllCities() {
-    return this.http.get<Building[]>(`${this.apiRoute}/buildings/cities/names`);
+    return this.http.get<string[]>(`${this.apiRoute}/buildings/cities/names`);
   }
 
   public findByCity(city: string): Observable<Building[]> {
-    return this.http.get<Building[]>(`${this.apiRoute}/buildings/cities` + { params: city });
+    return this.http.get<Building[]>(`${this.apiRoute}/buildings/cities?city=${city}`);
   }
 }

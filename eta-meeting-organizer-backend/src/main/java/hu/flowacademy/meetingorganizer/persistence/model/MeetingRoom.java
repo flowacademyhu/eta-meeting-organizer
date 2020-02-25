@@ -32,5 +32,4 @@ public class MeetingRoom {
 
   @ManyToOne
   private Building building;
-
 }

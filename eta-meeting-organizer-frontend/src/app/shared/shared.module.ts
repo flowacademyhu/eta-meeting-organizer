@@ -13,9 +13,12 @@ import { MainLayoutComponent } from '~/app/shared/pages/main-layout.component';
 import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
 import { ConfigurationService } from '~/app/shared/services/configuration.service';
 import { HeaderComponent } from './components/header-layout.component';
+import { BuildingDeleteDialogComponent } from './Modals/building-delete-dialog';
 import { BuildingRegisterComponent } from './Modals/building-register.component';
+import { BuildingUpdateDialogComponent } from './Modals/building-update-dialog';
 import { MeetingRoomDeleteComponent } from './Modals/meeting-room-delete.component';
 import { MeetingRoomRegisterComponent } from './Modals/meeting-room-register.component';
+import { MeetingRoomUpdateComponent } from './Modals/meeting-room-update.component';
 import { UserDeleteDialogComponent } from './Modals/user-delete-dialog';
 import { UserVerificationDialogComponent } from './Modals/user-verification-dialog';
 import { BuildingService } from './services/building.service';
@@ -32,6 +35,9 @@ import { UserService } from './services/user.service';
     BuildingRegisterComponent,
     MeetingRoomDeleteComponent,
     UserVerificationDialogComponent,
+    MeetingRoomUpdateComponent,
+    BuildingDeleteDialogComponent,
+    BuildingUpdateDialogComponent,
   ],
   exports: [
     CommonModule,
@@ -51,6 +57,7 @@ import { UserService } from './services/user.service';
     ApiCommunicationService,
     ConfigurationService,
     MeetingRoomService,
+    MeetingRoomRegisterComponent,
     UserService,
     AuthGuard,
     AdminGuard,
