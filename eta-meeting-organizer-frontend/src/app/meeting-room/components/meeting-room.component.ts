@@ -4,8 +4,8 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Observable, Subscription } from 'rxjs';
-import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
 import { MeetingRoomUpdateComponent } from '~/app/shared/Modals/meeting-room-update.component';
+import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
 import { MeetingRoom } from './../../models/meetingroom.model';
 import { MeetingRoomDeleteComponent } from './../../shared/Modals/meeting-room-delete.component';
 import { MeetingRoomRegisterComponent } from './../../shared/Modals/meeting-room-register.component';
@@ -99,6 +99,8 @@ export class MeetingRoomComponent implements OnInit, OnDestroy, AfterViewInit {
 
   public dataSub: Subscription;
   public unsubFromDialog: Subscription;
+  public unsubFromDelete: Subscription;
+  public unsubFromUpdate: Subscription;
 
   public ngOnInit() {
     this.dataSource.paginator = this.paginator;

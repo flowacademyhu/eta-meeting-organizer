@@ -7,9 +7,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Observable, Subscription } from 'rxjs';
 import { Building } from '~/app/models/building.model';
 import { BuildingRegisterComponent } from '~/app/shared/Modals/building-register.component';
-import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
-import { BuildingDeleteDialogComponent } from '~/app/shared/Modals/building-delete-dialog';
 import { BuildingUpdateDialogComponent } from '~/app/shared/Modals/building-update-dialog';
+import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
 import { BuildingService } from './../../shared/services/building.service';
 
 @Component({
@@ -87,19 +86,15 @@ export class BuildingComponent implements OnInit, OnDestroy, AfterViewInit {
   public deleteUnsub: Subscription;
   public updateUnsub: Subscription;
   public postUnsub: Subscription;
-  constructor(private readonly buildingService: BuildingService,
-              private readonly dialog: MatDialog) { }
-
-  public displayedColumns: string[] = ['city', 'address', 'delete'];
 
   @ViewChild(MatSort) public sort: MatSort;
   @ViewChild(MatPaginator) public paginator: MatPaginator;
 
   constructor(private readonly api: ApiCommunicationService,
               private readonly dialog: MatDialog,
-              private readonly repoService: BuildingService) {
-                  this.building$ = this.api.building()
-                                           .getBuildings();
+              private readonly buildingService: BuildingService) {
+                this.building$ = this.api.building()
+                                         .getBuildings();
   }
 
   public dataSource: MatTableDataSource<Building> = new MatTableDataSource<Building>();
@@ -108,7 +103,7 @@ export class BuildingComponent implements OnInit, OnDestroy, AfterViewInit {
 
   public ngOnInit() {
     this.dataSource.paginator = this.paginator;
-    this.dataSub = this.repoService.getBuildings()
+    this.dataSub = this.buildingService.getBuildings()
       .subscribe((res) => {
         this.dataSource.data = (res as unknown as Building[]);
       });
@@ -155,7 +150,7 @@ export class BuildingComponent implements OnInit, OnDestroy, AfterViewInit {
     .deleteBuilding(id)
     .subscribe(() => {
       this.buildingService
-      .getAllBuildings();
+      .getAllBuilding();
     });
    }
 

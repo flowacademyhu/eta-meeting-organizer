@@ -3,12 +3,11 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { UserVerificationDialogComponent } from '~/app/shared/Modals/user-verification-dialog';
-import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
 import { Observable, Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { UserVerificationDialogComponent } from '~/app/shared/Modals/user-verification-dialog';
 import { UserToken } from '~/app/shared/models/user-token.model';
+import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
 import { AuthService } from '~/app/shared/services/auth.service';
 import { User } from './../../models/user.model';
 import { UserDeleteDialogComponent } from './../../shared/Modals/user-delete-dialog';
@@ -94,7 +93,7 @@ export class UsersTableComponent implements OnInit, OnDestroy, AfterViewInit {
              private readonly authService: AuthService) {
       this.users$ = this.api.user()
     .getUsers();
-    this.subs = this.authService.user.pipe(take(1))
+      this.subs = this.authService.user.pipe(take(1))
     .subscribe((data) => {
     this.currentAdmin = data;
     });
