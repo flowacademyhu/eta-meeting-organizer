@@ -151,7 +151,7 @@ export class BuildingComponent implements OnInit, OnDestroy, AfterViewInit {
     .deleteBuilding(id)
     .subscribe(() => {
       this.buildingService
-      .getAllBuilding();
+      .getAllBuildings();
     });
    }
 
