@@ -10,12 +10,14 @@
     "button": "Switch to Hungarian"
   },
   "building": {
+    "buildingName": "Building name",
     "city": "City",
     "address":"Address",
     "saveButton":"Save",
-    "delete":"Delete building",
+    "cancel":"Cancel",
     "deleteButton":"Delete",
-    "add":"Add building"
+    "add":"Add building",
+    "update": "Update"
   },
   "profile": {
     "id": "Identifier",
@@ -58,6 +60,12 @@
     "yes": "Yes",
     "no": "No"
   },
+  "building-delete-dialog": {
+    "buildingDelete": "Building deletion",
+    "verification": "Are you sure you want to delete this building?",
+    "yes": "Yes",
+    "no": "No"
+  },
   "authentication": {
     "answer": "Your registration has not been verified by admin yet!"
   },
@@ -70,8 +78,17 @@
     "yes": "Yes",
     "no": "No"
   },
-  "delete-snackbar": {
+  "delete-user-snackbar": {
     "delete": "User has been deleted"
+  },
+  "delete-building-snackbar": {
+    "delete": "Building has been deleted"
+  },
+  "post-building-snackbar": {
+    "post": "Building has been created."
+  },
+  "update-building-snackbar": {
+    "update": "Building has been updated."
   },
   "verification-snackbar": {
     "verify": "User has been verified"
