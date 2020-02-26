@@ -10,5 +10,6 @@ import org.springframework.stereotype.Repository;
 public interface UserRepository extends JpaRepository<User, String> {
 
   Optional<User> findByUsername(String username);
+
   List<User> findAllByOrderById();
 }

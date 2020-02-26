@@ -37,7 +37,7 @@ app:
   redirectUri: http://localhost:4200/auth
   tokenSecret: IuRVVo5Jpn1Cp9WZ3jCHRtld
 role:
-  firstAdmin: berentepeter@gmail.com
+  firstAdmin: wysiomeetingorganizer@gmail.com
 mailing:
   mailgun:
     apiKey: ${MAILGUN_API_KEY:}
@@ -106,4 +106,4 @@ app:
   redirectUri: http://localhost:4200/auth
   tokenSecret: IuRVVo5Jpn1Cp9WZ3jCHRtld
 role:
-  firstAdmin: berentepeter@gmail.com
+  firstAdmin: wysiomeetingorganizer@gmail.com
