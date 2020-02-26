@@ -20,7 +20,8 @@ import { TranslateService } from '@ngx-translate/core';
       width: 80%;
       margin: 0 auto;
       border:1px solid;
-      border-color: black
+      border-color: black;
+      font-size: 130%;
     }
   `],
   template: `
