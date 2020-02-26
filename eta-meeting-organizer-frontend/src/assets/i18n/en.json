@@ -110,5 +110,9 @@
     "building": "Building",
     "meeting-room": "Meetingroom",
     "own-appointments": "Own Appointments"
+  },
+  "calendar-update": {
+    "title":"Title hozzáadása",
+    "description":"Description"
   }
 }
