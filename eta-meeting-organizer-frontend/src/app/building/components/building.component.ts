@@ -28,7 +28,7 @@ import { BuildingService } from './../../shared/services/building.service';
           (click)="postDialog()">
           <mat-icon>add</mat-icon>
     </button>
-    <div class="row justify-content-center">
+    <div class="row justify-content-center" class="container">
       <table mat-table [dataSource]="building$ | async" class="mat-elevation-z8">
       <ng-container matColumnDef="buildingName">
           <th mat-header-cell *matHeaderCellDef class="center">{{'building.buildingName' | translate}}</th>

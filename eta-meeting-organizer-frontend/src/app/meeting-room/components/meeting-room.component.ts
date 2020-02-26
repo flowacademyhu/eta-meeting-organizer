@@ -26,7 +26,7 @@ import { MeetingRoomService } from './../../shared/services/meeting-room.service
           (click)="openDialog()">
           <mat-icon>add</mat-icon>
   </button>
-    <div class="row justify-content-center">
+    <div class="row justify-content-center" class="container">
       <table mat-table [dataSource]="meetingRoom$ | async" class="mat-elevation-z8">
         <ng-container matColumnDef="name">
           <th mat-header-cell *matHeaderCellDef>{{'meeting-room.text' | translate}} </th>
