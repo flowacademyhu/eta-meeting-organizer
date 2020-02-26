@@ -21,8 +21,8 @@ import { UserService } from './../../shared/services/user.service';
     }
   `],
   template: `
-  <div class="row justify-content-center">
-      <table mat-table [dataSource]="users$ | async" class="mat-elevation-z8" class="container">
+  <div class="row justify-content-center" class="container">
+      <table mat-table [dataSource]="users$ | async"  class="mat-elevation-z8">
         <ng-container matColumnDef="id">
           <th mat-header-cell *matHeaderCellDef class="center">{{'profile.id' | translate}} </th>
           <td mat-cell  *matCellDef="let user"> {{user.id}} </td>
