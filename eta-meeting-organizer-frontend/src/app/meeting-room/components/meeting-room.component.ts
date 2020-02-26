@@ -104,9 +104,6 @@ export class MeetingRoomComponent implements OnInit, OnDestroy, AfterViewInit {
 
   public meetingRoom: MeetingRoom;
 
-  constructor(private readonly meetingRoomService: MeetingRoomService,
-              private readonly dialog: MatDialog) { }
-
   public ngOnInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSub = this.meetingRoomService.getAllMeetingRoom()
