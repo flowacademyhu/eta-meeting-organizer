@@ -50,7 +50,6 @@ import { AuthService } from '../services/auth.service';
   <button mat-button class="ml-auto"(click)="onLanguageChange()">{{'header.button' | translate}}</button>
   <p *ngIf="isToken" class="email">{{ user.username }}</p>
 
-  <button *ngIf="isToken" mat-button id="logout" (click)="logout()" class="ml-2">
   <a *ngIf="isToken" id="logout" (click)="logout()" class="ml-2" style="cursor: pointer;">
 
   <p><img padding="20" src="../../../assets/logout.png" height="50"/></p>

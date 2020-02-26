@@ -166,6 +166,7 @@ export class UsersTableComponent implements OnInit, OnDestroy, AfterViewInit {
    }
 
    public ngOnDestroy(): void {
+    this.dataSub.unsubscribe();
     if (this.deleteUnsub) {
       this.deleteUnsub.unsubscribe();
     }
@@ -176,9 +177,5 @@ export class UsersTableComponent implements OnInit, OnDestroy, AfterViewInit {
       this.subs.unsubscribe();
     }
    }
-
-   public ngOnDestroy() {
-    this.dataSub.unsubscribe();
-  }
 
 }
