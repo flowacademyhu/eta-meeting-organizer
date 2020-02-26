@@ -15,7 +15,7 @@ import { ApiCommunicationService } from '~/app/shared/services/api-communication
     `,
   ],
   template: `
-    <mat-toolbar color="primary">
+    <mat-toolbar class="my-0" color="primary">
         <form [formGroup]="meetingRoomSelector" novalidate>
             <mat-form-field>
               <mat-label>{{'calendar-header.city' | translate}}</mat-label>
@@ -48,7 +48,7 @@ import { ApiCommunicationService } from '~/app/shared/services/api-communication
               </mat-select>
             </mat-form-field>
         </form>
-          <mat-slide-toggle
+          <mat-slide-toggle labelPosition="before" class="ml-auto"
           [checked]="checked"
           (change)="onCheck($event)">
           {{'calendar-header.own-appointments' | translate}}
