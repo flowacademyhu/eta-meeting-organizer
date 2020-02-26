@@ -19,7 +19,7 @@ import { TranslateService } from '@ngx-translate/core';
       margin-top: 15%;
       width: 80%;
       margin: 0 auto;
-      border:0.5px solid;
+      border:1px solid;
       border-color: black
     }
   `],
@@ -34,7 +34,7 @@ import { TranslateService } from '@ngx-translate/core';
     </mat-dialog-actions>
     <br>
     <mat-dialog-actions>
-    <button mat-raised-button mat-dialog-close="false">{{'user-delete-dialog.no' | translate}}</button>
+    <button mat-raised-button mat-dialog-close="false" color="accent">{{'user-delete-dialog.no' | translate}}</button>
   </mat-dialog-actions>
   `
 })
