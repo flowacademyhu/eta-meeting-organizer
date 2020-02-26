@@ -32,6 +32,7 @@
     "text": "Meeting room",
     "building":"Building",
     "seats":"Seats",
+    "buildingName": "Building name",
     "placeholderName":"Add your name",
     "placeholderSeats": "Number of seats",
     "selectBuilding":"Select building",
