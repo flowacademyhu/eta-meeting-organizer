@@ -34,7 +34,7 @@ public class BuildingService {
   }
 
   public List<Building> findAll() {
-    return buildingRepository.findAll();
+    return buildingRepository.findAllByOrderById();
   }
 
   public List<String> findAllCities() {

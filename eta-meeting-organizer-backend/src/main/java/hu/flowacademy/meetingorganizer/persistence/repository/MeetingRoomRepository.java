@@ -9,4 +9,5 @@ import org.springframework.stereotype.Repository;
 public interface MeetingRoomRepository extends JpaRepository<MeetingRoom, Long> {
 
   List<MeetingRoom> findByBuilding_Id(Long id);
+  List<MeetingRoom> findAllByOrderById();
 }

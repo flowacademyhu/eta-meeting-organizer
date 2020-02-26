@@ -19,7 +19,7 @@ public class MeetingRoomService {
 
   public List<MeetingRoomDTO> findAll() {
     return meetingRoomRepository
-        .findAll().stream().map(MeetingRoomDTO::new).collect(
+        .findAllByOrderById().stream().map(MeetingRoomDTO::new).collect(
             Collectors.toList());
   }
 

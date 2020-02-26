@@ -21,7 +21,7 @@ public class UserService {
   private EmailService emailService;
 
   public List<User> findAll() {
-    return userRepository.findAll();
+    return userRepository.findAllByOrderById();
   }
 
   public Optional<User> findOne(String id) {
