@@ -74,26 +74,17 @@ import { MeetingRoomService } from './../../shared/services/meeting-room.service
 })
 export class MeetingRoomComponent implements OnInit, OnDestroy {
   public meetingRoom$: Observable<MeetingRoom[]>;
-<<<<<<< HEAD
-  public displayedColumns: string[] = ['name', 'numberOfSeat', 'projector', 'building', 'delete'];
-  public unsubFromDialog: Subscription;
-=======
   public displayedColumns: string[] = ['name', 'numberOfSeat', 'projector', 'buildingName', 'building', 'delete'];
   public unsubFromDelete: Subscription;
   public unsubFromUpdate: Subscription;
   public meetingRoom: MeetingRoom;
 
->>>>>>> 9133f63ffcd8b996af9397ed9dacd3a1c02f4493
   constructor(private readonly meetingRoomService: MeetingRoomService,
               private readonly dialog: MatDialog) { }
   public ngOnInit() {
     this.meetingRoomService.getAllMeetingRooms();
     this.meetingRoom$ = this.meetingRoomService.meetingRoomSub;
   }
-<<<<<<< HEAD
-=======
-
->>>>>>> 9133f63ffcd8b996af9397ed9dacd3a1c02f4493
   public openDialog(): void {
     this.dialog.open(MeetingRoomRegisterComponent, {
       width: '400px',
@@ -121,11 +112,6 @@ export class MeetingRoomComponent implements OnInit, OnDestroy {
     this.unsubFromUpdate = dialogRef.afterClosed()
     .subscribe();
   }
-<<<<<<< HEAD
-  public ngOnDestroy(): void {
-    if (this.unsubFromDialog) {
-      this.unsubFromDialog.unsubscribe();
-=======
 
   public ngOnDestroy(): void {
     if (this.unsubFromDelete) {
@@ -133,7 +119,6 @@ export class MeetingRoomComponent implements OnInit, OnDestroy {
     }
     if (this.unsubFromUpdate) {
       this.unsubFromUpdate.unsubscribe();
->>>>>>> 9133f63ffcd8b996af9397ed9dacd3a1c02f4493
     }
   }
   public deleteMeetingRoom(id: number) {
