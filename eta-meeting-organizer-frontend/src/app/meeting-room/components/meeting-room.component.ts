@@ -19,7 +19,7 @@ import { MeetingRoomService } from './../../shared/services/meeting-room.service
     }
     table {
       width: 100%;
-    },
+    }
     .center {
       text-align: center;
       font-size: larger;
@@ -36,15 +36,18 @@ import { MeetingRoomService } from './../../shared/services/meeting-room.service
   </mat-form-field>
      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
         <ng-container matColumnDef="name">
-          <th mat-header-cell *matHeaderCellDef  mat-sort-header>{{'meeting-room.text' | translate}} </th>
+          <th mat-header-cell *matHeaderCellDef  mat-sort-header class="center">
+            {{'meeting-room.text' | translate}} </th>
           <td mat-cell *matCellDef="let meetingRoom"> {{meetingRoom.name}} </td>
         </ng-container>
         <ng-container matColumnDef="numberOfSeat">
-          <th mat-header-cell *matHeaderCellDef  mat-sort-header> {{'meeting-room.seats' | translate}} </th>
+          <th mat-header-cell *matHeaderCellDef  mat-sort-header class="center">
+            {{'meeting-room.seats' | translate}} </th>
           <td mat-cell *matCellDef="let meetingRoom"> {{meetingRoom.numberOfSeats}} </td>
         </ng-container>
         <ng-container matColumnDef="projector">
-            <th mat-header-cell *matHeaderCellDef  mat-sort-header> {{'meeting-room.projector' | translate}} </th>
+            <th mat-header-cell *matHeaderCellDef  mat-sort-header class="center">
+              {{'meeting-room.projector' | translate}} </th>
             <td mat-cell *matCellDef="let meetingRoom">
             <mat-icon color="primary"
               *ngIf="meetingRoom.projector!==true">
@@ -53,12 +56,13 @@ import { MeetingRoomService } from './../../shared/services/meeting-room.service
             <mat-icon class="projector-color" *ngIf="meetingRoom.projector===true">done</mat-icon>
         </ng-container>
         <ng-container matColumnDef="buildingName">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'meeting-room.buildingName' | translate}} </th>
+          <th mat-header-cell *matHeaderCellDef class="center" mat-sort-header>
+            {{'meeting-room.buildingName' | translate}} </th>
           <td mat-cell *matCellDef="let meetingRoom">
             {{meetingRoom.building?.buildingName}}</td>
         </ng-container>
        <ng-container matColumnDef="building">
-          <th mat-header-cell *matHeaderCellDef> {{'meeting-room.building' | translate}} </th>
+          <th mat-header-cell *matHeaderCellDef class="center"> {{'meeting-room.building' | translate}} </th>
           <td mat-cell *matCellDef="let meetingRoom">
             {{meetingRoom.building?.city}} - {{meetingRoom.building?.address}}</td>
         </ng-container>
