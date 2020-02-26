@@ -46,7 +46,7 @@ import { MeetingRoomService } from './../../shared/services/meeting-room.service
             <mat-icon class="projector-color" *ngIf="meetingRoom.projector===true">done</mat-icon>
         </ng-container>
         <ng-container matColumnDef="buildingName">
-          <th mat-header-cell *matHeaderCellDef> {{'meeting-room.buildingName' | translate}} </th>
+          <th mat-header-cell *matHeaderCellDef> {{'building.buildingName' | translate}} </th>
           <td mat-cell *matCellDef="let meetingRoom">
             {{meetingRoom.building?.buildingName}}</td>
         </ng-container>
