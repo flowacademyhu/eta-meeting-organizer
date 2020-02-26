@@ -18,7 +18,7 @@ import { TranslateService } from '@ngx-translate/core';
   </mat-dialog-content>
   <mat-dialog-actions>
     <button mat-raised-button mat-dialog-close>{{'user-verification-dialog.cancel' | translate}}</button>
-    <button mat-raised-button mat-dialog-close={{choosenRole}} color="primary" [disabled]="choosenRole === undefined"
+    <button mat-raised-button mat-dialog-close={{choosenRole}} color="primary" [disabled]="!choosenRole"
     (click)="openSnackBar()">{{'user-verification-dialog.setRole' | translate}}</button>
   </mat-dialog-actions>
   `
