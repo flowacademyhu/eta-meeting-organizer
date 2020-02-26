@@ -12,12 +12,23 @@ import { ApiCommunicationService } from '~/app/shared/services/api-communication
       .toolbar {
         min-height: 75px;
       }
+      .select {
+        padding-right: 15px;
+      }
+      .toolbar {
+        height: 100px;
+        
+      }
+      .selector {
+        display: flex;
+    justify-content: center;
+      }
     `,
   ],
   template: `
-    <mat-toolbar class="my-0" color="primary">
+    <mat-toolbar class="my-0" color="primary" class="toolbar">
         <form [formGroup]="meetingRoomSelector" novalidate>
-            <mat-form-field>
+            <mat-form-field class="select">
               <mat-label>{{'calendar-header.city' | translate}}</mat-label>
               <mat-select
               (selectionChange)="getBuildings()"
@@ -27,7 +38,7 @@ import { ApiCommunicationService } from '~/app/shared/services/api-communication
                 }}</mat-option>
               </mat-select>
             </mat-form-field>
-            <mat-form-field>
+            <mat-form-field class="select">
               <mat-label>{{'calendar-header.building' | translate}}</mat-label>
               <mat-select
               (selectionChange)="getMeetingrooms()"
