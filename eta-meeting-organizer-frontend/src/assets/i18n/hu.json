@@ -110,5 +110,9 @@
     "building": "Épület",
     "meeting-room": "Tárgyaló",
     "own-appointments": "Saját Foglalásaim"
+  },
+  "calendar-update": {
+    "title":"Cím hozzáadása",
+    "description":"Leírás hozzáadása"
   }
 }
