@@ -37,6 +37,7 @@ public class Reservation {
   private User user;
 
   @OneToOne
+  @JoinColumn
   private MeetingRoom meetingRoom;
 
   private Long startingTime;
