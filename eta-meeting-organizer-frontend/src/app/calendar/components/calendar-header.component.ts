@@ -17,7 +17,6 @@ import { ApiCommunicationService } from '~/app/shared/services/api-communication
       }
       .toolbar {
         height: 100px;
-        
       }
       .selector {
         display: flex;
