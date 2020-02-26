@@ -13,6 +13,9 @@ import { MeetingRoomService } from './../../shared/services/meeting-room.service
     .row {
       min-height: calc(100vh - 60px);
     }
+    .column {
+      font-size: larger;
+    }
     table {
       width: 100%;
     },
@@ -29,15 +32,15 @@ import { MeetingRoomService } from './../../shared/services/meeting-room.service
     <div class="row justify-content-center">
       <table mat-table [dataSource]="meetingRoom$ | async" class="mat-elevation-z8">
         <ng-container matColumnDef="name">
-          <th mat-header-cell *matHeaderCellDef>{{'meeting-room.text' | translate}} </th>
+          <th mat-header-cell *matHeaderCellDef class="column">{{'meeting-room.text' | translate}} </th>
           <td mat-cell *matCellDef="let meetingRoom"> {{meetingRoom.name}} </td>
         </ng-container>
         <ng-container matColumnDef="numberOfSeat">
-          <th mat-header-cell *matHeaderCellDef> {{'meeting-room.seats' | translate}} </th>
+          <th mat-header-cell *matHeaderCellDef class="column"> {{'meeting-room.seats' | translate}} </th>
           <td mat-cell *matCellDef="let meetingRoom"> {{meetingRoom.numberOfSeats}} </td>
         </ng-container>
         <ng-container matColumnDef="projector">
-            <th mat-header-cell *matHeaderCellDef> {{'meeting-room.projector' | translate}} </th>
+            <th mat-header-cell *matHeaderCellDef class="column"> {{'meeting-room.projector' | translate}} </th>
             <td mat-cell *matCellDef="let meetingRoom">
             <mat-icon color="primary"
               *ngIf="meetingRoom.projector!==true">
@@ -46,17 +49,17 @@ import { MeetingRoomService } from './../../shared/services/meeting-room.service
             <mat-icon class="projector-color" *ngIf="meetingRoom.projector===true">done</mat-icon>
         </ng-container>
         <ng-container matColumnDef="buildingName">
-          <th mat-header-cell *matHeaderCellDef> {{'meeting-room.buildingName' | translate}} </th>
+          <th mat-header-cell *matHeaderCellDef class="column"> {{'meeting-room.buildingName' | translate}} </th>
           <td mat-cell *matCellDef="let meetingRoom">
             {{meetingRoom.building?.buildingName}}</td>
         </ng-container>
        <ng-container matColumnDef="building">
-          <th mat-header-cell *matHeaderCellDef> {{'meeting-room.building' | translate}} </th>
+          <th mat-header-cell *matHeaderCellDef class="column"> {{'meeting-room.building' | translate}} </th>
           <td mat-cell *matCellDef="let meetingRoom">
             {{meetingRoom.building?.city}} - {{meetingRoom.building?.address}}</td>
         </ng-container>
         <ng-container matColumnDef="delete">
-          <th mat-header-cell *matHeaderCellDef></th>
+          <th mat-header-cell *matHeaderCellDef class="column"></th>
           <td mat-cell *matCellDef="let meetingRoom">
           <button mat-icon-button color="accent" (click)="updateDialog(meetingRoom.id)">
             <mat-icon>edit</mat-icon>

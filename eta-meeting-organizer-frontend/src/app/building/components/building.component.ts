@@ -10,8 +10,7 @@ import { BuildingService } from './../../shared/services/building.service';
 @Component({
   selector: 'app-building-list',
   styles: [`
-    .center {
-      text-align: center;
+    .column {
       font-size: larger;
     }
 
@@ -31,15 +30,15 @@ import { BuildingService } from './../../shared/services/building.service';
     <div class="row justify-content-center">
       <table mat-table [dataSource]="building$ | async" class="mat-elevation-z8">
       <ng-container matColumnDef="buildingName">
-          <th mat-header-cell *matHeaderCellDef class="center">{{'building.buildingName' | translate}}</th>
+          <th mat-header-cell *matHeaderCellDef class="column">{{'building.buildingName' | translate}}</th>
           <td mat-cell *matCellDef="let building"> {{building.buildingName}} </td>
         </ng-container>
         <ng-container matColumnDef="city">
-          <th mat-header-cell *matHeaderCellDef class="center">{{'building.city' | translate}}</th>
+          <th mat-header-cell *matHeaderCellDef class="column">{{'building.city' | translate}}</th>
           <td mat-cell *matCellDef="let building"> {{building.city}} </td>
         </ng-container>
         <ng-container matColumnDef="address">
-          <th mat-header-cell *matHeaderCellDef class="center"> {{'building.address' | translate}} </th>
+          <th mat-header-cell *matHeaderCellDef class="column"> {{'building.address' | translate}} </th>
           <td mat-cell *matCellDef="let building"> {{building.address}} </td>
         </ng-container>
         <ng-container matColumnDef="action">
@@ -58,7 +57,7 @@ import { BuildingService } from './../../shared/services/building.service';
           </td>
         </ng-container>
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;" align="center"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       </table>
     </div>
   `

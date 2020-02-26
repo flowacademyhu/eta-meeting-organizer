@@ -15,6 +15,9 @@ import { UserService } from './../../shared/services/user.service';
     table {
       width: 100%;
     }
+    .column {
+      font-size: larger;
+    }
     .center {
       text-align: center;
       font-size: larger;
@@ -24,15 +27,15 @@ import { UserService } from './../../shared/services/user.service';
   <div class="row justify-content-center">
       <table mat-table [dataSource]="users$ | async" class="mat-elevation-z8">
         <ng-container matColumnDef="id">
-          <th mat-header-cell *matHeaderCellDef class="center">{{'profile.id' | translate}} </th>
+          <th mat-header-cell *matHeaderCellDef class="column">{{'profile.id' | translate}} </th>
           <td mat-cell  *matCellDef="let user"> {{user.id}} </td>
         </ng-container>
         <ng-container matColumnDef="email">
-          <th mat-header-cell *matHeaderCellDef class="center"> {{'profile.email' | translate}} </th>
+          <th mat-header-cell *matHeaderCellDef class="column"> {{'profile.email' | translate}} </th>
           <td mat-cell *matCellDef="let user">{{user.username}}</td>
         </ng-container>
         <ng-container matColumnDef="role">
-          <th mat-header-cell *matHeaderCellDef class="center"> {{'profile.role' | translate}} </th>
+          <th mat-header-cell *matHeaderCellDef class="column"> {{'profile.role' | translate}} </th>
           <td mat-cell *matCellDef="let user" [ngSwitch]="user.role">
             <p *ngSwitchCase="'ADMIN'">{{'user-verification-dialog.admin' | translate}}</p>
             <p *ngSwitchCase="'USER'">{{'user-verification-dialog.user' | translate}}</p>
@@ -57,7 +60,7 @@ import { UserService } from './../../shared/services/user.service';
           </td>
         </ng-container>
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;" align="center" ></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       </table>
     </div>
   `
