@@ -9,7 +9,7 @@ import { TranslateService } from '@ngx-translate/core';
   <mat-dialog-content>
   <mat-form-field appearance="fill">
     <mat-label>{{'user-verification-dialog.roles' | translate}}</mat-label>
-    <mat-select [(value)]="choosenRole">
+    <mat-select [(value)]="choosenRole" required>
       <mat-option value="ADMIN">{{'user-verification-dialog.admin' | translate}}</mat-option>
       <mat-option value="USER">{{'user-verification-dialog.user' | translate}}</mat-option>
       <mat-option value="READER">{{'user-verification-dialog.reader' | translate}}</mat-option>
@@ -18,7 +18,7 @@ import { TranslateService } from '@ngx-translate/core';
   </mat-dialog-content>
   <mat-dialog-actions>
     <button mat-raised-button mat-dialog-close>{{'user-verification-dialog.cancel' | translate}}</button>
-    <button mat-raised-button mat-dialog-close={{choosenRole}} color="primary"
+    <button mat-raised-button mat-dialog-close={{choosenRole}} color="primary" [disabled]="choosenRole === undefined"
     (click)="openSnackBar()">{{'user-verification-dialog.setRole' | translate}}</button>
   </mat-dialog-actions>
   `
