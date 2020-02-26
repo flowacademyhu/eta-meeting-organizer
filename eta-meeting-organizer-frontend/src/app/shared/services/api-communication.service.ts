@@ -4,7 +4,6 @@ import { AbstractApiConnector } from '~/app/shared/api-connectors/AbstractApiCon
 import { BuildingApiConnector } from '~/app/shared/api-connectors/BuildingApiConnector';
 import { MeetingRoomApiConnector } from '~/app/shared/api-connectors/MeetingRoomApiConnector';
 import { ReservationApiConnector } from '~/app/shared/api-connectors/ReservationApiConnector';
-import { WelcomeApiConnector } from '~/app/shared/api-connectors/WelcomeApiConnector';
 import { ConfigurationService } from '~/app/shared/services/configuration.service';
 import { UserApiConnector } from '../api-connectors/UserApiConnector';
 
@@ -32,10 +31,6 @@ export class ApiCommunicationService {
     this.connectors = new Map<Connector, AbstractApiConnector>();
 
     // register connectors
-    this.registerConnector(
-      Connector.WELCOME,
-      new WelcomeApiConnector(this.http, this.apiBaseUrl)
-    );
     this.registerConnector(
       Connector.USER,
       new UserApiConnector(this.http, this.apiBaseUrl)
@@ -86,10 +81,6 @@ export class ApiCommunicationService {
   }
 
   // API connector getters
-  public welcome(): WelcomeApiConnector {
-    return this.getConnector(Connector.WELCOME) as WelcomeApiConnector;
-  }
-
   public user(): UserApiConnector {
     return this.getConnector(Connector.USER) as UserApiConnector;
   }

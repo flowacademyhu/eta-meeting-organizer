@@ -39,8 +39,8 @@ export class UserService {
     .deleteUserById(id);
   }
 
-  public updateUser(id: string) {
+  public userRoleSet(id: string, roleSet: string) {
     return this.userCom.user()
-    .updateUserById(id);
+    .userRoleSet(id, roleSet);
   }
 }

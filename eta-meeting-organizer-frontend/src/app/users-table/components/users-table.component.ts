@@ -47,8 +47,13 @@ th.mat-header-cell {
           <td mat-cell *matCellDef="let user"> {{user.username}} </td>
         </ng-container>
         <ng-container matColumnDef="role">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'profile.role' | translate}} </th>
-          <td mat-cell *matCellDef="let user"> {{user.role}} </td>
+          <th mat-header-cell *matHeaderCellDef class="center"> {{'profile.role' | translate}} </th>
+          <td mat-cell *matCellDef="let user" [ngSwitch]="user.role">
+            <p *ngSwitchCase="'ADMIN'">{{'user-verification-dialog.admin' | translate}}</p>
+            <p *ngSwitchCase="'USER'">{{'user-verification-dialog.user' | translate}}</p>
+            <p *ngSwitchCase="'READER'">{{'user-verification-dialog.reader' | translate}}</p>
+            <p *ngSwitchDefault>{{'user-verification-dialog.pending' | translate}}</p>
+          </td>
         </ng-container>
         <ng-container matColumnDef="action">
           <th mat-header-cell *matHeaderCellDef></th>
@@ -59,7 +64,7 @@ th.mat-header-cell {
             delete
           </mat-icon>
            </button>
-           <button *ngIf="user.verifiedByAdmin == false"  mat-icon-button color="primary">
+           <button *ngIf="user.role === 'PENDING'"  mat-icon-button color="primary">
           <mat-icon aria-label="User"(click)="verificationDialog(user.id)">
             perm_identity
           </mat-icon>
@@ -81,8 +86,10 @@ th.mat-header-cell {
 export class UsersTableComponent implements OnInit, OnDestroy, AfterViewInit {
   public users$: Observable<User[]>;
   public displayedColumns: string[] = ['id', 'email', 'role', 'action'];
+  public deleteUnsub: Subscription;
+  public verifyUnsub: Subscription;
+  public subs: Subscription;
   protected currentAdmin: UserToken = {} as UserToken;
-  protected subs: Subscription;
 
   @ViewChild(MatSort) public sort: MatSort;
   @ViewChild(MatPaginator) public paginator: MatPaginator;
@@ -125,7 +132,7 @@ export class UsersTableComponent implements OnInit, OnDestroy, AfterViewInit {
 }
    public deleteDialog(id: string) {
     const dialogRef = this.dialog.open(UserDeleteDialogComponent);
-    dialogRef.afterClosed()
+    this.deleteUnsub = dialogRef.afterClosed()
     .subscribe((result) => {
       if (result === 'true') {
         this.deleteUser(id);
@@ -135,18 +142,16 @@ export class UsersTableComponent implements OnInit, OnDestroy, AfterViewInit {
 
    public verificationDialog(id: string) {
     const dialogRef = this.dialog.open(UserVerificationDialogComponent);
-    dialogRef.afterClosed()
-    .subscribe((result) => {
-      if (result === 'true') {
-        this.verifyUser(id);
-      }
+    this.verifyUnsub = dialogRef.afterClosed()
+    .subscribe((roleSet) => {
+      this.verifyUser(id, roleSet);
     });
    }
 
-   public verifyUser(id: string) {
-     this.userService
-     .updateUser(id)
-     .subscribe(() => {
+   public verifyUser(id: string, roleSet: string) {
+    this.userService
+    .userRoleSet(id, roleSet)
+    .subscribe(() => {
       this.userService
       .getAllUsers();
      });
@@ -157,7 +162,19 @@ export class UsersTableComponent implements OnInit, OnDestroy, AfterViewInit {
     .subscribe(() => {
       this.userService
       .getAllUsers();
-      });
+    });
+   }
+
+   public ngOnDestroy(): void {
+    if (this.deleteUnsub) {
+      this.deleteUnsub.unsubscribe();
+    }
+    if (this.verifyUnsub) {
+      this.verifyUnsub.unsubscribe();
+    }
+    if (this.subs) {
+      this.subs.unsubscribe();
+    }
    }
 
    public ngOnDestroy() {

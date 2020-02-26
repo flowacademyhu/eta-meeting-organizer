@@ -12,7 +12,12 @@ export class AuthService {
     return this._user;
   }
 
-  constructor(private readonly configService: ConfigurationService) {}
+  constructor(private readonly configService: ConfigurationService) {
+    if (!!this.configService.fetchToken('accessToken')) {
+      const userToken = jwt_decode(this.configService.fetchToken('accessToken'));
+      this._user.next(userToken);
+    }
+  }
 
   public decodeAndSaveUser(token: string): string {
     const userToken = jwt_decode(token);

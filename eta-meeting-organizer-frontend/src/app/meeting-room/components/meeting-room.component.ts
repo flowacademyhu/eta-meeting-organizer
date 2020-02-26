@@ -102,6 +102,11 @@ export class MeetingRoomComponent implements OnInit, OnDestroy, AfterViewInit {
   public unsubFromDelete: Subscription;
   public unsubFromUpdate: Subscription;
 
+  public meetingRoom: MeetingRoom;
+
+  constructor(private readonly meetingRoomService: MeetingRoomService,
+              private readonly dialog: MatDialog) { }
+
   public ngOnInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSub = this.meetingRoomService.getAllMeetingRoom()
@@ -118,13 +123,11 @@ export class MeetingRoomComponent implements OnInit, OnDestroy, AfterViewInit {
     this.dataSource.filter = value.trim()
      .toLocaleLowerCase();
   }
-
   public openDialog(): void {
     this.dialog.open(MeetingRoomRegisterComponent, {
       width: '400px',
     });
   }
-
   public deleteDialog(id: number) {
     const dialogRef = this.dialog.open(MeetingRoomDeleteComponent, {
       height: '250px',
@@ -160,7 +163,6 @@ export class MeetingRoomComponent implements OnInit, OnDestroy, AfterViewInit {
       this.unsubFromDialog.unsubscribe();
     }
   }
-
   public deleteMeetingRoom(id: number) {
     this.meetingRoomService.deleteMeetingRoom(id)
       .subscribe(() => {

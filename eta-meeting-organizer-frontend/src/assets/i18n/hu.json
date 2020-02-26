@@ -79,10 +79,14 @@
     "registerOk":"A regisztráció sikeres volt"
   },
   "user-verification-dialog": {
-    "userVerification": "Felhasználó jováhagyása",
-    "verification": "Biztos engedélyezi a felhasználó beléptetését?",
-    "yes": "Igen",
-    "no": "Nem"
+    "roleSetting": "Felhasználói szerepkör megadása",
+    "roles": "Rendelkezésre álló szerepkörök.",
+    "admin": "Adminisztrátor",
+    "user": "Felhasználó",
+    "reader": "Megtekintő",
+    "pending": "Függőben",
+    "setRole": "Szerepkör jóváhagyása",
+    "cancel": "Mégse"
   },
   "delete-user-snackbar": {
     "delete": "Felhasználó törölve"
