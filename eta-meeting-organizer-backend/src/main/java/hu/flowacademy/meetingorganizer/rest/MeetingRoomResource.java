@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -24,10 +23,8 @@ public class MeetingRoomResource {
   private MeetingRoomService meetingRoomService;
 
   @GetMapping
-  public ResponseEntity<List<MeetingRoomDTO>> findAll(
-      @RequestParam(defaultValue = "0") Integer pageNumber,
-      @RequestParam(defaultValue = "10") Integer pageSize) {
-    return new ResponseEntity<>(meetingRoomService.findAll(pageNumber, pageSize), HttpStatus.OK);
+  public ResponseEntity<List<MeetingRoomDTO>> findAll() {
+    return new ResponseEntity<>(meetingRoomService.findAll(), HttpStatus.OK);
   }
 
   @GetMapping("/{id}")

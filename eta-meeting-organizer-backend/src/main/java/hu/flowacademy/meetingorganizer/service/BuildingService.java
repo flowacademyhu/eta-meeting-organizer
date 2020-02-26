@@ -4,7 +4,6 @@ import hu.flowacademy.meetingorganizer.persistence.model.Building;
 import hu.flowacademy.meetingorganizer.persistence.repository.BuildingRepository;
 import java.util.Optional;
 import lombok.AllArgsConstructor;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -34,8 +33,8 @@ public class BuildingService {
     return buildingRepository.findById(id);
   }
 
-  public List<Building> findAll(Integer pageNumber, Integer pageSize) {
-    return buildingRepository.findAll(PageRequest.of(pageNumber, pageSize)).getContent();
+  public List<Building> findAll() {
+    return buildingRepository.findAll();
   }
 
   public List<String> findAllCities() {
