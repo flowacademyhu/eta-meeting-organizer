@@ -17,7 +17,7 @@ import { TranslateService } from '@ngx-translate/core';
 export class UserDeleteDialogComponent {
   constructor(private readonly snackBar: MatSnackBar, private readonly translate: TranslateService) {}
   public openSnackBar() {
-    this.snackBar.open(this.translate.instant(`delete-snackbar.delete`), undefined, {
+    this.snackBar.open(this.translate.instant(`delete-user-snackbar.delete`), undefined, {
       duration: 2500
     });
   }

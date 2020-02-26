@@ -81,18 +81,15 @@ export class MeetingRoomComponent implements OnInit, OnDestroy {
 
   constructor(private readonly meetingRoomService: MeetingRoomService,
               private readonly dialog: MatDialog) { }
-
   public ngOnInit() {
     this.meetingRoomService.getAllMeetingRooms();
     this.meetingRoom$ = this.meetingRoomService.meetingRoomSub;
   }
-
   public openDialog(): void {
     this.dialog.open(MeetingRoomRegisterComponent, {
       width: '400px',
     });
   }
-
   public deleteDialog(id: number) {
     const dialogRef = this.dialog.open(MeetingRoomDeleteComponent, {
       height: '250px',
@@ -124,7 +121,6 @@ export class MeetingRoomComponent implements OnInit, OnDestroy {
       this.unsubFromUpdate.unsubscribe();
     }
   }
-
   public deleteMeetingRoom(id: number) {
     this.meetingRoomService.deleteMeetingRoom(id)
       .subscribe(() => {

@@ -1,4 +1,3 @@
-// import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -40,11 +39,7 @@ export function HttpLoaderFactory(http: HttpClient) {
   ],
   providers: [
     AuthService,
-/*    {
-    provide: LocationStrategy,
-    useClass: HashLocationStrategy
-  }, */
-]
+  ]
 })
 export class AppModule {
 }

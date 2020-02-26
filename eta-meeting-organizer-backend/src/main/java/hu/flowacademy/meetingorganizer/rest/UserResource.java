@@ -1,6 +1,7 @@
 package hu.flowacademy.meetingorganizer.rest;
 
 import hu.flowacademy.meetingorganizer.persistence.model.User;
+import hu.flowacademy.meetingorganizer.persistence.model.dto.RoleDTO;
 import hu.flowacademy.meetingorganizer.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -50,8 +51,14 @@ public class UserResource {
   }
 
   @PutMapping("/{id}")
-  public ResponseEntity<User> updateUser(@PathVariable String id) {
-    userService.updateUser(id);
+  public ResponseEntity<User> updateUser(@PathVariable String id, @RequestBody User user) {
+    userService.updateUser(id, user);
+    return ResponseEntity.accepted().build();
+  }
+
+  @PutMapping("/{id}/role")
+  public ResponseEntity<User> setUserRole(@PathVariable String id, @RequestBody RoleDTO roleDTO) {
+    userService.setUserRole(id, roleDTO);
     return ResponseEntity.accepted().build();
   }
 }
