@@ -11,6 +11,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -28,13 +29,15 @@ public class Building {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @Column(nullable = false)
+  @NotNull
   private String city;
 
-  @Column(nullable = false, unique = true)
+  @NotNull
+  @Column(unique = true)
   private String address;
 
-  @Column(nullable = false, unique = true)
+  @NotNull
+  @Column(unique = true)
   private String buildingName;
 
   @OneToMany

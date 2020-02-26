@@ -1,6 +1,7 @@
 package hu.flowacademy.meetingorganizer.persistence.model;
 
 import javax.persistence.Column;
+import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -25,13 +26,14 @@ public class MeetingRoom {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @Column(nullable = false, unique = true)
+  @NotNull
+  @Column(unique = true)
   private String name;
 
-  @Column(nullable = false)
+  @NotNull
   private Integer numberOfSeats;
 
-  @Column(nullable = false)
+  @NotNull
   private Boolean projector;
 
   @ManyToOne
