@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Observable, Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { UserVerificationDialogComponent } from '~/app/shared/Modals/user-verification-dialog';
@@ -73,7 +73,7 @@ export class UsersTableComponent implements OnInit, OnDestroy {
   public verifyUnsub: Subscription;
   public subs: Subscription;
   protected currentAdmin: UserToken = {} as UserToken;
-
+  public dialogConfig: MatDialogConfig = new MatDialogConfig();
   constructor(private readonly userService: UserService,
               private readonly dialog: MatDialog,
               private readonly authService: AuthService) {
@@ -90,7 +90,11 @@ export class UsersTableComponent implements OnInit, OnDestroy {
    }
 
    public deleteDialog(id: string) {
-    const dialogRef = this.dialog.open(UserDeleteDialogComponent);
+    this.dialogConfig.disableClose = true;
+    const dialogRef = this.dialog.open(UserDeleteDialogComponent, {
+      height: '35%',
+      width: '30%'
+    } );
     this.deleteUnsub = dialogRef.afterClosed()
     .subscribe((result) => {
       if (result === 'true') {
@@ -100,6 +104,7 @@ export class UsersTableComponent implements OnInit, OnDestroy {
    }
 
    public verificationDialog(id: string) {
+    this.dialogConfig.disableClose = true;
     const dialogRef = this.dialog.open(UserVerificationDialogComponent);
     this.verifyUnsub = dialogRef.afterClosed()
     .subscribe((roleSet) => {
