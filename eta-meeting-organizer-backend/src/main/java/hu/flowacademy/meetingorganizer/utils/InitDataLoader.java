@@ -9,6 +9,7 @@ import hu.flowacademy.meetingorganizer.persistence.repository.BuildingRepository
 import hu.flowacademy.meetingorganizer.persistence.repository.MeetingRoomRepository;
 import hu.flowacademy.meetingorganizer.persistence.repository.*;
 import hu.flowacademy.meetingorganizer.persistence.repository.UserRepository;
+import java.time.ZoneOffset;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -118,36 +119,36 @@ public class InitDataLoader {
         .user(userRepository.findById("99999150350006150715113077777").orElse(null))
         .title("Napi meeting")
         .summary("Megbeszéljük ki mivel haladt tegnap és mivel fog ma foglalkozni.")
-        .startingTime(LocalDateTime.of(2020, 2, 17, 16, 00))
-        .endingTime(LocalDateTime.of(2020, 2, 17, 18, 00)).build());
+        .startingTime((LocalDateTime.of(2020, 2, 25, 16, 00)).toInstant(ZoneOffset.UTC).toEpochMilli())
+        .endingTime((LocalDateTime.of(2020, 2, 25, 18, 00)).toInstant(ZoneOffset.UTC).toEpochMilli()).build());
     reservationRepository.save(Reservation.builder()
         .id(2L)
         .user(userRepository.findById("99999150350006150715113077777").orElse(null))
         .title("Flow tárgyalás")
         .summary("Új ügyfelek felkutatása.")
-        .startingTime(LocalDateTime.now())
-        .endingTime(LocalDateTime.now()).build());
+        .startingTime((LocalDateTime.of(2020, 2, 26, 9, 00)).toInstant(ZoneOffset.UTC).toEpochMilli())
+        .endingTime((LocalDateTime.of(2020, 2, 26, 9, 15)).toInstant(ZoneOffset.UTC).toEpochMilli()).build());
     reservationRepository.save(Reservation.builder()
         .id(3L)
         .user(userRepository.findById("10769150350006150715113077777").orElse(null))
         .title("Húsvét")
         .summary("húsvéti program megbeszélése Pennywise-al")
-        .startingTime(LocalDateTime.now())
-        .endingTime(LocalDateTime.now()).build());
+        .startingTime((LocalDateTime.of(2020, 2, 27, 12, 00)).toInstant(ZoneOffset.UTC).toEpochMilli())
+        .endingTime((LocalDateTime.of(2020, 2, 27, 14, 15)).toInstant(ZoneOffset.UTC).toEpochMilli()).build());
     reservationRepository.save(Reservation.builder()
         .id(4L)
         .user(userRepository.findById("10769150350006150715113077777").orElse(null))
         .title("Karácsony")
         .summary("Megbeszéljük hogy mikor tartsuk illetve ki melyik zenekart szeretné ")
-        .startingTime(LocalDateTime.now())
-        .endingTime(LocalDateTime.now()).build());
+        .startingTime((LocalDateTime.of(2020, 2, 27, 16, 00)).toInstant(ZoneOffset.UTC).toEpochMilli())
+        .endingTime((LocalDateTime.of(2020, 2, 27, 16, 30)).toInstant(ZoneOffset.UTC).toEpochMilli()).build());
     reservationRepository.save(Reservation.builder()
         .id(5L)
         .user(userRepository.findById("10769150350006150715113082367").orElse(null))
         .title("Tesla")
         .summary("Tesla gyár látogatásának időpontja")
-        .startingTime(LocalDateTime.now())
-        .endingTime(LocalDateTime.now()).build());
+        .startingTime((LocalDateTime.of(2020, 2, 28, 6, 00)).toInstant(ZoneOffset.UTC).toEpochMilli())
+        .endingTime((LocalDateTime.of(2020, 2, 28, 6, 45)).toInstant(ZoneOffset.UTC).toEpochMilli()).build());
 
     meetingRoomRepository.save(MeetingRoom.builder()
         .id(1l)
