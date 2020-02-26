@@ -39,7 +39,7 @@ th.mat-header-cell {
     </mat-form-field>
       <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
         <ng-container matColumnDef="id">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'profile.id' | translate}} </th>
+          <th mat-header-cell *matHeaderCellDef> {{'profile.id' | translate}} </th>
           <td mat-cell  *matCellDef="let user"> {{user.id}} </td>
         </ng-container>
         <ng-container matColumnDef="email">
@@ -47,7 +47,7 @@ th.mat-header-cell {
           <td mat-cell *matCellDef="let user"> {{user.username}} </td>
         </ng-container>
         <ng-container matColumnDef="role">
-          <th mat-header-cell *matHeaderCellDef class="center"> {{'profile.role' | translate}} </th>
+          <th mat-header-cell *matHeaderCellDef class="center" mat-sort-header> {{'profile.role' | translate}} </th>
           <td mat-cell *matCellDef="let user" [ngSwitch]="user.role">
             <p *ngSwitchCase="'ADMIN'">{{'user-verification-dialog.admin' | translate}}</p>
             <p *ngSwitchCase="'USER'">{{'user-verification-dialog.user' | translate}}</p>

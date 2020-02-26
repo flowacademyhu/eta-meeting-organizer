@@ -44,6 +44,10 @@ import { BuildingService } from './../../shared/services/building.service';
     <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Filter">
   </mat-form-field>
       <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+      <ng-container matColumnDef="buildingName">
+          <th mat-header-cell *matHeaderCellDef class="center">{{'building.buildingName' | translate}}</th>
+          <td mat-cell *matCellDef="let building"> {{building.buildingName}} </td>
+        </ng-container>
         <ng-container matColumnDef="city">
           <th mat-header-cell *matHeaderCellDef class="center" mat-sort-header>{{'building.city' | translate}} </th>
           <td mat-cell *matCellDef="let building"> {{building.city}} </td>
@@ -68,7 +72,7 @@ import { BuildingService } from './../../shared/services/building.service';
           </td>
         </ng-container>
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;" align="center"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       </table>
       <mat-paginator
         [pageSize]="5"
@@ -82,7 +86,7 @@ import { BuildingService } from './../../shared/services/building.service';
 export class BuildingComponent implements OnInit, OnDestroy, AfterViewInit {
 
   public building$: Observable<Building[]>;
-  public displayedColumns: string[] = ['buildingName', 'city', 'address', 'action'];
+  public displayedColumns: string[] = ['buildingName', 'city', 'address', 'delete'];
   public deleteUnsub: Subscription;
   public updateUnsub: Subscription;
   public postUnsub: Subscription;

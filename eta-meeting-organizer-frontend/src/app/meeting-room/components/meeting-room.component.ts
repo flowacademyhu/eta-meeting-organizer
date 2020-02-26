@@ -76,6 +76,11 @@ import { MeetingRoomService } from './../../shared/services/meeting-room.service
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       </table>
+      <mat-paginator
+        [pageSize]="5"
+        [pageSizeOptions]="[5, 10, 20]"
+        showFirstLastButton>
+      </mat-paginator>
     </div>
   `
 })
