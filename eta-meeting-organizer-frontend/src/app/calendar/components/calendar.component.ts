@@ -19,6 +19,7 @@ import { UserToken } from '~/app/shared/models/user-token.model';
 import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
 import { AuthService } from '~/app/shared/services/auth.service';
 import { ReservationService } from '~/app/shared/services/reservation.service';
+import { Role } from '~/app/models/user.model';
 
 @Component({
   selector: 'app-calendar',
@@ -67,6 +68,8 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnChanges, OnDe
 
   public posted: boolean;
 
+  protected isReader: boolean = false;
+
   public options: OptionsInput;
   public calendarPlugins: object[] = [dayGridPlugin, timeGridPlugin, interactionPlugin];
 
@@ -82,6 +85,11 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnChanges, OnDe
     .subscribe((data) => {
       this.userToken = data;
     });
+    this.checkReader();
+  }
+
+  protected checkReader(): void {
+    (this.userToken.role === Role.READER) ? this.isReader = true : this.isReader = false;
   }
 
   public calendarEvents: EventInput[] = [];
@@ -171,7 +179,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnChanges, OnDe
   }
 
   public selectable() {
-    if (this.checked || !this.meetingRoom) {
+    if (this.checked || !this.meetingRoom || this.isReader) {
       return false;
     } else {
       return true;
