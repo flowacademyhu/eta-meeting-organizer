@@ -6,20 +6,25 @@ import { ApiCommunicationService } from './api-communication.service';
 @Injectable({providedIn: 'root'})
 export class BuildingService {
 
-  public _buildingSub: BehaviorSubject<Building[]> = new BehaviorSubject<Building[]>([]);
+  public _buildingSub: BehaviorSubject<Building> = new BehaviorSubject<Building>({} as Building);
 
-  constructor(private readonly buildingCom: ApiCommunicationService) {}
+  constructor(
+    private readonly buildingCom: ApiCommunicationService) {}
 
   public get buildingSub() {
     return this._buildingSub;
   }
 
   public getAllBuildings() {
-   this.buildingCom.building()
-    .getBuildings()
-    .subscribe((building: Building[]) => {
-      this._buildingSub.next(building);
-    });
+    this.buildingCom
+     .building()
+     .getBuildings();
+   }
+
+  public getBuildings(): Observable<Building[]> {
+    return this.buildingCom
+    .building()
+    .getBuildings();
   }
 
   public getOneBuilding(id: number) {
@@ -57,4 +62,5 @@ export class BuildingService {
     .building()
     .findByCity(city);
   }
+
 }

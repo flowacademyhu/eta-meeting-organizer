@@ -1,6 +1,7 @@
 package hu.flowacademy.meetingorganizer.rest;
 
 import hu.flowacademy.meetingorganizer.persistence.model.Reservation;
+import hu.flowacademy.meetingorganizer.persistence.model.dto.ReservationDTO;
 import hu.flowacademy.meetingorganizer.service.ReservationService;
 import java.util.List;
 import lombok.AllArgsConstructor;
@@ -46,7 +47,7 @@ public class ReservationResource {
   }
 
   @PostMapping
-  public ResponseEntity<Reservation> createReservation(@RequestBody Reservation reservation) {
+  public ResponseEntity<Reservation> createReservation(@RequestBody ReservationDTO reservation) {
     return new ResponseEntity<>(reservationService.createReservation(reservation),
         HttpStatus.CREATED);
   }
@@ -59,7 +60,7 @@ public class ReservationResource {
 
   @PutMapping("/{id}")
   public ResponseEntity<Reservation> updateReservation(@PathVariable Long id,
-      @RequestBody Reservation reservation) {
+      @RequestBody ReservationDTO reservation) {
     reservationService.updateReservation(id, reservation);
     return ResponseEntity.accepted().build();
   }

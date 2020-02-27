@@ -1,7 +1,11 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import { Observable, Subscription } from 'rxjs';
 import { MeetingRoomUpdateComponent } from '~/app/shared/Modals/meeting-room-update.component';
+import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
 import { MeetingRoom } from './../../models/meetingroom.model';
 import { MeetingRoomDeleteComponent } from './../../shared/Modals/meeting-room-delete.component';
 import { MeetingRoomRegisterComponent } from './../../shared/Modals/meeting-room-register.component';
@@ -15,7 +19,7 @@ import { MeetingRoomService } from './../../shared/services/meeting-room.service
     }
     table {
       width: 100%;
-    },
+    }
     .center {
       text-align: center;
       font-size: larger;
@@ -26,18 +30,24 @@ import { MeetingRoomService } from './../../shared/services/meeting-room.service
           (click)="openDialog()">
           <mat-icon>add</mat-icon>
   </button>
-    <div class="row justify-content-center">
-      <table mat-table [dataSource]="meetingRoom$ | async" class="mat-elevation-z8">
+  <div>
+    <mat-form-field>
+    <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Filter">
+  </mat-form-field>
+     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
         <ng-container matColumnDef="name">
-          <th mat-header-cell *matHeaderCellDef>{{'meeting-room.text' | translate}} </th>
+          <th mat-header-cell *matHeaderCellDef  mat-sort-header class="center">
+            {{'meeting-room.text' | translate}} </th>
           <td mat-cell *matCellDef="let meetingRoom"> {{meetingRoom.name}} </td>
         </ng-container>
         <ng-container matColumnDef="numberOfSeat">
-          <th mat-header-cell *matHeaderCellDef> {{'meeting-room.seats' | translate}} </th>
+          <th mat-header-cell *matHeaderCellDef  mat-sort-header class="center">
+            {{'meeting-room.seats' | translate}} </th>
           <td mat-cell *matCellDef="let meetingRoom"> {{meetingRoom.numberOfSeats}} </td>
         </ng-container>
         <ng-container matColumnDef="projector">
-            <th mat-header-cell *matHeaderCellDef> {{'meeting-room.projector' | translate}} </th>
+            <th mat-header-cell *matHeaderCellDef  mat-sort-header class="center">
+              {{'meeting-room.projector' | translate}} </th>
             <td mat-cell *matCellDef="let meetingRoom">
             <mat-icon color="primary"
               *ngIf="meetingRoom.projector!==true">
@@ -51,7 +61,7 @@ import { MeetingRoomService } from './../../shared/services/meeting-room.service
             {{meetingRoom.building?.buildingName}}</td>
         </ng-container>
        <ng-container matColumnDef="building">
-          <th mat-header-cell *matHeaderCellDef> {{'meeting-room.building' | translate}} </th>
+          <th mat-header-cell *matHeaderCellDef class="center"> {{'meeting-room.building' | translate}} </th>
           <td mat-cell *matCellDef="let meetingRoom">
             {{meetingRoom.building?.city}} - {{meetingRoom.building?.address}}</td>
         </ng-container>
@@ -69,21 +79,54 @@ import { MeetingRoomService } from './../../shared/services/meeting-room.service
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       </table>
+      <mat-paginator
+        [pageSize]="5"
+        [pageSizeOptions]="[5, 10, 20]"
+        showFirstLastButton>
+      </mat-paginator>
     </div>
   `
 })
-export class MeetingRoomComponent implements OnInit, OnDestroy {
+export class MeetingRoomComponent implements OnInit, OnDestroy, AfterViewInit {
+
   public meetingRoom$: Observable<MeetingRoom[]>;
-  public displayedColumns: string[] = ['name', 'numberOfSeat', 'projector', 'buildingName', 'building', 'delete'];
+
+  public displayedColumns: string[] = ['name', 'numberOfSeat', 'projector', 'building', 'delete'];
+
+  @ViewChild(MatSort) public sort: MatSort;
+  @ViewChild(MatPaginator) public paginator: MatPaginator;
+
+  constructor(private readonly api: ApiCommunicationService,
+              private readonly dialog: MatDialog,
+              private readonly meetingRoomService: MeetingRoomService) {
+                this.meetingRoom$ = this.api.meetingRoom()
+                                            .getMeetingRooms();
+  }
+
+  public dataSource: MatTableDataSource<MeetingRoom> = new MatTableDataSource<MeetingRoom>();
+
+  public dataSub: Subscription;
+  public unsubFromDialog: Subscription;
   public unsubFromDelete: Subscription;
   public unsubFromUpdate: Subscription;
+
   public meetingRoom: MeetingRoom;
 
-  constructor(private readonly meetingRoomService: MeetingRoomService,
-              private readonly dialog: MatDialog) { }
   public ngOnInit() {
-    this.meetingRoomService.getAllMeetingRooms();
-    this.meetingRoom$ = this.meetingRoomService.meetingRoomSub;
+    this.dataSource.paginator = this.paginator;
+    this.dataSub = this.meetingRoomService.getAllMeetingRoom()
+      .subscribe((res) => {
+        this.dataSource.data = (res as unknown as MeetingRoom[]);
+      });
+  }
+
+  public ngAfterViewInit(): void {
+    this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
+ }
+  public doFilter = (value: string) => {
+    this.dataSource.filter = value.trim()
+     .toLocaleLowerCase();
   }
   public openDialog(): void {
     this.dialog.open(MeetingRoomRegisterComponent, {
@@ -114,11 +157,15 @@ export class MeetingRoomComponent implements OnInit, OnDestroy {
   }
 
   public ngOnDestroy(): void {
+    this.dataSub.unsubscribe();
     if (this.unsubFromDelete) {
       this.unsubFromDelete.unsubscribe();
     }
     if (this.unsubFromUpdate) {
       this.unsubFromUpdate.unsubscribe();
+    }
+    if (this.unsubFromDialog) {
+      this.unsubFromDialog.unsubscribe();
     }
   }
   public deleteMeetingRoom(id: number) {
