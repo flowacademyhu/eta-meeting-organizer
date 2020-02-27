@@ -1,9 +1,14 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatCheckboxChange } from '@angular/material/checkbox';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { Building } from '~/app/models/building.model';
 import { MeetingRoom } from '~/app/models/meetingroom.model';
 import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
+import { AuthService } from '~/app/shared/services/auth.service';
+import { UserToken } from '~/app/shared/models/user-token.model';
+import { Role } from '~/app/models/user.model';
 
 @Component({
   selector: 'app-calendar-header',
@@ -49,6 +54,7 @@ import { ApiCommunicationService } from '~/app/shared/services/api-communication
             </mat-form-field>
         </form>
           <mat-slide-toggle
+          *ngIf="!isReader"
           [checked]="checked"
           (change)="onCheck($event)">
           {{'calendar-header.own-appointments' | translate}}
@@ -60,10 +66,15 @@ import { ApiCommunicationService } from '~/app/shared/services/api-communication
     > </app-calendar>
   `
 })
-export class CalendarHeaderComponent implements OnInit {
+export class CalendarHeaderComponent implements OnInit, OnDestroy {
   public checked: boolean = true;
 
   public cities: string[];
+
+  private destroy$: Subject<boolean> = new Subject<boolean>();
+
+  protected user: UserToken = {} as UserToken;
+  protected isReader: boolean = false;
 
   public buildingId: number;
   public building: Building;
@@ -78,14 +89,31 @@ export class CalendarHeaderComponent implements OnInit {
       meetingRoom: new FormControl()
   });
 
-  constructor(private readonly api: ApiCommunicationService, private changeDetectorRef: ChangeDetectorRef) {
+  constructor(private readonly api: ApiCommunicationService,
+              private changeDetectorRef: ChangeDetectorRef,
+              private readonly authService: AuthService) {
+              this.authService.user.pipe(takeUntil(this.destroy$))
+                .subscribe((data) => {
+                  this.user = data;
+                });
+              this.checkReader();
+  }
+
+  protected checkReader(): void {
+    (this.user.role === Role.READER) ? this.isReader = true : this.isReader = false;
   }
 
   public ngOnInit() {
-    this.meetingRoomSelector.disable();
+    if (this.isReader) {
+      this.checked = false;
+      this.meetingRoomSelector.enable();
+    } else {
+      this.meetingRoomSelector.disable();
+    }
     this.api
       .building()
       .getCities()
+      .pipe(takeUntil(this.destroy$))
       .subscribe((data) => {
         this.cities = data;
       });
@@ -95,6 +123,7 @@ export class CalendarHeaderComponent implements OnInit {
     this.api
       .building()
       .findByCity(this.meetingRoomSelector.controls.city.value)
+      .pipe(takeUntil(this.destroy$))
       .subscribe((data) => {
         this.buildings = data;
       });
@@ -104,6 +133,7 @@ export class CalendarHeaderComponent implements OnInit {
     this.api
       .meetingRoom()
       .findByBuildingId(this.meetingRoomSelector.controls.building.value.id)
+      .pipe(takeUntil(this.destroy$))
       .subscribe((data) => {
         this.meetingRooms = data;
         this.changeDetectorRef.detectChanges();
@@ -121,4 +151,8 @@ export class CalendarHeaderComponent implements OnInit {
     // event.checked ? this.meetingRoomSelector.disable() : this.meetingRoomSelector.enable();
   }
 
+  public ngOnDestroy(): void {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
+  }
 }
