@@ -121,7 +121,10 @@ export class BuildingComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   public deleteDialog(id: number) {
-    const dialogRef = this.dialog.open(BuildingDeleteDialogComponent);
+    const dialogRef = this.dialog.open(BuildingDeleteDialogComponent, {
+      height: '35%',
+      width: '30%'
+    });
     this.deleteUnsub = dialogRef.afterClosed()
     .subscribe((result) => {
       if (result === 'true') {
