@@ -10,38 +10,53 @@ import { MeetingRoomService } from './../services/meeting-room.service';
 @Component({
   selector: 'app-meeting-room-register',
   styles: [`
-  .mat-dialog-content{
-    display: flex;
-    justify-content: center;
-    height: 380px;
+  .align-title {
+    padding-top: 5%;
+    padding-bottom: 5%;
+    margin: 0 auto;
+    font-size: 250%;
+    text-align: center;
   }
-  .mat-form-field {
-    width:340px;
+  .align-content{
+    height: 80%;
+    font-size: 160%;
+    margin: 0 auto;
+    text-align: center;
   }
-  .space{
-    margin-top: 20%;
+  mat-option {
+      font-size: 150%;
+      margin: 0 auto;
+      text-align: center;
   }
-  `],
+  mat-form-field {
+    width: 100%;
+    text-align: center;
+    margin: 0 auto;
+  }
+  button {
+    width: 80%;
+    margin: 0 auto;
+    border:1px solid;
+    border-color: black;
+    font-size: 100%;
+  }
+`],
  template: `
- <div mat-dialog-content>
-   <form [formGroup]="meetingForm" (ngSubmit)="onSubmit()" align="center">
-<!-- város kilistázás -->
+<mat-dialog-content class="align-title">{{'meeting-room.post' | translate}}</mat-dialog-content>
+<mat-dialog-content class="align-content">
+   <form [formGroup]="meetingForm" (ngSubmit)="onSubmit()">
      <mat-form-field>
        <mat-label>{{'building.city' | translate}}</mat-label>
        <mat-select (selectionChange)="getBuildings()" formControlName="city">
          <mat-option *ngFor="let city of cities" [value]="city" >{{city}}</mat-option>
        </mat-select>
      </mat-form-field>
-
-<!-- címek kilistázása -->
      <mat-form-field>
        <mat-label>{{'building.address' | translate}}</mat-label>
          <mat-select (selectionChange)="getMeetingRooms()"formControlName="building">
            <mat-option *ngFor="let building of buildings" [value]="building">{{building.address}}</mat-option>
          </mat-select>
      </mat-form-field>
-
-<!-- tárgyaló neve -->
      <mat-form-field>
        <mat-label>{{'meeting-room.text' | translate}}</mat-label>
          <input type="text" name="name" formControlName="name"
@@ -49,16 +64,12 @@ import { MeetingRoomService } from './../services/meeting-room.service';
            <mat-error>{{'validation.validate' | translate}}</mat-error>
      </mat-form-field>
      <br>
-
-<!-- űlőhelyek száma -->
      <mat-form-field>
        <mat-label>{{'meeting-room.seats' | translate}}</mat-label>
          <input  type="number" name="numberOfSeats" formControlName="numberOfSeats"
            matInput placeholder="{{'meeting-room.seats' | translate}}">
            <mat-error>{{'validation.validate' | translate}}</mat-error>
      </mat-form-field>
-
-<!-- projector -->
      <br>
      <div align="left">
        <br>
@@ -66,17 +77,19 @@ import { MeetingRoomService } from './../services/meeting-room.service';
          {{'meeting-room.projector' | translate}}
        </mat-slide-toggle>
      </div>
-
-<!-- gombok -->
-     <div class="space">
-       <button mat-stroked-button mat-dialog-close style="float: left; color: primary;" >cancel</button>
-       <button mat-stroked-button mat-dialog-close type="submit" style="float: right;" [disabled]="meetingForm.invalid"
+     <br>
+     <mat-dialog-actions>
+     <button mat-raised-button mat-dialog-close type="submit" color="primary"[disabled]="meetingForm.invalid"
          (click)="openSnackBar() "backgroundcolor="primary">
-         Ok
+         {{'meeting-room.saveButton' | translate}}
        </button>
-     </div>
+    </mat-dialog-actions>
+       <br>
+       <mat-dialog-actions>
+       <button mat-raised-button mat-dialog-close color="accent">{{'meeting-room.cancel' | translate}}</button>
+       </mat-dialog-actions>
    </form>
- </div>
+ </mat-dialog-content>
  `
 })
 

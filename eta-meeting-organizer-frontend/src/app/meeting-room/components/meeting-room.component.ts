@@ -117,7 +117,8 @@ export class MeetingRoomComponent implements OnInit, OnDestroy, AfterViewInit {
   public openDialog(): void {
     this.dialog.open(MeetingRoomRegisterComponent, {
       disableClose: true,
-      width: '400px',
+      height: '85%',
+      width: '25%',
     });
   }
 
