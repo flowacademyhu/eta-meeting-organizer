@@ -3,12 +3,11 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { Building } from '~/app/models/building.model';
 import { BuildingDeleteDialogComponent } from '~/app/shared/Modals/building-delete-dialog';
 import { BuildingRegisterComponent } from '~/app/shared/Modals/building-register.component';
 import { BuildingUpdateDialogComponent } from '~/app/shared/Modals/building-update-dialog';
-import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
 import { BuildingService } from './../../shared/services/building.service';
 
 @Component({
@@ -16,18 +15,8 @@ import { BuildingService } from './../../shared/services/building.service';
   styles: [`
     table {
       width: 100%;
-      overflow-x: auto;
-      overflow-y: hidden;
     }
-    th.mat-header-cell {
-      text-align: left;
-      max-width: 300px!important;
-    }
-    .row {
-      min-height: calc(100vh - 60px);
-    }
-    .center {
-      text-align: center;
+    .column {
       font-size: larger;
     }
     .addButton {
@@ -45,15 +34,15 @@ import { BuildingService } from './../../shared/services/building.service';
   </mat-form-field>
       <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
       <ng-container matColumnDef="buildingName">
-          <th mat-header-cell *matHeaderCellDef class="center">{{'building.buildingName' | translate}}</th>
+          <th mat-header-cell *matHeaderCellDef class="column">{{'building.buildingName' | translate}}</th>
           <td mat-cell *matCellDef="let building"> {{building.buildingName}} </td>
         </ng-container>
         <ng-container matColumnDef="city">
-          <th mat-header-cell *matHeaderCellDef class="center" mat-sort-header>{{'building.city' | translate}} </th>
+          <th mat-header-cell *matHeaderCellDef class="column">{{'building.city' | translate}}</th>
           <td mat-cell *matCellDef="let building"> {{building.city}} </td>
         </ng-container>
         <ng-container matColumnDef="address">
-          <th mat-header-cell *matHeaderCellDef class="center" mat-sort-header> {{'building.address' | translate}} </th>
+          <th mat-header-cell *matHeaderCellDef class="column"> {{'building.address' | translate}} </th>
           <td mat-cell *matCellDef="let building"> {{building.address}} </td>
         </ng-container>
         <ng-container matColumnDef="delete">
@@ -84,34 +73,26 @@ import { BuildingService } from './../../shared/services/building.service';
 })
 
 export class BuildingComponent implements OnInit, OnDestroy, AfterViewInit {
-
-  public building$: Observable<Building[]>;
   public displayedColumns: string[] = ['buildingName', 'city', 'address', 'delete'];
   public deleteUnsub: Subscription;
   public updateUnsub: Subscription;
   public postUnsub: Subscription;
+  public dataSource: MatTableDataSource<Building> = new MatTableDataSource<Building>();
+  public dataSub: Subscription;
 
   @ViewChild(MatSort) public sort: MatSort;
   @ViewChild(MatPaginator) public paginator: MatPaginator;
 
-  constructor(private readonly api: ApiCommunicationService,
-              private readonly dialog: MatDialog,
+  constructor(private readonly dialog: MatDialog,
               private readonly buildingService: BuildingService) {
-                this.building$ = this.api.building()
-                                         .getBuildings();
   }
 
-  public dataSource: MatTableDataSource<Building> = new MatTableDataSource<Building>();
-
-  public dataSub: Subscription;
-
   public ngOnInit() {
+    this.buildingService.getAllBuildings();
     this.dataSource.paginator = this.paginator;
-    this.dataSub = this.buildingService.getBuildings()
-      .subscribe((res) => {
-        this.dataSource.data = (res as unknown as Building[]);
-      });
-    }
+    this.buildingService.buildingSub
+    .subscribe((buildings) => this.dataSource.data = buildings);
+  }
 
   public ngAfterViewInit(): void {
     this.dataSource.sort = this.sort;
@@ -159,7 +140,9 @@ export class BuildingComponent implements OnInit, OnDestroy, AfterViewInit {
    }
 
    public ngOnDestroy(): void {
-    this.dataSub.unsubscribe();
+    if (this.dataSub) {
+      this.dataSub.unsubscribe();
+    }
     if (this.deleteUnsub) {
       this.deleteUnsub.unsubscribe();
     }

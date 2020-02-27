@@ -4,17 +4,41 @@ import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-meeting-room-delete',
+  styles: [`
+    .align-title {
+      padding-top: 7%;
+      margin: 0 auto;
+      font-size: 250%;
+      text-align: center;
+    }
+    .align-content {
+      font-size: 170%;
+      margin: 0 auto;
+      text-align: center;
+    }
+    button {
+      margin-top: 15%;
+      width: 80%;
+      margin: 0 auto;
+      border:1px solid;
+      border-color: black;
+      font-size: 130%;
+    }
+  `],
   template: `
-  <h3 md-dialog-title>{{'meeting-room-delete.meetingRoomDelete' | translate}}</h3>
-  <mat-dialog-content>
-  {{'meeting-room-delete.verification' | translate}}
-  </mat-dialog-content>
+  <mat-dialog-content class="align-title">{{'meeting-room-delete.meetingRoomDelete' | translate}}</mat-dialog-content>
+  <br>
+  <mat-dialog-content class="align-content">{{'meeting-room-delete.verification' | translate}}</mat-dialog-content>
+  <br>
   <mat-dialog-actions >
-    <button mat-stroked-button mat-dialog-close="false">{{'meeting-room-delete.no' | translate}}</button>
-    <button mat-stroked-button mat-dialog-close="true" color="primary" (click)="openSnackBar()">
+  <button mat-raised-button mat-dialog-close="true" color="primary" (click)="openSnackBar()">
     {{'meeting-room-delete.yes' | translate}}
     </button>
-  </mat-dialog-actions>
+    </mat-dialog-actions>
+    <br>
+    <mat-dialog-actions >
+    <button mat-raised-button mat-dialog-close="false" color="accent">{{'meeting-room-delete.no' | translate}}</button>
+    </mat-dialog-actions>
   `
 })
 
