@@ -107,7 +107,8 @@ export class BuildingComponent implements OnInit, OnDestroy, AfterViewInit {
   public postDialog(): void {
     const dialogRef = this.dialog.open(BuildingRegisterComponent, {
       disableClose: true,
-      width: '400px',
+      height: '65%',
+      width: '25%',
     });
     this.postUnsub = dialogRef.afterClosed()
     .subscribe();

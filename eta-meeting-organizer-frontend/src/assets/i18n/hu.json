@@ -11,6 +11,7 @@
   },
   "building": {
     "buildingName": "Épület megnevezése",
+    "post": "Épület létrehozás.",
     "city": "Város",
     "address":"Cím",
     "saveButton":"Mentés",
@@ -40,8 +41,11 @@
     "projector":"Projektor",
     "saveButton":"Mentés",
     "delete": "Törlés",
-    "add":"Iroda hozzáadás"
-  },
+    "add":"Iroda hozzáadás",
+    "post": "Tárgyaló létrehozása",
+    "edit": "Szerkesztés",
+    "cancel": "Mégse"
+    },
   "navbar": {
     "calendar": "Naptár",
     "usersManagement" : "Felhasználó-kezelés",

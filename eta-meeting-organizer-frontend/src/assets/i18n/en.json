@@ -11,6 +11,7 @@
   },
   "building": {
     "buildingName": "Building name",
+    "post": "Create building",
     "city": "City",
     "address":"Address",
     "saveButton":"Save",
@@ -41,8 +42,11 @@
     "projector":"Projector",
     "saveButton":"Save",
     "delete": "Delete",
-    "add":"Add meeting room"
-  },
+    "add":"Add meeting room",
+    "post": "Meeting-room creation.",
+    "edit": "Edit",
+    "cancel": "Cancel"
+    },
   "navbar": {
     "calendar": "Calendar",
     "usersManagement" : "User Management",
