@@ -106,6 +106,7 @@ export class BuildingComponent implements OnInit, OnDestroy, AfterViewInit {
 
   public postDialog(): void {
     const dialogRef = this.dialog.open(BuildingRegisterComponent, {
+      disableClose: true,
       width: '400px',
     });
     this.postUnsub = dialogRef.afterClosed()
@@ -114,6 +115,9 @@ export class BuildingComponent implements OnInit, OnDestroy, AfterViewInit {
 
   public updateDialog(buildingData: Building) {
     const dialogRef = this.dialog.open(BuildingUpdateDialogComponent, {
+      disableClose: true,
+      height: '65%',
+      width: '25%',
       data: buildingData
     });
     this.updateUnsub = dialogRef.afterClosed()
@@ -122,6 +126,7 @@ export class BuildingComponent implements OnInit, OnDestroy, AfterViewInit {
 
   public deleteDialog(id: number) {
     const dialogRef = this.dialog.open(BuildingDeleteDialogComponent, {
+      disableClose: true,
       height: '35%',
       width: '30%'
     });
