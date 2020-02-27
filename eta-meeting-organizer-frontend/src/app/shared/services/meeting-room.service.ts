@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { MeetingRoom } from '~/app/models/meetingroom.model';
 import { ApiCommunicationService } from './api-communication.service';
 
@@ -21,12 +21,6 @@ export class MeetingRoomService {
       this._meetingRoomSub.next(meetingRoom);
     });
   }
-
-  public getAllMeetingRoom(): Observable<MeetingRoom[]> {
-    return this.meetingRoomCom
-     .meetingRoom()
-     .getMeetingRooms();
-   }
 
   public deleteMeetingRoom(id: number) {
     return this.meetingRoomCom

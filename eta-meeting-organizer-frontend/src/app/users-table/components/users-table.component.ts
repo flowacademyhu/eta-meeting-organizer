@@ -3,7 +3,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { UserVerificationDialogComponent } from '~/app/shared/Modals/user-verification-dialog';
 import { UserToken } from '~/app/shared/models/user-token.model';
@@ -11,7 +11,6 @@ import { AuthService } from '~/app/shared/services/auth.service';
 import { User } from './../../models/user.model';
 import { UserDeleteDialogComponent } from './../../shared/Modals/user-delete-dialog';
 import { UserService } from './../../shared/services/user.service';
-
 
 @Component({
   selector: 'app-users-table',
@@ -74,12 +73,10 @@ import { UserService } from './../../shared/services/user.service';
         [pageSizeOptions]="[5, 10, 20]"
         showFirstLastButton>
       </mat-paginator>
-
   `
 })
 
 export class UsersTableComponent implements OnInit, OnDestroy, AfterViewInit {
-  public users$: Observable<User[]>;
   public displayedColumns: string[] = ['id', 'email', 'role', 'action'];
   public deleteUnsub: Subscription;
   public verifyUnsub: Subscription;
@@ -102,26 +99,20 @@ export class UsersTableComponent implements OnInit, OnDestroy, AfterViewInit {
 
    public ngOnInit() {
     this.userService.getAllUsers();
-    this.users$ = this.userService
-    .userSub;
     this.dataSource.paginator = this.paginator;
-    this.userService.userSub.subscribe((info) => this.dataSource.data = info );
-/*     this.dataSub = this.userService.getUsers()
-      .subscribe((res) => {
-  }); */
-    
-
+    this.userService.userSub.subscribe((users) => this.dataSource.data = users);
    }
 
    public ngAfterViewInit(): void {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
- }
+   }
 
- public doFilter = (value: string) => {
-  this.dataSource.filter = value.trim()
+   public doFilter = (value: string) => {
+    this.dataSource.filter = value.trim()
    .toLocaleLowerCase();
-}
+   }
+
    public deleteDialog(id: string) {
     this.dialogConfig.disableClose = true;
     const dialogRef = this.dialog.open(UserDeleteDialogComponent, {
@@ -163,7 +154,7 @@ export class UsersTableComponent implements OnInit, OnDestroy, AfterViewInit {
    }
 
    public ngOnDestroy(): void {
-     if( this.dataSub) {
+     if (this.dataSub) {
       this.dataSub.unsubscribe();
      }
      if (this.deleteUnsub) {

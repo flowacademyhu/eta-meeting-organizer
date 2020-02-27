@@ -3,9 +3,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { MeetingRoomUpdateComponent } from '~/app/shared/Modals/meeting-room-update.component';
-import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
 import { MeetingRoom } from './../../models/meetingroom.model';
 import { MeetingRoomDeleteComponent } from './../../shared/Modals/meeting-room-delete.component';
 import { MeetingRoomRegisterComponent } from './../../shared/Modals/meeting-room-register.component';
@@ -14,8 +13,8 @@ import { MeetingRoomService } from './../../shared/services/meeting-room.service
 @Component({
   selector: 'app-meeting-room-listing',
   styles: [`
-    .row {
-      min-height: calc(100vh - 60px);
+    .column {
+      font-size: larger;
     }
     .column {
       font-size: larger;
@@ -85,50 +84,42 @@ import { MeetingRoomService } from './../../shared/services/meeting-room.service
 })
 export class MeetingRoomComponent implements OnInit, OnDestroy, AfterViewInit {
 
-  public meetingRoom$: Observable<MeetingRoom[]>;
-
   public displayedColumns: string[] = ['name', 'numberOfSeat', 'projector', 'building', 'delete'];
-
-  @ViewChild(MatSort) public sort: MatSort;
-  @ViewChild(MatPaginator) public paginator: MatPaginator;
-
-  constructor(private readonly api: ApiCommunicationService,
-              private readonly dialog: MatDialog,
-              private readonly meetingRoomService: MeetingRoomService) {
-                this.meetingRoom$ = this.api.meetingRoom()
-                                            .getMeetingRooms();
-  }
-
   public dataSource: MatTableDataSource<MeetingRoom> = new MatTableDataSource<MeetingRoom>();
-
   public dataSub: Subscription;
   public unsubFromDialog: Subscription;
   public unsubFromDelete: Subscription;
   public unsubFromUpdate: Subscription;
 
-  public meetingRoom: MeetingRoom;
+  @ViewChild(MatSort) public sort: MatSort;
+  @ViewChild(MatPaginator) public paginator: MatPaginator;
+
+  constructor(private readonly dialog: MatDialog,
+              private readonly meetingRoomService: MeetingRoomService) {
+  }
 
   public ngOnInit() {
+    this.meetingRoomService.getAllMeetingRooms();
     this.dataSource.paginator = this.paginator;
-    this.dataSub = this.meetingRoomService.getAllMeetingRoom()
-      .subscribe((res) => {
-        this.dataSource.data = (res as unknown as MeetingRoom[]);
-      });
+    this.meetingRoomService.meetingRoomSub.subscribe((meetingRooms) => this.dataSource.data = meetingRooms);
   }
 
   public ngAfterViewInit(): void {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
- }
+  }
+
   public doFilter = (value: string) => {
     this.dataSource.filter = value.trim()
      .toLocaleLowerCase();
   }
+
   public openDialog(): void {
     this.dialog.open(MeetingRoomRegisterComponent, {
       width: '400px',
     });
   }
+
   public deleteDialog(id: number) {
     const dialogRef = this.dialog.open(MeetingRoomDeleteComponent, {
       height: '35%',
@@ -152,8 +143,17 @@ export class MeetingRoomComponent implements OnInit, OnDestroy, AfterViewInit {
     .subscribe();
   }
 
+  public deleteMeetingRoom(id: number) {
+    this.meetingRoomService.deleteMeetingRoom(id)
+      .subscribe(() => {
+        this.meetingRoomService.getAllMeetingRooms();
+    });
+  }
+
   public ngOnDestroy(): void {
-    this.dataSub.unsubscribe();
+    if (this.dataSub) {
+      this.dataSub.unsubscribe();
+    }
     if (this.unsubFromDelete) {
       this.unsubFromDelete.unsubscribe();
     }
@@ -163,11 +163,5 @@ export class MeetingRoomComponent implements OnInit, OnDestroy, AfterViewInit {
     if (this.unsubFromDialog) {
       this.unsubFromDialog.unsubscribe();
     }
-  }
-  public deleteMeetingRoom(id: number) {
-    this.meetingRoomService.deleteMeetingRoom(id)
-      .subscribe(() => {
-        this.meetingRoomService.getAllMeetingRooms();
-    });
   }
 }
