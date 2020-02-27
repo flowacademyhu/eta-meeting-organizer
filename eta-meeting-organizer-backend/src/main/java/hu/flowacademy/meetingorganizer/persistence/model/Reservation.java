@@ -1,5 +1,6 @@
 package hu.flowacademy.meetingorganizer.persistence.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -38,8 +39,10 @@ public class Reservation {
   private String summary;
 
   @ManyToOne
+  @JsonIgnore
   private User user;
 
   @ManyToOne
+  @JsonIgnore
   private MeetingRoom meetingRoom;
 }

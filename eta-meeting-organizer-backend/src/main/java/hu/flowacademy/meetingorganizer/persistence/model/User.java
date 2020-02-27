@@ -50,8 +50,6 @@ public class User implements OAuth2User, UserDetails {
   @Enumerated(EnumType.STRING)
   private Role role;
 
-  @JsonIgnore
-  @Transient
   @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
   private List<Reservation> reservations;
 
@@ -84,20 +82,12 @@ public class User implements OAuth2User, UserDetails {
   }
 
   @Data
-  @Entity
-  @Table(name = "user_authority")
   @NoArgsConstructor
   @AllArgsConstructor
   public static class UserAuthority implements GrantedAuthority {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
     private String authority;
 
-    @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 
     public UserAuthority(GrantedAuthority grantedAuthority) {

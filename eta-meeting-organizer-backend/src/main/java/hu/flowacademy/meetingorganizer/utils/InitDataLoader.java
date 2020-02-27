@@ -155,7 +155,7 @@ public class InitDataLoader {
         .endingTime((LocalDateTime.of(2020, 2, 25, 18, 00)).toInstant(ZoneOffset.UTC).toEpochMilli()).build());
     reservationRepository.save(Reservation.builder()
         .id(2L)
-        .user(userRepository.findById("112003548510441733141").orElse(null))
+        .user(userRepository.findById("11111110350006150715113077777").orElse(null))
         .meetingRoom(meetingRoomRepository.findById(2L).orElse(null))
         .title("Flow tárgyalás")
         .summary("Új ügyfelek felkutatása.")
