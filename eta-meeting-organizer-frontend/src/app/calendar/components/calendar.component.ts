@@ -81,7 +81,6 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnChanges {
               private readonly reservationService: ReservationService) {
     this.subs = this.authService.user.pipe(take(1))
     .subscribe((data) => {
-      console.log('data', data);
       this.userToken = data;
     });
   }
@@ -185,7 +184,6 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnChanges {
       .subscribe(
       (data) => {
         this.reservations = data;
-        console.log(this.reservations);
         this.calendarEvents = [];
         for (const reservation of this.reservations) {
           this.calendarEvents.push(
@@ -202,12 +200,11 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnChanges {
     );
   }
 
-  getReservationsByUser() {
+  public getReservationsByUser() {
     this.api.reservation()
     .getReservationsByUserId(this.userToken.sub)
     .subscribe(
       (data) => {
-        console.log('data: ', data);
         this.reservations = data;
         this.calendarEvents = [];
         for (const reservation of this.reservations) {
