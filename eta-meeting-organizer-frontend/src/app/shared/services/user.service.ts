@@ -13,12 +13,6 @@ export class UserService {
     return this._userSub;
   }
 
-  public getUser(id: string) {
-    return this.userCom
-    .user()
-    .getOneUserById(id);
-  }
-
   public getUsers(): Observable<User[]> {
     return this.userCom
     .user()

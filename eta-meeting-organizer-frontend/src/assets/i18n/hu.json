@@ -33,6 +33,7 @@
     "text": "Tárgyaló neve",
     "building": "Épület",
     "seats": "Ülőhely",
+    "buildingName": "Épület megnevezése",
     "placeholderName": "Írd be a neved",
     "placeholderSeats": "ülőhelyek száma",
     "selectBuilding":"Válasz telephelyet",
