@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
 import { Building } from '~/app/models/building.model';
@@ -46,6 +46,7 @@ import { MeetingRoomService } from './../services/meeting-room.service';
        <mat-label>{{'meeting-room.text' | translate}}</mat-label>
          <input type="text" name="name" formControlName="name"
            matInput placeholder="{{'meeting-room.text' | translate}}">
+           <mat-error>{{'validation.validate' | translate}}</mat-error>
      </mat-form-field>
      <br>
 
@@ -54,6 +55,7 @@ import { MeetingRoomService } from './../services/meeting-room.service';
        <mat-label>{{'meeting-room.seats' | translate}}</mat-label>
          <input  type="number" name="numberOfSeats" formControlName="numberOfSeats"
            matInput placeholder="{{'meeting-room.seats' | translate}}">
+           <mat-error>{{'validation.validate' | translate}}</mat-error>
      </mat-form-field>
 
 <!-- projector -->
@@ -68,7 +70,7 @@ import { MeetingRoomService } from './../services/meeting-room.service';
 <!-- gombok -->
      <div class="space">
        <button mat-stroked-button mat-dialog-close style="float: left; color: primary;" >cancel</button>
-       <button mat-stroked-button mat-dialog-close type="submit" style="float: right;"
+       <button mat-stroked-button mat-dialog-close type="submit" style="float: right;" [disabled]="meetingForm.invalid"
          (click)="openSnackBar() "backgroundcolor="primary">
          Ok
        </button>
@@ -103,11 +105,11 @@ export class MeetingRoomRegisterComponent implements OnInit {
   }
 
   public meetingForm: FormGroup = new FormGroup({
-    building: new FormControl(''),
-    city : new FormControl(''), // kiszedve , Validators.required
-    name : new FormControl(''),
-    numberOfSeats : new FormControl(''),
-    projector : new FormControl(''),
+    building: new FormControl(undefined, Validators.required),
+    city : new FormControl(undefined, Validators.required),
+    name : new FormControl(undefined, Validators.required),
+    numberOfSeats : new FormControl(undefined, Validators.required),
+    projector : new FormControl(),
   });
 
   public getBuildings() {
