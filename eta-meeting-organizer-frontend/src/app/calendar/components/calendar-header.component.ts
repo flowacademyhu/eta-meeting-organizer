@@ -5,10 +5,10 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { Building } from '~/app/models/building.model';
 import { MeetingRoom } from '~/app/models/meetingroom.model';
+import { Role } from '~/app/models/user.model';
+import { UserToken } from '~/app/shared/models/user-token.model';
 import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
 import { AuthService } from '~/app/shared/services/auth.service';
-import { UserToken } from '~/app/shared/models/user-token.model';
-import { Role } from '~/app/models/user.model';
 
 @Component({
   selector: 'app-calendar-header',
