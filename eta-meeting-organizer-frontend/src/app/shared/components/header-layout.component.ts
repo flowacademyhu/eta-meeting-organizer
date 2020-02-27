@@ -51,6 +51,7 @@ import { AuthService } from '../services/auth.service';
   <p *ngIf="isToken" class="email">{{ user.username }}</p>
 
   <a *ngIf="isToken" id="logout" (click)="logout()" class="ml-2" style="cursor: pointer;">
+
   <p><img padding="20" src="../../../assets/logout.png" height="50"/></p>
 </a>
 </mat-toolbar>`

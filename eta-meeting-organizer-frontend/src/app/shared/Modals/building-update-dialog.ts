@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
 import { TranslateService } from '@ngx-translate/core';
 import { Building } from '~/app/models/building.model';
@@ -13,20 +13,23 @@ import { BuildingService } from './../services/building.service';
   <mat-form-field>
       <mat-label>{{'building.buildingName' | translate}}</mat-label>
         <input matInput type="text" name="buildingName" formControlName="buildingName">
+        <mat-error>{{'validation.validate' | translate}}</mat-error>
     </mat-form-field>
     <br>
     <mat-form-field>
       <mat-label>{{'building.city' | translate}}</mat-label>
         <input matInput type="text" name="city" formControlName="city">
+        <mat-error>{{'validation.validate' | translate}}</mat-error>
     </mat-form-field>
     <br>
     <mat-form-field>
       <mat-label>{{'building.address' | translate}}</mat-label>
         <input matInput type="text" name="address" formControlName="address">
+        <mat-error>{{'validation.validate' | translate}}</mat-error>
         </mat-form-field>
     <div>
       <button mat-button mat-dialog-close>{{'building.cancel' | translate}}</button>
-      <button mat-button mat-dialog-close type="submit" cdkFocusInitial
+      <button mat-button mat-dialog-close type="submit" cdkFocusInitial [disabled]="buildingForm.invalid"
       (click)="openSnackBar()">{{'building.update' | translate}}</button>
     </div>
   </form>
@@ -52,9 +55,9 @@ export class BuildingUpdateDialogComponent implements OnInit {
   }
 
   public buildingForm: FormGroup = new FormGroup({
-    city: new FormControl(),
-    address: new FormControl(),
-    buildingName: new FormControl(),
+    city: new FormControl(undefined, Validators.required),
+    address: new FormControl(undefined, Validators.required),
+    buildingName: new FormControl(undefined, Validators.required),
   });
 
   public onSubmit() {

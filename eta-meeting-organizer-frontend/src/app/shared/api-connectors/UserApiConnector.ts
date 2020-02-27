@@ -5,7 +5,7 @@ import { AbstractApiConnector } from '~/app/shared/api-connectors/AbstractApiCon
 export class UserApiConnector extends AbstractApiConnector {
   protected readonly apiRoute: string = `${this.apiBaseUrl}`;
 
-  public getUsers() {
+  public getUsers(): Observable<User[]> {
    return this.http.get<User[]>(`${this.apiRoute}/users`);
   }
 
