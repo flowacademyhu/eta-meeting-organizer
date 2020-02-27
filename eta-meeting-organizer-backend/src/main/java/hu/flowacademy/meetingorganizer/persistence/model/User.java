@@ -2,6 +2,7 @@ package hu.flowacademy.meetingorganizer.persistence.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -48,6 +49,11 @@ public class User implements OAuth2User, UserDetails {
 
   @Enumerated(EnumType.STRING)
   private Role role;
+
+  @JsonIgnore
+  @Transient
+  @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+  private List<Reservation> reservations;
 
   @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
   @Transient

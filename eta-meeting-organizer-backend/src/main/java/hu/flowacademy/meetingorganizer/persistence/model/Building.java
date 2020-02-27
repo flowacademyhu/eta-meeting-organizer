@@ -2,6 +2,7 @@ package hu.flowacademy.meetingorganizer.persistence.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -40,8 +41,7 @@ public class Building {
   @Column(unique = true)
   private String buildingName;
 
-  @OneToMany
+  @OneToMany(mappedBy = "building", cascade = CascadeType.ALL)
   @JsonIgnore
-  @JoinTable(name = "building_meetingrooms")
   private List<MeetingRoom> meetingRoom;
 }
