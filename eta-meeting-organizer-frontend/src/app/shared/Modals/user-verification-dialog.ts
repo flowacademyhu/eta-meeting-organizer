@@ -5,12 +5,21 @@ import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-user-verification-dialog',
   template: `
-  <h2 mat-dialog-title>{{'user-verification-dialog.userVerification' | translate}}</h2>
-  <mat-dialog-content>{{'user-verification-dialog.verification' | translate}}</mat-dialog-content>
+  <h2 mat-dialog-title>{{'user-verification-dialog.roleSetting' | translate}}</h2>
+  <mat-dialog-content>
+  <mat-form-field>
+    <mat-label>{{'user-verification-dialog.roles' | translate}}</mat-label>
+    <mat-select [(value)]="choosenRole">
+      <mat-option value="ADMIN">{{'user-verification-dialog.admin' | translate}}</mat-option>
+      <mat-option value="USER">{{'user-verification-dialog.user' | translate}}</mat-option>
+      <mat-option value="READER">{{'user-verification-dialog.reader' | translate}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  </mat-dialog-content>
   <mat-dialog-actions>
-    <button mat-raised-button mat-dialog-close="false">{{'user-verification-dialog.no' | translate}}</button>
-    <button mat-raised-button mat-dialog-close="true" color="primary"
-    (click)="openSnackBar()">{{'user-verification-dialog.yes' | translate}}</button>
+    <button mat-raised-button mat-dialog-close>{{'user-verification-dialog.cancel' | translate}}</button>
+    <button mat-raised-button mat-dialog-close={{choosenRole}} color="primary"
+    (click)="openSnackBar()">{{'user-verification-dialog.setRole' | translate}}</button>
   </mat-dialog-actions>
   `
 })

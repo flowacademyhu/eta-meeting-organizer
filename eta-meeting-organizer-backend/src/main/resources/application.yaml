@@ -16,8 +16,8 @@ spring:
       client:
         registration:
           google:
-            clientId: 160652702041-mvfvg4h4rloclmjh2k9gpdo2hsq3la9b.apps.googleusercontent.com
-            clientSecret: JgxeWFNIeJ4mEIKd8gH5VGw_
+            clientId: 164293581002-nej367g74ssqu2q5bjat9f7pi8ir91eb.apps.googleusercontent.com
+            clientSecret: IuRVVo5Jpn1Cp9WZ3jCHRtld
             redirectUri: "{baseUrl}/oauth2/callback/{registrationId}"
             scope:
               - email
@@ -35,10 +35,9 @@ spring:
             enable: true
 app:
   redirectUri: http://localhost:4200/auth
-  tokenSecret: JgxeWFNIeJ4mEIKd8gH5VGw_
+  tokenSecret: IuRVVo5Jpn1Cp9WZ3jCHRtld
 role:
-
-firstAdmin: dombimihaly89@gmail.com
+  firstAdmin: wysiomeetingorganizer@gmail.com
 mailing:
   mailgun:
     apiKey: ${MAILGUN_API_KEY:}
@@ -72,8 +71,8 @@ spring:
       client:
         registration:
           google:
-            clientId: 160652702041-mvfvg4h4rloclmjh2k9gpdo2hsq3la9b.apps.googleusercontent.com
-            clientSecret: JgxeWFNIeJ4mEIKd8gH5VGw_
+            clientId: 164293581002-nej367g74ssqu2q5bjat9f7pi8ir91eb.apps.googleusercontent.com
+            clientSecret: IuRVVo5Jpn1Cp9WZ3jCHRtld
             redirectUri: "{baseUrl}/oauth2/callback/{registrationId}"
             scope:
               - email
@@ -105,6 +104,6 @@ mailing:
                     \n\nThis is an automated message - please do not reply to it!"
 app:
   redirectUri: http://localhost:4200/auth
-  tokenSecret: JgxeWFNIeJ4mEIKd8gH5VGw_
+  tokenSecret: IuRVVo5Jpn1Cp9WZ3jCHRtld
 role:
-  firstAdmin: dombimihaly89@gmail.com
+  firstAdmin: wysiomeetingorganizer@gmail.com

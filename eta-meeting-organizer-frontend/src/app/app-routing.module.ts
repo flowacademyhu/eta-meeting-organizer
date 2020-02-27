@@ -31,14 +31,6 @@ const routes: Routes = [
     path: 'auth',
   },
   {
-    canActivate: [AuthGuard],
-    component: MainLayoutComponent,
-    loadChildren: () => import('./welcome/welcome.module')
-      .then((m) => m.WelcomeModule),
-    path: 'welcome',
-    pathMatch: 'full',
-  },
-  {
     canActivate: [AuthGuard, AdminGuard],
     component: MainLayoutComponent,
     loadChildren: () => import('./building/building.module')

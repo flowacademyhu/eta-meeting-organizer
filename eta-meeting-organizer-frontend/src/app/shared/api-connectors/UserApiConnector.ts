@@ -5,7 +5,7 @@ import { AbstractApiConnector } from '~/app/shared/api-connectors/AbstractApiCon
 export class UserApiConnector extends AbstractApiConnector {
   protected readonly apiRoute: string = `${this.apiBaseUrl}`;
 
-  public getUsers() {
+  public getUsers(): Observable<User[]> {
    return this.http.get<User[]>(`${this.apiRoute}/users`);
   }
 
@@ -17,7 +17,7 @@ export class UserApiConnector extends AbstractApiConnector {
     return this.http.delete(`${this.apiRoute}/users/` + id);
   }
 
-  public updateUserById(id: string) {
-    return this.http.put(`${this.apiRoute}/users/` + id, {verifiedByAdmin: true} );
+  public userRoleSet(id: string, roleset: string) {
+    return this.http.put(`${this.apiRoute}/users/` + id + `/role`, {role: roleset});
   }
 }

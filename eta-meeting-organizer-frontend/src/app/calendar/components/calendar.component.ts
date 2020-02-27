@@ -46,6 +46,8 @@ import { ReservationService } from '~/app/shared/services/reservation.service';
       [selectMirror]="true"
       [selectOverlap]="false"
       (select)="bookDialog($event)"
+      [height]="'auto'"
+      [footer]="'auto'"
     ></full-calendar>
   `
 })

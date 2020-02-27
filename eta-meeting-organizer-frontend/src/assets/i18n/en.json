@@ -17,7 +17,9 @@
     "cancel":"Cancel",
     "deleteButton":"Delete",
     "add":"Add building",
+    "edit":"Edit",
     "update": "Update"
+
   },
   "profile": {
     "id": "Identifier",
@@ -32,6 +34,7 @@
     "text": "Meeting room",
     "building":"Building",
     "seats":"Seats",
+    "buildingName": "Building name",
     "placeholderName":"Add your name",
     "placeholderSeats": "Number of seats",
     "selectBuilding":"Select building",
@@ -78,10 +81,14 @@
     "registerOk":"Meeting room has been saved!"
   },
   "user-verification-dialog": {
-    "userVerification": "User verification",
-    "verification": "Are you sure you want to verify this user?",
-    "yes": "Yes",
-    "no": "No"
+    "roleSetting": "User role setting",
+    "roles": "Available roles",
+    "admin": "Administrator",
+    "user": "User",
+    "reader": "Reader",
+    "pending": "Pending",
+    "setRole": "Approve role",
+    "cancel": "Cancel"
   },
   "delete-user-snackbar": {
     "delete": "User has been deleted"

@@ -1,13 +1,20 @@
 package hu.flowacademy.meetingorganizer.service;
 
+import hu.flowacademy.meetingorganizer.persistence.model.MeetingRoom;
 import hu.flowacademy.meetingorganizer.persistence.model.Reservation;
+import hu.flowacademy.meetingorganizer.persistence.model.User;
+import hu.flowacademy.meetingorganizer.persistence.model.dto.ReservationDTO;
+import hu.flowacademy.meetingorganizer.persistence.repository.MeetingRoomRepository;
 import hu.flowacademy.meetingorganizer.persistence.repository.ReservationRepository;
+import hu.flowacademy.meetingorganizer.persistence.repository.UserRepository;
+import java.util.Objects;
 import java.util.Optional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import org.springframework.util.StringUtils;
 
 @Service
 @AllArgsConstructor
@@ -15,6 +22,8 @@ import java.util.List;
 public class ReservationService {
 
   private ReservationRepository reservationRepository;
+  private UserRepository userRepository;
+  private MeetingRoomRepository meetingRoomRepository;
 
   public List<Reservation> findAll() {
     return reservationRepository.findAll();
@@ -32,7 +41,11 @@ public class ReservationService {
     return reservationRepository.findById(id);
   }
 
-  public Reservation createReservation(Reservation reservation) {
+  public Reservation createReservation(ReservationDTO reservationInput) {
+    validateReservation(reservationInput);
+    User user = userRepository.findById(reservationInput.getUserId()).orElseThrow(() -> new RuntimeException("User not found in DB"));
+    MeetingRoom mRoom = meetingRoomRepository.findById(reservationInput.getMeetingRoomId()).orElseThrow(() -> new RuntimeException("MeetingRoom not found in DB"));
+    Reservation reservation = reservationInput.toSaveEntity(user, mRoom);
     return reservationRepository.save(reservation);
   }
 
@@ -40,8 +53,34 @@ public class ReservationService {
     reservationRepository.deleteById(id);
   }
 
-  public Reservation updateReservation(Long id, Reservation reservation) {
-    reservation.setId(id);
-    return reservationRepository.save(reservation);
+  public Reservation updateReservation(Long id, ReservationDTO reservationInput) {
+    if (reservationRepository.findById(id).isPresent()) {
+      validateReservation(reservationInput);
+      User user = userRepository.findById(reservationInput.getUserId())
+          .orElseThrow(() -> new RuntimeException("User not found in DB"));
+      MeetingRoom mRoom = meetingRoomRepository.findById(reservationInput.getMeetingRoomId())
+          .orElseThrow(() -> new RuntimeException("MeetingRoom not found in DB"));
+      Reservation reservation = reservationInput.toUpdateEntity(id, user, mRoom);
+      return reservationRepository.save(reservation);
+    }
+    throw new RuntimeException("Reservation not found in DB");
+  }
+
+  private void validateReservation(ReservationDTO input) {
+    if (StringUtils.isEmpty(input.getUserId())) {
+      throw new RuntimeException("User Id is neccessary to make a reservation!");
+    }
+    if (Objects.isNull(input.getMeetingRoomId())) {
+      throw new RuntimeException("MeetingRoom Id is neccessary to make a reservation!");
+    }
+    if (Objects.isNull(input.getStartingTime())) {
+      throw new RuntimeException("Start time is neccessary to make a reservation!");
+    }
+    if (Objects.isNull(input.getEndingTime())) {
+      throw new RuntimeException("End time is neccessary to make a reservation!");
+    }
+    if (StringUtils.isEmpty(input.getTitle())) {
+      throw new RuntimeException("Title is neccessary to make a reservation!");
+    }
   }
 }
