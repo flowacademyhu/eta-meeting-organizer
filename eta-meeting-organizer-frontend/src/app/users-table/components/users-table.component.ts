@@ -100,7 +100,7 @@ export class UsersTableComponent implements OnInit, OnDestroy, AfterViewInit {
    public ngOnInit() {
     this.userService.getAllUsers();
     this.dataSource.paginator = this.paginator;
-    this.userService.userSub.subscribe((info) => this.dataSource.data = info );
+    this.userService.userSub.subscribe((users) => this.dataSource.data = users);
    }
 
    public ngAfterViewInit(): void {
