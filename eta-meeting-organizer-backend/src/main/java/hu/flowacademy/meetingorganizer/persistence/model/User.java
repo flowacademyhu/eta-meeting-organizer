@@ -27,7 +27,7 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 
 
 @Entity
-@Table(name = "_user")
+@Table(name = "users")
 @Data
 @Builder
 @NoArgsConstructor
