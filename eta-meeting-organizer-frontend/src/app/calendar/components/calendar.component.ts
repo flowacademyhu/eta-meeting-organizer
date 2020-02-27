@@ -14,12 +14,12 @@ import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { MeetingRoom } from '~/app/models/meetingroom.model';
 import { Reservation } from '~/app/models/reservation.model';
+import { Role } from '~/app/models/user.model';
 import { ReservationBookingComponent } from '~/app/shared/Modals/reservation-book.component';
 import { UserToken } from '~/app/shared/models/user-token.model';
 import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
 import { AuthService } from '~/app/shared/services/auth.service';
 import { ReservationService } from '~/app/shared/services/reservation.service';
-import { Role } from '~/app/models/user.model';
 
 @Component({
   selector: 'app-calendar',
