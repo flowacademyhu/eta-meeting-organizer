@@ -1,4 +1,5 @@
 import { Observable } from 'rxjs';
+import { ReservationToPost } from '~/app/models/reservation-to-post.model';
 import { Reservation } from '~/app/models/reservation.model';
 import { AbstractApiConnector } from '~/app/shared/api-connectors/AbstractApiConnector';
 
@@ -21,8 +22,8 @@ export class ReservationApiConnector extends AbstractApiConnector {
     return this.http.get<Reservation>(`${this.apiRoute}/reservations/` + id);
   }
 
-  public postReservation(reservation: Reservation): Observable<Reservation> {
-    return this.http.post<Reservation>(`${this.apiRoute}/reservations`, reservation);
+  public postReservation(reservation: ReservationToPost): Observable<ReservationToPost> {
+    return this.http.post<ReservationToPost>(`${this.apiRoute}/reservations`, reservation);
   }
 
   public updateReservation(id: number, reservation: Reservation) {

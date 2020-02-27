@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
@@ -23,21 +23,24 @@ import { BuildingService } from './../services/building.service';
       <mat-label>{{'building.buildingName' | translate}}</mat-label>
         <input type="text" name="city" formControlName="buildingName"
          matInput placeholder="{{'building.buildingName' | translate}}">
+         <mat-error>{{'validation.validate' | translate}}</mat-error>
     </mat-form-field>
     <br>
     <mat-form-field>
       <mat-label>{{'building.city' | translate}}</mat-label>
         <input type="text" name="city" formControlName="city" matInput placeholder="{{'building.city' | translate}}">
-    </mat-form-field>
+        <mat-error>{{'validation.validate' | translate}}</mat-error>
+      </mat-form-field>
     <br>
     <mat-form-field>
       <mat-label>{{'building.address' | translate}}</mat-label>
         <input  type="text" name="address" formControlName="address"
           matInput placeholder="{{'building.address' | translate}}">
+         <mat-error>{{'validation.validate' | translate}}</mat-error>
         </mat-form-field>
     <div>
       <button mat-button mat-dialog-close>{{'building.cancel' | translate}}</button>
-      <button mat-button mat-dialog-close type="submit" cdkFocusInitial
+      <button mat-button mat-dialog-close type="submit" cdkFocusInitial [disabled]="buildingForm.invalid"
       (click)="openSnackBar()">{{'building.saveButton' | translate}}</button>
     </div>
   </form>
@@ -58,9 +61,9 @@ export class BuildingRegisterComponent implements OnInit {
 
     public ngOnInit() {
       this.buildingForm = new FormGroup({
-      address : new FormControl(),
-      city : new FormControl(),
-      buildingName: new FormControl(),
+      address : new FormControl(undefined, Validators.required),
+      city : new FormControl(undefined, Validators.required),
+      buildingName: new FormControl(undefined, Validators.required),
       });
     }
 
