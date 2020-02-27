@@ -38,7 +38,8 @@ public class MeetingRoomService {
   }
 
   public List<MeetingRoomDTO> findByBuildingId(Long id) {
-    return meetingRoomRepository.findByBuilding_Id(id).stream().map(MeetingRoomDTO::new).collect(Collectors.toList());
+    return meetingRoomRepository.findByBuilding_Id(id).stream().map(MeetingRoomDTO::new)
+        .collect(Collectors.toList());
   }
 
   public MeetingRoomDTO create(MeetingRoomDTO meetingRoom) {

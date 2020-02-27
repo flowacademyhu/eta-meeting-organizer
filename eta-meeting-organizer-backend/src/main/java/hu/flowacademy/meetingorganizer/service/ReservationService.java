@@ -43,8 +43,10 @@ public class ReservationService {
 
   public Reservation createReservation(ReservationDTO reservationInput) {
     validateReservation(reservationInput);
-    User user = userRepository.findById(reservationInput.getUserId()).orElseThrow(() -> new RuntimeException("User not found in DB"));
-    MeetingRoom mRoom = meetingRoomRepository.findById(reservationInput.getMeetingRoomId()).orElseThrow(() -> new RuntimeException("MeetingRoom not found in DB"));
+    User user = userRepository.findById(reservationInput.getUserId())
+        .orElseThrow(() -> new RuntimeException("User not found in DB"));
+    MeetingRoom mRoom = meetingRoomRepository.findById(reservationInput.getMeetingRoomId())
+        .orElseThrow(() -> new RuntimeException("MeetingRoom not found in DB"));
     Reservation reservation = reservationInput.toSaveEntity(user, mRoom);
     return reservationRepository.save(reservation);
   }
