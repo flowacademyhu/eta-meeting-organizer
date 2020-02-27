@@ -85,6 +85,8 @@ export class UsersTableComponent implements OnInit, OnDestroy, AfterViewInit {
   public verifyUnsub: Subscription;
   public subs: Subscription;
   protected currentAdmin: UserToken = {} as UserToken;
+  public dataSource: MatTableDataSource<User> = new MatTableDataSource<User>();
+  public dataSub: Subscription;
   @ViewChild(MatSort) public sort: MatSort;
   @ViewChild(MatPaginator) public paginator: MatPaginator;
 
@@ -92,27 +94,23 @@ export class UsersTableComponent implements OnInit, OnDestroy, AfterViewInit {
   constructor(private readonly userService: UserService,
               private readonly dialog: MatDialog,
               private readonly authService: AuthService) {
-      this.users$ = this.api.user()
-    .getUsers();
-      this.subs = this.authService.user.pipe(take(1))
+    this.subs = this.authService.user.pipe(take(1))
     .subscribe((data) => {
     this.currentAdmin = data;
     });
      }
 
-     public dataSource: MatTableDataSource<User> = new MatTableDataSource<User>();
-
-     public dataSub: Subscription;
-
    public ngOnInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSub = this.userService.getUsers()
-      .subscribe((res) => {
-    this.dataSource.data = (res as unknown as User[]);
-  });
     this.userService.getAllUsers();
     this.users$ = this.userService
     .userSub;
+    this.dataSource.paginator = this.paginator;
+    this.userService.userSub.subscribe((info) => this.dataSource.data = info );
+/*     this.dataSub = this.userService.getUsers()
+      .subscribe((res) => {
+  }); */
+    
+
    }
 
    public ngAfterViewInit(): void {
@@ -165,16 +163,17 @@ export class UsersTableComponent implements OnInit, OnDestroy, AfterViewInit {
    }
 
    public ngOnDestroy(): void {
-    this.dataSub.unsubscribe();
-    if (this.deleteUnsub) {
+     if( this.dataSub) {
+      this.dataSub.unsubscribe();
+     }
+     if (this.deleteUnsub) {
       this.deleteUnsub.unsubscribe();
-    }
-    if (this.verifyUnsub) {
+     }
+     if (this.verifyUnsub) {
       this.verifyUnsub.unsubscribe();
-    }
-    if (this.subs) {
+     }
+     if (this.subs) {
       this.subs.unsubscribe();
-    }
+     }
    }
-
 }
