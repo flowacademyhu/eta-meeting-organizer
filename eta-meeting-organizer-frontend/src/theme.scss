@@ -9,7 +9,7 @@
 
 // Fonts
 @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500');
-     
+
 $fontConfig: (
   display-4: mat-typography-level(112px, 112px, 300, 'Roboto', -0.0134em),
   display-3: mat-typography-level(56px, 56px, 400, 'Roboto', -0.0089em),
@@ -196,10 +196,10 @@ body {
 }
 
 $mat-warn: (
-  main: #f3f5ed,
-  lighter: #fbfcfa,
-  darker: #edf0e5,
-  200: #f3f5ed, // For slide toggle,
+  main: #e64b3a,
+  lighter: #f8c9c4,
+  darker: #db3325,
+  200: #e64b3a, // For slide toggle,
   contrast : (
     main: $dark-primary-text,
     lighter: $dark-primary-text,

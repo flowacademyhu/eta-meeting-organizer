@@ -112,5 +112,8 @@
     "building": "Épület",
     "meeting-room": "Tárgyaló",
     "own-appointments": "Saját Foglalásaim"
+  },
+  "validation": {
+    "validate": "A mező kitöltése kötelező!"
   }
 }
