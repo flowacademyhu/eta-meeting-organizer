@@ -3,7 +3,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { UserVerificationDialogComponent } from '~/app/shared/Modals/user-verification-dialog';
 import { UserToken } from '~/app/shared/models/user-token.model';
@@ -77,7 +77,6 @@ import { UserService } from './../../shared/services/user.service';
 })
 
 export class UsersTableComponent implements OnInit, OnDestroy, AfterViewInit {
-  public users$: Observable<User[]>;
   public displayedColumns: string[] = ['id', 'email', 'role', 'action'];
   public deleteUnsub: Subscription;
   public verifyUnsub: Subscription;
@@ -100,11 +99,8 @@ export class UsersTableComponent implements OnInit, OnDestroy, AfterViewInit {
 
    public ngOnInit() {
     this.userService.getAllUsers();
-    this.users$ = this.userService
-    .userSub;
     this.dataSource.paginator = this.paginator;
     this.userService.userSub.subscribe((info) => this.dataSource.data = info );
-
    }
 
    public ngAfterViewInit(): void {
