@@ -34,7 +34,8 @@ import { BuildingService } from './../../shared/services/building.service';
   </mat-form-field>
       <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
       <ng-container matColumnDef="buildingName">
-          <th mat-header-cell *matHeaderCellDef class="column" mat-sort-header>{{'building.buildingName' | translate}}</th>
+          <th mat-header-cell *matHeaderCellDef class="column" mat-sort-header>
+            {{'building.buildingName' | translate}}</th>
           <td mat-cell *matCellDef="let building"> {{building.buildingName}} </td>
         </ng-container>
         <ng-container matColumnDef="city">
