@@ -5,8 +5,8 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
+import { ReservationToPost } from '~/app/models/reservation-to-post.model';
 import { Reservation } from '~/app/models/reservation.model';
-import { ReservationToPost } from '~/app/models/ReservationToPost';
 import { ReservationService } from '../services/reservation.service';
 
 @Component({
@@ -37,9 +37,17 @@ import { ReservationService } from '../services/reservation.service';
        </mat-form-field>
      <br>
      <div class="space">
-       <button mat-button type="submit" [mat-dialog-close]>Ok</button>
-       <button mat-button cdkFocusInitial
-       (click)="openSnackBar()">Cancel</button>
+       <button
+       mat-button
+       type="submit"
+       [mat-dialog-close]
+       cdkFocusInitial
+       (click)="openSnackBar()"
+       mat-dialog-close>Ok</button>
+       <button
+       mat-button
+       mat-dialog-close
+       >Cancel</button>
      </div>
    </form>
  </div>`,
@@ -89,7 +97,7 @@ export class ReservationBookingComponent implements OnInit {
 
   public openSnackBar() {
     this._snackBar.open(this.translate
-      .instant(`snackbar-meeting-room.registerOk`), '', {
+      .instant(`snackbar-reservation.reservationOk`), '', {
       duration: 2500
     });
   }

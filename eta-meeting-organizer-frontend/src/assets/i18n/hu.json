@@ -110,5 +110,8 @@
   "reservation": {
     "title": "Esemény neve:",
     "summary": "Esemény leírása:"
+  },
+  "snackbar-reservation": {
+    "reservationOk": "A tárgyaló foglalása sikeresen megtörtént."
   }
 }

@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { FullCalendarComponent } from '@fullcalendar/angular';
 import { OptionsInput } from '@fullcalendar/core';
@@ -10,8 +10,8 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import { TranslateService } from '@ngx-translate/core';
-import { Observable, Subject, Subscription } from 'rxjs';
-import { take, takeUntil } from 'rxjs/operators';
+import { Observable, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { MeetingRoom } from '~/app/models/meetingroom.model';
 import { Reservation } from '~/app/models/reservation.model';
 import { ReservationBookingComponent } from '~/app/shared/Modals/reservation-book.component';
@@ -49,15 +49,12 @@ import { ReservationService } from '~/app/shared/services/reservation.service';
     ></full-calendar>
   `
 })
-export class CalendarComponent implements OnInit, AfterViewInit, OnChanges {
-
-  public dialogUnsub: Subscription;
+export class CalendarComponent implements OnInit, AfterViewInit, OnChanges, OnDestroy {
 
   protected locales: Locale[] = [huLocale, enGbLocale];
 
   private destroy$: Subject<boolean> = new Subject<boolean>();
 
-  public subs: Subscription;
   public userToken: UserToken = {} as UserToken;
 
   @Input('meetingRoom')
@@ -79,7 +76,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnChanges {
               private readonly translate: TranslateService,
               private readonly dialog: MatDialog,
               private readonly reservationService: ReservationService) {
-    this.subs = this.authService.user.pipe(take(1))
+    this.authService.user.pipe(takeUntil(this.destroy$))
     .subscribe((data) => {
       this.userToken = data;
     });
@@ -157,17 +154,18 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnChanges {
         endingTime: event.endStr
       },
     });
-    dialogRef.componentInstance.passEntry.subscribe(() => {
+    dialogRef.componentInstance.passEntry.pipe(takeUntil(this.destroy$))
+    .subscribe(() => {
       this.getReservationsByMeetingRoom();
     });
-    this.dialogUnsub = dialogRef.afterClosed()
+    dialogRef.afterClosed()
+    .pipe(takeUntil(this.destroy$))
     .subscribe();
   }
 
   public ngOnDestroy(): void {
-    if (this.dialogUnsub) {
-      this.dialogUnsub.unsubscribe();
-    }
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
 
   public selectable() {
@@ -181,6 +179,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnChanges {
   public getReservationsByMeetingRoom() {
     this.api.reservation()
       .findByMeetingRoomId(this.meetingRoom.id)
+      .pipe(takeUntil(this.destroy$))
       .subscribe(
       (data) => {
         this.reservations = data;
@@ -191,8 +190,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnChanges {
               end: reservation.endingTime,
               overlap: false,
               start: reservation.startingTime,
-              title: reservation.title
-              + '\n' + 'meetingroom-name',
+              title: this.userToken.username,
             }
           );
         }
@@ -203,6 +201,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnChanges {
   public getReservationsByUser() {
     this.api.reservation()
     .getReservationsByUserId(this.userToken.sub)
+    .pipe(takeUntil(this.destroy$))
     .subscribe(
       (data) => {
         this.reservations = data;
@@ -213,8 +212,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnChanges {
               end: reservation.endingTime,
               overlap: false,
               start: reservation.startingTime,
-              title: reservation.title
-              + '\n' + 'meetingroom-name',
+              title: reservation.meetingRoom?.name,
             }
           );
         }

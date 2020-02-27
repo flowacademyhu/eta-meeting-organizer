@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs';
+import { ReservationToPost } from '~/app/models/reservation-to-post.model';
 import { Reservation } from '~/app/models/reservation.model';
-import { ReservationToPost } from '~/app/models/ReservationToPost';
 import { AbstractApiConnector } from '~/app/shared/api-connectors/AbstractApiConnector';
 
 export class ReservationApiConnector extends AbstractApiConnector {

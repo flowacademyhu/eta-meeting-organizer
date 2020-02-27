@@ -110,5 +110,8 @@
   "reservation": {
     "title": "Title",
     "summary": "Summary"
+  },
+  "snackbar-reservation": {
+    "reservationOk": "Reservation succesful."
   }
 }

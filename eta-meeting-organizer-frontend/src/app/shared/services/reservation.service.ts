@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { ReservationToPost } from '~/app/models/reservation-to-post.model';
 import { Reservation } from '~/app/models/reservation.model';
-import { ReservationToPost } from '~/app/models/ReservationToPost';
 import { ApiCommunicationService } from './api-communication.service';
 
 @Injectable()
