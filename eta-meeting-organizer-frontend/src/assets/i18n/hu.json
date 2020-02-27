@@ -17,6 +17,7 @@
     "cancel":"Mégse",
     "deleteButton":"törlés",
     "add":"Épület hozzáadás",
+    "edit":"Szerkesztés",
     "update": "Módosítás"
   },
   "profile": {
@@ -32,6 +33,7 @@
     "text": "Tárgyaló neve",
     "building": "Épület",
     "seats": "Ülőhely",
+    "buildingName": "Épület megnevezése",
     "placeholderName": "Írd be a neved",
     "placeholderSeats": "ülőhelyek száma",
     "selectBuilding":"Válasz telephelyet",

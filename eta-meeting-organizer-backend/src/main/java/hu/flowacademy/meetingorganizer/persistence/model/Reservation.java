@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -32,20 +33,16 @@ public class Reservation {
   private Long id;
 
   @ManyToOne
+  @JoinColumn
   private User user;
 
   @OneToOne
+  @JoinColumn
   private MeetingRoom meetingRoom;
 
-  @JsonSerialize(using = LocalDateTimeSerializer.class)
-  @JsonDeserialize(using = LocalDateTimeDeserializer.class)
-  @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
-  private LocalDateTime startingTime;
+  private Long startingTime;
 
-  @JsonSerialize(using = LocalDateTimeSerializer.class)
-  @JsonDeserialize(using = LocalDateTimeDeserializer.class)
-  @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
-  private LocalDateTime endingTime;
+  private Long endingTime;
 
   private String title;
 

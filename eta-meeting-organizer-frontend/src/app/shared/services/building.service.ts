@@ -8,19 +8,20 @@ export class BuildingService {
 
   public _buildingSub: BehaviorSubject<Building[]> = new BehaviorSubject<Building[]>([]);
 
-  constructor(private readonly buildingCom: ApiCommunicationService) {}
+  constructor(
+    private readonly buildingCom: ApiCommunicationService) {}
 
   public get buildingSub() {
     return this._buildingSub;
   }
 
   public getAllBuildings() {
-   this.buildingCom.building()
-    .getBuildings()
-    .subscribe((building: Building[]) => {
-      this._buildingSub.next(building);
-    });
-  }
+    this.buildingCom.building()
+     .getBuildings()
+     .subscribe((building: Building[]) => {
+       this._buildingSub.next(building);
+     });
+   }
 
   public getOneBuilding(id: number) {
     return this.buildingCom
@@ -57,4 +58,5 @@ export class BuildingService {
     .building()
     .findByCity(city);
   }
+
 }

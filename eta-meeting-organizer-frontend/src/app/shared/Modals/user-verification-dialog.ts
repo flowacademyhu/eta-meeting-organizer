@@ -7,7 +7,7 @@ import { TranslateService } from '@ngx-translate/core';
   template: `
   <h2 mat-dialog-title>{{'user-verification-dialog.roleSetting' | translate}}</h2>
   <mat-dialog-content>
-  <mat-form-field appearance="fill">
+  <mat-form-field>
     <mat-label>{{'user-verification-dialog.roles' | translate}}</mat-label>
     <mat-select [(value)]="choosenRole">
       <mat-option value="ADMIN">{{'user-verification-dialog.admin' | translate}}</mat-option>

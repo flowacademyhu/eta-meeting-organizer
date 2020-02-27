@@ -7,7 +7,6 @@ import hu.flowacademy.meetingorganizer.persistence.model.dto.RoleDTO;
 import hu.flowacademy.meetingorganizer.persistence.repository.UserRepository;
 import java.util.Optional;
 import lombok.AllArgsConstructor;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,8 +20,8 @@ public class UserService {
   private UserRepository userRepository;
   private EmailService emailService;
 
-  public List<User> findAll(Integer pageNumber, Integer pageSize) {
-    return userRepository.findAll(PageRequest.of(pageNumber, pageSize)).getContent();
+  public List<User> findAll() {
+    return userRepository.findAllByOrderById();
   }
 
   public Optional<User> findOne(String id) {

@@ -17,7 +17,9 @@
     "cancel":"Cancel",
     "deleteButton":"Delete",
     "add":"Add building",
+    "edit":"Edit",
     "update": "Update"
+
   },
   "profile": {
     "id": "Identifier",
@@ -32,6 +34,7 @@
     "text": "Meeting room",
     "building":"Building",
     "seats":"Seats",
+    "buildingName": "Building name",
     "placeholderName":"Add your name",
     "placeholderSeats": "Number of seats",
     "selectBuilding":"Select building",

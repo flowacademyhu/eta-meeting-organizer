@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,9 +17,9 @@ public class MeetingRoomService {
 
   private MeetingRoomRepository meetingRoomRepository;
 
-  public List<MeetingRoomDTO> findAll(Integer pageNumber, Integer pageSize) {
+  public List<MeetingRoomDTO> findAll() {
     return meetingRoomRepository
-        .findAll(PageRequest.of(pageNumber, pageSize)).getContent().stream().map(MeetingRoomDTO::new).collect(
+        .findAllByOrderById().stream().map(MeetingRoomDTO::new).collect(
             Collectors.toList());
   }
 
