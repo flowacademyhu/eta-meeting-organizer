@@ -1,5 +1,5 @@
 import { Component, Inject, Input, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
@@ -30,6 +30,7 @@ import { MeetingRoomService } from '../services/meeting-room.service';
         <mat-label>{{'meeting-room.text' | translate}}</mat-label>
           <input type="text" name="name" formControlName="name"
             matInput placeholder="{{'meeting-room.text' | translate}}" [(ngModel)]="meetingRoom.name">
+            <mat-error>{{'validation.validate' | translate}}</mat-error>
       </mat-form-field>
       <br>
 
@@ -39,6 +40,7 @@ import { MeetingRoomService } from '../services/meeting-room.service';
           <input  type="number" name="numberOfSeats" formControlName="numberOfSeats"
           [(ngModel)]="meetingRoom.numberOfSeats"
             matInput placeholder="{{'meeting-room.seats' | translate}}">
+            <mat-error>{{'validation.validate' | translate}}</mat-error>
       </mat-form-field>
 
 <!-- projector -->
@@ -54,7 +56,7 @@ import { MeetingRoomService } from '../services/meeting-room.service';
       <div class="space">
         <button mat-stroked-button mat-dialog-close style="float: left; color: primary;" >cancel</button>
         <button mat-stroked-button mat-dialog-close type="submit" style="float: right;"
-          (click)="openSnackBar() "backgroundcolor="primary">
+          (click)="openSnackBar() "backgroundcolor="primary" [disabled]="meetingForm.invalid">
           Ok
         </button>
       </div>
@@ -83,8 +85,8 @@ export class MeetingRoomUpdateComponent implements OnInit {
   }
 
   public meetingForm: FormGroup = new FormGroup({
-    name : new FormControl(''),
-    numberOfSeats : new FormControl(''),
+    name : new FormControl(undefined, Validators.required),
+    numberOfSeats : new FormControl(undefined, Validators.required),
     projector : new FormControl(''),
   });
 

@@ -30,10 +30,8 @@ public class BuildingResource {
   }
 
   @GetMapping
-  public ResponseEntity<List<Building>> findAll(
-      @RequestParam(defaultValue = "0") Integer pageNumber,
-      @RequestParam(defaultValue = "10") Integer pageSize) {
-    return new ResponseEntity<>(buildingService.findAll(pageNumber, pageSize), HttpStatus.OK);
+  public ResponseEntity<List<Building>> findAll() {
+    return new ResponseEntity<>(buildingService.findAll(), HttpStatus.OK);
   }
 
   @GetMapping("/{id}")
