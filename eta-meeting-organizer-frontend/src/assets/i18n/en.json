@@ -114,6 +114,13 @@
     "meeting-room": "Meetingroom",
     "own-appointments": "Own Appointments"
   },
+  "reservation": {
+    "title": "Title",
+    "summary": "Summary"
+  },
+  "snackbar-reservation": {
+    "reservationOk": "Reservation succesful."
+  },
   "validation": {
     "validate": "You must fill out this field!"
   }
