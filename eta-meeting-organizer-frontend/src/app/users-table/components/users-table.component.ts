@@ -1,5 +1,8 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import { Observable, Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { UserVerificationDialogComponent } from '~/app/shared/Modals/user-verification-dialog';
@@ -8,6 +11,7 @@ import { AuthService } from '~/app/shared/services/auth.service';
 import { User } from './../../models/user.model';
 import { UserDeleteDialogComponent } from './../../shared/Modals/user-delete-dialog';
 import { UserService } from './../../shared/services/user.service';
+
 
 @Component({
   selector: 'app-users-table',
@@ -18,14 +22,17 @@ import { UserService } from './../../shared/services/user.service';
     .column {
       font-size: larger;
     }
-    .center {
-      text-align: center;
-      font-size: larger;
+    th.mat-header-cell {
+      text-align: left;
+      max-width: 300px!important;
     }
   `],
   template: `
-  <div class="row justify-content-center">
-      <table mat-table [dataSource]="users$ | async" class="mat-elevation-z8">
+    <div>
+    <mat-form-field>
+    <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Filter">
+    </mat-form-field>
+      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
         <ng-container matColumnDef="id">
           <th mat-header-cell *matHeaderCellDef class="column">{{'profile.id' | translate}} </th>
           <td mat-cell  *matCellDef="let user"> {{user.id}} </td>
@@ -62,33 +69,61 @@ import { UserService } from './../../shared/services/user.service';
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       </table>
-    </div>
+      <mat-paginator
+        [pageSize]="5"
+        [pageSizeOptions]="[5, 10, 20]"
+        showFirstLastButton>
+      </mat-paginator>
+
   `
 })
 
-export class UsersTableComponent implements OnInit, OnDestroy {
+export class UsersTableComponent implements OnInit, OnDestroy, AfterViewInit {
   public users$: Observable<User[]>;
   public displayedColumns: string[] = ['id', 'email', 'role', 'action'];
   public deleteUnsub: Subscription;
   public verifyUnsub: Subscription;
   public subs: Subscription;
   protected currentAdmin: UserToken = {} as UserToken;
+  @ViewChild(MatSort) public sort: MatSort;
+  @ViewChild(MatPaginator) public paginator: MatPaginator;
+
   public dialogConfig: MatDialogConfig = new MatDialogConfig();
   constructor(private readonly userService: UserService,
               private readonly dialog: MatDialog,
               private readonly authService: AuthService) {
-    this.subs = this.authService.user.pipe(take(1))
+      this.users$ = this.api.user()
+    .getUsers();
+      this.subs = this.authService.user.pipe(take(1))
     .subscribe((data) => {
     this.currentAdmin = data;
     });
-  }
+     }
+
+     public dataSource: MatTableDataSource<User> = new MatTableDataSource<User>();
+
+     public dataSub: Subscription;
 
    public ngOnInit() {
+    this.dataSource.paginator = this.paginator;
+    this.dataSub = this.userService.getUsers()
+      .subscribe((res) => {
+    this.dataSource.data = (res as unknown as User[]);
+  });
     this.userService.getAllUsers();
     this.users$ = this.userService
     .userSub;
    }
 
+   public ngAfterViewInit(): void {
+    this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
+ }
+
+ public doFilter = (value: string) => {
+  this.dataSource.filter = value.trim()
+   .toLocaleLowerCase();
+}
    public deleteDialog(id: string) {
     this.dialogConfig.disableClose = true;
     const dialogRef = this.dialog.open(UserDeleteDialogComponent, {
@@ -130,6 +165,7 @@ export class UsersTableComponent implements OnInit, OnDestroy {
    }
 
    public ngOnDestroy(): void {
+    this.dataSub.unsubscribe();
     if (this.deleteUnsub) {
       this.deleteUnsub.unsubscribe();
     }
@@ -140,4 +176,5 @@ export class UsersTableComponent implements OnInit, OnDestroy {
       this.subs.unsubscribe();
     }
    }
+
 }
