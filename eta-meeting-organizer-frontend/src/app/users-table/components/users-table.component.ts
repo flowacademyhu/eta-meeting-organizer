@@ -12,7 +12,6 @@ import { User } from './../../models/user.model';
 import { UserDeleteDialogComponent } from './../../shared/Modals/user-delete-dialog';
 import { UserService } from './../../shared/services/user.service';
 
-
 @Component({
   selector: 'app-users-table',
   styles: [`
@@ -74,7 +73,6 @@ import { UserService } from './../../shared/services/user.service';
         [pageSizeOptions]="[5, 10, 20]"
         showFirstLastButton>
       </mat-paginator>
-
   `
 })
 
@@ -106,22 +104,19 @@ export class UsersTableComponent implements OnInit, OnDestroy, AfterViewInit {
     .userSub;
     this.dataSource.paginator = this.paginator;
     this.userService.userSub.subscribe((info) => this.dataSource.data = info );
-/*     this.dataSub = this.userService.getUsers()
-      .subscribe((res) => {
-  }); */
-    
 
    }
 
    public ngAfterViewInit(): void {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
- }
+   }
 
- public doFilter = (value: string) => {
-  this.dataSource.filter = value.trim()
+   public doFilter = (value: string) => {
+    this.dataSource.filter = value.trim()
    .toLocaleLowerCase();
-}
+   }
+
    public deleteDialog(id: string) {
     this.dialogConfig.disableClose = true;
     const dialogRef = this.dialog.open(UserDeleteDialogComponent, {
@@ -163,7 +158,7 @@ export class UsersTableComponent implements OnInit, OnDestroy, AfterViewInit {
    }
 
    public ngOnDestroy(): void {
-     if( this.dataSub) {
+     if (this.dataSub) {
       this.dataSub.unsubscribe();
      }
      if (this.deleteUnsub) {
