@@ -1,10 +1,12 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { DatePipe } from '@angular/common';
+import { Component, EventEmitter, Inject, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { Reservation } from '~/app/models/reservation.model';
+import { ReservationToPost } from '~/app/models/ReservationToPost';
 import { ReservationService } from '../services/reservation.service';
 
 @Component({
@@ -35,8 +37,8 @@ import { ReservationService } from '../services/reservation.service';
        </mat-form-field>
      <br>
      <div class="space">
-       <button mat-button [mat-dialog-close]>Ok</button>
-       <button mat-button type="submit" cdkFocusInitial
+       <button mat-button type="submit" [mat-dialog-close]>Ok</button>
+       <button mat-button cdkFocusInitial
        (click)="openSnackBar()">Cancel</button>
      </div>
    </form>
@@ -47,16 +49,22 @@ export class ReservationBookingComponent implements OnInit {
   @Input()
   public checked: boolean = true;
 
+  @Output()
+  public passEntry: EventEmitter<undefined> = new EventEmitter();
+
   public reservations$: Observable<Reservation[]>;
   public reservationBookingForm: FormGroup;
-  public reservation: Reservation;
+  public reservation: ReservationToPost;
   public meetingRoomId: number;
+  public newReservation: Reservation = {} as Reservation;
 
   constructor(
+    @Inject(MAT_DIALOG_DATA) public data: ReservationToPost,
     public dialogRef: MatDialogRef<ReservationBookingComponent>,
     private readonly reservationService: ReservationService,
     private readonly _snackBar: MatSnackBar,
-    private readonly translate: TranslateService) {
+    private readonly translate: TranslateService,
+    public datepipe: DatePipe) {
   }
 
   public ngOnInit() {
@@ -67,11 +75,15 @@ export class ReservationBookingComponent implements OnInit {
   }
 
   public onSubmit() {
+    this.data.title = this.reservationBookingForm.controls.title.value;
+    this.data.summary = this.reservationBookingForm.controls.summary.value;
+    this.data.startingTime = new Date(this.data.startingTime).valueOf();
+    this.data.endingTime = new Date(this.data.endingTime).valueOf();
     this.reservationService.
-    postReservation(this.reservationBookingForm.getRawValue())
+    postReservation(this.data)
     .subscribe((data) => {
         this.reservation = data;
-        this.reservationService.findByMeetingRoomId(this.meetingRoomId);
+        this.passEntry.emit();
     });
   }
 

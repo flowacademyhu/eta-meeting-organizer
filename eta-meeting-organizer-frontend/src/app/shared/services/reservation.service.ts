@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Reservation } from '~/app/models/reservation.model';
-import { ApiCommunicationService } from './api-communication.service';
 import { BehaviorSubject } from 'rxjs';
+import { Reservation } from '~/app/models/reservation.model';
+import { ReservationToPost } from '~/app/models/ReservationToPost';
+import { ApiCommunicationService } from './api-communication.service';
 
 @Injectable()
 export class ReservationService {
@@ -11,10 +12,10 @@ export class ReservationService {
   constructor(private readonly apiCommunicationService: ApiCommunicationService) {}
 
   public get reservationBehaviourSubject() {
-    return this.reservationBehaviourSubject;
+    return this._reservationBehaviourSubject;
   }
 
-  public postReservation(reservation: Reservation) {
+  public postReservation(reservation: ReservationToPost) {
     return this.apiCommunicationService.reservation()
       .postReservation(reservation);
   }
@@ -23,7 +24,7 @@ export class ReservationService {
     this.apiCommunicationService.reservation()
      .findByMeetingRoomId(meetingRoomId)
      .subscribe((reservations: Reservation[]) => {
-       this.reservationBehaviourSubject.next(reservations);
+       this._reservationBehaviourSubject.next(reservations);
      });
    }
 }

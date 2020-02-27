@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import {HTTP_INTERCEPTORS} from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -19,13 +19,13 @@ import { BuildingUpdateDialogComponent } from './Modals/building-update-dialog';
 import { MeetingRoomDeleteComponent } from './Modals/meeting-room-delete.component';
 import { MeetingRoomRegisterComponent } from './Modals/meeting-room-register.component';
 import { MeetingRoomUpdateComponent } from './Modals/meeting-room-update.component';
+import { ReservationBookingComponent } from './Modals/reservation-book.component';
 import { UserDeleteDialogComponent } from './Modals/user-delete-dialog';
 import { UserVerificationDialogComponent } from './Modals/user-verification-dialog';
 import { BuildingService } from './services/building.service';
 import { MeetingRoomService } from './services/meeting-room.service';
-import { UserService } from './services/user.service';
 import { ReservationService } from './services/reservation.service';
-import { ReservationBookingComponent } from './Modals/reservation-book.component';
+import { UserService } from './services/user.service';
 
 @NgModule({
   declarations: [
@@ -62,6 +62,7 @@ import { ReservationBookingComponent } from './Modals/reservation-book.component
     MeetingRoomService,
     MeetingRoomRegisterComponent,
     UserService,
+    DatePipe,
     AuthGuard,
     AdminGuard,
     BuildingService,

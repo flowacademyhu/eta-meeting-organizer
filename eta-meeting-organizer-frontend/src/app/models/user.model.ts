@@ -6,7 +6,6 @@ export interface User {
   accountNonExpired: boolean;
   accountNonLocked: boolean;
   credentialsNonExpired: boolean;
-  verifiedByAdmin: boolean;
 }
 
 export enum Role {
