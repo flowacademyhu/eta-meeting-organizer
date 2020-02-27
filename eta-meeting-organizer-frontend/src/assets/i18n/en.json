@@ -120,5 +120,8 @@
   },
   "snackbar-reservation": {
     "reservationOk": "Reservation succesful."
+  },
+  "validation": {
+    "validate": "You must fill out this field!"
   }
 }

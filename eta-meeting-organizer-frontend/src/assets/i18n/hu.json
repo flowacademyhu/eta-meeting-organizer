@@ -119,5 +119,8 @@
   },
   "snackbar-reservation": {
     "reservationOk": "A tárgyaló foglalása sikeresen megtörtént."
+  },
+  "validation": {
+    "validate": "A mező kitöltése kötelező!"
   }
 }
