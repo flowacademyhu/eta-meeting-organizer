@@ -129,6 +129,8 @@ export class UsersTableComponent implements OnInit, OnDestroy, AfterViewInit {
    public verificationDialog(id: string) {
     const dialogRef = this.dialog.open(UserVerificationDialogComponent, {
       disableClose: true,
+      height: '35%',
+      width: '30%'
     });
     this.verifyUnsub = dialogRef.afterClosed()
     .subscribe((roleSet) => {
