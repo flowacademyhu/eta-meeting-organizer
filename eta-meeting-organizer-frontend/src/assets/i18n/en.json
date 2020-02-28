@@ -121,7 +121,10 @@
   },
   "reservation": {
     "title": "Title",
-    "summary": "Summary"
+    "summary": "Summary",
+    "cancel": "Cancel",
+    "reserve": "Reserve",
+    "head": "Meeting room reservation"
   },
   "snackbar-reservation": {
     "reservationOk": "Reservation succesful."

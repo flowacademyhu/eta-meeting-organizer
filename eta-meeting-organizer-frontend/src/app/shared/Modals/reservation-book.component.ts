@@ -12,17 +12,35 @@ import { ReservationService } from '../services/reservation.service';
 @Component({
   selector: 'app-reservation-book',
   styles: [`
-  .mat-dialog-content{
-    display: flex;
-    justify-content: center;
-    height: 300px;
+  .align-title {
+    padding-top: 5%;
+    padding-bottom: 3%;
+    margin: 0 auto;
+    font-size: 250%;
+    text-align: center;
   }
-  .space{
-    margin-top: 20%;
+  .align-content{
+    height: 75%;
+    font-size: 160%;
+    margin: 0 auto;
+    text-align: center;
   }
-  `],
+  mat-form-field {
+    width: 100%;
+    text-align: center;
+    margin: 0 auto;
+  }
+  button {
+    width: 80%;
+    margin: 0 auto;
+    border:1px solid;
+    border-color: black;
+    font-size: 100%;
+  }
+`],
  template: `
- <div mat-dialog-content>
+ <mat-dialog-content class="align-title">{{'reservation.head' | translate}}</mat-dialog-content>
+ <mat-dialog-content class="align-content">
    <form [formGroup]="reservationBookingForm" (ngSubmit)="onSubmit()">
      <mat-form-field>
        <mat-label>{{'reservation.title' | translate}}</mat-label>
@@ -36,21 +54,27 @@ import { ReservationService } from '../services/reservation.service';
            matInput placeholder="{{'reservation.summary' | translate}}">
        </mat-form-field>
      <br>
-     <div class="space">
+     <mat-dialog-actions>
        <button
-       mat-button
+       mat-raised-button
        type="submit"
        [mat-dialog-close]
        cdkFocusInitial
+       color="primary"
        (click)="openSnackBar()"
-       mat-dialog-close>Ok</button>
+       mat-dialog-close>{{'reservation.reserve' | translate}}</button>
+       </mat-dialog-actions>
+       <br>
+       <mat-dialog-actions>
        <button
-       mat-button
+       mat-raised-button
        mat-dialog-close
-       >Cancel</button>
-     </div>
+       color="accent"
+       >{{'reservation.cancel' | translate}}</button>
+       </mat-dialog-actions>
    </form>
- </div>`,
+</mat-dialog-content>
+`,
 })
 
 export class ReservationBookingComponent implements OnInit {

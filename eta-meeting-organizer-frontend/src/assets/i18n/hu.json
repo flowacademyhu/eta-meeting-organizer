@@ -120,7 +120,10 @@
   },
   "reservation": {
     "title": "Esemény neve:",
-    "summary": "Esemény leírása:"
+    "summary": "Esemény leírása:",
+    "cancel": "Mégse",
+    "reserve": "Lefoglalás",
+    "head": "Tárgyaló foglalás"
   },
   "snackbar-reservation": {
     "reservationOk": "A tárgyaló foglalása sikeresen megtörtént."

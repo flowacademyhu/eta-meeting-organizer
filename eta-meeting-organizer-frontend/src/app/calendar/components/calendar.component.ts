@@ -148,7 +148,9 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnChanges, OnDe
 
   public bookDialog(event: EventInput) {
     const dialogRef = this.dialog.open(ReservationBookingComponent, {
-      width: '400px',
+      disableClose: true,
+      height: '60%',
+      width: '25%',
       data: {
         userId: this.userToken.sub,
         meetingRoomId: this.meetingRoom.id,
