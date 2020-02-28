@@ -48,7 +48,11 @@ import { BuildingService } from './../../shared/services/building.service';
           <td mat-cell *matCellDef="let building"> {{building.address}} </td>
         </ng-container>
         <ng-container matColumnDef="delete">
+<<<<<<< HEAD
           <th mat-header-cell *matHeaderCellDef class="column" mat-sort-header> {{'building.action' | translate}} </th>
+=======
+          <th mat-header-cell *matHeaderCellDef class="column"> {{'building.edit' | translate}} </th>
+>>>>>>> master
           <td mat-cell *matCellDef="let building">
            <button mat-icon-button color="accent" (click)="updateDialog(building)">
           <mat-icon aria-label="Edit">
