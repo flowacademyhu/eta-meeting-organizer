@@ -115,7 +115,10 @@
   },
   "reservation": {
     "title": "Esemény neve:",
-    "summary": "Esemény leírása:"
+    "summary": "Esemény leírása:",
+    "startDate": "Kezdés:",
+    "endDate": "Befejezés:",
+    "meetingRoomName": "Tárgyaló neve:"
   },
   "snackbar-reservation": {
     "reservationOk": "A tárgyaló foglalása sikeresen megtörtént."

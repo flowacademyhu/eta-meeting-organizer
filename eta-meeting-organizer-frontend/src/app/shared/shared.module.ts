@@ -27,6 +27,7 @@ import { BuildingService } from './services/building.service';
 import { MeetingRoomService } from './services/meeting-room.service';
 import { ReservationService } from './services/reservation.service';
 import { UserService } from './services/user.service';
+import { ReservationMouseoverComponent } from './Modals/reservation-mouseover.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { UserService } from './services/user.service';
     BuildingUpdateDialogComponent,
     ReservationBookingComponent,
     ReservationUpdateComponent,
+    ReservationMouseoverComponent,
   ],
   exports: [
     CommonModule,

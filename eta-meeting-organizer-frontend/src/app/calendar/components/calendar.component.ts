@@ -15,6 +15,7 @@ import { takeUntil } from 'rxjs/operators';
 import { MeetingRoom } from '~/app/models/meetingroom.model';
 import { Reservation } from '~/app/models/reservation.model';
 import { ReservationBookingComponent } from '~/app/shared/Modals/reservation-book.component';
+import { ReservationMouseoverComponent } from '~/app/shared/Modals/reservation-mouseover.component';
 import { ReservationUpdateComponent } from '~/app/shared/Modals/reservation-update.component';
 import { UserToken } from '~/app/shared/models/user-token.model';
 import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
@@ -173,7 +174,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnChanges, OnDe
     .subscribe();
   }
 
-  public updateDialog(el: any) {
+  public updateDialog(el: EventInput) {
     if (this.checked) { // el.event.extendedProps.userId === this.userToken.sub ||
       const dialogRef = this.dialog.open(ReservationUpdateComponent, {
         width: '400px',
@@ -195,6 +196,21 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnChanges, OnDe
       .pipe(takeUntil(this.destroy$))
       .subscribe();
     }
+  }
+
+  public onMouseEnter(el: EventInput) {
+    const dialogRef = this.dialog.open(ReservationMouseoverComponent, {
+      width: '400px',
+      data: {
+        startingTime: el.event.start,
+        endingTime: el.event.end,
+        title: el.event.extendedProps.eventName,
+        summary: el.event.extendedProps.summary
+      },
+    });
+    dialogRef.afterClosed()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe();
   }
 
   public ngOnDestroy(): void {
@@ -247,21 +263,17 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnChanges, OnDe
           this.calendarEvents.push(
             {
               id: reservation.id,
-              groupId: reservation.meetingRoom?.id,
+              eventName: reservation.meetingRoom?.name,
               end: reservation.endingTime,
               overlap: false,
               start: reservation.startingTime,
-              title: reservation.meetingRoom?.name,
-              summary: reservation.summary
+              title: reservation.title,
+              summary: reservation.summary,
             }
           );
         }
       }
     );
-  }
-
-  public onMouseEnter(el: any) {
-    alert(el.event.extendedProps.summary);
   }
 
 }

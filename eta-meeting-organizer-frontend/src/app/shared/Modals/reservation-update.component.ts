@@ -57,8 +57,6 @@ export class ReservationUpdateComponent implements OnInit {
   @Input()
   public checked: boolean = true;
 
-  public title: string = this.data.title;
-
   @Output()
   public passEntry: EventEmitter<undefined> = new EventEmitter();
 
