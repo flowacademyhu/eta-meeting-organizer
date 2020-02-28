@@ -1,4 +1,5 @@
-import { AfterViewInit, Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { FullCalendarComponent } from '@fullcalendar/angular';
 import { OptionsInput } from '@fullcalendar/core';
 import { EventInput } from '@fullcalendar/core';
@@ -6,15 +7,18 @@ import { Locale } from '@fullcalendar/core/datelib/locale';
 import enGbLocale from '@fullcalendar/core/locales/en-gb';
 import huLocale from '@fullcalendar/core/locales/hu';
 import dayGridPlugin from '@fullcalendar/daygrid';
+import interactionPlugin from '@fullcalendar/interaction';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import { TranslateService } from '@ngx-translate/core';
-import { Subject, Subscription } from 'rxjs';
-import { take, takeUntil } from 'rxjs/operators';
+import { Observable, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { MeetingRoom } from '~/app/models/meetingroom.model';
 import { Reservation } from '~/app/models/reservation.model';
+import { ReservationBookingComponent } from '~/app/shared/Modals/reservation-book.component';
 import { UserToken } from '~/app/shared/models/user-token.model';
 import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
 import { AuthService } from '~/app/shared/services/auth.service';
+import { ReservationService } from '~/app/shared/services/reservation.service';
 
 @Component({
   selector: 'app-calendar',
@@ -38,19 +42,22 @@ import { AuthService } from '~/app/shared/services/auth.service';
       [titleFormat]="options.titleFormat"
       [nowIndicator]="true"
       [locale]="'hu'"
+      [selectable]=selectable()
+      [selectMirror]="true"
+      [selectOverlap]="false"
+      (select)="bookDialog($event)"
       [height]="'auto'"
       [footer]="'auto'"
     ></full-calendar>
   `
 })
-export class CalendarComponent implements OnInit, AfterViewInit, OnChanges {
+export class CalendarComponent implements OnInit, AfterViewInit, OnChanges, OnDestroy {
 
   protected locales: Locale[] = [huLocale, enGbLocale];
 
   private destroy$: Subject<boolean> = new Subject<boolean>();
 
-  public subs: Subscription;
-  public user: UserToken = {} as UserToken;
+  public userToken: UserToken = {} as UserToken;
 
   @Input('meetingRoom')
   public meetingRoom: MeetingRoom;
@@ -58,17 +65,22 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnChanges {
   @Input('checked')
   public checked: boolean;
 
+  public posted: boolean;
+
   public options: OptionsInput;
-  public calendarPlugins: object[] = [dayGridPlugin, timeGridPlugin];
+  public calendarPlugins: object[] = [dayGridPlugin, timeGridPlugin, interactionPlugin];
 
   public reservations: Reservation[];
+  public reservations$: Observable<Reservation[]>;
 
   constructor(private readonly api: ApiCommunicationService,
               private readonly authService: AuthService,
-              private readonly translate: TranslateService) {
-    this.subs = this.authService.user.pipe(take(1))
+              private readonly translate: TranslateService,
+              private readonly dialog: MatDialog,
+              private readonly reservationService: ReservationService) {
+    this.authService.user.pipe(takeUntil(this.destroy$))
     .subscribe((data) => {
-      this.user = data;
+      this.userToken = data;
     });
   }
 
@@ -101,6 +113,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnChanges {
         year: 'numeric'
       },
     };
+    this.reservations$ = this.reservationService.reservationBehaviourSubject;
   }
 
   public ngAfterViewInit() {
@@ -125,28 +138,50 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnChanges {
 
   public ngOnChanges(changes: SimpleChanges) {
     if (changes?.checked?.currentValue && this.checked) {
-      this.api.reservation()
-      .getReservationsByUserId(this.user.sub)
-      .subscribe(
-        (data) => {
-          this.reservations = data;
-          this.calendarEvents = [];
-          for (const reservation of this.reservations) {
-            this.calendarEvents.push(
-              {
-                end: reservation.endingTime,
-                overlap: false,
-                start: reservation.startingTime,
-                title: reservation.title
-                + '\n' + 'meetingroom-name',
-              }
-            );
-          }
-        }
-      );
-    } else if (changes?.meetingRoom?.currentValue || (!this.checked && this.meetingRoom !== undefined)) {
-      this.api.reservation()
+      this.getReservationsByUser();
+    } else if (changes?.meetingRoom?.currentValue ||
+      (!this.checked && this.meetingRoom !== undefined) ||
+      changes?.posted?.currentValue) {
+        this.getReservationsByMeetingRoom();
+    }
+  }
+
+  public bookDialog(event: EventInput) {
+    const dialogRef = this.dialog.open(ReservationBookingComponent, {
+      width: '400px',
+      data: {
+        userId: this.userToken.sub,
+        meetingRoomId: this.meetingRoom.id,
+        startingTime: event.startStr,
+        endingTime: event.endStr
+      },
+    });
+    dialogRef.componentInstance.passEntry.pipe(takeUntil(this.destroy$))
+    .subscribe(() => {
+      this.getReservationsByMeetingRoom();
+    });
+    dialogRef.afterClosed()
+    .pipe(takeUntil(this.destroy$))
+    .subscribe();
+  }
+
+  public ngOnDestroy(): void {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
+  }
+
+  public selectable() {
+    if (this.checked || !this.meetingRoom) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  public getReservationsByMeetingRoom() {
+    this.api.reservation()
       .findByMeetingRoomId(this.meetingRoom.id)
+      .pipe(takeUntil(this.destroy$))
       .subscribe(
       (data) => {
         this.reservations = data;
@@ -157,14 +192,34 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnChanges {
               end: reservation.endingTime,
               overlap: false,
               start: reservation.startingTime,
-              title: reservation.title
-              + '\n' + 'meetingroom-name',
+              title: this.userToken.username,
             }
           );
         }
       }
     );
-    }
+  }
+
+  public getReservationsByUser() {
+    this.api.reservation()
+    .getReservationsByUserId(this.userToken.sub)
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(
+      (data) => {
+        this.reservations = data;
+        this.calendarEvents = [];
+        for (const reservation of this.reservations) {
+          this.calendarEvents.push(
+            {
+              end: reservation.endingTime,
+              overlap: false,
+              start: reservation.startingTime,
+              title: reservation.meetingRoom?.name,
+            }
+          );
+        }
+      }
+    );
   }
 
 }
