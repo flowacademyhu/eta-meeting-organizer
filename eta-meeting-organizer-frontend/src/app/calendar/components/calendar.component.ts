@@ -53,6 +53,7 @@ import { ReservationService } from '~/app/shared/services/reservation.service';
       [selectOverlap]="false"
       (select)="bookDialog($event)"
       (eventClick)="updateDialog($event)"
+      (eventMouseEnter)="onMouseEnter($event)"
       [height]="'auto'"
       [footer]="'auto'"
     ></full-calendar>
@@ -173,7 +174,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnChanges, OnDe
   }
 
   public updateDialog(el: any) {
-    if (el.event.groupId === this.userToken.sub || this.checked) {
+    if (this.checked) { // el.event.extendedProps.userId === this.userToken.sub ||
       const dialogRef = this.dialog.open(ReservationUpdateComponent, {
         width: '400px',
         data: {
@@ -183,7 +184,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnChanges, OnDe
           startingTime: el.event.start,
           endingTime: el.event.end,
           title: el.event.title,
-          summary: el.event.extendedProps.description
+          summary: el.event.extendedProps.summary
         },
       });
       dialogRef.componentInstance.passEntry.pipe(takeUntil(this.destroy$))
@@ -221,11 +222,12 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnChanges, OnDe
           this.calendarEvents.push(
             {
               id: reservation.id,
+              userId: reservation.user?.id,
               groupId: this.userToken.sub,
               end: reservation.endingTime,
               overlap: false,
               start: reservation.startingTime,
-              title: this.userToken.username,
+              title: reservation.user?.username, // Ide a user e-mail címe kell, akit tette a foglalást.
             }
           );
         }
@@ -250,12 +252,16 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnChanges, OnDe
               overlap: false,
               start: reservation.startingTime,
               title: reservation.meetingRoom?.name,
-              description: reservation.summary
+              summary: reservation.summary
             }
           );
         }
       }
     );
+  }
+
+  public onMouseEnter(el: any) {
+    alert(el.event.extendedProps.summary);
   }
 
 }

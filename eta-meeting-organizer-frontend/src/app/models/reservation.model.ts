@@ -1,5 +1,5 @@
 import { MeetingRoom } from './meetingroom.model';
-import { User } from './placeholder-user.model';
+import { User } from './user.model';
 
 export interface Reservation {
   id: number;
