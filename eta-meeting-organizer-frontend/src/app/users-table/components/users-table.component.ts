@@ -27,21 +27,24 @@ import { UserService } from './../../shared/services/user.service';
     }
   `],
   template: `
-    <div>
+     <div class="row justify-content-center" class="container">
     <mat-form-field>
     <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Filter">
     </mat-form-field>
       <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
         <ng-container matColumnDef="id">
-          <th mat-header-cell *matHeaderCellDef class="column">{{'profile.id' | translate}} </th>
+          <th mat-header-cell *matHeaderCellDef class="column">
+            {{'profile.id' | translate}} </th>
           <td mat-cell  *matCellDef="let user"> {{user.id}} </td>
         </ng-container>
         <ng-container matColumnDef="email">
-          <th mat-header-cell *matHeaderCellDef class="column"> {{'profile.email' | translate}} </th>
+          <th mat-header-cell *matHeaderCellDef class="column" mat-sort-header>
+            {{'profile.email' | translate}} </th>
           <td mat-cell *matCellDef="let user">{{user.username}}</td>
         </ng-container>
         <ng-container matColumnDef="role">
-          <th mat-header-cell *matHeaderCellDef class="column"> {{'profile.role' | translate}} </th>
+          <th mat-header-cell *matHeaderCellDef class="column" mat-sort-header>
+            {{'profile.role' | translate}} </th>
           <td mat-cell *matCellDef="let user" [ngSwitch]="user.role">
             <p *ngSwitchCase="'ADMIN'">{{'user-verification-dialog.admin' | translate}}</p>
             <p *ngSwitchCase="'USER'">{{'user-verification-dialog.user' | translate}}</p>
