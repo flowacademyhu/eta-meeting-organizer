@@ -26,48 +26,64 @@ import { BuildingService } from './../../shared/services/building.service';
   `],
   template: `
   <div class="row justify-content-center" class="container">
-     <button mat-icon-button color="primary"
-          (click)="postDialog()">
-          <mat-icon>add</mat-icon>
+      <button mat-icon-button color="primary" (click)="postDialog()">
+        <mat-icon>
+          add
+      </mat-icon>
     </button>
     <mat-form-field>
-    <input matInput type="text" (keyup)="doFilter($event.target.value)"
-     placeholder="{{'search-bar.search' | translate}}">
-  </mat-form-field>
+      <input matInput type="text" (keyup)="doFilter($event.target.value)"
+        placeholder="{{'search-bar.search' | translate}}">
+    </mat-form-field>
       <table mat-table [dataSource]="dataSource" class="mat-elevation-z8"
-       matSort matSortActive="id" matSortDirection="desc" matSortDisableClear>
-      <ng-container matColumnDef="id">
+        matSort matSortActive="id" matSortDirection="desc" matSortDisableClear>
+        <ng-container matColumnDef="id">
           <th mat-header-cell *matHeaderCellDef class="column" mat-sort-header>
-            {{'profile.id' | translate}} </th>
-          <td mat-cell  *matCellDef="let building"> {{building.id}} </td>
+            {{'profile.id' | translate}}
+          </th>
+          <td mat-cell  *matCellDef="let building">
+            {{building.id}}
+          </td>
         </ng-container>
-
-      <ng-container matColumnDef="buildingName">
+        <ng-container matColumnDef="buildingName">
           <th mat-header-cell *matHeaderCellDef class="column" mat-sort-header>
-            {{'building.buildingName' | translate}}</th>
-          <td mat-cell *matCellDef="let building"> {{building.buildingName}} </td>
+            {{'building.buildingName' | translate}}
+          </th>
+          <td mat-cell *matCellDef="let building">
+            {{building.buildingName}}
+          </td>
         </ng-container>
         <ng-container matColumnDef="city">
-          <th mat-header-cell *matHeaderCellDef class="column" mat-sort-header>{{'building.city' | translate}}</th>
-          <td mat-cell *matCellDef="let building"> {{building.city}} </td>
+          <th mat-header-cell *matHeaderCellDef class="column" mat-sort-header>
+            {{'building.city' | translate}}
+          </th>
+          <td mat-cell *matCellDef="let building">
+            {{building.city}}
+          </td>
         </ng-container>
         <ng-container matColumnDef="address">
-          <th mat-header-cell *matHeaderCellDef class="column" mat-sort-header> {{'building.address' | translate}} </th>
-          <td mat-cell *matCellDef="let building"> {{building.address}} </td>
+          <th mat-header-cell *matHeaderCellDef class="column" mat-sort-header>
+            {{'building.address' | translate}}
+          </th>
+          <td mat-cell *matCellDef="let building">
+            {{building.address}}
+          </td>
         </ng-container>
         <ng-container matColumnDef="delete">
-          <th mat-header-cell *matHeaderCellDef class="column" mat-sort-header> {{'building.action' | translate}} </th>
+          <th mat-header-cell *matHeaderCellDef class="column" mat-sort-header>
+             {{'building.action' | translate}}
+          </th>
           <td mat-cell *matCellDef="let building">
-           <button mat-icon-button color="accent" (click)="updateDialog(building)">
-          <mat-icon aria-label="Edit">
-            edit
-          </mat-icon>
-          </button>
-          <button mat-icon-button color="primary" (click)="deleteDialog(building.id)">
-          <mat-icon aria-label="Delete Icon">
-            delete
-          </mat-icon>
-           </button>
+            <button mat-icon-button color="accent" (click)="updateDialog(building)">
+              <mat-icon aria-label="Edit">
+                edit
+              </mat-icon>
+            </button>
+            <button mat-icon-button color="primary" (click)="deleteDialog(building.id)">
+              <mat-icon aria-label="Delete Icon">
+                delete
+              </mat-icon>
+            </button>
           </td>
         </ng-container>
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
