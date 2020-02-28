@@ -14,7 +14,6 @@ import { TranslateService } from '@ngx-translate/core';
       font-size: 170%;
       margin: 0 auto;
       text-align: center;
-      
     }
     button {
       margin-top: 15%;
