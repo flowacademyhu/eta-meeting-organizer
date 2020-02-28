@@ -35,7 +35,7 @@ import { MeetingRoomService } from './../../shared/services/meeting-room.service
           <td mat-cell *matCellDef="let meetingRoom"> {{meetingRoom.name}} </td>
         </ng-container>
         <ng-container matColumnDef="numberOfSeat">
-          <th mat-header-cell *matHeaderCellDef class="column">
+          <th mat-header-cell *matHeaderCellDef class="column" mat-sort-header>
             {{'meeting-room.seats' | translate}} </th>
           <td mat-cell *matCellDef="let meetingRoom"> {{meetingRoom.numberOfSeats}} </td>
         </ng-container>
