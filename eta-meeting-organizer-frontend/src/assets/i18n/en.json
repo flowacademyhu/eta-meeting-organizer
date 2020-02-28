@@ -127,5 +127,8 @@
   },
   "validation": {
     "validate": "You must fill out this field!"
-  }
+  },
+  "search-bar": {
+    "search": "Search"
+   }
 }

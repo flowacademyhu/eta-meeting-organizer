@@ -126,5 +126,8 @@
   },
   "validation": {
     "validate": "A mező kitöltése kötelező!"
+  },
+  "search-bar": {
+   "search": "Keresés"
   }
 }
