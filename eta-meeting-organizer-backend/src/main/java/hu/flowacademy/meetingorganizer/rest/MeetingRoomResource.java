@@ -2,6 +2,7 @@ package hu.flowacademy.meetingorganizer.rest;
 
 import hu.flowacademy.meetingorganizer.persistence.model.dto.MeetingRoomDTO;
 import hu.flowacademy.meetingorganizer.service.MeetingRoomService;
+import java.util.ArrayList;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -54,6 +55,12 @@ public class MeetingRoomResource {
   @DeleteMapping("/{id}")
   public ResponseEntity<Void> deleteMeetingRoom(@PathVariable Long id) {
     meetingRoomService.deleteMeetingRoom(id);
+    return ResponseEntity.noContent().build();
+  }
+
+  @DeleteMapping("/checkbox")
+  public ResponseEntity<Void> deleteWithCheckbox(@PathVariable ArrayList<Long> id ){
+    meetingRoomService.deleteMeetingRoomByCheckBox(id);
     return ResponseEntity.noContent().build();
   }
 }
