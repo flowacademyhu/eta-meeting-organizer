@@ -70,7 +70,7 @@ import { BuildingService } from './../../shared/services/building.service';
           </td>
         </ng-container>
         <ng-container matColumnDef="delete">
-          <th mat-header-cell *matHeaderCellDef class="column" mat-sort-header>
+          <th mat-header-cell *matHeaderCellDef class="column">
              {{'building.action' | translate}}
           </th>
           <td mat-cell *matCellDef="let building">
