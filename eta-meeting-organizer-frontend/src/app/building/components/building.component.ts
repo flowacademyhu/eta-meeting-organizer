@@ -24,17 +24,16 @@ import { BuildingService } from './../../shared/services/building.service';
     }
   `],
   template: `
-
   <div class="row justify-content-center" class="container">
      <button mat-icon-button color="primary"
           (click)="postDialog()">
           <mat-icon>add</mat-icon>
     </button>
     <mat-form-field>
-    <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Filter">
+    <input matInput type="text" (keyup)="doFilter($event.target.value)"
+     placeholder="{{'search-bar.search' | translate}}">
   </mat-form-field>
       <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
-
       <ng-container matColumnDef="buildingName">
           <th mat-header-cell *matHeaderCellDef class="column" mat-sort-header>
             {{'building.buildingName' | translate}}</th>
@@ -49,7 +48,7 @@ import { BuildingService } from './../../shared/services/building.service';
           <td mat-cell *matCellDef="let building"> {{building.address}} </td>
         </ng-container>
         <ng-container matColumnDef="delete">
-          <th mat-header-cell *matHeaderCellDef class="column"> {{'building.edit' | translate}} </th>
+          <th mat-header-cell *matHeaderCellDef class="column" mat-sort-header> {{'building.action' | translate}} </th>
           <td mat-cell *matCellDef="let building">
            <button mat-icon-button color="accent" (click)="updateDialog(building)">
           <mat-icon aria-label="Edit">
@@ -109,7 +108,9 @@ export class BuildingComponent implements OnInit, OnDestroy, AfterViewInit {
 
   public postDialog(): void {
     const dialogRef = this.dialog.open(BuildingRegisterComponent, {
-      width: '400px',
+      disableClose: true,
+      height: '65%',
+      width: '25%',
     });
     this.postUnsub = dialogRef.afterClosed()
     .subscribe();
@@ -117,6 +118,9 @@ export class BuildingComponent implements OnInit, OnDestroy, AfterViewInit {
 
   public updateDialog(buildingData: Building) {
     const dialogRef = this.dialog.open(BuildingUpdateDialogComponent, {
+      disableClose: true,
+      height: '65%',
+      width: '25%',
       data: buildingData
     });
     this.updateUnsub = dialogRef.afterClosed()
@@ -124,7 +128,11 @@ export class BuildingComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   public deleteDialog(id: number) {
-    const dialogRef = this.dialog.open(BuildingDeleteDialogComponent);
+    const dialogRef = this.dialog.open(BuildingDeleteDialogComponent, {
+      disableClose: true,
+      height: '35%',
+      width: '30%'
+    });
     this.deleteUnsub = dialogRef.afterClosed()
     .subscribe((result) => {
       if (result === 'true') {
