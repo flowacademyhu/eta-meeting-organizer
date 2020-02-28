@@ -21,6 +21,7 @@ import { MeetingRoomService } from './../../shared/services/meeting-room.service
     }
     table {
       width: 100%;
+      table-layout: fixed;
     }
   `],
   template: `
@@ -33,7 +34,13 @@ import { MeetingRoomService } from './../../shared/services/meeting-room.service
     <input matInput type="text" (keyup)="doFilter($event.target.value)"
      placeholder="{{'search-bar.search' | translate}}">
   </mat-form-field>
-     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8"
+     matSort matSortActive="id" matSortDirection="desc" matSortDisableClears>
+     <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef class="column">
+            {{'profile.id' | translate}} </th>
+          <td mat-cell  *matCellDef="let meetingroom"> {{meetingroom.id}} </td>
+        </ng-container>
         <ng-container matColumnDef="name">
           <th mat-header-cell *matHeaderCellDef class="column" mat-sort-header>{{'meeting-room.text' | translate}} </th>
           <td mat-cell *matCellDef="let meetingRoom"> {{meetingRoom.name}} </td>
@@ -81,8 +88,8 @@ import { MeetingRoomService } from './../../shared/services/meeting-room.service
       </table>
       <mat-paginator
         [pageSize]="5"
-        [pageSizeOptions]="[5, 10, 20]"
-        showFirstLastButton>
+        [pageSizeOptions]="[10, 25, 50]"
+        showFirstLastButtons>
       </mat-paginator>
     </div>
   `
