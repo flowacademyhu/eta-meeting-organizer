@@ -81,7 +81,7 @@
     "answer": "A regisztráció admin általi jóváhagyásra vár!"
   },
   "snackbar-meeting-room": {
-    "registerOk":"A regisztráció sikeres volt"
+    "registerOk":"Tárgyaló létrehozva"
   },
   "user-verification-dialog": {
     "roleSetting": "Felhasználói szerepkör megadása",

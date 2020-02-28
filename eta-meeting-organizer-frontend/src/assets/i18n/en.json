@@ -101,7 +101,7 @@
     "delete": "Building has been deleted"
   },
   "post-building-snackbar": {
-    "post": "Building has been created."
+    "post": "Building has been saved."
   },
   "update-building-snackbar": {
     "update": "Building has been updated."

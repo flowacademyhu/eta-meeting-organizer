@@ -138,7 +138,9 @@ export class UsersTableComponent implements OnInit, OnDestroy, AfterViewInit {
     });
     this.verifyUnsub = dialogRef.afterClosed()
     .subscribe((roleSet) => {
+      if (roleSet !== 'false') {
       this.verifyUser(id, roleSet);
+      }
     });
    }
 

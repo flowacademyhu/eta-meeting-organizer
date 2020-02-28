@@ -47,7 +47,7 @@ import { TranslateService } from '@ngx-translate/core';
   </mat-dialog-actions>
   <br>
   <mat-dialog-actions>
-     <button mat-raised-button mat-dialog-close=undefined
+     <button mat-raised-button mat-dialog-close='false'
      color="accent">{{'user-verification-dialog.cancel' | translate}}</button>
   </mat-dialog-actions>
   `
