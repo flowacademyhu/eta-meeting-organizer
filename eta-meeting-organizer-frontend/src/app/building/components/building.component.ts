@@ -24,15 +24,19 @@ import { BuildingService } from './../../shared/services/building.service';
     }
   `],
   template: `
+
+  <div class="row justify-content-center" class="container">
      <button mat-icon-button color="primary"
           (click)="postDialog()">
           <mat-icon>add</mat-icon>
     </button>
+
     <div>
     <mat-form-field>
     <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Filter">
   </mat-form-field>
       <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+
       <ng-container matColumnDef="buildingName">
           <th mat-header-cell *matHeaderCellDef class="column" mat-sort-header>
             {{'building.buildingName' | translate}}</th>

@@ -20,7 +20,7 @@ import { ConfigurationService } from '~/app/shared/services/configuration.servic
   template: `
   <div>
     <app-header></app-header>
-    <div class="container">
+    <div class="container-fluid">
         <router-outlet></router-outlet>
     </div>
     <app-footer></app-footer>
