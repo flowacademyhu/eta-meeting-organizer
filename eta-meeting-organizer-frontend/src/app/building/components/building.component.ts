@@ -29,7 +29,6 @@ import { BuildingService } from './../../shared/services/building.service';
           (click)="postDialog()">
           <mat-icon>add</mat-icon>
     </button>
-    <div>
     <mat-form-field>
     <input matInput type="text" (keyup)="doFilter($event.target.value)"
      placeholder="{{'search-bar.search' | translate}}">

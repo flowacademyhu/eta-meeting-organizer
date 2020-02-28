@@ -14,6 +14,7 @@ import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { MeetingRoom } from '~/app/models/meetingroom.model';
 import { Reservation } from '~/app/models/reservation.model';
+import { Role } from '~/app/models/user.model';
 import { ReservationBookingComponent } from '~/app/shared/Modals/reservation-book.component';
 import { UserToken } from '~/app/shared/models/user-token.model';
 import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
@@ -67,6 +68,8 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnChanges, OnDe
 
   public posted: boolean;
 
+  protected isReader: boolean = false;
+
   public options: OptionsInput;
   public calendarPlugins: object[] = [dayGridPlugin, timeGridPlugin, interactionPlugin];
 
@@ -82,6 +85,11 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnChanges, OnDe
     .subscribe((data) => {
       this.userToken = data;
     });
+    this.checkReader();
+  }
+
+  protected checkReader(): void {
+    (this.userToken.role === Role.READER) ? this.isReader = true : this.isReader = false;
   }
 
   public calendarEvents: EventInput[] = [];
@@ -173,7 +181,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnChanges, OnDe
   }
 
   public selectable() {
-    if (this.checked || !this.meetingRoom) {
+    if (this.checked || !this.meetingRoom || this.isReader) {
       return false;
     } else {
       return true;

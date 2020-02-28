@@ -27,7 +27,7 @@ import { UserService } from './../../shared/services/user.service';
     }
   `],
   template: `
-    <div>
+     <div class="row justify-content-center" class="container">
     <mat-form-field>
     <input matInput type="text" (keyup)="doFilter($event.target.value)"
     placeholder="{{'search-bar.search' | translate}}">

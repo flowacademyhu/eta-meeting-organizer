@@ -24,11 +24,11 @@ import { MeetingRoomService } from './../../shared/services/meeting-room.service
     }
   `],
   template: `
+  <div class="row justify-content-center" class="container">
   <button  mat-icon-button color="primary"
           (click)="openDialog()">
           <mat-icon>add</mat-icon>
   </button>
-  <div>
     <mat-form-field>
     <input matInput type="text" (keyup)="doFilter($event.target.value)"
      placeholder="{{'search-bar.search' | translate}}">
