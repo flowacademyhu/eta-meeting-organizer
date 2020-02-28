@@ -6,9 +6,13 @@ import { environment } from '~/environment/environment';
   styles: [
     `
       #row {
-        padding-top: 20%;
+        position: fixed;
+        top: 50%;
+        padding-left: 72%;
+        transform: translate(-50%, -50%);
       }
       #customBtn {
+        vertical-align: middle;
         display: inline-block;
         background: rgb(59,59,59);
         color: rgb(243, 245, 237);
@@ -16,15 +20,13 @@ import { environment } from '~/environment/environment';
         border-radius: 5px;
         white-space: 10px;
         padding-left: 10px;
-
       }
       img {
         background: transparent 5px 50% no-repeat;
         display: inline-block;
         vertical-align: middle;
-        width: 30px;
-        height: 35px;
-        padding-bottom: 5px;
+        width: 31px;
+        height: 31px;
       }
       span.buttonText {
         color: white;
@@ -50,27 +52,32 @@ import { environment } from '~/environment/environment';
         background: transparent 5px 50% no-repeat;
         display: inline-block;
         vertical-align: middle;
-        width: 150px;
-        height: 100px;
+        width: 200px;
+        height: 160px;
+        padding-bottom: 5%;
+        padding-top: 5%;
       }
       #googleicon{
+        padding-top: 5px;
         padding-right: 10px;
+        vertical-align: middle;
       }
-      a {
-        color: white;
-        text-decoration: none;
+      #login {
+        min-height: 280px;
+        min-width: 420px;
+        margin: 4px
       }
     `,
   ],
   template: `
-    <div id="row" class="row align-items-center justify-content-center">
+    <div id="row" class="container align-items-center justify-content-center">
       <div class="col-sm-4">
         <mat-card id="login" style="text-align: center;">
             <img id="image" src="../../../assets/wysio_arrow.png"/>
           <mat-card-content>
           <a href="${environment.googleAuthLink}">
-            <div id="customBtn" class="customGPlusSignIn">
-              <span class="icon">
+            <div id="customBtn">
+              <span class="googleicon">
                 <img src="../../../assets/googlelogo.png" />
               </span>
               <span class="buttonText">{{
