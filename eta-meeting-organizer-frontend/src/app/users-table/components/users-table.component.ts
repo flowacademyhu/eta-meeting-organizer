@@ -29,7 +29,7 @@ import { UserService } from './../../shared/services/user.service';
   template: `
     <div>
     <mat-form-field>
-    <input matInput type="text" (keyup)="doFilter($event.target.value)" 
+    <input matInput type="text" (keyup)="doFilter($event.target.value)"
     placeholder="{{'search-bar.search' | translate}}">
     </mat-form-field>
       <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
