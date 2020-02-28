@@ -53,7 +53,7 @@ import { MeetingRoomService } from './../services/meeting-room.service';
 <!-- űlőhelyek száma -->
      <mat-form-field>
        <mat-label>{{'meeting-room.seats' | translate}}</mat-label>
-         <input  type="number" name="numberOfSeats" formControlName="numberOfSeats"
+         <input  type="number" min="0" name="numberOfSeats" formControlName="numberOfSeats"
            matInput placeholder="{{'meeting-room.seats' | translate}}">
            <mat-error>{{'validation.validate' | translate}}</mat-error>
      </mat-form-field>
