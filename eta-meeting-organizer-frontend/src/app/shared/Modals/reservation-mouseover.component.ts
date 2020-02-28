@@ -30,6 +30,7 @@ import { Reservation } from '~/app/models/reservation.model';
   <mat-divider></mat-divider>
   <mat-list-item>{{'reservation.endDate' | translate}} {{data.endingTime | date : 'y.MM.dd. hh:mm'}}</mat-list-item>
 </mat-list>
+<button mat-button (click)="update()">Módosítás</button>
  </div>`,
 })
 
@@ -56,7 +57,7 @@ export class ReservationMouseoverComponent implements OnInit {
     console.log('data', this.data);
   }
 
-  public leave() {
-    this.dialogRef.close();
+  public update() {
+    this.passEntry.emit();
   }
 }

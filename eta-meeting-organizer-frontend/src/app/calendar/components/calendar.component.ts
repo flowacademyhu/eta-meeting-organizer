@@ -53,8 +53,7 @@ import { ReservationService } from '~/app/shared/services/reservation.service';
       [selectMirror]="true"
       [selectOverlap]="false"
       (select)="bookDialog($event)"
-      (eventClick)="updateDialog($event)"
-      (eventMouseEnter)="onMouseEnter($event)"
+      (eventClick)="getInfo($event)"
       [height]="'auto'"
       [footer]="'auto'"
     ></full-calendar>
@@ -181,7 +180,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnChanges, OnDe
         data: {
           id: el.event.id,
           userId: this.userToken.sub,
-          meetingRoomId: el.event.groupId,
+          meetingRoomId: el.event.extendedProps.meetingRoomId,
           startingTime: el.event.start,
           endingTime: el.event.end,
           title: el.event.title,
@@ -198,7 +197,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnChanges, OnDe
     }
   }
 
-  public onMouseEnter(el: EventInput) {
+  public getInfo(el: EventInput) {
     const dialogRef = this.dialog.open(ReservationMouseoverComponent, {
       width: '400px',
       data: {
@@ -211,6 +210,10 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnChanges, OnDe
     dialogRef.afterClosed()
       .pipe(takeUntil(this.destroy$))
       .subscribe();
+    dialogRef.componentInstance.passEntry.pipe(takeUntil(this.destroy$))
+      .subscribe(() => {
+      this.updateDialog(el);
+    });
   }
 
   public ngOnDestroy(): void {
@@ -264,6 +267,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnChanges, OnDe
             {
               id: reservation.id,
               eventName: reservation.meetingRoom?.name,
+              meetingRoomId: reservation.meetingRoom?.id,
               end: reservation.endingTime,
               overlap: false,
               start: reservation.startingTime,
