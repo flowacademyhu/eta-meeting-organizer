@@ -74,16 +74,17 @@ import { UserService } from './../../shared/services/user.service';
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       </table>
-      <mat-paginator
+      <mat-paginator class="mat-elevation-z8"
         [pageSize]="5"
         [pageSizeOptions]="[10, 25, 50]"
         showFirstLastButtons>
       </mat-paginator>
+      </div>
   `
 })
 
 export class UsersTableComponent implements OnInit, OnDestroy, AfterViewInit {
-  public displayedColumns: string[] = ['id', 'email', 'role', 'action'];
+  public displayedColumns: string[] = ['email', 'role', 'action'];
   public deleteUnsub: Subscription;
   public verifyUnsub: Subscription;
   public subs: Subscription;
