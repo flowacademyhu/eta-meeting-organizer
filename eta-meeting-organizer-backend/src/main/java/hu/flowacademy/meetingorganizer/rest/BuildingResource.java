@@ -47,7 +47,7 @@ public class BuildingResource {
 
   @GetMapping("/cities")
   public ResponseEntity<List<Building>> findByCity(@RequestParam String city) {
-    return new ResponseEntity<>(buildingService.findByCity(city), HttpStatus.OK);
+    return new ResponseEntity<>(buildingService.findAllByCity(city), HttpStatus.OK);
   }
 
   @PutMapping("/{id}")

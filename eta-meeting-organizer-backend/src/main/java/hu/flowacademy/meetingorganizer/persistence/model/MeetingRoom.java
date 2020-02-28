@@ -2,7 +2,6 @@ package hu.flowacademy.meetingorganizer.persistence.model;
 
 import java.util.List;
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -30,7 +29,6 @@ public class MeetingRoom {
   private Long id;
 
   @NotNull
-  @Column(unique = true)
   private String name;
 
   @NotNull

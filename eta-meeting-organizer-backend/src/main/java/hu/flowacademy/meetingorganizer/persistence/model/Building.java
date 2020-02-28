@@ -3,7 +3,6 @@ package hu.flowacademy.meetingorganizer.persistence.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.List;
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -31,12 +30,11 @@ public class Building {
 
   @NotNull
   private String city;
-  
-  @Column(unique = true)
+
+  @NotNull
   private String address;
 
   @NotNull
-  @Column(unique = true)
   private String buildingName;
 
   @OneToMany(mappedBy = "building", cascade = CascadeType.ALL)

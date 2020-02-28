@@ -1,7 +1,10 @@
 package hu.flowacademy.meetingorganizer.service;
 
+import hu.flowacademy.meetingorganizer.exception.BuildingAddressAlreadyExistsException;
+import hu.flowacademy.meetingorganizer.exception.BuildingNameAlreadyExistsException;
 import hu.flowacademy.meetingorganizer.exception.BuildingNotFoundException;
 import hu.flowacademy.meetingorganizer.persistence.model.Building;
+import hu.flowacademy.meetingorganizer.persistence.model.dto.BuildingDTO;
 import hu.flowacademy.meetingorganizer.persistence.repository.BuildingRepository;
 import java.util.Optional;
 import lombok.AllArgsConstructor;
@@ -18,6 +21,11 @@ public class BuildingService {
   private BuildingRepository buildingRepository;
 
   public Building createBuilding(Building building) {
+    if ((buildingRepository.findByBuildingName(building.getBuildingName())).isPresent() &&
+        (buildingRepository.findByCity(building.getCity())).isPresent())
+    {
+      throw new BuildingNameAlreadyExistsException(building.getBuildingName());
+    }
     return buildingRepository.save(building);
   }
 
@@ -44,7 +52,21 @@ public class BuildingService {
     return buildingRepository.findAllCities();
   }
 
-  public List<Building> findByCity(String city) {
-    return buildingRepository.findByCity(city);
+  public List<Building> findAllByCity(String city) {
+    return buildingRepository.findAllByCity(city);
+  }
+
+  public void validateBuildingName(Long id, BuildingDTO input) {
+    if ((buildingRepository.findByBuildingName(input.getBuildingName())).isPresent() &&
+        (buildingRepository.findByCity(input.getCity())).isPresent())
+    {
+      throw new BuildingNameAlreadyExistsException(input.getBuildingName());
+    }
+  }
+
+  public void validateBuildingAddress(Long id, BuildingDTO input) {
+    if ((buildingRepository.findByAddress(input.getAddress())).isPresent()) {
+      throw new BuildingAddressAlreadyExistsException(input.getAddress());
+    }
   }
 }
