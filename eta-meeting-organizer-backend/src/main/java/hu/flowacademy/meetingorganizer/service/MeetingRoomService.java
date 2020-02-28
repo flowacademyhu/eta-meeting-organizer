@@ -3,6 +3,8 @@ package hu.flowacademy.meetingorganizer.service;
 import hu.flowacademy.meetingorganizer.persistence.model.MeetingRoom;
 import hu.flowacademy.meetingorganizer.persistence.model.dto.MeetingRoomDTO;
 import hu.flowacademy.meetingorganizer.persistence.repository.MeetingRoomRepository;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -43,5 +45,9 @@ public class MeetingRoomService {
 
   public MeetingRoomDTO create(MeetingRoomDTO meetingRoom) {
     return new MeetingRoomDTO(meetingRoomRepository.save(meetingRoom.toEntity()));
+  }
+
+  public void deleteMeetingRoomByCheckBox(ArrayList<Long> id ) {
+    id.stream().forEach(x -> meetingRoomRepository.deleteById(x));
   }
 }
