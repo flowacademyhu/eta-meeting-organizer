@@ -54,7 +54,7 @@ import { UserService } from './../../shared/services/user.service';
           </td>
         </ng-container>
         <ng-container matColumnDef="action">
-          <th mat-header-cell *matHeaderCellDef></th>
+          <th mat-header-cell *matHeaderCellDef class="column">{{'profile.edit' | translate}}</th>
           <td mat-cell *matCellDef="let user">
           <button *ngIf="user.username !== currentAdmin.username"
           mat-icon-button color="primary" (click)="deleteDialog(user.id)">

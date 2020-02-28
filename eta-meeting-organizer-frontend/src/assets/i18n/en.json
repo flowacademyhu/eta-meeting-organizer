@@ -29,7 +29,8 @@
     "firstName": "Firstname",
     "email": "E-mail address",
     "role": "Role",
-    "delete": "Delete"
+    "delete": "Delete",
+    "edit": "Edit"
   },
   "meeting-room": {
     "text": "Meeting room",

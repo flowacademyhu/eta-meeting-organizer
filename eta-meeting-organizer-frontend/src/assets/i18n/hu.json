@@ -28,7 +28,8 @@
     "firstName": "Keresztnév",
     "email": "E-mail cím",
     "role": "Szerepkör",
-    "delete": "Törlés"
+    "delete": "Törlés",
+    "edit": "Szerkesztés"
   },
   "meeting-room": {
     "text": "Tárgyaló neve",
