@@ -15,6 +15,7 @@ import { takeUntil } from 'rxjs/operators';
 import { MeetingRoom } from '~/app/models/meetingroom.model';
 import { Reservation } from '~/app/models/reservation.model';
 import { ReservationBookingComponent } from '~/app/shared/Modals/reservation-book.component';
+import { ReservationUpdateComponent } from '~/app/shared/Modals/reservation-update.component';
 import { UserToken } from '~/app/shared/models/user-token.model';
 import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
 import { AuthService } from '~/app/shared/services/auth.service';
@@ -22,9 +23,14 @@ import { ReservationService } from '~/app/shared/services/reservation.service';
 
 @Component({
   selector: 'app-calendar',
-  styles: [``],
+  styles: [`
+  a.fc-time-grid-event.fc-event {
+    cursor: pointer;
+  }
+  `],
   template: `
     <full-calendar
+      class="myCalendar"
       #calendar
       deepChangeDetection="true"
       defaultView="timeGridWeek"
@@ -46,6 +52,7 @@ import { ReservationService } from '~/app/shared/services/reservation.service';
       [selectMirror]="true"
       [selectOverlap]="false"
       (select)="bookDialog($event)"
+      (eventClick)="updateDialog($event)"
       [height]="'auto'"
       [footer]="'auto'"
     ></full-calendar>
@@ -165,6 +172,30 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnChanges, OnDe
     .subscribe();
   }
 
+  public updateDialog(el: any) {
+    if (el.event.groupId === this.userToken.sub || this.checked) {
+      const dialogRef = this.dialog.open(ReservationUpdateComponent, {
+        width: '400px',
+        data: {
+          id: el.event.id,
+          userId: this.userToken.sub,
+          meetingRoomId: el.event.groupId,
+          startingTime: el.event.start,
+          endingTime: el.event.end,
+          title: el.event.title,
+          summary: el.event.extendedProps.description
+        },
+      });
+      dialogRef.componentInstance.passEntry.pipe(takeUntil(this.destroy$))
+      .subscribe(() => {
+        this.getReservationsByUser();
+      });
+      dialogRef.afterClosed()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe();
+    }
+  }
+
   public ngOnDestroy(): void {
     this.destroy$.next(true);
     this.destroy$.unsubscribe();
@@ -189,6 +220,8 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnChanges, OnDe
         for (const reservation of this.reservations) {
           this.calendarEvents.push(
             {
+              id: reservation.id,
+              groupId: this.userToken.sub,
               end: reservation.endingTime,
               overlap: false,
               start: reservation.startingTime,
@@ -211,10 +244,13 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnChanges, OnDe
         for (const reservation of this.reservations) {
           this.calendarEvents.push(
             {
+              id: reservation.id,
+              groupId: reservation.meetingRoom?.id,
               end: reservation.endingTime,
               overlap: false,
               start: reservation.startingTime,
               title: reservation.meetingRoom?.name,
+              description: reservation.summary
             }
           );
         }
