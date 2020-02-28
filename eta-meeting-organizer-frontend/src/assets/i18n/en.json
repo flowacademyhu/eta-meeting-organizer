@@ -19,7 +19,8 @@
     "deleteButton":"Delete",
     "add":"Add building",
     "edit":"Edit",
-    "update": "Update"
+    "update": "Update",
+    "action": "Actions"
 
   },
   "profile": {
@@ -30,7 +31,8 @@
     "email": "E-mail address",
     "role": "Role",
     "delete": "Delete",
-    "edit": "Edit"
+    "edit": "Edit",
+    "action": "Actions"
   },
   "meeting-room": {
     "text": "Meeting room",
@@ -46,7 +48,8 @@
     "add":"Add meeting room",
     "post": "Meeting-room creation.",
     "edit": "Edit",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "action": "Actions"
     },
   "navbar": {
     "calendar": "Calendar",

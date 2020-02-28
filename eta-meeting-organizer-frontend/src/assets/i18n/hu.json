@@ -19,7 +19,8 @@
     "deleteButton":"törlés",
     "add":"Épület hozzáadás",
     "edit":"Szerkesztés",
-    "update": "Módosítás"
+    "update": "Módosítás",
+    "action": "Műveletek"
   },
   "profile": {
     "id": "Azonosító",
@@ -29,7 +30,8 @@
     "email": "E-mail cím",
     "role": "Szerepkör",
     "delete": "Törlés",
-    "edit": "Szerkesztés"
+    "edit": "Szerkesztés",
+    "action": "Műveletek"
   },
   "meeting-room": {
     "text": "Tárgyaló neve",
@@ -45,7 +47,8 @@
     "add":"Iroda hozzáadás",
     "post": "Tárgyaló létrehozása",
     "edit": "Szerkesztés",
-    "cancel": "Mégse"
+    "cancel": "Mégse",
+    "action": "Műveletek"
     },
   "navbar": {
     "calendar": "Naptár",

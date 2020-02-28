@@ -66,7 +66,7 @@ import { MeetingRoomService } from './../../shared/services/meeting-room.service
             {{meetingRoom.building?.city}} - {{meetingRoom.building?.address}}</td>
         </ng-container>
         <ng-container matColumnDef="delete">
-          <th mat-header-cell *matHeaderCellDef class="column">{{'meeting-room.edit' | translate}}</th>
+          <th mat-header-cell *matHeaderCellDef class="column">{{'meeting-room.action' | translate}}</th>
           <td mat-cell *matCellDef="let meetingRoom">
           <button mat-icon-button color="accent" (click)="updateDialog(meetingRoom.id)">
             <mat-icon>edit</mat-icon>
