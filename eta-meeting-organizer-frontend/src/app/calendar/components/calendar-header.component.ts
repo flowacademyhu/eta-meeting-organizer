@@ -5,7 +5,10 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { Building } from '~/app/models/building.model';
 import { MeetingRoom } from '~/app/models/meetingroom.model';
+import { Role } from '~/app/models/user.model';
+import { UserToken } from '~/app/shared/models/user-token.model';
 import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
+import { AuthService } from '~/app/shared/services/auth.service';
 
 @Component({
   selector: 'app-calendar-header',
@@ -60,7 +63,9 @@ import { ApiCommunicationService } from '~/app/shared/services/api-communication
               </mat-select>
             </mat-form-field>
         </form>
-          <mat-slide-toggle labelPosition="before" class="ml-auto"
+          <mat-slide-toggle
+          *ngIf="!isReader"
+          labelPosition="before" class="ml-auto"
           [checked]="checked"
           (change)="onCheck($event)">
           {{'calendar-header.own-appointments' | translate}}
@@ -79,6 +84,9 @@ export class CalendarHeaderComponent implements OnInit, OnDestroy {
 
   private destroy$: Subject<boolean> = new Subject<boolean>();
 
+  protected user: UserToken = {} as UserToken;
+  protected isReader: boolean = false;
+
   public buildingId: number;
   public building: Building;
   public buildings: Building[];
@@ -92,11 +100,27 @@ export class CalendarHeaderComponent implements OnInit, OnDestroy {
       meetingRoom: new FormControl()
   });
 
-  constructor(private readonly api: ApiCommunicationService, private changeDetectorRef: ChangeDetectorRef) {
+  constructor(private readonly api: ApiCommunicationService,
+              private changeDetectorRef: ChangeDetectorRef,
+              private readonly authService: AuthService) {
+              this.authService.user.pipe(takeUntil(this.destroy$))
+                .subscribe((data) => {
+                  this.user = data;
+                });
+              this.checkReader();
+  }
+
+  protected checkReader(): void {
+    (this.user.role === Role.READER) ? this.isReader = true : this.isReader = false;
   }
 
   public ngOnInit() {
-    this.meetingRoomSelector.disable();
+    if (this.isReader) {
+      this.checked = false;
+      this.meetingRoomSelector.enable();
+    } else {
+      this.meetingRoomSelector.disable();
+    }
     this.api
       .building()
       .getCities()
