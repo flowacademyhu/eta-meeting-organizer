@@ -17,12 +17,22 @@ import { AuthService } from '~/app/shared/services/auth.service';
       .toolbar {
         min-height: 75px;
       }
+      .select {
+        padding-right: 15px;
+      }
+      .toolbar {
+        height: 100px;
+      }
+      .selector {
+        display: flex;
+    justify-content: center;
+      }
     `,
   ],
   template: `
-    <mat-toolbar color="primary">
+    <mat-toolbar class="my-0" color="primary" class="toolbar">
         <form [formGroup]="meetingRoomSelector" novalidate>
-            <mat-form-field>
+            <mat-form-field class="select">
               <mat-label>{{'calendar-header.city' | translate}}</mat-label>
               <mat-select
               (selectionChange)="getBuildings()"
@@ -32,7 +42,7 @@ import { AuthService } from '~/app/shared/services/auth.service';
                 }}</mat-option>
               </mat-select>
             </mat-form-field>
-            <mat-form-field>
+            <mat-form-field class="select">
               <mat-label>{{'calendar-header.building' | translate}}</mat-label>
               <mat-select
               (selectionChange)="getMeetingrooms()"
@@ -55,6 +65,7 @@ import { AuthService } from '~/app/shared/services/auth.service';
         </form>
           <mat-slide-toggle
           *ngIf="!isReader"
+          labelPosition="before" class="ml-auto"
           [checked]="checked"
           (change)="onCheck($event)">
           {{'calendar-header.own-appointments' | translate}}
