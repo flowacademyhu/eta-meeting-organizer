@@ -15,6 +15,7 @@ import { BuildingService } from './../../shared/services/building.service';
   styles: [`
     table {
       width: 100%;
+      table-layout: fixed;
     }
     .column {
       font-size: larger;
@@ -33,8 +34,13 @@ import { BuildingService } from './../../shared/services/building.service';
     <mat-form-field>
     <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Filter">
   </mat-form-field>
-      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
-
+      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8"
+       matSort matSortActive="id" matSortDirection="desc" matSortDisableClear>
+      <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef class="column" mat-sort-header>
+            {{'profile.id' | translate}} </th>
+          <td mat-cell  *matCellDef="let building"> {{building.id}} </td>
+        </ng-container>
       <ng-container matColumnDef="buildingName">
           <th mat-header-cell *matHeaderCellDef class="column" mat-sort-header>
             {{'building.buildingName' | translate}}</th>
@@ -68,8 +74,8 @@ import { BuildingService } from './../../shared/services/building.service';
       </table>
       <mat-paginator
         [pageSize]="5"
-        [pageSizeOptions]="[5, 10, 20]"
-        showFirstLastButton>
+        [pageSizeOptions]="[10, 25, 50]"
+        showFirstLastButtons>
       </mat-paginator>
     </div>
   `
