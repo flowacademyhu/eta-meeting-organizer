@@ -1,5 +1,6 @@
 package hu.flowacademy.meetingorganizer.service;
 
+import hu.flowacademy.meetingorganizer.exception.BuildingNotFoundException;
 import hu.flowacademy.meetingorganizer.persistence.model.Building;
 import hu.flowacademy.meetingorganizer.persistence.repository.BuildingRepository;
 import java.util.Optional;
@@ -21,6 +22,7 @@ public class BuildingService {
   }
 
   public Building updateBuilding(Long id, Building building) {
+    building = buildingRepository.findById(id).orElseThrow(() -> new BuildingNotFoundException(id));
     building.setId(id);
     return buildingRepository.save(building);
   }
@@ -30,7 +32,8 @@ public class BuildingService {
   }
 
   public Optional<Building> findOne(Long id) {
-    return buildingRepository.findById(id);
+    return Optional.of(buildingRepository.findById(id))
+        .orElseThrow(() -> new BuildingNotFoundException(id));
   }
 
   public List<Building> findAll() {

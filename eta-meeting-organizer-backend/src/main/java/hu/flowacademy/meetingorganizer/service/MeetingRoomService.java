@@ -1,5 +1,6 @@
 package hu.flowacademy.meetingorganizer.service;
 
+import hu.flowacademy.meetingorganizer.exception.MeetingRoomNotFoundException;
 import hu.flowacademy.meetingorganizer.persistence.model.MeetingRoom;
 import hu.flowacademy.meetingorganizer.persistence.model.dto.MeetingRoomDTO;
 import hu.flowacademy.meetingorganizer.persistence.repository.MeetingRoomRepository;
@@ -24,7 +25,8 @@ public class MeetingRoomService {
   }
 
   public Optional<MeetingRoomDTO> findOne(Long id) {
-    return meetingRoomRepository.findById(id).map(MeetingRoomDTO::new);
+    return Optional.of(meetingRoomRepository.findById(id).map(MeetingRoomDTO::new))
+        .orElseThrow(() -> new MeetingRoomNotFoundException(id));
   }
 
   public void deleteMeetingRoom(Long id) {

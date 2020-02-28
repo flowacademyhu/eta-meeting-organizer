@@ -31,8 +31,7 @@ public class Building {
 
   @NotNull
   private String city;
-
-  @NotNull
+  
   @Column(unique = true)
   private String address;
 
