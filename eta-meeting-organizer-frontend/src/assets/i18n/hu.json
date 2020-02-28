@@ -117,6 +117,13 @@
     "meeting-room": "Tárgyaló",
     "own-appointments": "Saját Foglalásaim"
   },
+  "reservation": {
+    "title": "Esemény neve:",
+    "summary": "Esemény leírása:"
+  },
+  "snackbar-reservation": {
+    "reservationOk": "A tárgyaló foglalása sikeresen megtörtént."
+  },
   "validation": {
     "validate": "A mező kitöltése kötelező!"
   }
