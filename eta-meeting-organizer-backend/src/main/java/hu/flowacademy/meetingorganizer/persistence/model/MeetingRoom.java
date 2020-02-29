@@ -1,5 +1,8 @@
 package hu.flowacademy.meetingorganizer.persistence.model;
 
+import java.util.List;
+import javax.persistence.CascadeType;
+import javax.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -32,4 +35,7 @@ public class MeetingRoom {
 
   @ManyToOne
   private Building building;
+
+  @OneToMany(mappedBy = "meetingRoom", cascade = CascadeType.ALL)
+  private List<Reservation> reservations;
 }
