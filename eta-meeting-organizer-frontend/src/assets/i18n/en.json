@@ -110,6 +110,9 @@
   "update-building-snackbar": {
     "update": "Building has been updated."
   },
+  "error-buildingPost-snackbar": {
+    "error": "Unsuccesful building creation."
+  },
   "verification-snackbar": {
     "verify": "User has been verified"
   },

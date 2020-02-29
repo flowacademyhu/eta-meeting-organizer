@@ -109,6 +109,9 @@
   "update-building-snackbar": {
     "update": "Épület módosítva."
   },
+  "error-buildingPost-snackbar": {
+    "error": "Sikertelen épület létrehozás"
+  },
   "verification-snackbar": {
     "verify": "Felhasználó jóváhagyva"
   },
