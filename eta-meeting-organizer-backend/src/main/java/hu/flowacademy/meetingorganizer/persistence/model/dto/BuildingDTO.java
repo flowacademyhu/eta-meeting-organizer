@@ -33,4 +33,10 @@ public class BuildingDTO {
     BeanUtils.copyProperties(this, building);
     return building;
   }
+  public BuildingDTO fromEntity() {
+    BuildingDTO buildingDTO = new BuildingDTO();
+    BeanUtils.copyProperties(this, buildingDTO);
+    return buildingDTO;
+  }
+
 }

@@ -20,13 +20,9 @@ public class BuildingService {
 
   private BuildingRepository buildingRepository;
 
-  public Building createBuilding(Building building) {
-    if ((buildingRepository.findByBuildingName(building.getBuildingName())).isPresent() &&
-        (buildingRepository.findByCity(building.getCity())).isPresent())
-    {
-      throw new BuildingNameAlreadyExistsException(building.getBuildingName());
-    }
-    return buildingRepository.save(building);
+  public BuildingDTO createBuilding(BuildingDTO buildingDTO) {
+    validateBuilding(buildingDTO);
+    return new BuildingDTO(buildingRepository.save(buildingDTO.toEntity()));
   }
 
   public Building updateBuilding(Long id, Building building) {
@@ -56,16 +52,12 @@ public class BuildingService {
     return buildingRepository.findAllByCity(city);
   }
 
-  public void validateBuildingName(Long id, BuildingDTO input) {
-    if ((buildingRepository.findByBuildingName(input.getBuildingName())).isPresent() &&
-        (buildingRepository.findByCity(input.getCity())).isPresent())
-    {
+  public void validateBuilding(BuildingDTO input) {
+    if (((buildingRepository.findAllCities()).contains(input.getCity())) &&
+        (buildingRepository.findAllBuildingNames().contains(input.getBuildingName()))) {
       throw new BuildingNameAlreadyExistsException(input.getBuildingName());
     }
-  }
-
-  public void validateBuildingAddress(Long id, BuildingDTO input) {
-    if ((buildingRepository.findByAddress(input.getAddress())).isPresent()) {
+    if (buildingRepository.findAllAddresses().contains(input.getAddress())) {
       throw new BuildingAddressAlreadyExistsException(input.getAddress());
     }
   }

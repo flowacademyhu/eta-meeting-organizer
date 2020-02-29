@@ -1,6 +1,7 @@
 package hu.flowacademy.meetingorganizer.rest;
 
 import hu.flowacademy.meetingorganizer.persistence.model.Building;
+import hu.flowacademy.meetingorganizer.persistence.model.dto.BuildingDTO;
 import hu.flowacademy.meetingorganizer.service.BuildingService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -25,7 +26,7 @@ public class BuildingResource {
   private BuildingService buildingService;
 
   @PostMapping
-  public ResponseEntity<Building> createBuilding(@RequestBody Building building) {
+  public ResponseEntity<BuildingDTO> createBuilding(@RequestBody BuildingDTO building) {
     return new ResponseEntity<>(buildingService.createBuilding(building), HttpStatus.CREATED);
   }
 
