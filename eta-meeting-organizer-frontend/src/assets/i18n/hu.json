@@ -121,7 +121,8 @@
     "meetingRoomName": "Tárgyaló neve:"
   },
   "snackbar-reservation": {
-    "reservationOk": "A tárgyaló foglalása sikeresen megtörtént."
+    "reservationOk": "A tárgyaló foglalása sikeresen megtörtént.",
+    "reservationModificationOK": "A foglalás módosítása sikeresen megtörtént."
   },
   "validation": {
     "validate": "A mező kitöltése kötelező!"

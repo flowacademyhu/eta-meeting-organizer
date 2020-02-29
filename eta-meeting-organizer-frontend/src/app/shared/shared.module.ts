@@ -20,6 +20,7 @@ import { MeetingRoomDeleteComponent } from './Modals/meeting-room-delete.compone
 import { MeetingRoomRegisterComponent } from './Modals/meeting-room-register.component';
 import { MeetingRoomUpdateComponent } from './Modals/meeting-room-update.component';
 import { ReservationBookingComponent } from './Modals/reservation-book.component';
+import { ReservationInfoComponent } from './Modals/reservation-info.component';
 import { ReservationUpdateComponent } from './Modals/reservation-update.component';
 import { UserDeleteDialogComponent } from './Modals/user-delete-dialog';
 import { UserVerificationDialogComponent } from './Modals/user-verification-dialog';
@@ -27,7 +28,6 @@ import { BuildingService } from './services/building.service';
 import { MeetingRoomService } from './services/meeting-room.service';
 import { ReservationService } from './services/reservation.service';
 import { UserService } from './services/user.service';
-import { ReservationMouseoverComponent } from './Modals/reservation-mouseover.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +44,7 @@ import { ReservationMouseoverComponent } from './Modals/reservation-mouseover.co
     BuildingUpdateDialogComponent,
     ReservationBookingComponent,
     ReservationUpdateComponent,
-    ReservationMouseoverComponent,
+    ReservationInfoComponent,
   ],
   exports: [
     CommonModule,

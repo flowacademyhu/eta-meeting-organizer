@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 import { ReservationToPost } from '~/app/models/reservation-to-post.model';
 import { Reservation } from '~/app/models/reservation.model';
 import { ReservationService } from '../services/reservation.service';
+import { EventElement } from '~/app/models/event.model';
 
 @Component({
   selector: 'app-reservation-update',
@@ -60,21 +61,23 @@ export class ReservationUpdateComponent implements OnInit {
   @Output()
   public passEntry: EventEmitter<undefined> = new EventEmitter();
 
+  @Output()
+  public passDataBackToModal: EventEmitter<EventElement> = new EventEmitter();
+
   public reservations$: Observable<Reservation[]>;
   public reservationBookingForm: FormGroup;
-  public reservation: ReservationToPost;
+  public reservationToPost: ReservationToPost = {} as ReservationToPost;
+  public reservation: Reservation;
   public meetingRoomId: number;
   public newReservation: Reservation = {} as Reservation;
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: ReservationToPost,
+    @Inject(MAT_DIALOG_DATA) public data: EventElement,
     public dialogRef: MatDialogRef<ReservationUpdateComponent>,
     private readonly reservationService: ReservationService,
     private readonly _snackBar: MatSnackBar,
     private readonly translate: TranslateService,
-    public datepipe: DatePipe) {
-      console.log('data: ', data.summary);
-  }
+    public datepipe: DatePipe) {}
 
   public ngOnInit() {
     this.reservationBookingForm = new FormGroup({
@@ -84,24 +87,26 @@ export class ReservationUpdateComponent implements OnInit {
   }
 
   public onSubmit() {
-    this.data.id = Number(this.data.id);
-    this.data.meetingRoomId = Number(this.data.meetingRoomId);
-    this.data.title = this.reservationBookingForm.controls.title.value;
-    this.data.summary = this.reservationBookingForm.controls.summary.value;
-    this.data.startingTime = new Date(this.data.startingTime).valueOf();
-    this.data.endingTime = new Date(this.data.endingTime).valueOf();
-    console.log('data: ', this.data);
+    console.log('In submit(reservation-info):', this.data);
+    this.reservationToPost.id = Number(this.data.id);
+    this.reservationToPost.userId = this.data.userId;
+    this.reservationToPost.meetingRoomId = this.data.meetingRoomId;
+    this.reservationToPost.startingTime = new Date(this.data.start).valueOf();
+    this.reservationToPost.endingTime = new Date(this.data.end).valueOf();
+    this.reservationToPost.title = this.data.title;
+    this.reservationToPost.summary = this.data.summary;
+
     this.reservationService.
-    updateReservation(this.data.id, this.data)
-    .subscribe((data) => {
-        console.log(data);
-        this.passEntry.emit();
+    updateReservation(Number(this.data.id), this.reservationToPost)
+    .subscribe(() => {
+      // this.passDataBackToModal.emit(this.data);
+      this.dialogRef.close();
     });
   }
 
   public openSnackBar() {
     this._snackBar.open(this.translate
-      .instant(`snackbar-reservation.reservationOk`), '', {
+      .instant(`snackbar-reservation.reservationModificationOK`), '', {
       duration: 2500
     });
   }

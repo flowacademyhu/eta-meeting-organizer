@@ -15,7 +15,7 @@ import { takeUntil } from 'rxjs/operators';
 import { MeetingRoom } from '~/app/models/meetingroom.model';
 import { Reservation } from '~/app/models/reservation.model';
 import { ReservationBookingComponent } from '~/app/shared/Modals/reservation-book.component';
-import { ReservationMouseoverComponent } from '~/app/shared/Modals/reservation-mouseover.component';
+import { ReservationInfoComponent } from '~/app/shared/Modals/reservation-info.component';
 import { ReservationUpdateComponent } from '~/app/shared/Modals/reservation-update.component';
 import { UserToken } from '~/app/shared/models/user-token.model';
 import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
@@ -174,46 +174,43 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnChanges, OnDe
   }
 
   public updateDialog(el: EventInput) {
-    if (this.checked) { // el.event.extendedProps.userId === this.userToken.sub ||
-      const dialogRef = this.dialog.open(ReservationUpdateComponent, {
-        width: '400px',
-        data: {
-          id: el.event.id,
-          userId: this.userToken.sub,
-          meetingRoomId: el.event.extendedProps.meetingRoomId,
-          startingTime: el.event.start,
-          endingTime: el.event.end,
-          title: el.event.title,
-          summary: el.event.extendedProps.summary
-        },
-      });
-      dialogRef.componentInstance.passEntry.pipe(takeUntil(this.destroy$))
-      .subscribe(() => {
-        this.getReservationsByUser();
-      });
-      dialogRef.afterClosed()
-      .pipe(takeUntil(this.destroy$))
-      .subscribe();
-    }
+    const dialogRef = this.dialog.open(ReservationUpdateComponent, {
+      width: '400px',
+      data: el
+    });
+    dialogRef.componentInstance.passEntry.pipe(takeUntil(this.destroy$))
+    .subscribe(() => {
+      this.getReservationsByUser();
+    });
+    dialogRef.afterClosed()
+    .pipe(takeUntil(this.destroy$))
+    .subscribe();
   }
 
-  public getInfo(el: EventInput) {
-    const dialogRef = this.dialog.open(ReservationMouseoverComponent, {
+  public getInfo(eventInput: EventInput) {
+    if (this.checked) { // el.event.extendedProps.userId === this.userToken.sub ||
+    const dialogRef = this.dialog.open(ReservationInfoComponent, {
       width: '400px',
       data: {
-        startingTime: el.event.start,
-        endingTime: el.event.end,
-        title: el.event.extendedProps.eventName,
-        summary: el.event.extendedProps.summary
+        id: eventInput.event.id,
+        userId: this.userToken.sub,
+        userName: eventInput.event.extendedProps.userName,
+        meetingRoomName: eventInput.event.extendedProps.meetingRoomName,
+        meetingRoomId: eventInput.event.extendedProps.meetingRoomId,
+        start: eventInput.event.start,
+        end: eventInput.event.end,
+        title: eventInput.event.title,
+        summary: eventInput.event.extendedProps.summary
       },
+    });
+    dialogRef.componentInstance.closeOutput.pipe(takeUntil(this.destroy$))
+      .subscribe(() => {
+      this.getReservationsByUser();
     });
     dialogRef.afterClosed()
       .pipe(takeUntil(this.destroy$))
       .subscribe();
-    dialogRef.componentInstance.passEntry.pipe(takeUntil(this.destroy$))
-      .subscribe(() => {
-      this.updateDialog(el);
-    });
+    }
   }
 
   public ngOnDestroy(): void {
@@ -266,7 +263,9 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnChanges, OnDe
           this.calendarEvents.push(
             {
               id: reservation.id,
-              eventName: reservation.meetingRoom?.name,
+              userId: reservation.user?.id,
+              userName: reservation.user?.username,
+              meetingRoomName: reservation.meetingRoom?.name,
               meetingRoomId: reservation.meetingRoom?.id,
               end: reservation.endingTime,
               overlap: false,
