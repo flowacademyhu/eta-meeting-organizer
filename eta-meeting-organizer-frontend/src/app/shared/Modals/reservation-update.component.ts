@@ -1,98 +1,97 @@
-import { DatePipe } from '@angular/common';
-import { Component, EventEmitter, Inject, Input, OnInit, Output } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, Inject, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
-import { Observable } from 'rxjs';
 import { EventElement } from '~/app/models/event.model';
 import { ReservationToPost } from '~/app/models/reservation-to-post.model';
-import { Reservation } from '~/app/models/reservation.model';
 import { ReservationService } from '../services/reservation.service';
 
 @Component({
   selector: 'app-reservation-update',
   styles: [`
-  .mat-dialog-content{
-    display: flex;
-    justify-content: center;
-    height: 300px;
+  .align-title {
+    padding-top: 5%;
+    padding-bottom: 5%;
+    height: 150px;
+    margin: 0 auto;
+    font-size: 250%;
+    text-align: center;
   }
-  .space{
-    margin-top: 20%;
+  .align-content{
+    height: 10cm;
+    font-size: 160%;
+    margin: 0 auto;
+    text-align: center;
+  }
+  mat-form-field {
+    width: 100%;
+    text-align: center;
+    margin: 0 auto;
+  }
+  button {
+    width: 80%;
+    margin: 0 auto;
+    border:1px solid;
+    border-color: black;
+    font-size: 100%;
   }
   `],
  template: `
- <div mat-dialog-content>
-   <form [formGroup]="reservationBookingForm" (ngSubmit)="onSubmit()">
-     <mat-form-field>
-       <mat-label>{{'reservation.title' | translate}}</mat-label>
-         <input type="text" name="title" formControlName="title"
-          matInput placeholder="{{'reservation.title' | translate}}" [(ngModel)]="title">
-     </mat-form-field>
-     <br>
-     <mat-form-field>
-       <mat-label>{{'reservation.summary' | translate}}</mat-label>
-         <input  type="text" name="summary" formControlName="summary"
-           matInput placeholder="{{'reservation.summary' | translate}}" [(ngModel)]="summary">
-       </mat-form-field>
-     <br>
-     <div class="space">
-       <button
-       mat-button
-       type="submit"
-       [mat-dialog-close]
-       cdkFocusInitial
-       (click)="openSnackBar()"
-       mat-dialog-close>{{'reservation.ok' | translate}}</button>
-       <button
-       mat-button
-       mat-dialog-close
-       >{{'reservation.cancel' | translate}}</button>
-     </div>
-   </form>
- </div>`,
+<mat-dialog-content class="align-title">{{'reservation.edit' | translate}}</mat-dialog-content>
+  <br>
+  <mat-dialog-content class="align-content">
+  <form [formGroup]="reservationUpdateForm" (ngSubmit)="onSubmit()">
+  <mat-form-field>
+      <mat-label>{{'reservation.title' | translate}}</mat-label>
+        <input matInput type="text" name="title" formControlName="title">
+        <mat-error>{{'validation.validate' | translate}}</mat-error>
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+      <mat-label>{{'reservation.summary' | translate}}</mat-label>
+        <input matInput type="text" name="summary" formControlName="summary">
+        <mat-error>{{'validation.validate' | translate}}</mat-error>
+    </mat-form-field>
+    <mat-dialog-actions>
+    <button mat-raised-button mat-dialog-close type="submit"
+      (click)="openSnackBar()" color="primary">{{'reservation.modify' | translate}}</button>
+    </mat-dialog-actions>
+      <br>
+    <mat-dialog-actions>
+      <button mat-raised-button mat-dialog-close color="accent">{{'reservation.cancel' | translate}}</button>
+    </mat-dialog-actions>
+  </form>
+</mat-dialog-content>`,
 })
 
 export class ReservationUpdateComponent implements OnInit {
-  @Input()
-  public checked: boolean = true;
 
-  public title: string;
-  public summary: string;
-
-  @Output()
-  public passEntry: EventEmitter<undefined> = new EventEmitter();
-
-  public reservations$: Observable<Reservation[]>;
-  public reservationBookingForm: FormGroup;
   public reservationToPost: ReservationToPost = {} as ReservationToPost;
-  public reservation: Reservation;
-  public meetingRoomId: number;
-  public newReservation: Reservation = {} as Reservation;
+
+  public reservationUpdateForm: FormGroup = new FormGroup({
+    title : new FormControl(''),
+    summary : new FormControl(''),
+  });
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: EventElement,
     public dialogRef: MatDialogRef<ReservationUpdateComponent>,
     private readonly reservationService: ReservationService,
     private readonly _snackBar: MatSnackBar,
-    private readonly translate: TranslateService,
-    public datepipe: DatePipe) {
-      dialogRef.disableClose = true;
-      this.title = data.title;
-      this.summary = data.summary;
+    private readonly translate: TranslateService) {
     }
 
   public ngOnInit() {
-    this.reservationBookingForm = new FormGroup({
-    title : new FormControl('', Validators.required ),
-    summary : new FormControl('', Validators.required),
+    this.reservationUpdateForm.setValue({
+      title: this.data.title,
+      summary: this.data.summary,
     });
   }
 
   public onSubmit() {
-    this.data.title = this.title;
-    this.data.summary = this.summary;
+    this.data.title = this.reservationUpdateForm.controls.title.value;
+    this.data.summary = this.reservationUpdateForm.controls.summary.value;
     this.reservationToPost.id = Number(this.data.id);
     this.reservationToPost.userId = this.data.userId;
     this.reservationToPost.meetingRoomId = this.data.meetingRoomId;

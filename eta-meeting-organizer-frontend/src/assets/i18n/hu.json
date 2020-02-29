@@ -132,7 +132,8 @@
     "modify": "Módosítás",
     "delete": "Törlés",
     "reserve": "Lefoglalás",
-    "head": "Tárgyaló foglalás"
+    "head": "Tárgyaló foglalás",
+    "edit": "Foglalás szerkesztése:"
   },
   "snackbar-reservation": {
     "reservationOk": "A tárgyaló foglalása sikeresen megtörtént.",
