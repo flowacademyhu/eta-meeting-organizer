@@ -64,7 +64,7 @@ import { UserService } from './../../shared/services/user.service';
             delete
           </mat-icon>
            </button>
-           <button *ngIf="user.role === 'PENDING'"  mat-icon-button color="primary">
+           <button *ngIf="user.username !== currentAdmin.username"  mat-icon-button color="primary">
           <mat-icon aria-label="User"(click)="verificationDialog(user.id)">
             perm_identity
           </mat-icon>
