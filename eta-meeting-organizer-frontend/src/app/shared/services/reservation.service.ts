@@ -25,6 +25,11 @@ export class ReservationService {
       .updateReservation(id, reservation);
   }
 
+  public deleteReservation(id: number) {
+    return this.apiCommunicationService.reservation()
+    .deleteReservation(id);
+  }
+
   public findByMeetingRoomId(meetingRoomId: number) {
     this.apiCommunicationService.reservation()
      .findByMeetingRoomId(meetingRoomId)

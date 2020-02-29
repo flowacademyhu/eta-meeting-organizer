@@ -40,7 +40,7 @@ import { ReservationService } from '~/app/shared/services/reservation.service';
       [buttonText]="options.buttonText"
       [events]="calendarEvents"
       [firstDay]="1"
-      [allDaySlot]
+      [allDaySlot]="false"
       [slotDuration]="'00:15:00'"
       [minTime]="'06:00:00'"
       [maxTime]="'22:00:00'"

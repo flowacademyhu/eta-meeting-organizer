@@ -5,10 +5,10 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
+import { EventElement } from '~/app/models/event.model';
 import { ReservationToPost } from '~/app/models/reservation-to-post.model';
 import { Reservation } from '~/app/models/reservation.model';
 import { ReservationService } from '../services/reservation.service';
-import { EventElement } from '~/app/models/event.model';
 
 @Component({
   selector: 'app-reservation-update',
@@ -28,13 +28,13 @@ import { EventElement } from '~/app/models/event.model';
      <mat-form-field>
        <mat-label>{{'reservation.title' | translate}}</mat-label>
          <input type="text" name="title" formControlName="title"
-          matInput placeholder="{{'reservation.title' | translate}}" [(ngModel)]="data.title">
+          matInput placeholder="{{'reservation.title' | translate}}" [(ngModel)]="title">
      </mat-form-field>
      <br>
      <mat-form-field>
        <mat-label>{{'reservation.summary' | translate}}</mat-label>
          <input  type="text" name="summary" formControlName="summary"
-           matInput placeholder="{{'reservation.summary' | translate}}" [(ngModel)]="data.summary">
+           matInput placeholder="{{'reservation.summary' | translate}}" [(ngModel)]="summary">
        </mat-form-field>
      <br>
      <div class="space">
@@ -44,11 +44,11 @@ import { EventElement } from '~/app/models/event.model';
        [mat-dialog-close]
        cdkFocusInitial
        (click)="openSnackBar()"
-       mat-dialog-close>Ok</button>
+       mat-dialog-close>{{'reservation.ok' | translate}}</button>
        <button
        mat-button
        mat-dialog-close
-       >Cancel</button>
+       >{{'reservation.cancel' | translate}}</button>
      </div>
    </form>
  </div>`,
@@ -58,11 +58,11 @@ export class ReservationUpdateComponent implements OnInit {
   @Input()
   public checked: boolean = true;
 
-  @Output()
-  public passEntry: EventEmitter<undefined> = new EventEmitter();
+  public title: string;
+  public summary: string;
 
   @Output()
-  public passDataBackToModal: EventEmitter<EventElement> = new EventEmitter();
+  public passEntry: EventEmitter<undefined> = new EventEmitter();
 
   public reservations$: Observable<Reservation[]>;
   public reservationBookingForm: FormGroup;
@@ -77,7 +77,11 @@ export class ReservationUpdateComponent implements OnInit {
     private readonly reservationService: ReservationService,
     private readonly _snackBar: MatSnackBar,
     private readonly translate: TranslateService,
-    public datepipe: DatePipe) {}
+    public datepipe: DatePipe) {
+      dialogRef.disableClose = true;
+      this.title = data.title;
+      this.summary = data.summary;
+    }
 
   public ngOnInit() {
     this.reservationBookingForm = new FormGroup({
@@ -87,7 +91,8 @@ export class ReservationUpdateComponent implements OnInit {
   }
 
   public onSubmit() {
-    console.log('In submit(reservation-info):', this.data);
+    this.data.title = this.title;
+    this.data.summary = this.summary;
     this.reservationToPost.id = Number(this.data.id);
     this.reservationToPost.userId = this.data.userId;
     this.reservationToPost.meetingRoomId = this.data.meetingRoomId;
@@ -99,7 +104,6 @@ export class ReservationUpdateComponent implements OnInit {
     this.reservationService.
     updateReservation(Number(this.data.id), this.reservationToPost)
     .subscribe(() => {
-      // this.passDataBackToModal.emit(this.data);
       this.dialogRef.close();
     });
   }
