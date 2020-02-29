@@ -113,7 +113,7 @@ export class MeetingRoomRegisterComponent implements OnInit {
 
   constructor(
     private readonly changeDetectorRef: ChangeDetectorRef,
-    public dialogRef: MatDialogRef<BuildingRegisterComponent>,
+    public dialogRef: MatDialogRef<MeetingRoomRegisterComponent>,
     private readonly snackBar: MatSnackBar,
     private meetingRoomService: MeetingRoomService,
     private buildigService: BuildingService,

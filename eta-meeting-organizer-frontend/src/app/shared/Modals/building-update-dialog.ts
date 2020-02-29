@@ -84,7 +84,7 @@ export class BuildingUpdateDialogComponent implements OnInit {
   public errorMessage: string = '';
   constructor(@Inject(MAT_DIALOG_DATA)
               private readonly buildingData: Building,
-              public dialogRef: MatDialogRef<BuildingRegisterComponent>,
+              public dialogRef: MatDialogRef<BuildingUpdateDialogComponent>,
               private readonly snackBar: MatSnackBar,
               private readonly buildingService: BuildingService,
               private readonly translate: TranslateService) { }

@@ -91,7 +91,7 @@ export class MeetingRoomUpdateComponent implements OnInit {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: number,
     private meetingRoomService: MeetingRoomService,
-    public dialogRef: MatDialogRef<BuildingRegisterComponent>,
+    public dialogRef: MatDialogRef<MeetingRoomUpdateComponent>,
     private snackBar: MatSnackBar,
     private translate: TranslateService
   ) {}
