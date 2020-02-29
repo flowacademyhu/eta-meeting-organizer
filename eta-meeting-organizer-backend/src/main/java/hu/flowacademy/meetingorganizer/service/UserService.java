@@ -2,6 +2,7 @@ package hu.flowacademy.meetingorganizer.service;
 
 import hu.flowacademy.meetingorganizer.email.EmailService;
 import hu.flowacademy.meetingorganizer.email.EmailType;
+import hu.flowacademy.meetingorganizer.persistence.model.Role;
 import hu.flowacademy.meetingorganizer.persistence.model.User;
 import hu.flowacademy.meetingorganizer.persistence.model.dto.RoleDTO;
 import hu.flowacademy.meetingorganizer.persistence.repository.UserRepository;
@@ -43,8 +44,10 @@ public class UserService {
 
   public User setUserRole(String id, RoleDTO roleDTO) {
     User user = userRepository.findById(id).orElseThrow();
+    if (user.getRole() == Role.PENDING) {
+      emailService.send(user.getUsername(), "validation", EmailType.TEXT);
+    }
     user.setRole(roleDTO.getRole());
-    emailService.send(user.getUsername(), "validation", EmailType.TEXT);
     return userRepository.save(user);
   }
 }
