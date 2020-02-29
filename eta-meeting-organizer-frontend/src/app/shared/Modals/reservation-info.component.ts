@@ -13,22 +13,16 @@ import { ReservationUpdateComponent } from './reservation-update.component';
   styles: [`
   .align-title {
     padding-top: 5%;
-    padding-bottom: 5%;
-    height: 150px;
+    height: 100%;
     margin: 0 auto;
     font-size: 250%;
     text-align: center;
   }
   .align-content{
-    height: 10cm;
-    font-size: 160%;
+    height: auto;
+    font-size: 120%;
     margin: 0 auto;
     text-align: center;
-  }
-  mat-form-field {
-    width: 100%;
-    text-align: center;
-    margin: 0 auto;
   }
   button {
     width: 80%;
@@ -37,25 +31,45 @@ import { ReservationUpdateComponent } from './reservation-update.component';
     border-color: black;
     font-size: 100%;
   }
+  mat-label {
+    font-weight: bold;
+  }
   `],
  template: `
 <mat-dialog-content class="align-title">{{'reservation.summary' | translate}}</mat-dialog-content>
-  <mat-dialog-content class="align-content">
+<mat-dialog-content class="align-content">
+  <mat-card class="align-content">
+    <div class="data">
       <mat-label>{{'reservation.meetingroom' | translate}}</mat-label>
-        {{ data.meetingRoomName }}
-    <br>
+      <br>
+      {{ data.meetingRoomName }}
+      <br>
+      <mat-divider></mat-divider>
+      <br>
       <mat-label>{{'reservation.title' | translate}}</mat-label>
-        {{ data.title }}
-    <br>
+      <br>
+      {{ data.title }}
+      <br>
+      <mat-divider></mat-divider>
+      <br>
       <mat-label>{{'reservation.summary' | translate}}</mat-label>
-        {{ data.summary }}
-    <br>
+      <br>
+      {{ data.summary }}
+      <br>
+      <mat-divider></mat-divider>
+      <br>
       <mat-label>{{'reservation.startDate' | translate}}</mat-label>
-        {{ data.start | date : 'y.MM.dd. HH:mm'}}
-    <br>
+      <br>
+      {{ data.start | date : 'y.MM.dd. HH:mm'}}
+      <br>
+      <mat-divider></mat-divider>
+      <br>
       <mat-label>{{'reservation.endDate' | translate}}</mat-label>
-        {{ data.end | date : 'y.MM.dd. HH:mm'}}
-    <mat-dialog-actions>
+      <br>
+      {{ data.end | date : 'y.MM.dd. HH:mm'}}
+</div>
+</mat-card>
+<mat-dialog-actions>
     <button mat-raised-button
       (click)="updateDialog()" color="primary">{{'reservation.modify' | translate}}</button>
     </mat-dialog-actions>
