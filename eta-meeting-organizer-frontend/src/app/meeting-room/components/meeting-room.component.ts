@@ -20,6 +20,9 @@ import { MeetingRoomService } from './../../shared/services/meeting-room.service
     table {
       width: 100%;
     }
+    .check {
+      align: left;
+    }
   `],
   template: `
   <div class="row justify-content-center" class="container">
@@ -34,7 +37,7 @@ import { MeetingRoomService } from './../../shared/services/meeting-room.service
      <ng-container matColumnDef="checkbox">
       <th mat-header-cell *matHeaderCellDef class="column">
         <button mat-icon-button color="primary" (click)="deleteByCheckbox()">
-          <mat-icon>delete</mat-icon>
+          <mat-icon class="check">delete</mat-icon>
         </button>
       </th>
         <td mat-cell *matCellDef="let meetingRoom">
@@ -102,6 +105,7 @@ export class MeetingRoomComponent implements OnInit, OnDestroy, AfterViewInit {
   public unsubFromDialog: Subscription;
   public unsubFromDelete: Subscription;
   public unsubFromUpdate: Subscription;
+  public unsubFromCheckbox: Subscription;
   public meetingRoom: MeetingRoom;
   public checkedArr: number[] = [];
   public editCb: boolean;
@@ -122,7 +126,16 @@ export class MeetingRoomComponent implements OnInit, OnDestroy, AfterViewInit {
     const index = this.checkedArr.findIndex((meetingRoom) => meetingRoom === Id);
     this.checkedArr.splice(index, 1);
    }
-   console.log(this.checkedArr);
+  }
+
+  public deleteByCheckbox() {
+    this.unsubFromCheckbox = this.meetingRoomService.deleteMeetingRoomByCheckBox((this.checkedArr))
+    .subscribe(() => {
+      this.meetingRoomService.deleteMeetingRoomByCheckBox(this.checkedArr);
+      this.meetingRoomService.getAllMeetingRooms();
+      }
+    );
+    this.checkedArr = [];
   }
 
   public ngOnInit() {
@@ -175,13 +188,6 @@ export class MeetingRoomComponent implements OnInit, OnDestroy, AfterViewInit {
       .subscribe(() => {
         this.meetingRoomService.getAllMeetingRooms();
     });
-  }
-
-  public deleteByCheckbox() {
-    for (const value of this.checkedArr) {
-      this.deleteMeetingRoom(value);
-    }
-    this.checkedArr = [];
   }
 
   public ngOnDestroy(): void {
