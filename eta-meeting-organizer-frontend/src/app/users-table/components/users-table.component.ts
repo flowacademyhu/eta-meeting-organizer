@@ -17,14 +17,10 @@ import { UserService } from './../../shared/services/user.service';
   styles: [`
     table {
       width: 100%;
-      table-layout: fixed;
+      table-layout: auto;
     }
     .column {
       font-size: larger;
-    }
-    th.mat-header-cell {
-      text-align: left;
-      max-width: 300px!important;
     }
   `],
   template: `
@@ -35,11 +31,6 @@ import { UserService } from './../../shared/services/user.service';
     </mat-form-field>
       <table mat-table [dataSource]="dataSource" class="mat-elevation-z8"
         matSort matSortActive="id" matSortDirection="desc" matSortDisableClear>
-        <ng-container matColumnDef="id">
-          <th mat-header-cell *matHeaderCellDef class="column" mat-sort-header>
-            {{'profile.id' | translate}} </th>
-          <td mat-cell  *matCellDef="let user"> {{user.id}} </td>
-        </ng-container>
         <ng-container matColumnDef="email">
           <th mat-header-cell *matHeaderCellDef class="column" mat-sort-header>
             {{'profile.email' | translate}} </th>
@@ -83,7 +74,7 @@ import { UserService } from './../../shared/services/user.service';
 })
 
 export class UsersTableComponent implements OnInit, OnDestroy, AfterViewInit {
-  public displayedColumns: string[] = ['id', 'email', 'role', 'action'];
+  public displayedColumns: string[] = ['email', 'role', 'action'];
   public deleteUnsub: Subscription;
   public verifyUnsub: Subscription;
   public subs: Subscription;
