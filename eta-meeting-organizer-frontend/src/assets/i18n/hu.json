@@ -11,6 +11,7 @@
   },
   "building": {
     "buildingName": "Épület megnevezése",
+    "post": "Épület létrehozás.",
     "city": "Város",
     "address":"Cím",
     "saveButton":"Mentés",
@@ -18,7 +19,8 @@
     "deleteButton":"törlés",
     "add":"Épület hozzáadás",
     "edit":"Szerkesztés",
-    "update": "Módosítás"
+    "update": "Módosítás",
+    "action": "Műveletek"
   },
   "profile": {
     "id": "Azonosító",
@@ -27,7 +29,9 @@
     "firstName": "Keresztnév",
     "email": "E-mail cím",
     "role": "Szerepkör",
-    "delete": "Törlés"
+    "delete": "Törlés",
+    "edit": "Szerkesztés",
+    "action": "Műveletek"
   },
   "meeting-room": {
     "text": "Tárgyaló neve",
@@ -40,8 +44,12 @@
     "projector":"Projektor",
     "saveButton":"Mentés",
     "delete": "Törlés",
-    "add":"Iroda hozzáadás"
-  },
+    "add":"Iroda hozzáadás",
+    "post": "Tárgyaló létrehozása",
+    "edit": "Szerkesztés",
+    "cancel": "Mégse",
+    "action": "Műveletek"
+    },
   "navbar": {
     "calendar": "Naptár",
     "usersManagement" : "Felhasználó-kezelés",
@@ -77,7 +85,7 @@
     "answer": "A regisztráció admin általi jóváhagyásra vár!"
   },
   "snackbar-meeting-room": {
-    "registerOk":"A regisztráció sikeres volt"
+    "registerOk":"Tárgyaló létrehozva"
   },
   "user-verification-dialog": {
     "roleSetting": "Felhasználói szerepkör megadása",
@@ -122,7 +130,9 @@
     "ok": "Rendben",
     "cancel": "Mégse",
     "modify": "Módosítás",
-    "delete": "Törlés"
+    "delete": "Törlés",
+    "reserve": "Lefoglalás",
+    "head": "Tárgyaló foglalás"
   },
   "snackbar-reservation": {
     "reservationOk": "A tárgyaló foglalása sikeresen megtörtént.",
@@ -137,5 +147,8 @@
     "verification": "Biztosan törölni akarja a foglalását?",
     "yes": "Igen",
     "no": "Nem"
+  },
+  "search-bar": {
+   "search": "Keresés"
   }
 }

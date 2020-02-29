@@ -14,6 +14,7 @@ import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { MeetingRoom } from '~/app/models/meetingroom.model';
 import { Reservation } from '~/app/models/reservation.model';
+import { Role } from '~/app/models/user.model';
 import { ReservationBookingComponent } from '~/app/shared/Modals/reservation-book.component';
 import { ReservationInfoComponent } from '~/app/shared/Modals/reservation-info.component';
 import { ReservationUpdateComponent } from '~/app/shared/Modals/reservation-update.component';
@@ -75,6 +76,8 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnChanges, OnDe
 
   public posted: boolean;
 
+  protected isReader: boolean = false;
+
   public options: OptionsInput;
   public calendarPlugins: object[] = [dayGridPlugin, timeGridPlugin, interactionPlugin];
 
@@ -90,6 +93,11 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnChanges, OnDe
     .subscribe((data) => {
       this.userToken = data;
     });
+    this.checkReader();
+  }
+
+  protected checkReader(): void {
+    (this.userToken.role === Role.READER) ? this.isReader = true : this.isReader = false;
   }
 
   public calendarEvents: EventInput[] = [];
@@ -156,7 +164,9 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnChanges, OnDe
 
   public bookDialog(event: EventInput) {
     const dialogRef = this.dialog.open(ReservationBookingComponent, {
-      width: '400px',
+      disableClose: true,
+      height: '60%',
+      width: '25%',
       data: {
         userId: this.userToken.sub,
         meetingRoomId: this.meetingRoom.id,
@@ -219,7 +229,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnChanges, OnDe
   }
 
   public selectable() {
-    if (this.checked || !this.meetingRoom) {
+    if (this.checked || !this.meetingRoom || this.isReader) {
       return false;
     } else {
       return true;

@@ -11,6 +11,7 @@
   },
   "building": {
     "buildingName": "Building name",
+    "post": "Create building",
     "city": "City",
     "address":"Address",
     "saveButton":"Save",
@@ -18,7 +19,8 @@
     "deleteButton":"Delete",
     "add":"Add building",
     "edit":"Edit",
-    "update": "Update"
+    "update": "Update",
+    "action": "Actions"
 
   },
   "profile": {
@@ -28,7 +30,9 @@
     "firstName": "Firstname",
     "email": "E-mail address",
     "role": "Role",
-    "delete": "Delete"
+    "delete": "Delete",
+    "edit": "Edit",
+    "action": "Actions"
   },
   "meeting-room": {
     "text": "Meeting room",
@@ -41,8 +45,12 @@
     "projector":"Projector",
     "saveButton":"Save",
     "delete": "Delete",
-    "add":"Add meeting room"
-  },
+    "add":"Add meeting room",
+    "post": "Meeting-room creation.",
+    "edit": "Edit",
+    "cancel": "Cancel",
+    "action": "Actions"
+    },
   "navbar": {
     "calendar": "Calendar",
     "usersManagement" : "User Management",
@@ -97,7 +105,7 @@
     "delete": "Building has been deleted"
   },
   "post-building-snackbar": {
-    "post": "Building has been created."
+    "post": "Building has been saved."
   },
   "update-building-snackbar": {
     "update": "Building has been updated."
@@ -123,7 +131,9 @@
     "ok": "Ok",
     "cancel": "Cancel",
     "modify": "Modify",
-    "delete": "Delete"
+    "delete": "Delete",
+    "reserve": "Reserve",
+    "head": "Meeting room reservation"
   },
   "snackbar-reservation": {
     "reservationOk": "Making reservation was succesful.",
@@ -138,5 +148,8 @@
     "verification": "Are you sure you want to delete reservation?",
     "yes": "Yes",
     "no": "No"
-  }
+  },
+  "search-bar": {
+    "search": "Search"
+   }
 }

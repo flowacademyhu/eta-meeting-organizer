@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -17,6 +17,7 @@ import { UserService } from './../../shared/services/user.service';
   styles: [`
     table {
       width: 100%;
+      table-layout: fixed;
     }
     .column {
       font-size: larger;
@@ -27,21 +28,26 @@ import { UserService } from './../../shared/services/user.service';
     }
   `],
   template: `
-    <div>
+     <div class="row justify-content-center" class="container">
     <mat-form-field>
-    <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Filter">
+    <input matInput type="text" (keyup)="doFilter($event.target.value)"
+    placeholder="{{'search-bar.search' | translate}}">
     </mat-form-field>
-      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8"
+        matSort matSortActive="id" matSortDirection="desc" matSortDisableClear>
         <ng-container matColumnDef="id">
-          <th mat-header-cell *matHeaderCellDef class="column">{{'profile.id' | translate}} </th>
+          <th mat-header-cell *matHeaderCellDef class="column" mat-sort-header>
+            {{'profile.id' | translate}} </th>
           <td mat-cell  *matCellDef="let user"> {{user.id}} </td>
         </ng-container>
         <ng-container matColumnDef="email">
-          <th mat-header-cell *matHeaderCellDef class="column"> {{'profile.email' | translate}} </th>
+          <th mat-header-cell *matHeaderCellDef class="column" mat-sort-header>
+            {{'profile.email' | translate}} </th>
           <td mat-cell *matCellDef="let user">{{user.username}}</td>
         </ng-container>
         <ng-container matColumnDef="role">
-          <th mat-header-cell *matHeaderCellDef class="column"> {{'profile.role' | translate}} </th>
+          <th mat-header-cell *matHeaderCellDef class="column" mat-sort-header>
+            {{'profile.role' | translate}} </th>
           <td mat-cell *matCellDef="let user" [ngSwitch]="user.role">
             <p *ngSwitchCase="'ADMIN'">{{'user-verification-dialog.admin' | translate}}</p>
             <p *ngSwitchCase="'USER'">{{'user-verification-dialog.user' | translate}}</p>
@@ -50,7 +56,7 @@ import { UserService } from './../../shared/services/user.service';
           </td>
         </ng-container>
         <ng-container matColumnDef="action">
-          <th mat-header-cell *matHeaderCellDef></th>
+          <th mat-header-cell *matHeaderCellDef class="column">{{'profile.action' | translate}}</th>
           <td mat-cell *matCellDef="let user">
           <button *ngIf="user.username !== currentAdmin.username"
           mat-icon-button color="primary" (click)="deleteDialog(user.id)">
@@ -70,8 +76,8 @@ import { UserService } from './../../shared/services/user.service';
       </table>
       <mat-paginator
         [pageSize]="5"
-        [pageSizeOptions]="[5, 10, 20]"
-        showFirstLastButton>
+        [pageSizeOptions]="[10, 25, 50]"
+        showFirstLastButtons>
       </mat-paginator>
   `
 })
@@ -87,7 +93,6 @@ export class UsersTableComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild(MatSort) public sort: MatSort;
   @ViewChild(MatPaginator) public paginator: MatPaginator;
 
-  public dialogConfig: MatDialogConfig = new MatDialogConfig();
   constructor(private readonly userService: UserService,
               private readonly dialog: MatDialog,
               private readonly authService: AuthService) {
@@ -114,8 +119,8 @@ export class UsersTableComponent implements OnInit, OnDestroy, AfterViewInit {
    }
 
    public deleteDialog(id: string) {
-    this.dialogConfig.disableClose = true;
     const dialogRef = this.dialog.open(UserDeleteDialogComponent, {
+      disableClose: true,
       height: '35%',
       width: '30%'
     } );
@@ -128,11 +133,16 @@ export class UsersTableComponent implements OnInit, OnDestroy, AfterViewInit {
    }
 
    public verificationDialog(id: string) {
-    this.dialogConfig.disableClose = true;
-    const dialogRef = this.dialog.open(UserVerificationDialogComponent);
+    const dialogRef = this.dialog.open(UserVerificationDialogComponent, {
+      disableClose: true,
+      height: '35%',
+      width: '30%'
+    });
     this.verifyUnsub = dialogRef.afterClosed()
     .subscribe((roleSet) => {
+      if (roleSet !== 'false') {
       this.verifyUser(id, roleSet);
+      }
     });
    }
 

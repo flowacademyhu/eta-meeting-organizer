@@ -10,20 +10,42 @@ import { BuildingService } from './../services/building.service';
 @Component({
   selector: 'app-building-register',
   styles: [`
-  .mat-dialog-content{
-    display: flex;
-    justify-content: center;
-    height: 200px;
+  .align-title {
+    padding-top: 5%;
+    padding-bottom: 5%;
+    margin: 0 auto;
+    font-size: 250%;
+    text-align: center;
   }
-  `],
+  .align-content{
+    height: 80%;
+    font-size: 160%;
+    margin: 0 auto;
+    text-align: center;
+  }
+  mat-form-field {
+    width: 100%;
+    text-align: center;
+    margin: 0 auto;
+  }
+  button {
+    width: 80%;
+    margin: 0 auto;
+    border:1px solid;
+    border-color: black;
+    font-size: 100%;
+  }
+`],
   template: `
-<div mat-dialog-content>
-  <form [formGroup]="buildingForm" (ngSubmit)="onSubmit()">
-  <mat-form-field>
+  <mat-dialog-content class="align-title">{{'building.post' | translate}}</mat-dialog-content>
+    <br>
+  <mat-dialog-content class="align-content">
+    <form [formGroup]="buildingForm" (ngSubmit)="onSubmit()">
+    <mat-form-field>
       <mat-label>{{'building.buildingName' | translate}}</mat-label>
         <input type="text" name="city" formControlName="buildingName"
          matInput placeholder="{{'building.buildingName' | translate}}">
-         <mat-error>{{'validation.validate' | translate}}</mat-error>
+        <mat-error>{{'validation.validate' | translate}}</mat-error>
     </mat-form-field>
     <br>
     <mat-form-field>
@@ -38,13 +60,16 @@ import { BuildingService } from './../services/building.service';
           matInput placeholder="{{'building.address' | translate}}">
          <mat-error>{{'validation.validate' | translate}}</mat-error>
         </mat-form-field>
-    <div>
-      <button mat-button mat-dialog-close>{{'building.cancel' | translate}}</button>
-      <button mat-button mat-dialog-close type="submit" cdkFocusInitial [disabled]="buildingForm.invalid"
-      (click)="openSnackBar()">{{'building.saveButton' | translate}}</button>
-    </div>
+      <mat-dialog-actions>
+        <button mat-raised-button mat-dialog-close type="submit" [disabled]="buildingForm.invalid"
+      (click)="openSnackBar()" color="primary">{{'building.saveButton' | translate}}</button>
+      </mat-dialog-actions>
+        <br>
+      <mat-dialog-actions>
+        <button mat-raised-button mat-dialog-close color="accent">{{'building.cancel' | translate}}</button>
+      </mat-dialog-actions>
   </form>
-</div>`,
+</mat-dialog-content>`,
 })
 
 export class BuildingRegisterComponent implements OnInit {
