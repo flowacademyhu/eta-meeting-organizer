@@ -58,8 +58,8 @@ public class MeetingRoomResource {
     return ResponseEntity.noContent().build();
   }
 
-  @DeleteMapping("/checkbox")
-  public ResponseEntity<Void> deleteWithCheckbox(@PathVariable ArrayList<Long> id ){
+  @PostMapping("/groupdelete")
+  public ResponseEntity<?> deleteWithCheckbox(@RequestBody ArrayList<Long> id ){
     meetingRoomService.deleteMeetingRoomByCheckBox(id);
     return ResponseEntity.noContent().build();
   }
