@@ -52,8 +52,8 @@ public class BuildingResource {
   }
 
   @PutMapping("/{id}")
-  public ResponseEntity<Building> updateBuilding(@PathVariable Long id,
-      @RequestBody Building building) {
+  public ResponseEntity<BuildingDTO> updateBuilding(@PathVariable Long id,
+      @RequestBody BuildingDTO building) {
     buildingService.updateBuilding(id, building);
     return ResponseEntity.accepted().build();
   }

@@ -25,10 +25,11 @@ public class BuildingService {
     return new BuildingDTO(buildingRepository.save(buildingDTO.toEntity()));
   }
 
-  public Building updateBuilding(Long id, Building building) {
-    building = buildingRepository.findById(id).orElseThrow(() -> new BuildingNotFoundException(id));
+  public BuildingDTO updateBuilding(Long id, BuildingDTO buildingDTO) {
+    validateBuilding(buildingDTO);
+    Building building = buildingDTO.toEntity();
     building.setId(id);
-    return buildingRepository.save(building);
+    return new BuildingDTO(buildingRepository.save(building));
   }
 
   public void deleteBuilding(Long id) {

@@ -55,7 +55,6 @@ public class User implements OAuth2User, UserDetails {
   private Collection<UserAuthority> authorities;
 
   @Transient
-
   @JsonIgnore
   private Map<String, Object> attributes;
 
