@@ -50,7 +50,8 @@ import { BuildingService } from './../services/building.service';
         <input type="text" name="city" formControlName="buildingName"
          matInput placeholder="{{'building.buildingName' | translate}}">
         <mat-error>{{'validation.validate' | translate}}</mat-error>
-      <p *ngIf="this.errorMessage === 'No message available'"> Foglalt épület</p>
+      <p *ngIf="this.errorMessage === 'No message available'">
+        {{'error-buildingPost-snackbar.building' | translate}}</p>
     </mat-form-field>
     <br>
     <mat-form-field>
@@ -64,7 +65,8 @@ import { BuildingService } from './../services/building.service';
         <input  type="text" name="address" formControlName="address"
           matInput placeholder="{{'building.address' | translate}}">
          <mat-error>{{'validation.validate' | translate}}</mat-error>
-      <p *ngIf="this.errorMessage === 'No message available'"> Foglalt cím</p>
+      <p *ngIf="this.errorMessage === 'No message available'">
+        {{'error-buildingPost-snackbar.address' | translate}}</p>
     </mat-form-field>
       <mat-dialog-actions>
         <button mat-raised-button type="submit" [disabled]="buildingForm.invalid"

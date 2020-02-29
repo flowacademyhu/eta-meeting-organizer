@@ -1,8 +1,11 @@
+import {HttpErrorResponse} from '@angular/common/http';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
+import {MatDialogRef} from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { Building } from '~/app/models/building.model';
+import {BuildingRegisterComponent} from '~/app/shared/Modals/building-register.component';
 import { BuildingService } from './../services/building.service';
 
 @Component({
@@ -26,6 +29,10 @@ import { BuildingService } from './../services/building.service';
     text-align: center;
     margin: 0 auto;
   }
+  p {
+    font-size: 65% !important;
+    color: #e64b3a;
+  }
   button {
     width: 80%;
     margin: 0 auto;
@@ -43,6 +50,8 @@ import { BuildingService } from './../services/building.service';
       <mat-label>{{'building.buildingName' | translate}}</mat-label>
         <input matInput type="text" name="buildingName" formControlName="buildingName">
         <mat-error>{{'validation.validate' | translate}}</mat-error>
+    <p *ngIf="this.errorMessage === 'No message available'">
+      {{'error-buildingUpdate-snackbar.building' | translate}}</p>
     </mat-form-field>
     <br>
     <mat-form-field>
@@ -55,10 +64,12 @@ import { BuildingService } from './../services/building.service';
       <mat-label>{{'building.address' | translate}}</mat-label>
         <input matInput type="text" name="address" formControlName="address">
         <mat-error>{{'validation.validate' | translate}}</mat-error>
+      <p *ngIf="this.errorMessage === 'No message available'">
+        {{'error-buildingUpdate-snackbar.address' | translate}}</p>
         </mat-form-field>
     <mat-dialog-actions>
-      <button mat-raised-button mat-dialog-close type="submit" [disabled]="buildingForm.invalid"
-      (click)="openSnackBar()" color="primary">{{'building.update' | translate}}</button>
+      <button mat-raised-button type="submit" [disabled]="buildingForm.invalid"
+      color="primary">{{'building.update' | translate}}</button>
     </mat-dialog-actions>
       <br>
     <mat-dialog-actions>
@@ -70,9 +81,10 @@ import { BuildingService } from './../services/building.service';
 
 export class BuildingUpdateDialogComponent implements OnInit {
   public building: Building = {} as Building;
-
+  public errorMessage: string = '';
   constructor(@Inject(MAT_DIALOG_DATA)
               private readonly buildingData: Building,
+              public dialogRef: MatDialogRef<BuildingRegisterComponent>,
               private readonly snackBar: MatSnackBar,
               private readonly buildingService: BuildingService,
               private readonly translate: TranslateService) { }
@@ -96,13 +108,25 @@ export class BuildingUpdateDialogComponent implements OnInit {
     this.building = this.buildingForm.getRawValue();
     this.buildingService
     .updateBuilding(this.buildingData.id, this.building)
-    .subscribe(() =>
+    .subscribe(() => {
     this.buildingService
-    .getAllBuildings());
+    .getAllBuildings();
+    this.openSnackBar();
+    this.dialogRef.close();
+  }, (error: HttpErrorResponse) => {
+      this.errorMessage = error.error.message;
+      this.errorSnackBar();
+    });
   }
 
   public openSnackBar() {
     this.snackBar.open(this.translate.instant(`update-building-snackbar.update`), '', {
+      duration: 2500
+    });
+  }
+
+  public errorSnackBar() {
+    this.snackBar.open(this.translate.instant(`error-buildingUpdate-snackbar.error`), '', {
       duration: 2500
     });
   }

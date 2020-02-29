@@ -111,7 +111,14 @@
     "update": "Building has been updated."
   },
   "error-buildingPost-snackbar": {
-    "error": "Unsuccesful building creation."
+    "error": "Unsuccesful building creation.",
+    "building": "The given building name already exists",
+    "address": "The given address already exists"
+  },
+  "error-buildingUpdate-snackbar": {
+    "error": "Unsuccesful building update.",
+    "building": "The given building name already exists",
+    "address": "The given address already exists"
   },
   "verification-snackbar": {
     "verify": "User has been verified"

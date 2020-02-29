@@ -127,7 +127,7 @@ export class BuildingComponent implements OnInit, OnDestroy, AfterViewInit {
   public updateDialog(buildingData: Building) {
     const dialogRef = this.dialog.open(BuildingUpdateDialogComponent, {
       disableClose: true,
-      height: '65%',
+      height: '75%',
       width: '25%',
       data: buildingData
     });

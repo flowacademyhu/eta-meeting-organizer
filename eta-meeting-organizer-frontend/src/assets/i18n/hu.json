@@ -110,7 +110,14 @@
     "update": "Épület módosítva."
   },
   "error-buildingPost-snackbar": {
-    "error": "Sikertelen épület létrehozás"
+    "error": "Sikertelen épület létrehozás",
+    "building": "A megadott épületnév már foglalt.",
+    "address": "A megadott cím már foglalt."
+  },
+  "error-buildingUpdate-snackbar": {
+    "error": "Sikertelen épület módosítás.",
+    "building": "A megadott épületnév már foglalt.",
+    "address": "A megadott cím már foglalt."
   },
   "verification-snackbar": {
     "verify": "Felhasználó jóváhagyva"
