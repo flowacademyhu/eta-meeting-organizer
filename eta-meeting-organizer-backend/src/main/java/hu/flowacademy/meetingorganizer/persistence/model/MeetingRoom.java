@@ -1,5 +1,6 @@
 package hu.flowacademy.meetingorganizer.persistence.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.OneToMany;
@@ -41,5 +42,6 @@ public class MeetingRoom {
   private Building building;
 
   @OneToMany(mappedBy = "meetingRoom", cascade = CascadeType.ALL)
+  @JsonIgnore
   private List<Reservation> reservations;
 }

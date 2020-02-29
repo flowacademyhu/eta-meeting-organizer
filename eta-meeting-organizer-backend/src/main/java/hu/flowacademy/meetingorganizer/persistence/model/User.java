@@ -47,6 +47,7 @@ public class User implements OAuth2User, UserDetails {
   private Role role;
 
   @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+  @JsonIgnore
   private List<Reservation> reservations;
 
   @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
