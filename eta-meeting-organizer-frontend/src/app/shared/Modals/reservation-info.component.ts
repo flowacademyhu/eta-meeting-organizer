@@ -11,35 +11,65 @@ import { ReservationUpdateComponent } from './reservation-update.component';
 @Component({
   selector: 'app-reservation-info',
   styles: [`
-  .mat-dialog-content{
-    display: flex;
-    justify-content: center;
-    height: 300px;
+  .align-title {
+    padding-top: 5%;
+    padding-bottom: 5%;
+    height: 150px;
+    margin: 0 auto;
+    font-size: 250%;
+    text-align: center;
   }
-  .space{
-    margin-top: 20%;
+  .align-content{
+    height: 10cm;
+    font-size: 160%;
+    margin: 0 auto;
+    text-align: center;
+  }
+  mat-form-field {
+    width: 100%;
+    text-align: center;
+    margin: 0 auto;
+  }
+  button {
+    width: 80%;
+    margin: 0 auto;
+    border:1px solid;
+    border-color: black;
+    font-size: 100%;
   }
   `],
  template: `
- <div mat-dialog-content>
- <mat-list>
-  <mat-list-item>{{'reservation.meetingroom' | translate}} {{data.meetingRoomName}}</mat-list-item>
-  <mat-divider></mat-divider>
-  <mat-list-item>{{'reservation.title' | translate}} {{data.title}}</mat-list-item>
-  <mat-divider></mat-divider>
-  <mat-list-item>{{'reservation.summary' | translate}} {{data.summary}}</mat-list-item>
-  <mat-divider></mat-divider>
-  <mat-list-item>{{'reservation.startDate' | translate}}
-  {{data.start | date : 'y.MM.dd. hh:mm'}}</mat-list-item>
-  <mat-divider></mat-divider>
-  <mat-list-item>{{'reservation.endDate' | translate}} {{data.end | date : 'y.MM.dd. hh:mm'}}</mat-list-item>
-</mat-list>
-<br>
-</div>
-<button mat-raised-button (click)="close()">{{'reservation.ok' | translate}}</button>
-<button mat-raised-button (click)="updateDialog()">{{'reservation.modify' | translate}}</button>
-<button mat-raised-button (click)="deleteDialog()">{{'reservation.delete' | translate}}</button>
- `,
+<mat-dialog-content class="align-title">{{'reservation.summary' | translate}}</mat-dialog-content>
+  <mat-dialog-content class="align-content">
+      <mat-label>{{'reservation.meetingroom' | translate}}</mat-label>
+        {{ data.meetingRoomName }}
+    <br>
+      <mat-label>{{'reservation.title' | translate}}</mat-label>
+        {{ data.title }}
+    <br>
+      <mat-label>{{'reservation.summary' | translate}}</mat-label>
+        {{ data.summary }}
+    <br>
+      <mat-label>{{'reservation.startDate' | translate}}</mat-label>
+        {{ data.start | date : 'y.MM.dd. HH:mm'}}
+    <br>
+      <mat-label>{{'reservation.endDate' | translate}}</mat-label>
+        {{ data.end | date : 'y.MM.dd. HH:mm'}}
+    <mat-dialog-actions>
+    <button mat-raised-button
+      (click)="updateDialog()" color="primary">{{'reservation.modify' | translate}}</button>
+    </mat-dialog-actions>
+      <br>
+    <mat-dialog-actions>
+      <button mat-raised-button color="accent"
+      (click)="close()">{{'reservation.cancel' | translate}}</button>
+    </mat-dialog-actions>
+      <br>
+    <mat-dialog-actions>
+      <button mat-raised-button color="warn"
+      (click)="deleteDialog()">{{'reservation.delete' | translate}}</button>
+    </mat-dialog-actions>
+</mat-dialog-content>`,
 })
 
 export class ReservationInfoComponent {
@@ -55,7 +85,10 @@ export class ReservationInfoComponent {
     public datepipe: DatePipe,
     private readonly dialog: MatDialog,
     private readonly reservationService: ReservationService) {
-      dialogRef.disableClose = true;
+      dialogRef.backdropClick()
+      .subscribe(() => {
+        this.close();
+      });
   }
 
   public close() {

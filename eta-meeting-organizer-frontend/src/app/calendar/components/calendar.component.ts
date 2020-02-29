@@ -17,7 +17,6 @@ import { Reservation } from '~/app/models/reservation.model';
 import { Role } from '~/app/models/user.model';
 import { ReservationBookingComponent } from '~/app/shared/Modals/reservation-book.component';
 import { ReservationInfoComponent } from '~/app/shared/Modals/reservation-info.component';
-import { ReservationUpdateComponent } from '~/app/shared/Modals/reservation-update.component';
 import { UserToken } from '~/app/shared/models/user-token.model';
 import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
 import { AuthService } from '~/app/shared/services/auth.service';
@@ -177,20 +176,6 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnChanges, OnDe
     dialogRef.componentInstance.passEntry.pipe(takeUntil(this.destroy$))
     .subscribe(() => {
       this.getReservationsByMeetingRoom();
-    });
-    dialogRef.afterClosed()
-    .pipe(takeUntil(this.destroy$))
-    .subscribe();
-  }
-
-  public updateDialog(el: EventInput) {
-    const dialogRef = this.dialog.open(ReservationUpdateComponent, {
-      width: '400px',
-      data: el
-    });
-    dialogRef.componentInstance.passEntry.pipe(takeUntil(this.destroy$))
-    .subscribe(() => {
-      this.getReservationsByUser();
     });
     dialogRef.afterClosed()
     .pipe(takeUntil(this.destroy$))
