@@ -120,6 +120,14 @@
     "building": "The given building name already exists",
     "address": "The given address already exists"
   },
+  "error-meeting-roomPost-snackbar": {
+    "error": "Unsuccesful meeting-room creation",
+    "name": "The given meeting-room name already exists"
+  },
+  "error-meeting-roomUpdate-snackbar": {
+    "error": "Unsuccesful meeting-room update",
+    "name": "The given meeting-room name already exists"
+  },
   "verification-snackbar": {
     "verify": "User has been verified"
   },

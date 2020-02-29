@@ -8,11 +8,11 @@ import { TranslateService } from '@ngx-translate/core';
     .align-title {
       padding-top: 7%;
       margin: 0 auto;
-      font-size: 250%;
+      font-size: 225%;
       text-align: center;
     }
     .align-content {
-      font-size: 170%;
+      font-size: 160%;
       margin: 0 auto;
       text-align: center;
     }

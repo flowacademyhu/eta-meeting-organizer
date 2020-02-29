@@ -15,7 +15,7 @@ import { BuildingService } from './../services/building.service';
     padding-top: 5%;
     padding-bottom: 5%;
     margin: 0 auto;
-    font-size: 250%;
+    font-size: 225%;
     text-align: center;
   }
   .align-content{

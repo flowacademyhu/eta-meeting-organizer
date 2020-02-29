@@ -119,6 +119,14 @@
     "building": "A megadott épületnév már foglalt.",
     "address": "A megadott cím már foglalt."
   },
+  "error-meeting-roomPost-snackbar": {
+    "error": "Sikertelen tárgyaló létrehozás",
+    "name": "A megadott tárgyaló név már foglalt"
+  },
+  "error-meeting-roomUpdate-snackbar": {
+    "error": "Sikertelen tárgyaló frissítés",
+    "name": "A megadott tárgyaló név már foglalt"
+  },
   "verification-snackbar": {
     "verify": "Felhasználó jóváhagyva"
   },

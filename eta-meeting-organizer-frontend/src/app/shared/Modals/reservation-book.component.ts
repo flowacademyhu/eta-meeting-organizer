@@ -16,7 +16,7 @@ import { ReservationService } from '../services/reservation.service';
     padding-top: 5%;
     padding-bottom: 3%;
     margin: 0 auto;
-    font-size: 250%;
+    font-size: 225%;
     text-align: center;
   }
   .align-content{

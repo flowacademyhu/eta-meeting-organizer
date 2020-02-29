@@ -129,7 +129,7 @@ export class MeetingRoomComponent implements OnInit, OnDestroy, AfterViewInit {
   public openDialog(): void {
     this.dialog.open(MeetingRoomRegisterComponent, {
       disableClose: true,
-      height: '85%',
+      height: '90%',
       width: '25%',
     });
   }
@@ -151,7 +151,7 @@ export class MeetingRoomComponent implements OnInit, OnDestroy, AfterViewInit {
   public updateDialog(id: number) {
     const dialogRef = this.dialog.open(MeetingRoomUpdateComponent, {
       disableClose: true,
-      height: '65%',
+      height: '75%',
       width: '25%',
       data: id
     });
