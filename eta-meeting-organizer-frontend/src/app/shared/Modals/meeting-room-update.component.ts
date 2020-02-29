@@ -9,23 +9,36 @@ import { MeetingRoomService } from '../services/meeting-room.service';
 @Component({
   selector: 'app-meeting-room-update',
   styles: [`
-  .mat-dialog-content{
-    display: flex;
-    justify-content: center;
-    height: 380px;
+  .align-title {
+    padding-top: 5%;
+    padding-bottom: 5%;
+    margin: 0 auto;
+    font-size: 250%;
+    text-align: center;
   }
-  .mat-form-field {
-    width:340px;
+  .align-content{
+    height: 80%;
+    font-size: 160%;
+    margin: 0 auto;
+    text-align: center;
   }
-  .space{
-    margin-top: 20%;
+  mat-form-field {
+    width: 100%;
+    text-align: center;
+    margin: 0 auto;
   }
-  `],
+  button {
+    width: 80%;
+    margin: 0 auto;
+    border:1px solid;
+    border-color: black;
+    font-size: 100%;
+  }
+`],
  template: `
-  <div mat-dialog-content>
-    <form [formGroup]="meetingForm" (ngSubmit)="onSubmit()" align="center">
-
-<!-- tárgyaló neve -->
+    <mat-dialog-content class="align-title">{{'building.post' | translate}}</mat-dialog-content>
+    <mat-dialog-content class="align-content">
+    <form [formGroup]="meetingForm" (ngSubmit)="onSubmit()">
       <mat-form-field>
         <mat-label>{{'meeting-room.text' | translate}}</mat-label>
           <input type="text" name="name" formControlName="name"
@@ -33,8 +46,6 @@ import { MeetingRoomService } from '../services/meeting-room.service';
             <mat-error>{{'validation.validate' | translate}}</mat-error>
       </mat-form-field>
       <br>
-
-<!-- űlőhelyek száma -->
       <mat-form-field>
         <mat-label>{{'meeting-room.seats' | translate}}</mat-label>
           <input  type="number" name="numberOfSeats" formControlName="numberOfSeats"
@@ -42,26 +53,25 @@ import { MeetingRoomService } from '../services/meeting-room.service';
             matInput placeholder="{{'meeting-room.seats' | translate}}">
             <mat-error>{{'validation.validate' | translate}}</mat-error>
       </mat-form-field>
-
-<!-- projector -->
       <br>
       <div align="left">
-        <br>
         <mat-slide-toggle formControlName="projector" ngDefaultControl [(ngModel)]="meetingRoom.projector">
           {{'meeting-room.projector' | translate}}
         </mat-slide-toggle>
       </div>
-
-<!-- gombok -->
-      <div class="space">
-        <button mat-stroked-button mat-dialog-close style="float: left; color: primary;" >cancel</button>
-        <button mat-stroked-button mat-dialog-close type="submit" style="float: right;"
-          (click)="openSnackBar() "backgroundcolor="primary" [disabled]="meetingForm.invalid">
-          Ok
+      <br>
+      <mat-dialog-actions>
+      <button mat-raised-button mat-dialog-close type="submit"
+          (click)="openSnackBar()" [disabled]="meetingForm.invalid" color="primary">
+          {{'meeting-room.saveButton' | translate}}
         </button>
-      </div>
+        </mat-dialog-actions>
+        <br>
+        <mat-dialog-actions>
+          <button mat-raised-button mat-dialog-close color="accent">{{'meeting-room.cancel' | translate}}</button>
+        </mat-dialog-actions>
     </form>
-  </div>
+  </mat-dialog-content>
   `
 })
 

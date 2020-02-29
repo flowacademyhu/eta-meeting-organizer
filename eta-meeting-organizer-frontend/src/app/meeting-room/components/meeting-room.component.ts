@@ -17,8 +17,12 @@ import { MeetingRoomService } from './../../shared/services/meeting-room.service
     .column {
       font-size: larger;
     }
+    .column {
+      font-size: larger;
+    }
     table {
       width: 100%;
+      table-layout: fixed;
     }
     .check {
       align: left;
@@ -31,7 +35,8 @@ import { MeetingRoomService } from './../../shared/services/meeting-room.service
           <mat-icon>add</mat-icon>
   </button>
     <mat-form-field>
-    <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Filter">
+    <input matInput type="text" (keyup)="doFilter($event.target.value)"
+     placeholder="{{'search-bar.search' | translate}}">
   </mat-form-field>
      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
      <ng-container matColumnDef="checkbox">
@@ -49,7 +54,7 @@ import { MeetingRoomService } from './../../shared/services/meeting-room.service
           <td mat-cell *matCellDef="let meetingRoom"> {{meetingRoom.name}} {{meetingRoom.id}} </td>
         </ng-container>
         <ng-container matColumnDef="numberOfSeat">
-          <th mat-header-cell *matHeaderCellDef class="column">
+          <th mat-header-cell *matHeaderCellDef class="column" mat-sort-header>
             {{'meeting-room.seats' | translate}} </th>
           <td mat-cell *matCellDef="let meetingRoom"> {{meetingRoom.numberOfSeats}} </td>
         </ng-container>
@@ -76,8 +81,8 @@ import { MeetingRoomService } from './../../shared/services/meeting-room.service
             {{meetingRoom.building?.city}} - {{meetingRoom.building?.address}}</td>
         </ng-container>
         <ng-container matColumnDef="delete">
-          <th mat-header-cell *matHeaderCellDef class="column"></th>
-          <td mat-cell *matCellDef= "let meetingRoom">
+          <th mat-header-cell *matHeaderCellDef class="column">{{'meeting-room.action' | translate}}</th>
+          <td mat-cell *matCellDef="let meetingRoom">
           <button mat-icon-button color="accent" (click)="updateDialog(meetingRoom.id)">
             <mat-icon>edit</mat-icon>
           </button>
@@ -91,8 +96,8 @@ import { MeetingRoomService } from './../../shared/services/meeting-room.service
       </table>
       <mat-paginator
         [pageSize]="5"
-        [pageSizeOptions]="[5, 10, 20]"
-        showFirstLastButton>
+        [pageSizeOptions]="[10, 25, 50]"
+        showFirstLastButtons>
       </mat-paginator>
     </div>
   `
@@ -156,12 +161,15 @@ export class MeetingRoomComponent implements OnInit, OnDestroy, AfterViewInit {
 
   public openDialog(): void {
     this.dialog.open(MeetingRoomRegisterComponent, {
-      width: '400px',
+      disableClose: true,
+      height: '85%',
+      width: '25%',
     });
   }
 
   public deleteDialog(id: number) {
     const dialogRef = this.dialog.open(MeetingRoomDeleteComponent, {
+      disableClose: true,
       height: '35%',
       width: '30%'
     });
@@ -175,8 +183,9 @@ export class MeetingRoomComponent implements OnInit, OnDestroy, AfterViewInit {
 
   public updateDialog(id: number) {
     const dialogRef = this.dialog.open(MeetingRoomUpdateComponent, {
-      height: '500px',
-      width: '400px',
+      disableClose: true,
+      height: '65%',
+      width: '25%',
       data: id
     });
     this.unsubFromUpdate = dialogRef.afterClosed()
