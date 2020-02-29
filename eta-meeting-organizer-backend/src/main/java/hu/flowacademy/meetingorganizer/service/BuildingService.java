@@ -54,8 +54,8 @@ public class BuildingService {
   }
 
   public void validateBuilding(BuildingDTO input) {
-    if (((buildingRepository.findAllCities()).contains(input.getCity())) &&
-        (buildingRepository.findAllBuildingNames().contains(input.getBuildingName()))) {
+    if ((!(buildingRepository.findByCityAndBuildingName(input.getCity(), input.getBuildingName()))
+        .isEmpty())) {
       throw new BuildingNameAlreadyExistsException(input.getBuildingName());
     }
     if (buildingRepository.findAllAddresses().contains(input.getAddress())) {

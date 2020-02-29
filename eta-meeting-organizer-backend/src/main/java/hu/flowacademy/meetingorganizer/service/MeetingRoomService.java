@@ -1,5 +1,6 @@
 package hu.flowacademy.meetingorganizer.service;
 
+import hu.flowacademy.meetingorganizer.exception.MeetingRoomNameAlreadyExistsException;
 import hu.flowacademy.meetingorganizer.exception.MeetingRoomNotFoundException;
 import hu.flowacademy.meetingorganizer.persistence.model.MeetingRoom;
 import hu.flowacademy.meetingorganizer.persistence.model.dto.MeetingRoomDTO;
@@ -33,8 +34,9 @@ public class MeetingRoomService {
     meetingRoomRepository.deleteById(id);
   }
 
-  public MeetingRoomDTO updateMeetingRoom(Long id, MeetingRoomDTO dto) {
-    MeetingRoom meetingRoom = dto.toEntity();
+  public MeetingRoomDTO updateMeetingRoom(Long id, MeetingRoomDTO meetingRoomDTO) {
+    validateMeetingRoom(meetingRoomDTO);
+    MeetingRoom meetingRoom = meetingRoomDTO.toEntity();
     meetingRoom.setId(id);
     return new MeetingRoomDTO(meetingRoomRepository.save(meetingRoom));
   }
@@ -44,7 +46,16 @@ public class MeetingRoomService {
         .collect(Collectors.toList());
   }
 
-  public MeetingRoomDTO create(MeetingRoomDTO meetingRoom) {
-    return new MeetingRoomDTO(meetingRoomRepository.save(meetingRoom.toEntity()));
+  public MeetingRoomDTO create(MeetingRoomDTO meetingRoomDTO) {
+    validateMeetingRoom(meetingRoomDTO);
+    return new MeetingRoomDTO(meetingRoomRepository.save(meetingRoomDTO.toEntity()));
+  }
+
+  public void validateMeetingRoom(MeetingRoomDTO input) {
+    if ((!(meetingRoomRepository
+        .findByBuilding_AddressAndName(input.getBuilding().getAddress(), input.getName()))
+        .isEmpty())) {
+      throw new MeetingRoomNameAlreadyExistsException(input.getName());
+    }
   }
 }

@@ -12,5 +12,5 @@ public interface MeetingRoomRepository extends JpaRepository<MeetingRoom, Long> 
 
   List<MeetingRoom> findAllByOrderById();
 
-  List<MeetingRoom> findAllMeetingRoomName();
+  List<MeetingRoom> findByBuilding_AddressAndName(String City, String name);
 }
