@@ -212,5 +212,8 @@ export class MeetingRoomComponent implements OnInit, OnDestroy, AfterViewInit {
     if (this.unsubFromDialog) {
       this.unsubFromDialog.unsubscribe();
     }
+    if (this.unsubFromCheckbox) {
+      this.unsubFromCheckbox.unsubscribe();
+    }
   }
 }
