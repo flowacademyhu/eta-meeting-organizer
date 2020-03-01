@@ -78,8 +78,9 @@
   "building-delete-dialog": {
     "buildingDelete": "Épület törlése",
     "verification": "Biztosan törölni akarja az épületet?",
-    "yes": "Igen",
-    "no": "Nem"
+    "warning":"Figyelem: az épülethez kapcsolódó tételek is törlésre kerülnek.",
+    "delete": "Törlés",
+    "cancel": "Mégse"
   },
   "authentication": {
     "answer": "A regisztráció admin általi jóváhagyásra vár!"

@@ -79,8 +79,9 @@
   "building-delete-dialog": {
     "buildingDelete": "Building deletion",
     "verification": "Are you sure you want to delete this building?",
-    "yes": "Yes",
-    "no": "No"
+    "warning":"Attention: all associated items will be deleted too.",
+    "delete": "Törlés",
+    "cancel": "Mégse"
   },
   "authentication": {
     "answer": "Your registration has not been verified by admin yet!"

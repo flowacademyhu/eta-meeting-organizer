@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -89,6 +89,7 @@ export class BuildingComponent implements OnInit, OnDestroy, AfterViewInit {
   public postUnsub: Subscription;
   public dataSource: MatTableDataSource<Building> = new MatTableDataSource<Building>();
   public dataSub: Subscription;
+  public dialogRef: MatDialogRef<BuildingDeleteDialogComponent>;
 
   @ViewChild(MatSort) public sort: MatSort;
   @ViewChild(MatPaginator) public paginator: MatPaginator;
