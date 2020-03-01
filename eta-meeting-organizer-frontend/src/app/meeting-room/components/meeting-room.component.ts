@@ -24,9 +24,6 @@ import { MeetingRoomService } from './../../shared/services/meeting-room.service
       width: 100%;
       table-layout: fixed;
     }
-    .check {
-      align: left;
-    }
   `],
   template: `
   <div class="row justify-content-center" class="container">
@@ -34,72 +31,74 @@ import { MeetingRoomService } from './../../shared/services/meeting-room.service
           (click)="openDialog()">
           <mat-icon>add</mat-icon>
   </button>
-    <mat-form-field>
+  <mat-form-field>
     <input matInput type="text" (keyup)="doFilter($event.target.value)"
-     placeholder="{{'search-bar.search' | translate}}">
+      placeholder="{{'search-bar.search' | translate}}">
   </mat-form-field>
-     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
-     <ng-container matColumnDef="checkbox">
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+    <ng-container matColumnDef="checkbox">
       <th mat-header-cell *matHeaderCellDef class="column">
         <button mat-icon-button color="primary" (click)="deleteByCheckbox()">
-          <mat-icon class="check">delete</mat-icon>
+          <mat-icon class="check">delete_forever</mat-icon>
         </button>
       </th>
-        <td mat-cell *matCellDef="let meetingRoom">
-          <mat-checkbox (change)="checkCheckBox(meetingRoom.id, $event)"></mat-checkbox>
-        </td>
-        </ng-container>
-     <ng-container matColumnDef="name">
-          <th mat-header-cell *matHeaderCellDef class="column">{{'meeting-room.text' | translate}} </th>
-          <td mat-cell *matCellDef="let meetingRoom"> {{meetingRoom.name}} {{meetingRoom.id}} </td>
-        </ng-container>
-        <ng-container matColumnDef="numberOfSeat">
-          <th mat-header-cell *matHeaderCellDef class="column" mat-sort-header>
-            {{'meeting-room.seats' | translate}} </th>
-          <td mat-cell *matCellDef="let meetingRoom"> {{meetingRoom.numberOfSeats}} </td>
-        </ng-container>
-        <ng-container matColumnDef="projector">
-            <th mat-header-cell *matHeaderCellDef class="column" mat-sort-header>
-              {{'meeting-room.projector' | translate}} </th>
-            <td mat-cell *matCellDef="let meetingRoom">
-            <mat-icon color="primary"
-              *ngIf="meetingRoom.projector!==true">
-              clear
-            </mat-icon>
-            <mat-icon class="projector-color" *ngIf="meetingRoom.projector===true">done</mat-icon>
-        </ng-container>
-        <ng-container matColumnDef="buildingName">
-          <th mat-header-cell *matHeaderCellDef class="column" mat-sort-header>
-            {{'meeting-room.buildingName' | translate}} </th>
-          <td mat-cell *matCellDef="let meetingRoom">
-            {{meetingRoom.building?.buildingName}}</td>
-        </ng-container>
-       <ng-container matColumnDef="building">
-          <th mat-header-cell *matHeaderCellDef class="column" mat-sort-header>
-            {{'meeting-room.building' | translate}} </th>
-          <td mat-cell *matCellDef="let meetingRoom">
-            {{meetingRoom.building?.city}} - {{meetingRoom.building?.address}}</td>
-        </ng-container>
-        <ng-container matColumnDef="delete">
-          <th mat-header-cell *matHeaderCellDef class="column">{{'meeting-room.action' | translate}}</th>
-          <td mat-cell *matCellDef="let meetingRoom">
-          <button mat-icon-button color="accent" (click)="updateDialog(meetingRoom.id)">
-            <mat-icon>edit</mat-icon>
-          </button>
-          <button mat-icon-button color="primary" (click)="deleteDialog(meetingRoom.id)">
-            <mat-icon>delete</mat-icon>
-          </button>
-          </td>
-        </ng-container>
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-      </table>
-      <mat-paginator
-        [pageSize]="5"
-        [pageSizeOptions]="[10, 25, 50]"
-        showFirstLastButtons>
-      </mat-paginator>
-    </div>
+      <td mat-cell *matCellDef="let meetingRoom">
+        <mat-checkbox (change)="checkCheckBox(meetingRoom.id, $event)"></mat-checkbox>
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef class="column">{{'meeting-room.text' | translate}} </th>
+      <td mat-cell *matCellDef="let meetingRoom"> {{meetingRoom.name}} {{meetingRoom.id}} </td>
+    </ng-container>
+    <ng-container matColumnDef="numberOfSeat">
+      <th mat-header-cell *matHeaderCellDef class="column" mat-sort-header>
+        {{'meeting-room.seats' | translate}} </th>
+      <td mat-cell *matCellDef="let meetingRoom"> {{meetingRoom.numberOfSeats}} </td>
+    </ng-container>
+    <ng-container matColumnDef="projector">
+      <th mat-header-cell *matHeaderCellDef class="column" mat-sort-header>
+        {{'meeting-room.projector' | translate}} </th>
+      <td mat-cell *matCellDef="let meetingRoom">
+        <mat-icon color="primary" *ngIf="meetingRoom.projector!==true">
+        clear
+        </mat-icon>
+        <mat-icon class="projector-color" *ngIf="meetingRoom.projector===true">done</mat-icon>
+    </ng-container>
+    <ng-container matColumnDef="buildingName">
+      <th mat-header-cell *matHeaderCellDef class="column" mat-sort-header>
+        {{'meeting-room.buildingName' | translate}}
+      </th>
+      <td mat-cell *matCellDef="let meetingRoom">
+        {{meetingRoom.building?.buildingName}}
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="building">
+      <th mat-header-cell *matHeaderCellDef class="column" mat-sort-header>
+        {{'meeting-room.building' | translate}}
+      </th>
+      <td mat-cell *matCellDef="let meetingRoom">
+        {{meetingRoom.building?.city}} - {{meetingRoom.building?.address}}</td>
+    </ng-container>
+    <ng-container matColumnDef="delete">
+      <th mat-header-cell *matHeaderCellDef class="column">{{'meeting-room.action' | translate}}</th>
+      <td mat-cell *matCellDef="let meetingRoom">
+        <button mat-icon-button color="accent" (click)="updateDialog(meetingRoom.id)">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button color="primary" (click)="deleteDialog(meetingRoom.id)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  <mat-paginator
+    [pageSize]="5"
+    [pageSizeOptions]="[10, 25, 50]"
+    showFirstLastButtons>
+  </mat-paginator>
+</div>
   `
 })
 export class MeetingRoomComponent implements OnInit, OnDestroy, AfterViewInit {
@@ -111,10 +110,7 @@ export class MeetingRoomComponent implements OnInit, OnDestroy, AfterViewInit {
   public unsubFromDelete: Subscription;
   public unsubFromUpdate: Subscription;
   public unsubFromCheckbox: Subscription;
-  public meetingRoom: MeetingRoom;
   public checkedArr: number[] = [];
-  public editCb: boolean;
-  public isChecked: boolean = false;
 
   @ViewChild(MatSort) public sort: MatSort;
   @ViewChild(MatPaginator) public paginator: MatPaginator;
