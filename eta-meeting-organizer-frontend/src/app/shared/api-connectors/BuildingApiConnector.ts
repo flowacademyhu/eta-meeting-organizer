@@ -36,4 +36,8 @@ export class BuildingApiConnector extends AbstractApiConnector {
   public findByCity(city: string): Observable<Building[]> {
     return this.http.get<Building[]>(`${this.apiRoute}/buildings/cities?city=${city}`);
   }
+
+  public deleteBuildingByCheckbox(id: number[]) {
+    return this.http.post(`${this.apiRoute}/buildings/groupdelete`, id);
+  }
 }
