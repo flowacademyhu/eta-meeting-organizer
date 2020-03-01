@@ -138,14 +138,11 @@ export class MeetingRoomComponent implements OnInit, OnDestroy, AfterViewInit {
     const dialogRef = this.dialog.open(MeetingRoomDeleteComponent, {
       disableClose: true,
       height: '35%',
-      width: '30%'
+      width: '30%',
+      data: id
     });
     this.unsubFromDelete = dialogRef.afterClosed()
-      .subscribe((result) => {
-        if (result === 'true') {
-        this.deleteMeetingRoom(id);
-        }
-      });
+      .subscribe();
   }
 
   public updateDialog(id: number) {
