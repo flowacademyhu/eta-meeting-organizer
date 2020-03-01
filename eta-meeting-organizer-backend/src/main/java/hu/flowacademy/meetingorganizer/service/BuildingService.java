@@ -26,7 +26,7 @@ public class BuildingService {
   }
 
   public BuildingDTO updateBuilding(Long id, BuildingDTO buildingDTO) {
-    validateBuilding(buildingDTO);
+    validateBuildingOnUpdate(buildingDTO);
     Building building = buildingDTO.toEntity();
     building.setId(id);
     return new BuildingDTO(buildingRepository.save(building));
@@ -60,6 +60,16 @@ public class BuildingService {
     }
     if (buildingRepository.findAllAddresses().contains(input.getAddress())) {
       throw new BuildingAddressAlreadyExistsException(input.getAddress());
+    }
+  }
+
+  public void validateBuildingOnUpdate(BuildingDTO input) {
+    List<Building> result = buildingRepository
+        .findByCityAndBuildingName(input.getCity(), input.getBuildingName());
+    result.remove(input.toEntity());
+    if (!(result.isEmpty()) && (buildingRepository.findAllAddresses()
+        .contains(input.getAddress()))) {
+      throw new BuildingNameAlreadyExistsException(input.getBuildingName());
     }
   }
 }
