@@ -59,4 +59,10 @@ export class BuildingService {
     .findByCity(city);
   }
 
+  public deleteBuildingByCheckBox(id: number[]) {
+    return this.buildingCom
+      .building()
+      .deleteBuildingByCheckbox(id);
+  }
+
 }
