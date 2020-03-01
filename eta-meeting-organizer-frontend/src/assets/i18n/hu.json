@@ -133,7 +133,8 @@
     "delete": "Törlés",
     "reserve": "Lefoglalás",
     "head": "Tárgyaló foglalás",
-    "edit": "Esemény szerkesztése:"
+    "edit": "Esemény szerkesztése:",
+    "quit": "Vissza a naptárhoz"
   },
   "snackbar-reservation": {
     "reservationOk": "A tárgyaló foglalása sikeresen megtörtént.",

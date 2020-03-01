@@ -76,7 +76,7 @@ import { ReservationUpdateComponent } from './reservation-update.component';
       <br>
     <mat-dialog-actions>
       <button mat-raised-button color="accent"
-      (click)="close()">{{'reservation.cancel' | translate}}</button>
+      (click)="close()">{{'reservation.quit' | translate}}</button>
     </mat-dialog-actions>
       <br>
     <mat-dialog-actions>

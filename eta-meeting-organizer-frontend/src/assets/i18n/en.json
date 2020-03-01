@@ -134,7 +134,8 @@
     "delete": "Delete",
     "reserve": "Reserve",
     "head": "Meeting room reservation",
-    "edit": "Reservation edit:"
+    "edit": "Reservation edit:",
+    "quit": "Back to the calendar"
   },
   "snackbar-reservation": {
     "reservationOk": "Making reservation was succesful.",

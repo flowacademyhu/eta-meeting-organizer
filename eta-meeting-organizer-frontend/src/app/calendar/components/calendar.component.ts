@@ -56,6 +56,8 @@ import { ReservationService } from '~/app/shared/services/reservation.service';
       (eventClick)="getInfo($event)"
       [height]="'auto'"
       [footer]="'auto'"
+      [editable]="meetingRoom && !checked"
+      [eventLimit]="true"
     ></full-calendar>
   `
 })
@@ -234,7 +236,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnChanges, OnDe
             {
               id: reservation.id,
               userId: reservation.user?.id,
-              groupId: this.userToken.sub,
+              // groupId: this.userToken.sub,
               end: reservation.endingTime,
               overlap: false,
               start: reservation.startingTime,
