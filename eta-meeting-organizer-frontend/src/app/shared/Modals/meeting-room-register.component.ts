@@ -6,7 +6,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
 import { Building } from '~/app/models/building.model';
 import { MeetingRoom } from '~/app/models/meetingroom.model';
-import {BuildingRegisterComponent} from '~/app/shared/Modals/building-register.component';
 import { BuildingService } from '../services/building.service';
 import { MeetingRoomService } from './../services/meeting-room.service';
 
@@ -70,14 +69,14 @@ import { MeetingRoomService } from './../services/meeting-room.service';
            matInput placeholder="{{'meeting-room.text' | translate}}">
            <mat-error>{{'validation.validate' | translate}}</mat-error>
      </mat-form-field>
-     <p *ngIf="this.errorMessage === 'No message available'">
+     <p *ngIf="this.errorMessage === 'No message available ' ">
        {{'error-meeting-roomPost-snackbar.name' | translate}}</p>
      <br>
      <mat-form-field>
        <mat-label>{{'meeting-room.seats' | translate}}</mat-label>
          <input  type="number" min="0" required="true" name="numberOfSeats" formControlName="numberOfSeats"
            matInput placeholder="{{'meeting-room.seats' | translate}}">
-           <mat-error>{{'validation.validate' | translate}}</mat-error>
+           <mat-error> {{'validation.validate' | translate}}</mat-error>
      </mat-form-field>
      <br>
      <div align="left">
@@ -160,7 +159,7 @@ export class MeetingRoomRegisterComponent implements OnInit {
         this.openSnackBar();
         this.dialogRef.close();
       }, (error: HttpErrorResponse) => {
-        this.errorMessage = error.error.message;
+        this.errorMessage = error.error;
         this.errorSnackBar();
       });
   }

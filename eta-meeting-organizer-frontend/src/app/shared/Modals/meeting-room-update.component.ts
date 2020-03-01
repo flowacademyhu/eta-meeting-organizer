@@ -5,7 +5,6 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
 import { MeetingRoom } from '~/app/models/meetingroom.model';
-import {BuildingRegisterComponent} from '~/app/shared/Modals/building-register.component';
 import { MeetingRoomService } from '../services/meeting-room.service';
 
 @Component({

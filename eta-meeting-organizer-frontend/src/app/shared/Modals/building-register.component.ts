@@ -65,7 +65,8 @@ import { BuildingService } from './../services/building.service';
         <input  type="text" name="address" formControlName="address"
           matInput placeholder="{{'building.address' | translate}}">
          <mat-error>{{'validation.validate' | translate}}</mat-error>
-      <p *ngIf="this.errorMessage === 'No message available'">
+      <p *ngIf="this.errorMessage === 'A building with the following address already exists: ' +
+       buildingForm.controls.address.value">
         {{'error-buildingPost-snackbar.address' | translate}}</p>
     </mat-form-field>
       <mat-dialog-actions>
@@ -83,7 +84,7 @@ import { BuildingService } from './../services/building.service';
 export class BuildingRegisterComponent implements OnInit {
 
   public buildingForm: FormGroup;
-  public building: Building;
+  public building: Building = {} as Building;
   public errorMessage: string = '';
   constructor(
     public dialogRef: MatDialogRef<BuildingRegisterComponent>,
@@ -108,7 +109,8 @@ export class BuildingRegisterComponent implements OnInit {
         this.openSnackBar();
         this.dialogRef.close();
       }, (error: HttpErrorResponse) => {
-        this.errorMessage = error.error.message;
+        this.errorMessage = error.error;
+        console.log(this.errorMessage)
         this.errorSnackBar();
       });
   }
