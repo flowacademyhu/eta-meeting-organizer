@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
+import { BuildingService } from '../services/building.service';
 
 @Component({
   selector: 'app-building-delete-dialog',
@@ -38,8 +40,8 @@ import { TranslateService } from '@ngx-translate/core';
   <br>
   <p>{{'building-delete-dialog.warning' | translate}}</p>
   <mat-dialog-actions>
-   <button mat-raised-button mat-dialog-close="true" color="primary"
-    (click)="openSnackBar()">{{'building-delete-dialog.delete' | translate}}</button>
+   <button mat-raised-button color="primary"
+    (click)="deleteBuilding('true')">{{'building-delete-dialog.delete' | translate}}</button>
   </mat-dialog-actions>
     <br>
   <mat-dialog-actions>
@@ -50,9 +52,33 @@ import { TranslateService } from '@ngx-translate/core';
 })
 
 export class BuildingDeleteDialogComponent {
-  constructor(private readonly snackBar: MatSnackBar, private readonly translate: TranslateService) {}
+  constructor(private readonly snackBar: MatSnackBar,
+              private readonly translate: TranslateService,
+              @Inject(MAT_DIALOG_DATA) private readonly id: number,
+              public dialogRef: MatDialogRef<BuildingDeleteDialogComponent>,
+              private readonly buildingService: BuildingService) {}
+
+  public deleteBuilding(choice: string) {
+    if (choice === 'true') {
+      this.buildingService.deleteBuilding(this.id)
+      .subscribe(() => {
+        this.openSnackBar();
+        this.buildingService.getAllBuildings();
+        this.dialogRef.close();
+      }, () => {
+        this.errorSnackbar();
+      });
+    }
+  }
+
   public openSnackBar() {
     this.snackBar.open(this.translate.instant(`delete-building-snackbar.delete`), undefined, {
+      duration: 2500
+    });
+  }
+
+  public errorSnackbar() {
+    this.snackBar.open(this.translate.instant(`building-delete-dialog.fail`), undefined, {
       duration: 2500
     });
   }

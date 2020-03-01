@@ -80,7 +80,8 @@
     "verification": "Biztosan törölni akarja az épületet?",
     "warning":"Figyelem: az épülethez kapcsolódó tételek is törlésre kerülnek.",
     "delete": "Törlés",
-    "cancel": "Mégse"
+    "cancel": "Mégse",
+    "fail": "Sikertelen törlés"
   },
   "authentication": {
     "answer": "A regisztráció admin általi jóváhagyásra vár!"
