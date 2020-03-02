@@ -72,15 +72,14 @@ public class BuildingService {
     List<Building> result = buildingRepository
         .findByCityAndBuildingName(input.getCity(), input.getBuildingName());
     result.remove(input.toEntity());
-    if (!(result.isEmpty()) && (buildingRepository.findAllAddresses()
-        .contains(input.getAddress()))) {
+    if (!(result.isEmpty())  && (buildingRepository.findAllAddresses()
+        .contains(input.getAddress()))){
       throw new BuildingNameAlreadyExistsException();
     }
   }
 
   public void validateBuildingData(BuildingDTO input) {
     if (StringUtils.isEmpty(input.getBuildingName())) {
-//      throw new ValidationException("Building name is necessary to create a building!");
       throw new ValidationException("building.name");
     }
     if (StringUtils.isEmpty(input.getCity())) {
