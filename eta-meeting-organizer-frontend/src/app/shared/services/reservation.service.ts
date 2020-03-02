@@ -20,6 +20,16 @@ export class ReservationService {
       .postReservation(reservation);
   }
 
+  public updateReservation(id: number, reservation: ReservationToPost) {
+    return this.apiCommunicationService.reservation()
+      .updateReservation(id, reservation);
+  }
+
+  public deleteReservation(id: number) {
+    return this.apiCommunicationService.reservation()
+    .deleteReservation(id);
+  }
+
   public findByMeetingRoomId(meetingRoomId: number) {
     this.apiCommunicationService.reservation()
      .findByMeetingRoomId(meetingRoomId)
