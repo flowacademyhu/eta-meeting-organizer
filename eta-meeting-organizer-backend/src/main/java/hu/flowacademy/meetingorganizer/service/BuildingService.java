@@ -2,7 +2,6 @@ package hu.flowacademy.meetingorganizer.service;
 
 import hu.flowacademy.meetingorganizer.persistence.model.Building;
 import hu.flowacademy.meetingorganizer.persistence.repository.BuildingRepository;
-import java.util.ArrayList;
 import java.util.Optional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -46,7 +45,7 @@ public class BuildingService {
     return buildingRepository.findByCity(city);
   }
 
-  public void deleteBuildingByCheckBox(ArrayList<Long> id) {
-    id.stream().forEach(x -> buildingRepository.deleteById(x));
+  public void deleteBuildingByCheckBox(List<Building> id) {
+    buildingRepository.deleteAll(id);
   }
 }
