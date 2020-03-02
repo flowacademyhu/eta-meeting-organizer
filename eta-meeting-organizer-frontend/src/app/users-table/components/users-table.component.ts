@@ -119,14 +119,12 @@ export class UsersTableComponent implements OnInit, OnDestroy, AfterViewInit {
    }
 
    public deleteDialog(id: string) {
-    const dialogRef = this.dialog.open(UserDeleteDialogComponent, {
+      this.dialog.open(UserDeleteDialogComponent, {
       disableClose: true,
       height: '35%',
       width: '30%',
       data: id
     } );
-    this.deleteUnsub = dialogRef.afterClosed()
-    .subscribe();
    }
 
    public verificationDialog(id: string) {
