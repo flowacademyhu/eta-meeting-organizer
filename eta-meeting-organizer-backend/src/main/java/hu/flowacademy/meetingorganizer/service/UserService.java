@@ -2,6 +2,7 @@ package hu.flowacademy.meetingorganizer.service;
 
 import hu.flowacademy.meetingorganizer.email.EmailService;
 import hu.flowacademy.meetingorganizer.email.EmailType;
+import hu.flowacademy.meetingorganizer.exception.UserNotFoundException;
 import hu.flowacademy.meetingorganizer.persistence.model.User;
 import hu.flowacademy.meetingorganizer.persistence.model.dto.RoleDTO;
 import hu.flowacademy.meetingorganizer.persistence.repository.UserRepository;
@@ -25,7 +26,8 @@ public class UserService {
   }
 
   public Optional<User> findOne(String id) {
-    return userRepository.findById(id);
+    return Optional.of(userRepository.findById(id))
+        .orElseThrow(() -> new UserNotFoundException(id));
   }
 
   public User createUser(User user) {
@@ -37,14 +39,15 @@ public class UserService {
   }
 
   public User updateUser(String id, User user) {
+    userRepository.findById(id).orElseThrow(() -> new UserNotFoundException(id));
     user.setId(id);
     return userRepository.save(user);
   }
 
   public User setUserRole(String id, RoleDTO roleDTO) {
-    User user = userRepository.findById(id).orElseThrow();
+    User user = userRepository.findById(id).orElseThrow(() -> new UserNotFoundException(id));
     user.setRole(roleDTO.getRole());
-    emailService.send(user.getUsername(), "validation", EmailType.TEXT);
+    emailService.send(user.getUsername(), "welcome", EmailType.TEXT);
     return userRepository.save(user);
   }
 }

@@ -12,7 +12,9 @@ public interface MeetingRoomRepository extends JpaRepository<MeetingRoom, Long> 
   List<MeetingRoom> findByBuilding_Id(Long id);
 
   List<MeetingRoom> findAllByOrderById();
-
+  
   @Modifying
   void deleteByIdIn(List<Long> id);
+
+  List<MeetingRoom> findByBuilding_AddressAndName(String City, String name);
 }

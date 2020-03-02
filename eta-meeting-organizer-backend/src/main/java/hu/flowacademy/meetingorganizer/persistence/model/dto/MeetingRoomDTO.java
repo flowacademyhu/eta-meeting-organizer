@@ -37,5 +37,4 @@ public class MeetingRoomDTO {
     meetingRoom.setBuilding(this.getBuilding().toEntity());
     return meetingRoom;
   }
-
 }
