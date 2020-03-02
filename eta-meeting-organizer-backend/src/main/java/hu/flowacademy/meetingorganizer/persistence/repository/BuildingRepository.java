@@ -13,7 +13,13 @@ public interface BuildingRepository extends JpaRepository<Building, Long> {
   @Query("select distinct city from Building b")
   List<String> findAllCities();
 
-  List<Building> findByCity(String city);
+  @Query("select distinct address from Building b")
+  List<String> findAllAddresses();
+
+  List<Building> findByCityAndBuildingName(String city, String buildingName);
+
+  List<Building> findAllByCity(String city);
+
   List<Building> findAllByOrderById();
 
   @Modifying
