@@ -60,6 +60,9 @@ import { ReservationService } from '~/app/shared/services/reservation.service';
       [editable]="meetingRoom && !checked"
       [eventLimit]="true"
       (eventResize)="updateReservationTime($event)"
+      [eventColor]="'#e64b3a'"
+      [eventTextColor]="'#333333'"
+      [displayEventTime]="true"
     ></full-calendar>
   `
 })
