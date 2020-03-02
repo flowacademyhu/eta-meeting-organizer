@@ -2,8 +2,6 @@ package hu.flowacademy.meetingorganizer.rest;
 
 import hu.flowacademy.meetingorganizer.persistence.model.Building;
 import hu.flowacademy.meetingorganizer.service.BuildingService;
-import java.util.ArrayList;
-import java.util.Arrays;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -65,9 +63,9 @@ public class BuildingResource {
     return ResponseEntity.noContent().build();
   }
 
-  @PostMapping("/groupdelete")
-  public ResponseEntity<?> deleteWithCheckbox(@RequestBody List<Building> id) {
-    buildingService.deleteBuildingByCheckBox(id);
+  @DeleteMapping("/delete/{id}")
+  public ResponseEntity<?> deleteWithCheckbox(@PathVariable List<Long> id) {
+    buildingService.deleteAllById(id);
     return ResponseEntity.noContent().build();
   }
 }
