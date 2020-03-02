@@ -37,11 +37,4 @@ public class MeetingRoomDTO {
     meetingRoom.setBuilding(this.getBuilding().toEntity());
     return meetingRoom;
   }
-
-  public MeetingRoomDTO fromEntity() {
-    MeetingRoomDTO meetingRoomDTO = new MeetingRoomDTO();
-    BeanUtils.copyProperties(this, meetingRoomDTO);
-    meetingRoomDTO.setBuilding(this.getBuilding().fromEntity());
-    return meetingRoomDTO;
-  }
 }
