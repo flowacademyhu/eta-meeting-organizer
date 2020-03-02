@@ -26,7 +26,7 @@ export class ReservationApiConnector extends AbstractApiConnector {
     return this.http.post<ReservationToPost>(`${this.apiRoute}/reservations`, reservation);
   }
 
-  public updateReservation(id: number, reservation: Reservation) {
+  public updateReservation(id: number, reservation: ReservationToPost) {
     return this.http.put(`${this.apiRoute}/reservations/` + id, reservation);
   }
 
