@@ -28,7 +28,7 @@ public class BuildingService {
   }
 
   public BuildingDTO updateBuilding(Long id, BuildingDTO buildingDTO) {
-    buildingRepository.findById(id).orElseThrow(() -> new BuildingNotFoundException(id));
+    buildingRepository.findById(id).orElseThrow(BuildingNotFoundException::new);
     validateBuildingOnUpdate(buildingDTO);
     Building building = buildingDTO.toEntity();
     building.setId(id);
@@ -41,7 +41,7 @@ public class BuildingService {
 
   public Optional<Building> findOne(Long id) {
     return Optional.of(buildingRepository.findById(id))
-        .orElseThrow(() -> new BuildingNotFoundException(id));
+        .orElseThrow(BuildingNotFoundException::new);
   }
 
   public List<Building> findAll() {
@@ -60,10 +60,10 @@ public class BuildingService {
     validateBuildingData(input);
     if ((!(buildingRepository.findByCityAndBuildingName(input.getCity(), input.getBuildingName()))
         .isEmpty())) {
-      throw new BuildingNameAlreadyExistsException(input.getBuildingName());
+      throw new BuildingNameAlreadyExistsException();
     }
     if (buildingRepository.findAllAddresses().contains(input.getAddress())) {
-      throw new BuildingAddressAlreadyExistsException(input.getAddress());
+      throw new BuildingAddressAlreadyExistsException();
     }
   }
 
@@ -74,19 +74,20 @@ public class BuildingService {
     result.remove(input.toEntity());
     if (!(result.isEmpty()) && (buildingRepository.findAllAddresses()
         .contains(input.getAddress()))) {
-      throw new BuildingNameAlreadyExistsException(input.getBuildingName());
+      throw new BuildingNameAlreadyExistsException();
     }
   }
 
   public void validateBuildingData(BuildingDTO input) {
     if (StringUtils.isEmpty(input.getBuildingName())) {
-      throw new ValidationException("Building name is necessary to create a building!");
+//      throw new ValidationException("Building name is necessary to create a building!");
+      throw new ValidationException("building.name");
     }
     if (StringUtils.isEmpty(input.getCity())) {
-      throw new ValidationException("City is necessary to create a building!");
+      throw new ValidationException("building.city");
     }
     if (StringUtils.isEmpty(input.getAddress())) {
-      throw new ValidationException("Address is necessary to create a building!");
+      throw new ValidationException("building.city");
     }
   }
 }

@@ -30,7 +30,7 @@ public class MeetingRoomService {
 
   public Optional<MeetingRoomDTO> findOne(Long id) {
     return Optional.of(meetingRoomRepository.findById(id).map(MeetingRoomDTO::new))
-        .orElseThrow(() -> new MeetingRoomNotFoundException(id));
+        .orElseThrow(MeetingRoomNotFoundException::new);
   }
 
   public void deleteMeetingRoom(Long id) {
@@ -38,7 +38,7 @@ public class MeetingRoomService {
   }
 
   public MeetingRoomDTO updateMeetingRoom(Long id, MeetingRoomDTO meetingRoomDTO) {
-    meetingRoomRepository.findById(id).orElseThrow(() -> new MeetingRoomNotFoundException(id));
+    meetingRoomRepository.findById(id).orElseThrow(MeetingRoomNotFoundException::new);
     validateMeetingRoomOnUpdate(meetingRoomDTO);
     MeetingRoom meetingRoom = meetingRoomDTO.toEntity();
     meetingRoom.setId(id);
@@ -60,7 +60,7 @@ public class MeetingRoomService {
     if ((!(meetingRoomRepository
         .findByBuilding_AddressAndName(input.getBuilding().getAddress(), input.getName()))
         .isEmpty())) {
-      throw new MeetingRoomNameAlreadyExistsException(input.getName());
+      throw new MeetingRoomNameAlreadyExistsException();
     }
   }
 
@@ -70,22 +70,22 @@ public class MeetingRoomService {
         .findByBuilding_AddressAndName(input.getBuilding().getAddress(), input.getName());
     resultList.remove(input.toEntity());
     if (!(resultList.isEmpty())) {
-      throw new MeetingRoomNameAlreadyExistsException(input.getName());
+      throw new MeetingRoomNameAlreadyExistsException();
     }
   }
 
   public void validateMeetingRoomData(MeetingRoomDTO input) {
     if (Objects.isNull(input.getBuilding())) {
-      throw new ValidationException("You need to provide a building to create a meeting room!");
+      throw new ValidationException("meetingRoom.building");
     }
     if (StringUtils.isEmpty(input.getName())) {
-      throw new ValidationException("Meeting room name is necessary to create a meeting room!");
+      throw new ValidationException("meetingRoom.name");
     }
     if (Objects.isNull(input.getNumberOfSeats())) {
-      throw new ValidationException("Number of seats is necessary to create a meeting room!");
+      throw new ValidationException("meetingRoom.seatNumber");
     }
     if (Objects.isNull(input.getProjector())) {
-      throw new ValidationException("Projector cannot be null!");
+      throw new ValidationException("meetingRoom.projector");
     }
   }
 }
