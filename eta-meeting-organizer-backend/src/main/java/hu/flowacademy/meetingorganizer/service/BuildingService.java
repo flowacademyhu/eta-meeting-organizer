@@ -89,4 +89,8 @@ public class BuildingService {
       throw new ValidationException("building.city");
     }
   }
+
+  public void deleteAllById(List<Long> id) {
+    buildingRepository.deleteByIdIn(id);
+  }
 }
