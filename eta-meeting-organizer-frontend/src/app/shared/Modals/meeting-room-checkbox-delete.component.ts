@@ -42,7 +42,7 @@ import { TranslateService } from '@ngx-translate/core';
   `
 })
 
-export class MeetingRoomDeleteComponent {
+export class MeetingRoomCheckboxComponent {
   constructor(
     private readonly snackBar: MatSnackBar,
     private readonly translate: TranslateService) {}
