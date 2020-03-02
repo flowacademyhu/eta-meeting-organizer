@@ -24,21 +24,37 @@ import { UserService } from './../../shared/services/user.service';
     }
   `],
   template: `
-     <div class="row justify-content-center" class="container">
-    <mat-form-field>
-    <input matInput type="text" (keyup)="doFilter($event.target.value)"
-    placeholder="{{'search-bar.search' | translate}}">
-    </mat-form-field>
+    <div class="row justify-content-center" class="container">
+      <mat-form-field>
+        <input matInput type="text" (keyup)="doFilter($event.target.value)"
+          placeholder="{{'search-bar.search' | translate}}">
+      </mat-form-field>
       <table mat-table [dataSource]="dataSource" class="mat-elevation-z8"
+<<<<<<< HEAD
         matSort matSortActive="id" matSortDirection="desc" matSortDisableClear>
+=======
+          matSort matSortActive="id" matSortDirection="desc" matSortDisableClear>
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef class="column" mat-sort-header>
+            {{'profile.id' | translate}}
+          </th>
+          <td mat-cell  *matCellDef="let user">
+             {{user.id}}
+          </td>
+        </ng-container>
+>>>>>>> master
         <ng-container matColumnDef="email">
           <th mat-header-cell *matHeaderCellDef class="column" mat-sort-header>
-            {{'profile.email' | translate}} </th>
-          <td mat-cell *matCellDef="let user">{{user.username}}</td>
+            {{'profile.email' | translate}}
+          </th>
+          <td mat-cell *matCellDef="let user">
+            {{user.username}}
+          </td>
         </ng-container>
         <ng-container matColumnDef="role">
           <th mat-header-cell *matHeaderCellDef class="column" mat-sort-header>
-            {{'profile.role' | translate}} </th>
+            {{'profile.role' | translate}}
+          </th>
           <td mat-cell *matCellDef="let user" [ngSwitch]="user.role">
             <p *ngSwitchCase="'ADMIN'">{{'user-verification-dialog.admin' | translate}}</p>
             <p *ngSwitchCase="'USER'">{{'user-verification-dialog.user' | translate}}</p>
@@ -47,7 +63,9 @@ import { UserService } from './../../shared/services/user.service';
           </td>
         </ng-container>
         <ng-container matColumnDef="action">
-          <th mat-header-cell *matHeaderCellDef class="column">{{'profile.action' | translate}}</th>
+          <th mat-header-cell *matHeaderCellDef class="column">
+            {{'profile.action' | translate}}
+          </th>
           <td mat-cell *matCellDef="let user">
           <button *ngIf="user.username !== currentAdmin.username"
           mat-icon-button color="primary" (click)="deleteDialog(user.id)">
@@ -65,11 +83,12 @@ import { UserService } from './../../shared/services/user.service';
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       </table>
-      <mat-paginator
+      <mat-paginator class="mat-elevation-z8"
         [pageSize]="5"
         [pageSizeOptions]="[10, 25, 50]"
         showFirstLastButtons>
       </mat-paginator>
+    </div>
   `
 })
 
