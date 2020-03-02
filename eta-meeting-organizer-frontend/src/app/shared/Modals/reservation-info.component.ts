@@ -71,6 +71,7 @@ import { ReservationUpdateComponent } from './reservation-update.component';
 </mat-card>
 <mat-dialog-actions>
     <button mat-raised-button
+    *ngIf="!data.meetingRoomView"
       (click)="updateDialog()" color="primary">{{'reservation.modify' | translate}}</button>
     </mat-dialog-actions>
       <br>
@@ -81,6 +82,7 @@ import { ReservationUpdateComponent } from './reservation-update.component';
       <br>
     <mat-dialog-actions>
       <button mat-raised-button color="warn"
+      *ngIf="!data.meetingRoomView"
       (click)="deleteDialog()">{{'reservation.delete' | translate}}</button>
     </mat-dialog-actions>
 </mat-dialog-content>`,

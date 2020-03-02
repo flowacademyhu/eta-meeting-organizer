@@ -22,7 +22,6 @@ import { UserToken } from '~/app/shared/models/user-token.model';
 import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
 import { AuthService } from '~/app/shared/services/auth.service';
 import { ReservationService } from '~/app/shared/services/reservation.service';
-
 @Component({
   selector: 'app-calendar',
   styles: [`
@@ -61,39 +60,28 @@ import { ReservationService } from '~/app/shared/services/reservation.service';
       [eventLimit]="true"
       (eventResize)="updateReservationTime($event)"
       (eventDrop)="updateReservationTime($event)"
-      [eventColor]="'#e64b3a'"
-      [eventTextColor]="'#333333'"
+      [eventBackgroundColor]= "'#e64b3a'"
+      [eventTextColor]="'#f3f5ed'"
       [displayEventTime]="true"
     ></full-calendar>
   `
 })
 export class CalendarComponent implements OnInit, AfterViewInit, OnChanges, OnDestroy {
-
   protected locales: Locale[] = [huLocale, enGbLocale];
-
   private destroy$: Subject<boolean> = new Subject<boolean>();
-
   public userToken: UserToken = {} as UserToken;
-
   @Input('meetingRoom')
   public meetingRoom: MeetingRoom;
-
   @Input('checked')
   public checked: boolean;
-
   @ViewChild('calendar')
   public calendarComponent: FullCalendarComponent;
-
   public posted: boolean;
-
   protected isReader: boolean = false;
-
   public options: OptionsInput;
   public calendarPlugins: object[] = [dayGridPlugin, timeGridPlugin, interactionPlugin];
-
   public reservations: Reservation[];
   public reservations$: Observable<Reservation[]>;
-
   constructor(private readonly api: ApiCommunicationService,
               private readonly authService: AuthService,
               private readonly translate: TranslateService,
@@ -105,13 +93,10 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnChanges, OnDe
     });
     this.checkReader();
   }
-
   protected checkReader(): void {
     (this.userToken.role === Role.READER) ? this.isReader = true : this.isReader = false;
   }
-
   public calendarEvents: EventInput[] = [];
-
   public ngOnInit() {
     this.options = {
       buttonText: {
@@ -138,7 +123,6 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnChanges, OnDe
     };
     this.reservations$ = this.reservationService.reservationBehaviourSubject;
   }
-
   public ngAfterViewInit() {
     this.translate.onLangChange
       .pipe(takeUntil(this.destroy$))
@@ -146,7 +130,6 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnChanges, OnDe
         this.setCalendarLang(params.lang);
       });
   }
-
   private setCalendarLang(lang: string) {
     if (lang === 'en') {
       lang = 'en-gb';
@@ -158,7 +141,6 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnChanges, OnDe
     this.calendarComponent.getApi()
       .setOption('locale', lang);
   }
-
   public ngOnChanges(changes: SimpleChanges) {
     if (changes?.checked?.currentValue && this.checked) {
       this.getReservationsByUser();
@@ -168,7 +150,6 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnChanges, OnDe
         this.getReservationsByMeetingRoom();
     }
   }
-
   public bookDialog(event: EventInput) {
     const dialogRef = this.dialog.open(ReservationBookingComponent, {
       disableClose: true,
@@ -189,9 +170,11 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnChanges, OnDe
     .pipe(takeUntil(this.destroy$))
     .subscribe();
   }
-
   public getInfo(eventInput: EventInput) {
-    if (this.checked) { // el.event.extendedProps.userId === this.userToken.sub ||
+    let isMeetingRoomView = false;
+    if (!this.checked && eventInput.event.extendedProps.userId !== this.userToken.sub) {
+      isMeetingRoomView = true;
+    }
     const dialogRef = this.dialog.open(ReservationInfoComponent, {
       width: '400px',
       data: {
@@ -203,19 +186,22 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnChanges, OnDe
         start: eventInput.event.start,
         end: eventInput.event.end,
         title: eventInput.event.title,
-        summary: eventInput.event.extendedProps.summary
+        summary: eventInput.event.extendedProps.summary,
+        meetingRoomView: isMeetingRoomView
       },
     });
     dialogRef.componentInstance.closeOutput.pipe(takeUntil(this.destroy$))
       .subscribe(() => {
-      this.getReservationsByUser();
+        if (this.checked) {
+          this.getReservationsByUser();
+        } else {
+          this.getReservationsByMeetingRoom();
+        }
     });
     dialogRef.afterClosed()
       .pipe(takeUntil(this.destroy$))
       .subscribe();
-    }
   }
-
   public updateReservationTime(eventInput: EventInput) {
     const dialogRef = this.dialog.open(ReservationTimeUpdateComponent, {
       width: '400px',
@@ -241,12 +227,10 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnChanges, OnDe
       .subscribe();
     this.getReservationsByMeetingRoom();
   }
-
   public ngOnDestroy(): void {
     this.destroy$.next(true);
     this.destroy$.unsubscribe();
   }
-
   public selectable() {
     if (this.checked || !this.meetingRoom || this.isReader) {
       return false;
@@ -254,7 +238,6 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnChanges, OnDe
       return true;
     }
   }
-
   public getReservationsByMeetingRoom() {
     this.api.reservation()
       .findByMeetingRoomId(this.meetingRoom.id)
@@ -265,8 +248,10 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnChanges, OnDe
         this.calendarEvents = [];
         for (const reservation of this.reservations) {
           let editableEvent: boolean = false;
+          let eventColor: string = '#1BBDB3';
           if (reservation.user?.id === this.userToken.sub) {
             editableEvent = true;
+            eventColor = '#e64b3a';
           }
           this.calendarEvents.push(
             {
@@ -281,13 +266,13 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnChanges, OnDe
               title: reservation.title,
               summary: reservation.summary,
               editable: editableEvent,
+              color: eventColor
             }
           );
         }
       }
     );
   }
-
   public getReservationsByUser() {
     this.api.reservation()
     .getReservationsByUserId(this.userToken.sub)
@@ -309,11 +294,11 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnChanges, OnDe
               start: reservation.startingTime,
               title: reservation.title,
               summary: reservation.summary,
+              color: '#e64b3a'
             }
           );
         }
       }
     );
   }
-
 }
