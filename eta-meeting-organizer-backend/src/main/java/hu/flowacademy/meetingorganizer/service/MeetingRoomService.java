@@ -47,7 +47,7 @@ public class MeetingRoomService {
     return new MeetingRoomDTO(meetingRoomRepository.save(meetingRoom.toEntity()));
   }
 
-  public void deleteMeetingRoomByCheckBox(ArrayList<Long> id ) {
-    id.stream().forEach(x -> meetingRoomRepository.deleteById(x));
+  public void deleteMeetingRoomByCheckBox(List<MeetingRoom> id ) {
+    meetingRoomRepository.deleteAll(id);
   }
 }
