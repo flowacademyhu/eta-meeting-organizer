@@ -38,6 +38,6 @@ export class BuildingApiConnector extends AbstractApiConnector {
   }
 
   public deleteBuildingByCheckbox(id: number[]) {
-    return this.http.post(`${this.apiRoute}/buildings/groupdelete`, id);
+    return this.http.delete(`${this.apiRoute}/buildings/delete/` + id);
   }
 }
