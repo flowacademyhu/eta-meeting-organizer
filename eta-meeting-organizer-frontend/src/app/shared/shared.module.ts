@@ -20,6 +20,10 @@ import { MeetingRoomDeleteComponent } from './Modals/meeting-room-delete.compone
 import { MeetingRoomRegisterComponent } from './Modals/meeting-room-register.component';
 import { MeetingRoomUpdateComponent } from './Modals/meeting-room-update.component';
 import { ReservationBookingComponent } from './Modals/reservation-book.component';
+import { ReservationDeleteComponent } from './Modals/reservation-delete.component';
+import { ReservationInfoComponent } from './Modals/reservation-info.component';
+import { ReservationTimeUpdateComponent } from './Modals/reservation-time-update';
+import { ReservationUpdateComponent } from './Modals/reservation-update.component';
 import { UserDeleteDialogComponent } from './Modals/user-delete-dialog';
 import { UserVerificationDialogComponent } from './Modals/user-verification-dialog';
 import { BuildingService } from './services/building.service';
@@ -41,6 +45,10 @@ import { UserService } from './services/user.service';
     BuildingDeleteDialogComponent,
     BuildingUpdateDialogComponent,
     ReservationBookingComponent,
+    ReservationUpdateComponent,
+    ReservationInfoComponent,
+    ReservationDeleteComponent,
+    ReservationTimeUpdateComponent,
   ],
   exports: [
     CommonModule,
