@@ -10,3 +10,12 @@ body {
 .w-50 {
   width: 50%;
 }
+
+.fc-toolbar.fc-header-toolbar {
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+}
+
+a.fc-time-grid-event.fc-event {
+  cursor: pointer;
+}
