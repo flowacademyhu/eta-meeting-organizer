@@ -3,6 +3,7 @@ package hu.flowacademy.meetingorganizer.service;
 import hu.flowacademy.meetingorganizer.exception.MeetingRoomNotFoundException;
 import hu.flowacademy.meetingorganizer.exception.ReservationNotFoundException;
 import hu.flowacademy.meetingorganizer.exception.UserNotFoundException;
+import hu.flowacademy.meetingorganizer.exception.ValidationException;
 import hu.flowacademy.meetingorganizer.persistence.model.MeetingRoom;
 import hu.flowacademy.meetingorganizer.persistence.model.Reservation;
 import hu.flowacademy.meetingorganizer.persistence.model.User;
@@ -73,19 +74,19 @@ public class ReservationService {
 
   private void validateReservation(ReservationDTO input) {
     if (StringUtils.isEmpty(input.getUserId())) {
-      throw new RuntimeException("User Id is neccessary to make a reservation!");
+      throw new ValidationException("User Id is necessary to make a reservation!");
     }
     if (Objects.isNull(input.getMeetingRoomId())) {
-      throw new RuntimeException("MeetingRoom Id is neccessary to make a reservation!");
+      throw new ValidationException("MeetingRoom Id is necessary to make a reservation!");
     }
     if (Objects.isNull(input.getStartingTime())) {
-      throw new RuntimeException("Start time is neccessary to make a reservation!");
+      throw new ValidationException("Starting time is necessary to make a reservation!");
     }
     if (Objects.isNull(input.getEndingTime())) {
-      throw new RuntimeException("End time is neccessary to make a reservation!");
+      throw new ValidationException("Ending time is necessary to make a reservation!");
     }
     if (StringUtils.isEmpty(input.getTitle())) {
-      throw new RuntimeException("Title is neccessary to make a reservation!");
+      throw new ValidationException("Title is necessary to make a reservation!");
     }
   }
 }

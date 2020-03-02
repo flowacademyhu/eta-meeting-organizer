@@ -39,7 +39,7 @@ public class UserService {
   }
 
   public User updateUser(String id, User user) {
-    user = userRepository.findById(id).orElseThrow(() -> new UserNotFoundException(id));
+    userRepository.findById(id).orElseThrow(() -> new UserNotFoundException(id));
     user.setId(id);
     return userRepository.save(user);
   }
@@ -47,7 +47,7 @@ public class UserService {
   public User setUserRole(String id, RoleDTO roleDTO) {
     User user = userRepository.findById(id).orElseThrow(() -> new UserNotFoundException(id));
     user.setRole(roleDTO.getRole());
-    emailService.send(user.getUsername(), "validation", EmailType.TEXT);
+    emailService.send(user.getUsername(), "welcome", EmailType.TEXT);
     return userRepository.save(user);
   }
 }
