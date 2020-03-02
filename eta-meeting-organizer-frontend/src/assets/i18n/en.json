@@ -129,17 +129,36 @@
     "own-appointments": "Own Appointments"
   },
   "reservation": {
-    "title": "Title",
-    "summary": "Summary",
+    "meetingroom": "Meetingroom:",
+    "title": "Title:",
+    "summary": "Summary:",
+    "startDate": "Start:",
+    "endDate": "End:",
+    "ok": "Ok",
     "cancel": "Cancel",
+    "modify": "Modify",
+    "delete": "Delete",
     "reserve": "Reserve",
-    "head": "Meeting room reservation"
+    "head": "Meeting room reservation",
+    "edit": "Reservation edit:",
+    "quit": "Back to the calendar"
   },
   "snackbar-reservation": {
-    "reservationOk": "Reservation succesful."
+    "reservationOk": "Making reservation was succesful.",
+    "reservationModificationOK": "Reservation modification was successful",
+    "reservationDeleteOk": "Reservation deletion was successful"
   },
   "validation": {
     "validate": "You must fill out this field!"
+  },
+  "reservation-delete-dialog": {
+    "reservationDelete": "Reservation deletion",
+    "verification": "Are you sure you want to delete reservation?",
+    "yes": "Yes",
+    "no": "No"
+  },
+  "reservation-time-change-dialog": {
+    "head": "Do you want to change your reservation's time as follows?"
   },
   "search-bar": {
     "search": "Search"
