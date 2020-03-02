@@ -36,4 +36,8 @@ public class Building {
   @OneToMany(mappedBy = "building", cascade = CascadeType.ALL)
   @JsonIgnore
   private List<MeetingRoom> meetingRoom;
+
+  public Building(Long id) {
+    this.id = id;
+  }
 }
