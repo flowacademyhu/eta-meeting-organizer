@@ -10,6 +10,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import hu.flowacademy.meetingorganizer.persistence.model.Building;
+import hu.flowacademy.meetingorganizer.persistence.model.dto.BuildingDTO;
 import hu.flowacademy.meetingorganizer.persistence.repository.BuildingRepository;
 import java.util.Arrays;
 import java.util.List;
@@ -31,6 +32,9 @@ public class BuildingServiceTest {
   private static Building building1;
   private static Building building2;
   private static Building building;
+  private static BuildingDTO buildingDTO1;
+  private static BuildingDTO buildingDTO2;
+  private static BuildingDTO buildingDTO;
 
   @Mock
   private BuildingRepository buildingRepository;
@@ -47,6 +51,8 @@ public class BuildingServiceTest {
   public static void init() {
     building1 = Building.builder().id(1L).city("Budapest").address("Kossuth tér 1.").buildingName("Kék épület").build();
     building2 = Building.builder().id(2L).city("Szeged").address("Damjanich u. 10.").buildingName("Zöld épület").build();
+    buildingDTO1 = BuildingDTO.builder().id(1L).city("Budapest").address("Kossuth tér 1.").buildingName("Kék épület").build();
+    buildingDTO2 = BuildingDTO.builder().id(2L).city("Szeged").address("Damjanich u. 10.").buildingName("Zöld épület").build();
   }
 
   @Test
@@ -69,7 +75,7 @@ public class BuildingServiceTest {
 
   @Test
   public void createBuildingTest() {
-    buildingService.createBuilding(building1);
+    buildingService.createBuilding(buildingDTO1);
     assertEquals("Budapest", building1.getCity());
     assertEquals("Kossuth tér 1.", building1.getAddress());
   }
@@ -77,7 +83,7 @@ public class BuildingServiceTest {
   @Test
   public void updateBuildingTest() {
     building = Building.builder().city("Budapest").address("Kossuth tér 2.").build();
-    buildingService.updateBuilding(1L, building);
+    buildingService.updateBuilding(1L, buildingDTO);
     assertEquals(1L, building.getId());
     assertEquals(building.getId(), building1.getId());
     assertEquals(building.getCity(), building1.getCity());
