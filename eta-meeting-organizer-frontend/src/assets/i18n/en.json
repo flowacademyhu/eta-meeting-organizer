@@ -151,6 +151,9 @@
     "yes": "Yes",
     "no": "No"
   },
+  "reservation-time-change-dialog": {
+    "head": "Do you want to change your reservation's time as follows?"
+  },
   "search-bar": {
     "search": "Search"
    }

@@ -150,7 +150,9 @@
     "yes": "Igen",
     "no": "Nem"
   },
-  "search-bar": {
+  "reservation-time-change-dialog": {
+    "head": "Szeretné a foglalása időpontját a következők szerint módosítani?"
+  },"search-bar": {
    "search": "Keresés"
   }
 }

@@ -29,6 +29,7 @@ import { BuildingService } from './services/building.service';
 import { MeetingRoomService } from './services/meeting-room.service';
 import { ReservationService } from './services/reservation.service';
 import { UserService } from './services/user.service';
+import { ReservationTimeUpdateComponent } from './Modals/reservation-time-update';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { UserService } from './services/user.service';
     ReservationUpdateComponent,
     ReservationInfoComponent,
     ReservationDeleteComponent,
+    ReservationTimeUpdateComponent,
   ],
   exports: [
     CommonModule,
