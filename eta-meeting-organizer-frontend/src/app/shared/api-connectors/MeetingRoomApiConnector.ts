@@ -30,6 +30,6 @@ export class MeetingRoomApiConnector extends AbstractApiConnector {
   }
 
   public deleteMeetingRoomByCheckbox(id: number[]) {
-    return this.http.post(`${this.apiRoute}/meetingrooms/groupdelete`, id);
+    return this.http.delete(`${this.apiRoute}/meetingrooms/delete/` + id);
   }
 }
