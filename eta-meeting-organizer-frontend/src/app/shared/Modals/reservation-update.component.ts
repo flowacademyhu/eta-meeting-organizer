@@ -92,14 +92,8 @@ export class ReservationUpdateComponent implements OnInit {
   public onSubmit() {
     this.data.title = this.reservationUpdateForm.controls.title.value;
     this.data.summary = this.reservationUpdateForm.controls.summary.value;
-    this.reservationToPost.id = Number(this.data.id);
-    this.reservationToPost.userId = this.data.userId;
-    this.reservationToPost.meetingRoomId = this.data.meetingRoomId;
-    this.reservationToPost.startingTime = new Date(this.data.start).valueOf();
-    this.reservationToPost.endingTime = new Date(this.data.end).valueOf();
-    this.reservationToPost.title = this.data.title;
-    this.reservationToPost.summary = this.data.summary;
-
+    this.reservationToPost = new ReservationToPost(Number(this.data.id), this.data.userId, this.data.meetingRoomId,
+        new Date(this.data.start).valueOf(), new Date(this.data.end).valueOf(), this.data.title, this.data.summary);
     this.reservationService.
     updateReservation(Number(this.data.id), this.reservationToPost)
     .subscribe(() => {
