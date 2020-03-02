@@ -50,8 +50,9 @@ import { MeetingRoomService } from '../services/meeting-room.service';
             matInput placeholder="{{'meeting-room.text' | translate}}" [(ngModel)]="meetingRoom.name">
             <mat-error>{{'validation.validate' | translate}}</mat-error>
       </mat-form-field>
-      <p *ngIf="this.errorMessage === 'No message available'">
-        {{'error-meeting-roomUpdate-snackbar.name' | translate}}</p>
+      <p *ngIf="this.errorMessage === meetingForm.controls.name.value +
+      ' meeting room name already exists in this building.'">
+       {{'error-meeting-roomPost-snackbar.name' | translate}}</p>
       <br>
       <mat-form-field>
         <mat-label>{{'meeting-room.seats' | translate}}</mat-label>
@@ -116,7 +117,7 @@ export class MeetingRoomUpdateComponent implements OnInit {
       this.openSnackBar();
       this.dialogRef.close();
       }, (error: HttpErrorResponse) => {
-        this.errorMessage = error.error.message;
+        this.errorMessage = error.error;
         this.errorSnackBar();
       });
   }
