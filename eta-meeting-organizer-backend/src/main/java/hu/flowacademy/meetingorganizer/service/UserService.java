@@ -39,7 +39,6 @@ public class UserService {
   }
 
   public User updateUser(String id, User user) {
-    userRepository.findById(id).orElseThrow(() -> new UserNotFoundException(id));
     user.setId(id);
     return userRepository.save(user);
   }
