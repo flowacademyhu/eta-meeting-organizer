@@ -27,9 +27,10 @@ import { BuildingService } from './../../shared/services/building.service';
   `],
   template: `
   <div class="row justify-content-center" class="container">
-     <button mat-icon-button color="primary"
-          (click)="postDialog()">
-          <mat-icon>add</mat-icon>
+      <button mat-icon-button color="primary" (click)="postDialog()">
+        <mat-icon>
+          add
+      </mat-icon>
     </button>
     <mat-form-field>
     <input matInput type="text" (keyup)="doFilter($event.target.value)"
