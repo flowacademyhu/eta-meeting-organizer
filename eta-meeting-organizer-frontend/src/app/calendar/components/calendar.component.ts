@@ -217,7 +217,6 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnChanges, OnDe
   }
 
   public updateReservationTime(eventInput: EventInput) {
-    console.log('eventinput when drag: ', eventInput);
     const dialogRef = this.dialog.open(ReservationTimeUpdateComponent, {
       width: '400px',
       data: {
