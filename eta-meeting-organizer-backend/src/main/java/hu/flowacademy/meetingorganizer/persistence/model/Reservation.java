@@ -34,10 +34,8 @@ public class Reservation {
   private String summary;
 
   @ManyToOne
-  @JsonIgnore
   private User user;
 
   @ManyToOne
-  @JsonIgnore
   private MeetingRoom meetingRoom;
 }
