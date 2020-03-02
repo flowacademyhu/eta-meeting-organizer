@@ -64,23 +64,29 @@
   "meeting-room-delete":{
     "meetingRoomDelete": "Meeting room deletion",
     "verification": "Are you sure you want to delete meeting room?",
-    "yes": "Yes",
-    "no": "No",
+    "warning":"Attention: all associated items will be deleted too.",
+    "delete": "Delete",
+    "cancel": "Cancel",
     "button": "EN",
     "exit": "exit",
-    "deleted":"Meeting room has been deleted"
+    "deleted":"Meeting room has been deleted",
+    "fail": "Unsuccesful deletion."
   },
   "user-delete-dialog": {
     "userDelete": "User deletion",
     "verification": "Are you sure you want to delete user?",
-    "yes": "Yes",
-    "no": "No"
+    "warning":"Attention: all associated items will be deleted too.",
+    "delete": "Delete",
+    "cancel": "Cancel",
+    "fail": "Unsuccesful deletion."
   },
   "building-delete-dialog": {
     "buildingDelete": "Building deletion",
     "verification": "Are you sure you want to delete this building?",
-    "yes": "Yes",
-    "no": "No"
+    "warning":"Attention: all associated items will be deleted too.",
+    "delete": "Delete",
+    "cancel": "Cancel",
+    "fail": "Unsuccesful deletion."
   },
   "authentication": {
     "answer": "Your registration has not been verified by admin yet!"
