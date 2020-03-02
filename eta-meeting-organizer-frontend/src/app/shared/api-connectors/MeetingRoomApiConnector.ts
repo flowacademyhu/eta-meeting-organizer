@@ -28,4 +28,8 @@ export class MeetingRoomApiConnector extends AbstractApiConnector {
   public deleteMeetingRoomById(id: number) {
     return this.http.delete(`${this.apiRoute}/meetingrooms/` + id);
   }
+
+  public deleteMeetingRoomByCheckbox(id: number[]) {
+    return this.http.delete(`${this.apiRoute}/meetingrooms/delete/` + id);
+  }
 }
