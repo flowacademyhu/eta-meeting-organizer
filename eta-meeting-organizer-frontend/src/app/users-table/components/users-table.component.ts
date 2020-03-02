@@ -30,9 +30,6 @@ import { UserService } from './../../shared/services/user.service';
           placeholder="{{'search-bar.search' | translate}}">
       </mat-form-field>
       <table mat-table [dataSource]="dataSource" class="mat-elevation-z8"
-<<<<<<< HEAD
-        matSort matSortActive="id" matSortDirection="desc" matSortDisableClear>
-=======
           matSort matSortActive="id" matSortDirection="desc" matSortDisableClear>
         <ng-container matColumnDef="id">
           <th mat-header-cell *matHeaderCellDef class="column" mat-sort-header>
@@ -42,7 +39,6 @@ import { UserService } from './../../shared/services/user.service';
              {{user.id}}
           </td>
         </ng-container>
->>>>>>> master
         <ng-container matColumnDef="email">
           <th mat-header-cell *matHeaderCellDef class="column" mat-sort-header>
             {{'profile.email' | translate}}
