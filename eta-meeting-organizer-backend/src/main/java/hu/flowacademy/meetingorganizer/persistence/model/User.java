@@ -48,14 +48,15 @@ public class User implements OAuth2User, UserDetails {
   private Role role;
 
   @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+  @JsonIgnore
   private List<Reservation> reservations;
 
   @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
   @Transient
   @JsonIgnore
   private Collection<UserAuthority> authorities;
-  @Transient
 
+  @Transient
   @JsonIgnore
   private Map<String, Object> attributes;
 
