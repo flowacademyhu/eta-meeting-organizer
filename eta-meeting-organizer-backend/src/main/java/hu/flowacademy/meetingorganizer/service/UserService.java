@@ -2,6 +2,7 @@ package hu.flowacademy.meetingorganizer.service;
 
 import hu.flowacademy.meetingorganizer.email.EmailService;
 import hu.flowacademy.meetingorganizer.email.EmailType;
+import hu.flowacademy.meetingorganizer.persistence.model.Role;
 import hu.flowacademy.meetingorganizer.exception.UserNotFoundException;
 import hu.flowacademy.meetingorganizer.persistence.model.User;
 import hu.flowacademy.meetingorganizer.persistence.model.dto.RoleDTO;
@@ -9,7 +10,6 @@ import hu.flowacademy.meetingorganizer.persistence.repository.UserRepository;
 import java.util.Optional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -46,8 +46,10 @@ public class UserService {
 
   public User setUserRole(String id, RoleDTO roleDTO) {
     User user = userRepository.findById(id).orElseThrow(() -> new UserNotFoundException(id));
+    if (user.getRole() == Role.PENDING) {
+      emailService.send(user.getUsername(), "welcome", EmailType.TEXT);
+    }
     user.setRole(roleDTO.getRole());
-    emailService.send(user.getUsername(), "welcome", EmailType.TEXT);
     return userRepository.save(user);
   }
 }

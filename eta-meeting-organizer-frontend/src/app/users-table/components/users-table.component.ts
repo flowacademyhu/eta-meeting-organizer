@@ -17,14 +17,10 @@ import { UserService } from './../../shared/services/user.service';
   styles: [`
     table {
       width: 100%;
-      table-layout: fixed;
+      table-layout: auto;
     }
     .column {
       font-size: larger;
-    }
-    th.mat-header-cell {
-      text-align: left;
-      max-width: 300px!important;
     }
   `],
   template: `
@@ -59,7 +55,8 @@ import { UserService } from './../../shared/services/user.service';
             <p *ngSwitchCase="'ADMIN'">{{'user-verification-dialog.admin' | translate}}</p>
             <p *ngSwitchCase="'USER'">{{'user-verification-dialog.user' | translate}}</p>
             <p *ngSwitchCase="'READER'">{{'user-verification-dialog.reader' | translate}}</p>
-            <p *ngSwitchDefault>{{'user-verification-dialog.pending' | translate}}</p>
+            <p *ngSwitchDefault [ngStyle]="{fontWeight: 'bold', color: 'red'}">
+              {{'user-verification-dialog.pending' | translate}}</p>
           </td>
         </ng-container>
         <ng-container matColumnDef="action">
@@ -67,17 +64,17 @@ import { UserService } from './../../shared/services/user.service';
             {{'profile.action' | translate}}
           </th>
           <td mat-cell *matCellDef="let user">
-            <button *ngIf="user.username !== currentAdmin.username"
-              mat-icon-button color="primary" (click)="deleteDialog(user.id)">
-              <mat-icon aria-label="Delete Icon">
-                delete
-              </mat-icon>
-            </button>
-            <button *ngIf="user.role === 'PENDING'"  mat-icon-button color="primary">
-              <mat-icon aria-label="User"(click)="verificationDialog(user.id)">
-                perm_identity
-              </mat-icon>
-            </button>
+          <button *ngIf="user.username !== currentAdmin.username"
+          mat-icon-button color="primary" (click)="deleteDialog(user.id)">
+          <mat-icon aria-label="Delete Icon">
+            delete
+          </mat-icon>
+           </button>
+           <button *ngIf="user.username !== currentAdmin.username"  mat-icon-button color="primary">
+          <mat-icon aria-label="User"(click)="verificationDialog(user.id)">
+            perm_identity
+          </mat-icon>
+          </button>
           </td>
         </ng-container>
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
