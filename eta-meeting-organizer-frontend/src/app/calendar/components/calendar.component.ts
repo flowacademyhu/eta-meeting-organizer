@@ -60,6 +60,7 @@ import { ReservationService } from '~/app/shared/services/reservation.service';
       [editable]="meetingRoom && !checked"
       [eventLimit]="true"
       (eventResize)="updateReservationTime($event)"
+      (eventDrop)="updateReservationTime($event)"
       [eventColor]="'#e64b3a'"
       [eventTextColor]="'#333333'"
       [displayEventTime]="true"
@@ -216,6 +217,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnChanges, OnDe
   }
 
   public updateReservationTime(eventInput: EventInput) {
+    console.log('eventinput when drag: ', eventInput);
     const dialogRef = this.dialog.open(ReservationTimeUpdateComponent, {
       width: '400px',
       data: {
@@ -279,7 +281,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnChanges, OnDe
               start: reservation.startingTime,
               title: reservation.title,
               summary: reservation.summary,
-              editable: editableEvent
+              editable: editableEvent,
             }
           );
         }
