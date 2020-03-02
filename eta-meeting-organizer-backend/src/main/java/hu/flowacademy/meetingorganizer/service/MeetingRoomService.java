@@ -13,7 +13,6 @@ import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.NumberUtils;
 import org.springframework.util.StringUtils;
 
 @Service
@@ -39,7 +38,7 @@ public class MeetingRoomService {
   }
 
   public MeetingRoomDTO updateMeetingRoom(Long id, MeetingRoomDTO meetingRoomDTO) {
-    meetingRoomRepository.findById(id).orElseThrow(() -> new  MeetingRoomNotFoundException(id));
+    meetingRoomRepository.findById(id).orElseThrow(() -> new MeetingRoomNotFoundException(id));
     validateMeetingRoomOnUpdate(meetingRoomDTO);
     MeetingRoom meetingRoom = meetingRoomDTO.toEntity();
     meetingRoom.setId(id);
@@ -57,6 +56,7 @@ public class MeetingRoomService {
   }
 
   public void validateMeetingRoomOnCreate(MeetingRoomDTO input) {
+    validateMeetingRoomData(input);
     if ((!(meetingRoomRepository
         .findByBuilding_AddressAndName(input.getBuilding().getAddress(), input.getName()))
         .isEmpty())) {
@@ -65,6 +65,7 @@ public class MeetingRoomService {
   }
 
   public void validateMeetingRoomOnUpdate(MeetingRoomDTO input) {
+    validateMeetingRoomData(input);
     List<MeetingRoom> resultList = meetingRoomRepository
         .findByBuilding_AddressAndName(input.getBuilding().getAddress(), input.getName());
     resultList.remove(input.toEntity());
@@ -75,16 +76,16 @@ public class MeetingRoomService {
 
   public void validateMeetingRoomData(MeetingRoomDTO input) {
     if (Objects.isNull(input.getBuilding())) {
-      throw new ValidationException("MeetingRoom Id is necessary to make a reservation!");
+      throw new ValidationException("You need to provide a building to create a meeting room!");
     }
     if (StringUtils.isEmpty(input.getName())) {
       throw new ValidationException("Meeting room name is necessary to create a meeting room!");
     }
-    if (NumberUtils(input.getNumberOfSeats())) {
-      throw new ValidationException("City is necessary to create a building!");
+    if (Objects.isNull(input.getNumberOfSeats())) {
+      throw new ValidationException("Number of seats is necessary to create a meeting room!");
     }
-    if (StringUtils.isEmpty(input.getProjector())) {
-      throw new ValidationException("Address is necessary to create a building!");
+    if (Objects.isNull(input.getProjector())) {
+      throw new ValidationException("Projector cannot be null!");
     }
   }
 }

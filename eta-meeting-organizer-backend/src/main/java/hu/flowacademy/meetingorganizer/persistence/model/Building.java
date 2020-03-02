@@ -10,7 +10,6 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -28,13 +27,10 @@ public class Building {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @NotNull
   private String city;
 
-  @NotNull
   private String address;
 
-  @NotNull
   private String buildingName;
 
   @OneToMany(mappedBy = "building", cascade = CascadeType.ALL)
