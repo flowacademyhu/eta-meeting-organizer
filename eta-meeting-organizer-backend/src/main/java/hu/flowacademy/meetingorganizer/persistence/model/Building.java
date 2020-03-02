@@ -9,7 +9,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -36,8 +35,4 @@ public class Building {
   @OneToMany(mappedBy = "building", cascade = CascadeType.ALL)
   @JsonIgnore
   private List<MeetingRoom> meetingRoom;
-
-  public Building(Long id) {
-    this.id = id;
-  }
 }
