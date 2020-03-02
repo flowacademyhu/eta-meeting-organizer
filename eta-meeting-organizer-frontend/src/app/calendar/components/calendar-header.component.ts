@@ -57,6 +57,9 @@ import { AuthService } from '~/app/shared/services/auth.service';
               <mat-select
               formControlName="meetingRoom"
               [(ngModel)]="meetingRoom">
+              <mat-option>
+                  <p align="center">--</p>
+                  </mat-option>
                 <mat-option *ngFor="let meetingRoom of meetingRooms" [value]="meetingRoom">{{
                   meetingRoom.name
                 }}</mat-option>
