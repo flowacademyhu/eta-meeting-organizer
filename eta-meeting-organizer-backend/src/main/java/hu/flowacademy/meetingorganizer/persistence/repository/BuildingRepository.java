@@ -17,6 +17,5 @@ public interface BuildingRepository extends JpaRepository<Building, Long> {
   List<Building> findAllByOrderById();
 
   @Modifying
-  @Query("delete from Building b where b.id in ?1")
-  void deleteAll(List<Long> id);
+  void deleteByIdIn(List<Long> id);
 }

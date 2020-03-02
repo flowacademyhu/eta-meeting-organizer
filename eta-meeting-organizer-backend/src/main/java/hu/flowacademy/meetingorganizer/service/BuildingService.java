@@ -47,6 +47,6 @@ public class BuildingService {
   }
 
   public void deleteAllById(List<Long> id) {
-    buildingRepository.deleteAll(id);
+    buildingRepository.deleteByIdIn(id);
   }
 }

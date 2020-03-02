@@ -64,7 +64,7 @@ public class BuildingResource {
   }
 
   @DeleteMapping("/delete/{id}")
-  public ResponseEntity<?> deleteWithCheckbox(@PathVariable List<Long> id) {
+  public ResponseEntity<Void> deleteWithCheckbox(@PathVariable List<Long> id) {
     buildingService.deleteAllById(id);
     return ResponseEntity.noContent().build();
   }
