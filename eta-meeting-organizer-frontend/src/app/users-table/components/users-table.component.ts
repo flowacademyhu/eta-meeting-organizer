@@ -55,7 +55,8 @@ import { UserService } from './../../shared/services/user.service';
             <p *ngSwitchCase="'ADMIN'">{{'user-verification-dialog.admin' | translate}}</p>
             <p *ngSwitchCase="'USER'">{{'user-verification-dialog.user' | translate}}</p>
             <p *ngSwitchCase="'READER'">{{'user-verification-dialog.reader' | translate}}</p>
-            <p *ngSwitchDefault [ngStyle]="{fontWeight: 'bold', color: 'red'}">{{'user-verification-dialog.pending' | translate}}</p>
+            <p *ngSwitchDefault [ngStyle]="{fontWeight: 'bold', color: 'red'}">
+              {{'user-verification-dialog.pending' | translate}}</p>
           </td>
         </ng-container>
         <ng-container matColumnDef="action">
