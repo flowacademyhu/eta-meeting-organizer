@@ -1,5 +1,6 @@
 package hu.flowacademy.meetingorganizer.service;
 
+import com.sun.xml.fastinfoset.stax.events.ReadIterator;
 import hu.flowacademy.meetingorganizer.persistence.model.Building;
 import hu.flowacademy.meetingorganizer.persistence.repository.BuildingRepository;
 import java.util.Optional;
@@ -45,7 +46,7 @@ public class BuildingService {
     return buildingRepository.findByCity(city);
   }
 
-  public void deleteBuildingByCheckBox(List<Building> id) {
+  public void deleteAllById(List<Long> id) {
     buildingRepository.deleteAll(id);
   }
 }
