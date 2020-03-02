@@ -16,6 +16,8 @@ import { MeetingRoom } from '~/app/models/meetingroom.model';
 import { Reservation } from '~/app/models/reservation.model';
 import { Role } from '~/app/models/user.model';
 import { ReservationBookingComponent } from '~/app/shared/Modals/reservation-book.component';
+import { ReservationInfoComponent } from '~/app/shared/Modals/reservation-info.component';
+import { ReservationTimeUpdateComponent } from '~/app/shared/Modals/reservation-time-update';
 import { UserToken } from '~/app/shared/models/user-token.model';
 import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
 import { AuthService } from '~/app/shared/services/auth.service';
@@ -23,9 +25,14 @@ import { ReservationService } from '~/app/shared/services/reservation.service';
 
 @Component({
   selector: 'app-calendar',
-  styles: [``],
+  styles: [`
+  a.fc-time-grid-event.fc-event {
+    cursor: pointer;
+  }
+  `],
   template: `
     <full-calendar
+      class="myCalendar"
       #calendar
       deepChangeDetection="true"
       defaultView="timeGridWeek"
@@ -34,7 +41,7 @@ import { ReservationService } from '~/app/shared/services/reservation.service';
       [buttonText]="options.buttonText"
       [events]="calendarEvents"
       [firstDay]="1"
-      [allDaySlot]
+      [allDaySlot]="false"
       [slotDuration]="'00:15:00'"
       [minTime]="'06:00:00'"
       [maxTime]="'22:00:00'"
@@ -47,8 +54,16 @@ import { ReservationService } from '~/app/shared/services/reservation.service';
       [selectMirror]="true"
       [selectOverlap]="false"
       (select)="bookDialog($event)"
+      (eventClick)="getInfo($event)"
       [height]="'auto'"
       [footer]="'auto'"
+      [editable]="meetingRoom && !checked"
+      [eventLimit]="true"
+      (eventResize)="updateReservationTime($event)"
+      (eventDrop)="updateReservationTime($event)"
+      [eventColor]="'#e64b3a'"
+      [eventTextColor]="'#333333'"
+      [displayEventTime]="true"
     ></full-calendar>
   `
 })
@@ -65,6 +80,9 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnChanges, OnDe
 
   @Input('checked')
   public checked: boolean;
+
+  @ViewChild('calendar')
+  public calendarComponent: FullCalendarComponent;
 
   public posted: boolean;
 
@@ -93,9 +111,6 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnChanges, OnDe
   }
 
   public calendarEvents: EventInput[] = [];
-
-  @ViewChild('calendar')
-  public calendarComponent: FullCalendarComponent; // the #calendar in the template
 
   public ngOnInit() {
     this.options = {
@@ -175,6 +190,58 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnChanges, OnDe
     .subscribe();
   }
 
+  public getInfo(eventInput: EventInput) {
+    if (this.checked) { // el.event.extendedProps.userId === this.userToken.sub ||
+    const dialogRef = this.dialog.open(ReservationInfoComponent, {
+      width: '400px',
+      data: {
+        id: eventInput.event.id,
+        userId: this.userToken.sub,
+        userName: eventInput.event.extendedProps.userName,
+        meetingRoomName: eventInput.event.extendedProps.meetingRoomName,
+        meetingRoomId: eventInput.event.extendedProps.meetingRoomId,
+        start: eventInput.event.start,
+        end: eventInput.event.end,
+        title: eventInput.event.title,
+        summary: eventInput.event.extendedProps.summary
+      },
+    });
+    dialogRef.componentInstance.closeOutput.pipe(takeUntil(this.destroy$))
+      .subscribe(() => {
+      this.getReservationsByUser();
+    });
+    dialogRef.afterClosed()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe();
+    }
+  }
+
+  public updateReservationTime(eventInput: EventInput) {
+    const dialogRef = this.dialog.open(ReservationTimeUpdateComponent, {
+      width: '400px',
+      data: {
+        id: eventInput.event.id,
+        userId: this.userToken.sub,
+        userName: eventInput.event.extendedProps.userName,
+        meetingRoomName: eventInput.event.extendedProps.meetingRoomName,
+        meetingRoomId: eventInput.event.extendedProps.meetingRoomId,
+        start: eventInput.event.start,
+        end: eventInput.event.end,
+        title: eventInput.event.title,
+        summary: eventInput.event.extendedProps.summary
+      },
+    });
+    dialogRef.componentInstance.closeOutput.pipe(takeUntil(this.destroy$))
+      .subscribe(() => {
+        this.calendarEvents = [];
+        this.getReservationsByMeetingRoom();
+    });
+    dialogRef.afterClosed()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe();
+    this.getReservationsByMeetingRoom();
+  }
+
   public ngOnDestroy(): void {
     this.destroy$.next(true);
     this.destroy$.unsubscribe();
@@ -197,12 +264,23 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnChanges, OnDe
         this.reservations = data;
         this.calendarEvents = [];
         for (const reservation of this.reservations) {
+          let editableEvent: boolean = false;
+          if (reservation.user?.id === this.userToken.sub) {
+            editableEvent = true;
+          }
           this.calendarEvents.push(
             {
+              id: reservation.id,
+              userId: reservation.user?.id,
+              userName: reservation.user?.username,
+              meetingRoomName: reservation.meetingRoom?.name,
+              meetingRoomId: reservation.meetingRoom?.id,
               end: reservation.endingTime,
               overlap: false,
               start: reservation.startingTime,
-              title: this.userToken.username,
+              title: reservation.title,
+              summary: reservation.summary,
+              editable: editableEvent,
             }
           );
         }
@@ -221,10 +299,16 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnChanges, OnDe
         for (const reservation of this.reservations) {
           this.calendarEvents.push(
             {
+              id: reservation.id,
+              userId: reservation.user?.id,
+              userName: reservation.user?.username,
+              meetingRoomName: reservation.meetingRoom?.name,
+              meetingRoomId: reservation.meetingRoom?.id,
               end: reservation.endingTime,
               overlap: false,
               start: reservation.startingTime,
-              title: reservation.meetingRoom?.name,
+              title: reservation.title,
+              summary: reservation.summary,
             }
           );
         }
