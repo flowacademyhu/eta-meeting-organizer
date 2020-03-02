@@ -36,7 +36,7 @@ import { MeetingRoomService } from '../services/meeting-room.service';
   }
 `],
  template: `
-    <mat-dialog-content class="align-title">{{'building.post' | translate}}</mat-dialog-content>
+    <mat-dialog-content class="align-title">{{'meeting-room.edit' | translate}}</mat-dialog-content>
     <mat-dialog-content class="align-content">
     <form [formGroup]="meetingForm" (ngSubmit)="onSubmit()">
       <mat-form-field>
