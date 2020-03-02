@@ -140,19 +140,37 @@
     "own-appointments": "Saját Foglalásaim"
   },
   "reservation": {
+    "meetingroom": "Tárgyaló:",
     "title": "Esemény neve:",
     "summary": "Esemény leírása:",
+    "startDate": "Kezdés:",
+    "endDate": "Befejezés:",
+    "ok": "Rendben",
     "cancel": "Mégse",
+    "modify": "Módosítás",
+    "delete": "Törlés",
     "reserve": "Lefoglalás",
-    "head": "Tárgyaló foglalás"
+    "head": "Tárgyaló foglalás",
+    "edit": "Esemény szerkesztése:",
+    "quit": "Vissza a naptárhoz"
   },
   "snackbar-reservation": {
-    "reservationOk": "A tárgyaló foglalása sikeresen megtörtént."
+    "reservationOk": "A tárgyaló foglalása sikeresen megtörtént.",
+    "reservationModificationOK": "A foglalás módosítása sikeresen megtörtént.",
+    "reservationDeleteOk": "A foglalás törlése sikeresen megtörtént"
   },
   "validation": {
     "validate": "A mező kitöltése kötelező!"
   },
-  "search-bar": {
+  "reservation-delete-dialog": {
+    "reservationDelete": "Foglalás törlése",
+    "verification": "Biztosan törölni akarja a foglalását?",
+    "yes": "Igen",
+    "no": "Nem"
+  },
+  "reservation-time-change-dialog": {
+    "head": "Szeretné a foglalása időpontját a következők szerint módosítani?"
+  },"search-bar": {
    "search": "Keresés"
   }
 }

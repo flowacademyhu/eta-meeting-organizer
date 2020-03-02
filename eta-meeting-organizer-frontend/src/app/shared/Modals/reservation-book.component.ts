@@ -109,8 +109,8 @@ export class ReservationBookingComponent implements OnInit {
   public onSubmit() {
     this.data.title = this.reservationBookingForm.controls.title.value;
     this.data.summary = this.reservationBookingForm.controls.summary.value;
-    this.data.startingTime = new Date(this.data.startingTime).valueOf();
-    this.data.endingTime = new Date(this.data.endingTime).valueOf();
+    this.data.startingTime = new Date(this.data.startingTime as number).valueOf();
+    this.data.endingTime = new Date(this.data.endingTime as number).valueOf();
     this.reservationService.
     postReservation(this.data)
     .subscribe((data) => {
