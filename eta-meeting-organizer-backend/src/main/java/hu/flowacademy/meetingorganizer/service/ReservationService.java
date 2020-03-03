@@ -85,6 +85,7 @@ public class ReservationService {
       MeetingRoom mRoom = meetingRoomRepository.findById(reservationInput.getMeetingRoomId())
           .orElseThrow(MeetingRoomNotFoundException::new);
       Reservation reservation = reservationInput.toUpdateEntity(id, user, mRoom);
+      reservation.setParticipants(reservationRepository.findById(id).orElseThrow(ReservationNotFoundException::new).getParticipants());
       Reservation result = reservationRepository.save(reservation);
       sendWithEmails(result, EmailType.UPDATE);
       return result;
