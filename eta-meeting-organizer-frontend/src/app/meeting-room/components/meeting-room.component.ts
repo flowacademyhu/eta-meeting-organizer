@@ -130,8 +130,6 @@ export class MeetingRoomComponent implements OnInit, OnDestroy, AfterViewInit {
    }
   }
 
-
-
   public ngOnInit() {
     this.meetingRoomService.getAllMeetingRooms();
     this.dataSource.paginator = this.paginator;
