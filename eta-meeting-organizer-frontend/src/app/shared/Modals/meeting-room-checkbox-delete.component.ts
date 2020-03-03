@@ -1,6 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
+import { MeetingRoomService } from '../services/meeting-room.service';
+
 
 @Component({
   selector: 'app-meeting-room-checkbox-delete',
@@ -26,12 +29,12 @@ import { TranslateService } from '@ngx-translate/core';
     }
   `],
   template: `
-  <mat-dialog-content class="align-title">Peti írj ide valamit</mat-dialog-content>
+  <mat-dialog-content class="align-title">{{'meeting-room-delete.meetingRoomDelete' | translate}}</mat-dialog-content>
   <br>
-  <mat-dialog-content class="align-content">Peti ide is írj valamit</mat-dialog-content>
+  <mat-dialog-content class="align-content">{{'meeting-room-delete.verification' | translate}}</mat-dialog-content>
   <br>
   <mat-dialog-actions >
-  <button mat-raised-button mat-dialog-close="true" color="primary" (click)="openSnackBar()">
+  <button mat-raised-button mat-dialog-close="true" color="primary" (click)="deleteByCheckbox()">
     törlés
     </button>
     </mat-dialog-actions>
@@ -45,10 +48,31 @@ import { TranslateService } from '@ngx-translate/core';
 export class MeetingRoomCheckboxComponent {
   constructor(
     private readonly snackBar: MatSnackBar,
-    private readonly translate: TranslateService) {}
+    private readonly translate: TranslateService,
+    @Inject(MAT_DIALOG_DATA) private  id: number[],
+    public dialogRef: MatDialogRef<MeetingRoomCheckboxComponent>,
+    private readonly meetingRoomService: MeetingRoomService) {}
+
+    public deleteByCheckbox() {
+    this.meetingRoomService.deleteMeetingRoomByCheckBox((this.id))
+      .subscribe(() => {
+        this.meetingRoomService.deleteMeetingRoomByCheckBox(this.id);
+        this.meetingRoomService.getAllMeetingRooms();
+        this.dialogRef.close();
+        }, () => {
+          this.errorSnackbar();
+        });
+    this.id = [];
+    }
 
   public openSnackBar() {
     this.snackBar.open(this.translate.instant(`meeting-room-delete.deleted`), '', {
+      duration: 2500
+    });
+  }
+
+  public errorSnackbar() {
+    this.snackBar.open(this.translate.instant(`building-delete-dialog.fail`), undefined, {
       duration: 2500
     });
   }
