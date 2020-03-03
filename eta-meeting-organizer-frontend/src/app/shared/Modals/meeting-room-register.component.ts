@@ -48,7 +48,8 @@ import { MeetingRoomService } from './../services/meeting-room.service';
   }
 `],
  template: `
-<mat-dialog-content class="align-title">{{'meeting-room.post' | translate}}</mat-dialog-content>
+<mat-dialog-content cdkDrag cdkDragRootElement=".cdk-overlay-pane"
+ class="align-title">{{'meeting-room.post' | translate}}</mat-dialog-content>
 <mat-dialog-content class="align-content">
    <form [formGroup]="meetingForm" (ngSubmit)="onSubmit()">
      <mat-form-field>

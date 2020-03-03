@@ -1,3 +1,4 @@
+import { DragDropModule } from '@angular/cdk/drag-drop';
 import { CommonModule, DatePipe } from '@angular/common';
 import {HTTP_INTERCEPTORS} from '@angular/common/http';
 import { NgModule } from '@angular/core';
@@ -58,11 +59,13 @@ import { UserService } from './services/user.service';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    DragDropModule,
     MaterialModule,
   ],
   imports: [
     CommonModule,
     FormsModule,
+    DragDropModule,
     ReactiveFormsModule,
     MaterialModule,
     TranslateModule.forChild(),
