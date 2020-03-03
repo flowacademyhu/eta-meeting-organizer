@@ -73,6 +73,13 @@ public class ReservationService {
   }
 
   private void validateReservation(ReservationDTO input) {
+    Long meetingRoomId = input.getMeetingRoomId();
+    Long start = input.getStartingTime();
+    Long end = input.getEndingTime();
+    List<Reservation> test = reservationRepository.findAllByMeetingRoomIdInInterval(meetingRoomId, start, end);
+    if(!test.isEmpty()) {
+      throw new ValidationException("reservation.reserved");
+    }
     if (StringUtils.isEmpty(input.getUserId())) {
       throw new ValidationException("reservation.userId");
     }
