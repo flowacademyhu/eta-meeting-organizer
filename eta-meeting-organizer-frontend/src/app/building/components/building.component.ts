@@ -1,3 +1,4 @@
+import { BuildingCheckboxComponent } from './../../shared/Modals/building-checkbox-delete.component';
 import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import { MatCheckboxChange } from '@angular/material';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
@@ -40,7 +41,7 @@ import { BuildingService } from './../../shared/services/building.service';
       matSort matSortActive="id" matSortDirection="desc" matSortDisableClear>
       <ng-container matColumnDef="checkbox">
         <th mat-header-cell *matHeaderCellDef class="column">
-          <button mat-icon-button color="primary" (click)="deleteByCheckbox()">
+          <button mat-icon-button color="primary" (click)="deleteByCheckboxDialog(this.checkedArr)">
             <mat-icon>delete_forever</mat-icon>
           </button>
         </th>
@@ -98,7 +99,7 @@ export class BuildingComponent implements OnInit, OnDestroy, AfterViewInit {
   public dataSource: MatTableDataSource<Building> = new MatTableDataSource<Building>();
   public dataSub: Subscription;
   public checkedArr: number[] = [];
-  public dialogRef: MatDialogRef<BuildingDeleteDialogComponent>;
+  public dialogRef: MatDialogRef<BuildingCheckboxComponent>;
 
   @ViewChild(MatSort) public sort: MatSort;
   @ViewChild(MatPaginator) public paginator: MatPaginator;
@@ -117,16 +118,6 @@ export class BuildingComponent implements OnInit, OnDestroy, AfterViewInit {
     }
    }
 
-   public deleteByCheckbox() {
-    this.unsubFromCheckbox = this.buildingService.deleteBuildingByCheckBox((this.checkedArr))
-    .subscribe(() => {
-      this.buildingService.deleteBuildingByCheckBox(this.checkedArr);
-      this.buildingService.getAllBuildings();
-      }
-    );
-    this.checkedArr = [];
-  }
-
   public ngOnInit() {
     this.buildingService.getAllBuildings();
     this.dataSource.paginator = this.paginator;
@@ -134,10 +125,19 @@ export class BuildingComponent implements OnInit, OnDestroy, AfterViewInit {
     .subscribe((buildings) => this.dataSource.data = buildings);
   }
 
+  public deleteByCheckboxDialog(id: number[]) {
+    this.dialogRef = this.dialog.open(BuildingCheckboxComponent, {
+      disableClose: true,
+      height: '35%',
+      width: '30%',
+      data: id
+    });
+  }
+
   public ngAfterViewInit(): void {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
- }
+  }
 
  public doFilter = (value: string) => {
    this.dataSource.filter = value.trim()
