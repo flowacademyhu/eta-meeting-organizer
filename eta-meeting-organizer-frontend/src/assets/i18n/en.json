@@ -46,7 +46,7 @@
     "saveButton":"Save",
     "delete": "Delete",
     "add":"Add meeting room",
-    "post": "Meeting-room creation.",
+    "post": "Meeting-room creation",
     "edit": "Editing",
     "cancel": "Cancel",
     "action": "Actions"
@@ -89,7 +89,7 @@
     "fail": "Unsuccesful deletion."
   },
   "authentication": {
-    "answer": "Your registration has not been verified by admin yet!"
+    "answer": "Your registration has not been verified by an admin yet!"
   },
   "snackbar-meeting-room": {
     "registerOk":"Meeting room has been saved!"
