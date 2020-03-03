@@ -29,7 +29,7 @@ import { BuildingService } from './../services/building.service';
     margin: 0 auto;
   }
   p {
-    font-size: 65% !important;
+    font-size: 75% !important;
     color: #e64b3a;
   }
   button {
@@ -49,10 +49,6 @@ import { BuildingService } from './../services/building.service';
       <mat-label>{{'building.buildingName' | translate}}</mat-label>
         <input matInput type="text" name="buildingName" formControlName="buildingName">
         <mat-error>{{'validation.validate' | translate}}</mat-error>
-        <p *ngIf="this.errorMessage ===
-       'A building with the following building name already exists in this city: ' +
-       buildingForm.controls.buildingName.value">
-        {{'error-buildingPost-snackbar.building' | translate}}</p>
     </mat-form-field>
     <br>
     <mat-form-field>
@@ -65,10 +61,9 @@ import { BuildingService } from './../services/building.service';
       <mat-label>{{'building.address' | translate}}</mat-label>
         <input matInput type="text" name="address" formControlName="address">
         <mat-error>{{'validation.validate' | translate}}</mat-error>
-        <p *ngIf="this.errorMessage === 'A building with the following address already exists: ' +
-       buildingForm.controls.address.value">
-        {{'error-buildingPost-snackbar.address' | translate}}</p>
         </mat-form-field>
+        <p *ngIf="this.errorMessage == 'occupied.buildingName'">
+        {{'error-buildingUpdate-snackbar.general' | translate}}</p>
     <mat-dialog-actions>
       <button mat-raised-button type="submit" [disabled]="buildingForm.invalid"
       color="primary">{{'building.update' | translate}}</button>
@@ -117,6 +112,7 @@ export class BuildingUpdateDialogComponent implements OnInit {
     this.dialogRef.close();
   }, (error: HttpErrorResponse) => {
       this.errorMessage = error.error;
+      console.log(this.errorMessage)
       this.errorSnackBar();
     });
   }

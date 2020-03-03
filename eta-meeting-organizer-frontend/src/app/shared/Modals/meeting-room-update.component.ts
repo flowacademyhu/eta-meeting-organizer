@@ -29,7 +29,7 @@ import { MeetingRoomService } from '../services/meeting-room.service';
     margin: 0 auto;
   }
   p {
-    font-size: 65% !important;
+    font-size: 75% !important;
     color: #e64b3a;
   }
   button {

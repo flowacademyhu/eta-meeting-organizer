@@ -11,14 +11,14 @@
   },
   "building": {
     "buildingName": "Building name",
-    "post": "Create building",
+    "post": "Building creation",
     "city": "City",
     "address":"Address",
     "saveButton":"Save",
     "cancel":"Cancel",
     "deleteButton":"Delete",
     "add":"Add building",
-    "edit":"Edit",
+    "edit":"Editing",
     "update": "Update",
     "action": "Actions"
 
@@ -31,7 +31,7 @@
     "email": "E-mail address",
     "role": "Role",
     "delete": "Delete",
-    "edit": "Edit",
+    "edit": "Editing",
     "action": "Actions"
   },
   "meeting-room": {
@@ -47,7 +47,7 @@
     "delete": "Delete",
     "add":"Add meeting room",
     "post": "Meeting-room creation.",
-    "edit": "Edit",
+    "edit": "Editing",
     "cancel": "Cancel",
     "action": "Actions"
     },
@@ -124,7 +124,8 @@
   "error-buildingUpdate-snackbar": {
     "error": "Unsuccesful building update.",
     "building": "The given building name already exists",
-    "address": "The given address already exists"
+    "address": "The given address already exists",
+    "general": "The given building name or address already exists."
   },
   "error-meeting-roomPost-snackbar": {
     "error": "Unsuccesful meeting-room creation",

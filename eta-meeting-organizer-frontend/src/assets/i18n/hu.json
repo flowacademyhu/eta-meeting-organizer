@@ -123,7 +123,8 @@
   "error-buildingUpdate-snackbar": {
     "error": "Sikertelen épület módosítás.",
     "building": "A megadott épületnév már foglalt.",
-    "address": "A megadott cím már foglalt."
+    "address": "A megadott cím már foglalt.",
+    "general": "A megadott épületnév vagy cím már foglalt."
   },
   "error-meeting-roomPost-snackbar": {
     "error": "Sikertelen tárgyaló létrehozás.",
