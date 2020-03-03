@@ -7,10 +7,12 @@ import hu.flowacademy.meetingorganizer.exception.ReservationNotFoundException;
 import hu.flowacademy.meetingorganizer.exception.UserNotFoundException;
 import hu.flowacademy.meetingorganizer.exception.ValidationException;
 import hu.flowacademy.meetingorganizer.persistence.model.MeetingRoom;
+import hu.flowacademy.meetingorganizer.persistence.model.Participant;
 import hu.flowacademy.meetingorganizer.persistence.model.Reservation;
 import hu.flowacademy.meetingorganizer.persistence.model.User;
 import hu.flowacademy.meetingorganizer.persistence.model.dto.ReservationDTO;
 import hu.flowacademy.meetingorganizer.persistence.repository.MeetingRoomRepository;
+import hu.flowacademy.meetingorganizer.persistence.repository.ParticipantRepository;
 import hu.flowacademy.meetingorganizer.persistence.repository.ReservationRepository;
 import hu.flowacademy.meetingorganizer.persistence.repository.UserRepository;
 import java.text.DateFormat;
@@ -33,6 +35,7 @@ public class ReservationService {
 
   private ReservationRepository reservationRepository;
   private UserRepository userRepository;
+  private ParticipantRepository participantRepository;
   private MeetingRoomRepository meetingRoomRepository;
   private static final DateFormat FORMATTER_TO_HOUR = new SimpleDateFormat("HH:mm");
   private static final DateFormat FORMATTER_TO_DATE = new SimpleDateFormat("yyyy-MM-dd");
@@ -60,6 +63,8 @@ public class ReservationService {
         .orElseThrow(() -> new UserNotFoundException(reservationInput.getUserId()));
     MeetingRoom mRoom = meetingRoomRepository.findById(reservationInput.getMeetingRoomId())
         .orElseThrow(MeetingRoomNotFoundException::new);
+    List<Participant> participants = reservationInput.getParticipants();
+    participants.stream().forEach(x -> participantRepository.findById(x.getEmail()).orElseGet(() -> saveParticipant(x)));
     Reservation reservation = reservationInput.toSaveEntity(user, mRoom);
     Reservation result = reservationRepository.save(reservation);
     sendWithEmails(reservation, EmailType.CREATE);
@@ -104,16 +109,20 @@ public class ReservationService {
   private void sendEmailForAttendants(Reservation reservation, String meetingDate, String start,
       String finish, String subject, String city, String address, String buildingName, String meetingroomName,
       User user, EmailType emailType) {
-    emailService.send(user.getUsername(), subject, emailType.getTemplateName(),
-        Map.of("meetingDate", meetingDate,
-            "start", start,
-            "finish", finish,
-            "title", subject,
-            "city", city,
-            "address", address,
-            "buildingName", buildingName,
-            "meetingRoomName", meetingroomName))
-    ;
+    List<Participant> participants = reservation.getParticipants();
+    participants.add(Participant.builder().email(user.getUsername()).build());
+    for (Participant participant : participants) {
+      emailService.send(participant.getEmail(), subject, emailType.getTemplateName(),
+          Map.of("meetingDate", meetingDate,
+              "start", start,
+              "finish", finish,
+              "title", subject,
+              "city", city,
+              "address", address,
+              "buildingName", buildingName,
+              "meetingRoomName", meetingroomName))
+      ;
+    }
   }
 
   private void validateReservation(ReservationDTO input) {
@@ -132,5 +141,9 @@ public class ReservationService {
     if (StringUtils.isEmpty(input.getTitle())) {
       throw new ValidationException("reservation.title");
     }
+  }
+
+  private Participant saveParticipant(Participant participant) {
+    return participantRepository.save(participant);
   }
 }
