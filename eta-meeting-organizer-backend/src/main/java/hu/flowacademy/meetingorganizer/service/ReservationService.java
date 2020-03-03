@@ -76,9 +76,7 @@ public class ReservationService {
     Long meetingRoomId = input.getMeetingRoomId();
     Long start = input.getStartingTime();
     Long end = input.getEndingTime();
-    List<Reservation> test = reservationRepository.findAllByMeetingRoomIdInInterval(meetingRoomId, start, end);
-    System.out.println(test.size());
-    if(!test.isEmpty()) {
+    if(!reservationRepository.findAllByMeetingRoomIdInInterval(meetingRoomId, start, end).isEmpty()) {
       throw new ValidationException("reservation.reserved");
     }
     if (StringUtils.isEmpty(input.getUserId())) {
