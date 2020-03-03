@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
@@ -12,14 +12,13 @@ import { ReservationService } from '../services/reservation.service';
   styles: [`
   .align-title {
     padding-top: 5%;
-    padding-bottom: 5%;
-    height: 150px;
+    height: 100px;
     margin: 0 auto;
     font-size: 250%;
     text-align: center;
   }
   .align-content{
-    height: 10cm;
+    height: 13.5cm;
     font-size: 160%;
     margin: 0 auto;
     text-align: center;
@@ -49,9 +48,11 @@ import { ReservationService } from '../services/reservation.service';
     </mat-form-field>
     <br>
     <mat-form-field>
-      <mat-label>{{'reservation.summary' | translate}}</mat-label>
-        <input matInput type="text" name="summary" formControlName="summary">
-        <mat-error>{{'validation.validate' | translate}}</mat-error>
+    <mat-label>{{'reservation.summary' | translate}}</mat-label>
+       <textarea matInput name="summary" formControlName="summary" rows="9" maxlength="255"
+       placeholder="{{'reservation.summary' | translate}}"></textarea>
+         <br>
+           <mat-error>{{'validation.validate' | translate}}</mat-error>
     </mat-form-field>
     <mat-dialog-actions>
     <button mat-raised-button mat-dialog-close type="submit"
@@ -70,8 +71,8 @@ export class ReservationUpdateComponent implements OnInit {
   public reservationToPost: ReservationToPost = {} as ReservationToPost;
 
   public reservationUpdateForm: FormGroup = new FormGroup({
-    title : new FormControl(''),
-    summary : new FormControl(''),
+    title : new FormControl('', Validators.required),
+    summary : new FormControl('', Validators.required),
   });
 
   constructor(

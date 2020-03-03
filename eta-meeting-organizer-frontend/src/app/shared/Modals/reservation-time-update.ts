@@ -13,7 +13,6 @@ import { ReservationService } from '../services/reservation.service';
   styles: [`
   .align-title {
     padding-top: 5%;
-    height: 100%;
     margin: 0 auto;
     font-size: 250%;
     text-align: center;
@@ -57,7 +56,6 @@ class="align-title">{{'reservation-time-change-dialog.head' | translate}}</mat-d
       <br>
       {{ data.end | date : 'y.MM.dd. HH:mm'}}
 </div>
-</mat-card>
 <mat-dialog-actions>
     <button mat-raised-button
       (click)="updateTime()" color="primary">{{'reservation.modify' | translate}}</button>
@@ -66,7 +64,8 @@ class="align-title">{{'reservation-time-change-dialog.head' | translate}}</mat-d
     <mat-dialog-actions>
       <button mat-raised-button color="accent"
       (click)="close()">{{'reservation.quit' | translate}}</button>
-    </mat-dialog-actions>
+</mat-dialog-actions>
+</mat-card>
 </mat-dialog-content>`,
 })
 

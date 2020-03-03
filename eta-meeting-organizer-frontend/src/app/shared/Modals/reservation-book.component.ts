@@ -20,7 +20,7 @@ import { ReservationService } from '../services/reservation.service';
     text-align: center;
   }
   .align-content{
-    height: 75%;
+    height: 90%;
     font-size: 160%;
     margin: 0 auto;
     text-align: center;
@@ -37,6 +37,9 @@ import { ReservationService } from '../services/reservation.service';
     border-color: black;
     font-size: 100%;
   }
+  textarea {
+    rows: 4;
+  }
 `],
  template: `
  <mat-dialog-content class="align-title">{{'reservation.head' | translate}}</mat-dialog-content>
@@ -46,19 +49,26 @@ import { ReservationService } from '../services/reservation.service';
        <mat-label>{{'reservation.title' | translate}}</mat-label>
          <input type="text" name="title" formControlName="title"
           matInput placeholder="{{'reservation.title' | translate}}">
+          <br>
+          <mat-error>{{'validation.validate' | translate}}</mat-error>
      </mat-form-field>
      <br>
      <mat-form-field>
        <mat-label>{{'reservation.summary' | translate}}</mat-label>
-         <input  type="text" name="summary" formControlName="summary"
-           matInput placeholder="{{'reservation.summary' | translate}}">
+       <textarea matInput name="summary" formControlName="summary" rows="9" maxlength="255"
+       placeholder="{{'reservation.summary' | translate}}"></textarea>
+         <br>
+           <mat-error>{{'validation.validate' | translate}}</mat-error>
        </mat-form-field>
+     <br>
+     <br>
      <br>
      <mat-dialog-actions>
        <button
        mat-raised-button
        type="submit"
        [mat-dialog-close]
+       [disabled]="reservationBookingForm.invalid"
        cdkFocusInitial
        color="primary"
        (click)="openSnackBar()"
@@ -97,11 +107,15 @@ export class ReservationBookingComponent implements OnInit {
     private readonly _snackBar: MatSnackBar,
     private readonly translate: TranslateService,
     public datepipe: DatePipe) {
+      dialogRef.backdropClick()
+      .subscribe(() => {
+        dialogRef.close();
+      });
   }
 
   public ngOnInit() {
     this.reservationBookingForm = new FormGroup({
-    title : new FormControl('', Validators.required ),
+    title : new FormControl('', Validators.required),
     summary : new FormControl('', Validators.required),
     });
   }
