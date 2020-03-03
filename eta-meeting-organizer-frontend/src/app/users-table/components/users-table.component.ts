@@ -24,6 +24,9 @@ import { UserService } from './../../shared/services/user.service';
     .column {
       font-size: larger;
     }
+    .mat-icon-button ::ng-deep .mat-button-focus-overlay {
+    display: none;
+    }
   `],
   template: `
     <div class="row justify-content-center" class="container">
