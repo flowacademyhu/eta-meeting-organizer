@@ -18,6 +18,12 @@ import { BuildingService } from './../services/building.service';
       margin: 0 auto;
       text-align: center;
     }
+    p {
+    font-size: 125%;
+    margin: 0 auto;
+    color: #e64b3a;
+    text-align:center;
+  }
     button {
       margin-top: 15%;
       width: 80%;
@@ -28,10 +34,11 @@ import { BuildingService } from './../services/building.service';
     }
   `],
   template: `
-  <mat-dialog-content class="align-title">{{'meeting-room-delete.meetingRoomDelete' | translate}}</mat-dialog-content>
+  <mat-dialog-content class="align-title">{{'building-delete-dialog.buildingDelete' | translate}}</mat-dialog-content>
   <br>
-  <mat-dialog-content class="align-content">{{'meeting-room-delete.verification' | translate}}</mat-dialog-content>
+  <mat-dialog-content class="align-content">{{'building-delete-dialog.verification' | translate}}</mat-dialog-content>
   <br>
+  <p>{{'building-delete-dialog.warning' | translate}}</p>
   <mat-dialog-actions >
   <button mat-raised-button color="primary" (click)="deleteByCheckbox()">
   {{'meeting-room-delete.delete' | translate}}
