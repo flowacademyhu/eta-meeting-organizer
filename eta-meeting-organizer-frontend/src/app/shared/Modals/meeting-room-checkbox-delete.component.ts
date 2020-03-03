@@ -33,7 +33,7 @@ import { MeetingRoomService } from '../services/meeting-room.service';
   <mat-dialog-content class="align-content">{{'meeting-room-delete.verification' | translate}}</mat-dialog-content>
   <br>
   <mat-dialog-actions >
-  <button mat-raised-button mat-dialog-close="true" color="primary" (click)="deleteByCheckbox()">
+  <button mat-raised-button color="primary" (click)="deleteByCheckbox()">
   {{'meeting-room-delete.delete' | translate}}
   </button>
   </mat-dialog-actions>
