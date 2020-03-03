@@ -10,4 +10,5 @@ export interface EventElement {
   title: string;
   summary: string;
   meetingRoomView: boolean;
+  admin: string;
 }

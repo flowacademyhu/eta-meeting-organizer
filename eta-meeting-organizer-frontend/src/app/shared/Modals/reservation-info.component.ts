@@ -93,7 +93,7 @@ import { ReservationUpdateComponent } from './reservation-update.component';
       <br>
     <mat-dialog-actions>
       <button mat-raised-button color="warn"
-      *ngIf="!data.meetingRoomView"
+      *ngIf="!data.meetingRoomView || data.admin"
       (click)="deleteDialog()">{{'reservation.delete' | translate}}</button>
     </mat-dialog-actions>
 </mat-dialog-content>`,
