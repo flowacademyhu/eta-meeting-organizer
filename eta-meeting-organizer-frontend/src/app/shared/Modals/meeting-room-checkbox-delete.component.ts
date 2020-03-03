@@ -10,13 +10,19 @@ import { MeetingRoomService } from '../services/meeting-room.service';
     .align-title {
       padding-top: 7%;
       margin: 0 auto;
-      font-size: 250%;
+      font-size: 225%;
       text-align: center;
     }
     .align-content {
-      font-size: 170%;
+      font-size: 160%;
       margin: 0 auto;
       text-align: center;
+    }
+    p {
+    font-size: 125%;
+    margin: 0 auto;
+    color: #e64b3a;
+    text-align:center;
     }
     button {
       margin-top: 15%;
@@ -32,6 +38,7 @@ import { MeetingRoomService } from '../services/meeting-room.service';
   <br>
   <mat-dialog-content class="align-content">{{'meeting-room-delete.verification' | translate}}</mat-dialog-content>
   <br>
+  <p>{{'meeting-room-delete.warning' | translate}}</p>
   <mat-dialog-actions >
   <button mat-raised-button color="primary" (click)="deleteByCheckbox()">
   {{'meeting-room-delete.delete' | translate}}
