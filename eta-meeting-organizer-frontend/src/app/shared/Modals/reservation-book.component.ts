@@ -47,7 +47,7 @@ import { ReservationService } from '../services/reservation.service';
    <form [formGroup]="reservationBookingForm" (ngSubmit)="onSubmit()">
      <mat-form-field>
        <mat-label>{{'reservation.title' | translate}}</mat-label>
-         <input type="text" name="title" formControlName="title"
+         <input type="text" name="title" formControlName="title" maxlength="20"
           matInput placeholder="{{'reservation.title' | translate}}">
           <br>
           <mat-error>{{'validation.validate' | translate}}</mat-error>

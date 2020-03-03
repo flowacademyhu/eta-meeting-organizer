@@ -22,6 +22,8 @@ import { ReservationService } from '../services/reservation.service';
     font-size: 120%;
     margin: 0 auto;
     text-align: center;
+    word-break: break-all;
+
   }
   button {
     width: 80%;

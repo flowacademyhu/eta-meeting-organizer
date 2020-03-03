@@ -19,3 +19,13 @@ body {
 a.fc-time-grid-event.fc-event {
   cursor: pointer;
 }
+
+div.fc-title {
+  font-size: 1.8em;
+  text-align: center;
+  word-break: break-all;
+}
+
+.fc-time-grid-event .fc-time {
+  text-align: center;
+}
