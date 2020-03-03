@@ -18,6 +18,8 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
       + "AND"
       + " (?2 BETWEEN r.startingTime AND r.endingTime)"
       + "OR"
-      + " (?3 BETWEEN r.startingTime AND r.endingTime)")
+      + " (?3 BETWEEN r.startingTime AND r.endingTime)"
+      + "OR"
+      + " (r.startingTime >= ?2 AND r.endingTime <= ?3)")
   List<Reservation> findAllByMeetingRoomIdInInterval(Long userId, Long startingTime, Long endingTime);
 }
