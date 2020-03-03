@@ -64,23 +64,29 @@
   "meeting-room-delete":{
     "meetingRoomDelete": "Meeting room deletion",
     "verification": "Are you sure you want to delete meeting room?",
-    "yes": "Yes",
-    "no": "No",
+    "warning":"Attention: all associated items will be deleted too.",
+    "delete": "Delete",
+    "cancel": "Cancel",
     "button": "EN",
     "exit": "exit",
-    "deleted":"Meeting room has been deleted"
+    "deleted":"Meeting room has been deleted",
+    "fail": "Unsuccesful deletion."
   },
   "user-delete-dialog": {
     "userDelete": "User deletion",
     "verification": "Are you sure you want to delete user?",
-    "yes": "Yes",
-    "no": "No"
+    "warning":"Attention: all associated items will be deleted too.",
+    "delete": "Delete",
+    "cancel": "Cancel",
+    "fail": "Unsuccesful deletion."
   },
   "building-delete-dialog": {
     "buildingDelete": "Building deletion",
     "verification": "Are you sure you want to delete this building?",
-    "yes": "Yes",
-    "no": "No"
+    "warning":"Attention: all associated items will be deleted too.",
+    "delete": "Delete",
+    "cancel": "Cancel",
+    "fail": "Unsuccesful deletion."
   },
   "authentication": {
     "answer": "Your registration has not been verified by admin yet!"
@@ -111,7 +117,7 @@
     "update": "Building has been updated."
   },
   "verification-snackbar": {
-    "verify": "User has been verified"
+    "verify": "Role has been set"
   },
   "meeting-room-update": {
     "update": "Meeting room has been updated"
@@ -123,17 +129,36 @@
     "own-appointments": "Own Appointments"
   },
   "reservation": {
-    "title": "Title",
-    "summary": "Summary",
+    "meetingroom": "Meetingroom:",
+    "title": "Title:",
+    "summary": "Summary:",
+    "startDate": "Start:",
+    "endDate": "End:",
+    "ok": "Ok",
     "cancel": "Cancel",
+    "modify": "Modify",
+    "delete": "Delete",
     "reserve": "Reserve",
-    "head": "Meeting room reservation"
+    "head": "Meeting room reservation",
+    "edit": "Reservation edit:",
+    "quit": "Back to the calendar"
   },
   "snackbar-reservation": {
-    "reservationOk": "Reservation succesful."
+    "reservationOk": "Making reservation was succesful.",
+    "reservationModificationOK": "Reservation modification was successful",
+    "reservationDeleteOk": "Reservation deletion was successful"
   },
   "validation": {
     "validate": "You must fill out this field!"
+  },
+  "reservation-delete-dialog": {
+    "reservationDelete": "Reservation deletion",
+    "verification": "Are you sure you want to delete reservation?",
+    "yes": "Yes",
+    "no": "No"
+  },
+  "reservation-time-change-dialog": {
+    "head": "Do you want to change your reservation's time as follows?"
   },
   "search-bar": {
     "search": "Search"

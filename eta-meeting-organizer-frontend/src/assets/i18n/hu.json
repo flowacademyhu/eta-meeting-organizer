@@ -63,23 +63,29 @@
   "meeting-room-delete": {
     "meetingRoomDelete": "Tárgyaló törlése",
     "verification": "Biztosan törölni akarja a tárgyalót?",
-    "yes": "Igen",
-    "no": "Nem",
+    "warning":"Figyelem: a tárgyalóhoz kapcsolódó tételek is törlésre kerülnek.",
+    "delete": "Törlés",
+    "cancel": "Mégse",
     "button": "EN",
     "exit": "Kilépés",
-    "deleted":"A tárgyaló törlésre került"
+    "deleted":"A tárgyaló törlésre került",
+    "fail": "Sikertelen törlés"
   },
   "user-delete-dialog": {
     "userDelete": "Felhasználó törlése",
     "verification": "Biztosan törölni akarja a felhasználót?",
-    "yes": "Igen",
-    "no": "Nem"
+    "warning":"Figyelem: a felhasználóhoz kapcsolódó tételek is törlésre kerülnek.",
+    "delete": "Törlés",
+    "cancel": "Mégse",
+    "fail": "Sikertelen törlés"
   },
   "building-delete-dialog": {
     "buildingDelete": "Épület törlése",
     "verification": "Biztosan törölni akarja az épületet?",
-    "yes": "Igen",
-    "no": "Nem"
+    "warning":"Figyelem: az épülethez kapcsolódó tételek is törlésre kerülnek.",
+    "delete": "Törlés",
+    "cancel": "Mégse",
+    "fail": "Sikertelen törlés"
   },
   "authentication": {
     "answer": "A regisztráció admin általi jóváhagyásra vár!"
@@ -110,7 +116,7 @@
     "update": "Épület módosítva."
   },
   "verification-snackbar": {
-    "verify": "Felhasználó jóváhagyva"
+    "verify": "Szerepkör beállítva"
   },
   "meeting-room-update": {
     "update": "Tárgyaló frissítve!"
@@ -122,19 +128,37 @@
     "own-appointments": "Saját Foglalásaim"
   },
   "reservation": {
+    "meetingroom": "Tárgyaló:",
     "title": "Esemény neve:",
     "summary": "Esemény leírása:",
+    "startDate": "Kezdés:",
+    "endDate": "Befejezés:",
+    "ok": "Rendben",
     "cancel": "Mégse",
+    "modify": "Módosítás",
+    "delete": "Törlés",
     "reserve": "Lefoglalás",
-    "head": "Tárgyaló foglalás"
+    "head": "Tárgyaló foglalás",
+    "edit": "Esemény szerkesztése:",
+    "quit": "Vissza a naptárhoz"
   },
   "snackbar-reservation": {
-    "reservationOk": "A tárgyaló foglalása sikeresen megtörtént."
+    "reservationOk": "A tárgyaló foglalása sikeresen megtörtént.",
+    "reservationModificationOK": "A foglalás módosítása sikeresen megtörtént.",
+    "reservationDeleteOk": "A foglalás törlése sikeresen megtörtént"
   },
   "validation": {
     "validate": "A mező kitöltése kötelező!"
   },
-  "search-bar": {
+  "reservation-delete-dialog": {
+    "reservationDelete": "Foglalás törlése",
+    "verification": "Biztosan törölni akarja a foglalását?",
+    "yes": "Igen",
+    "no": "Nem"
+  },
+  "reservation-time-change-dialog": {
+    "head": "Szeretné a foglalása időpontját a következők szerint módosítani?"
+  },"search-bar": {
    "search": "Keresés"
   }
 }
