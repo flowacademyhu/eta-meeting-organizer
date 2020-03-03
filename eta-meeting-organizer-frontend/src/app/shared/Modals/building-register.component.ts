@@ -37,7 +37,8 @@ import { BuildingService } from './../services/building.service';
   }
 `],
   template: `
-  <mat-dialog-content class="align-title">{{'building.post' | translate}}</mat-dialog-content>
+  <mat-dialog-content  cdkDrag cdkDragRootElement=".cdk-overlay-pane"
+  class="align-title">{{'building.post' | translate}}</mat-dialog-content>
     <br>
   <mat-dialog-content class="align-content">
     <form [formGroup]="buildingForm" (ngSubmit)="onSubmit()">
