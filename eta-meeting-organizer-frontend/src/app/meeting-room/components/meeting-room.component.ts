@@ -7,6 +7,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Subscription } from 'rxjs';
 import { MeetingRoomUpdateComponent } from '~/app/shared/Modals/meeting-room-update.component';
 import { MeetingRoom } from './../../models/meetingroom.model';
+import { MeetingRoomCheckboxComponent } from './../../shared/Modals/meeting-room-checkbox-delete.component';
 import { MeetingRoomDeleteComponent } from './../../shared/Modals/meeting-room-delete.component';
 import { MeetingRoomRegisterComponent } from './../../shared/Modals/meeting-room-register.component';
 import { MeetingRoomService } from './../../shared/services/meeting-room.service';
@@ -37,12 +38,14 @@ import { MeetingRoomService } from './../../shared/services/meeting-room.service
   </mat-form-field>
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
     <ng-container matColumnDef="checkbox">
-      <th mat-header-cell *matHeaderCellDef class="column">
-        <button mat-icon-button color="primary" (click)="deleteByCheckbox()">
+      <th mat-header-cell [ngStyle]="{textAlign: 'center'}" *matHeaderCellDef class="column">
+        <button mat-icon-button  [disabled]="this.checkedArr.length === 0"
+            [color]="(this.checkedArr.length > 0) ? 'primary' : 'accent'"
+            (click)="deleteByCheckboxDialog(this.checkedArr)">
           <mat-icon class="check">delete_forever</mat-icon>
         </button>
       </th>
-      <td mat-cell *matCellDef="let meetingRoom">
+      <td mat-cell [ngStyle]="{textAlign: 'center'}" *matCellDef="let meetingRoom">
         <mat-checkbox (change)="checkCheckBox(meetingRoom.id, $event)"></mat-checkbox>
       </td>
     </ng-container>
@@ -116,7 +119,7 @@ export class MeetingRoomComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild(MatPaginator) public paginator: MatPaginator;
 
   constructor(private readonly dialog: MatDialog,
-              private readonly meetingRoomService: MeetingRoomService
+              private readonly meetingRoomService: MeetingRoomService,
               ) { }
 
   public checkCheckBox(Id: number, event: MatCheckboxChange) {
@@ -127,16 +130,6 @@ export class MeetingRoomComponent implements OnInit, OnDestroy, AfterViewInit {
     const index = this.checkedArr.findIndex((meetingRoom) => meetingRoom === Id);
     this.checkedArr.splice(index, 1);
    }
-  }
-
-  public deleteByCheckbox() {
-    this.unsubFromCheckbox = this.meetingRoomService.deleteMeetingRoomByCheckBox((this.checkedArr))
-    .subscribe(() => {
-      this.meetingRoomService.deleteMeetingRoomByCheckBox(this.checkedArr);
-      this.meetingRoomService.getAllMeetingRooms();
-      }
-    );
-    this.checkedArr = [];
   }
 
   public ngOnInit() {
@@ -170,6 +163,21 @@ export class MeetingRoomComponent implements OnInit, OnDestroy, AfterViewInit {
       width: '30%',
       data: id
     });
+  }
+
+  public deleteByCheckboxDialog(id: number[]) {
+    const dialogRef = this.dialog.open(MeetingRoomCheckboxComponent, {
+      disableClose: true,
+      height: '35%',
+      width: '30%',
+      data: id
+    });
+    dialogRef.afterClosed()
+    .subscribe(() => {
+      this.meetingRoomService.getAllMeetingRooms();
+      this.checkedArr = [];
+    });
+
   }
 
   public updateDialog(id: number) {
