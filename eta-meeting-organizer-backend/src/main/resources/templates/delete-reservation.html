@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<p> Kedves Felhasználó!</p>
+<p >Az alábbi értekezlet törlésre került.</p>
+<p >Értekezlet ideje: <span th:text=${meetingDate}></span>.</p>
+<p >Kezdete: <span th:text=${start}></span>.</p>
+<p >Vége: <span th:text=${finish}></span>.</p>
+<p >Cím: <span th:text=${city}></span>, <span th:text=${address}></span>.</p>
+<p >Épület megnevezése: <span th:text=${buildingName}></span>.</p>
+<p >Tárgyaló neve: <span th:text=${meetingRoomName}></span>.</p>
+<br>
+<p>(Ez egy automatikus üzenet, kérlek ne válaszolj rá.) </p>
+</body>
+</html>

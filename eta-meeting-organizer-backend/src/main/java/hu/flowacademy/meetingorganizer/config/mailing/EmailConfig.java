@@ -1,7 +1,5 @@
 package hu.flowacademy.meetingorganizer.config.mailing;
 
-import hu.flowacademy.meetingorganizer.email.EmailFactory;
-import hu.flowacademy.meetingorganizer.email.EmailService;
 import hu.flowacademy.meetingorganizer.email.GmailService;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;

@@ -1,6 +1,5 @@
 package hu.flowacademy.meetingorganizer.service;
 
-import hu.flowacademy.meetingorganizer.email.EmailService;
 import hu.flowacademy.meetingorganizer.email.EmailType;
 import hu.flowacademy.meetingorganizer.persistence.model.Role;
 import hu.flowacademy.meetingorganizer.exception.UserNotFoundException;
