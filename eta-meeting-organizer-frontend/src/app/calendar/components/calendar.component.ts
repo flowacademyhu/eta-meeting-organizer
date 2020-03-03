@@ -10,7 +10,7 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import { TranslateService } from '@ngx-translate/core';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, timer } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { MeetingRoom } from '~/app/models/meetingroom.model';
 import { Reservation } from '~/app/models/reservation.model';
@@ -165,7 +165,15 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnChanges, OnDe
     } else if (changes?.meetingRoom?.currentValue ||
       (!this.checked && this.meetingRoom !== undefined) ||
       changes?.posted?.currentValue) {
-        this.getReservationsByMeetingRoom();
+        if (this.isReader) {
+          timer(100, 30000)
+          .pipe(takeUntil(this.destroy$))
+          .subscribe(() => {
+            this.calendarEvents = [];
+            this.getReservationsByMeetingRoom();
+          }
+          );
+        }
     }
   }
 
