@@ -41,7 +41,7 @@ import { BuildingService } from './../../shared/services/building.service';
       matSort matSortActive="id" matSortDirection="desc" matSortDisableClear>
       <ng-container matColumnDef="checkbox">
         <th mat-header-cell *matHeaderCellDef class="column">
-          <button mat-icon-button  [color]="(this.checkedArr.length > 0) ? 'primary' : 'accent'"
+          <button mat-icon-button  [disabled]="this.checkedArr.length === 0" [color]="(this.checkedArr.length > 0) ? 'primary' : 'accent'"
             (click)="deleteByCheckboxDialog(this.checkedArr)">
             <mat-icon>delete_forever</mat-icon>
           </button>
@@ -134,6 +134,7 @@ export class BuildingComponent implements OnInit, OnDestroy, AfterViewInit {
       width: '30%',
       data: id
     });
+    this.checkedArr = [];
   }
 
   public ngAfterViewInit(): void {
