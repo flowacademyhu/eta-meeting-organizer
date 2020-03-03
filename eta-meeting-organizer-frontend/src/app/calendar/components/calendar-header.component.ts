@@ -17,7 +17,6 @@ import { AuthService } from '~/app/shared/services/auth.service';
       min-height: 48px;
       max-height: 30px;
       display: flex;
-      margin-bottom: 10px;
     }
     .select {
       padding-right: 15px;
