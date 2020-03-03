@@ -28,6 +28,12 @@ export class MeetingRoomService {
       .deleteMeetingRoomById(id);
   }
 
+  public deleteMeetingRoomByCheckBox(id: number[]) {
+    return this.meetingRoomCom
+      .meetingRoom()
+      .deleteMeetingRoomByCheckbox(id);
+  }
+
   public postMeetingRoom(meetingRoom: MeetingRoom) {
     return this.meetingRoomCom.meetingRoom()
       .postMeetingRoom(meetingRoom);

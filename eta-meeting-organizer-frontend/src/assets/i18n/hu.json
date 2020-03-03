@@ -63,23 +63,29 @@
   "meeting-room-delete": {
     "meetingRoomDelete": "Tárgyaló törlése",
     "verification": "Biztosan törölni akarja a tárgyalót?",
-    "yes": "Igen",
-    "no": "Nem",
+    "warning":"Figyelem: a tárgyalóhoz kapcsolódó tételek is törlésre kerülnek.",
+    "delete": "Törlés",
+    "cancel": "Mégse",
     "button": "EN",
     "exit": "Kilépés",
-    "deleted":"A tárgyaló törlésre került"
+    "deleted":"A tárgyaló törlésre került",
+    "fail": "Sikertelen törlés"
   },
   "user-delete-dialog": {
     "userDelete": "Felhasználó törlése",
     "verification": "Biztosan törölni akarja a felhasználót?",
-    "yes": "Igen",
-    "no": "Nem"
+    "warning":"Figyelem: a felhasználóhoz kapcsolódó tételek is törlésre kerülnek.",
+    "delete": "Törlés",
+    "cancel": "Mégse",
+    "fail": "Sikertelen törlés"
   },
   "building-delete-dialog": {
     "buildingDelete": "Épület törlése",
     "verification": "Biztosan törölni akarja az épületet?",
-    "yes": "Igen",
-    "no": "Nem"
+    "warning":"Figyelem: az épülethez kapcsolódó tételek is törlésre kerülnek.",
+    "delete": "Törlés",
+    "cancel": "Mégse",
+    "fail": "Sikertelen törlés"
   },
   "authentication": {
     "answer": "A regisztráció admin általi jóváhagyásra vár!"
@@ -128,7 +134,7 @@
     "name": "A megadott tárgyaló név már foglalt"
   },
   "verification-snackbar": {
-    "verify": "Felhasználó jóváhagyva"
+    "verify": "Szerepkör beállítva"
   },
   "meeting-room-update": {
     "update": "Tárgyaló frissítve!"

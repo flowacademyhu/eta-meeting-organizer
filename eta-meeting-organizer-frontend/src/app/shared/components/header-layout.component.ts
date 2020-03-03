@@ -84,7 +84,9 @@ export class HeaderComponent implements OnDestroy {
   }
 
   protected checkToken(): void {
-    this.isToken = !!this.configService.fetchToken('accessToken');
+    if (!!this.configService.fetchToken('accessToken') && !!this.user) {
+      this.isToken = true;
+    }
   }
 
   protected checkAdmin(): void {
