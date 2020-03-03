@@ -48,7 +48,7 @@ import { MeetingRoomService } from './../../shared/services/meeting-room.service
     </ng-container>
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef class="column">{{'meeting-room.text' | translate}} </th>
-      <td mat-cell *matCellDef="let meetingRoom"> {{meetingRoom.name}} {{meetingRoom.id}} </td>
+      <td mat-cell *matCellDef="let meetingRoom"> {{meetingRoom.name}}</td>
     </ng-container>
     <ng-container matColumnDef="numberOfSeat">
       <th mat-header-cell *matHeaderCellDef class="column" mat-sort-header>
