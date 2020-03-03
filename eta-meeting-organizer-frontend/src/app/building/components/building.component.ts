@@ -136,7 +136,7 @@ export class BuildingComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   public deleteByCheckboxDialog(id: number[]) {
-    const dialogRef = this.dialogRef = this.dialog.open(BuildingCheckboxComponent, {
+    const dialogRef = this.dialog.open(BuildingCheckboxComponent, {
       disableClose: true,
       height: '35%',
       width: '30%',
