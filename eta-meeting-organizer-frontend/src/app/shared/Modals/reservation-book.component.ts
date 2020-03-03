@@ -39,7 +39,8 @@ import { ReservationService } from '../services/reservation.service';
   }
 `],
  template: `
- <mat-dialog-content class="align-title">{{'reservation.head' | translate}}</mat-dialog-content>
+ <mat-dialog-content cdkDrag cdkDragRootElement=".cdk-overlay-pane"
+ class="align-title">{{'reservation.head' | translate}}</mat-dialog-content>
  <mat-dialog-content class="align-content">
    <form [formGroup]="reservationBookingForm" (ngSubmit)="onSubmit()">
      <mat-form-field>
