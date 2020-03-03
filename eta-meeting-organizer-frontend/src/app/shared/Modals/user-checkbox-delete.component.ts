@@ -1,8 +1,8 @@
-import { UserService } from './../services/user.service';
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
+import { UserService } from './../services/user.service';
 
 @Component({
   selector: 'app-user-checkbox-delete',
