@@ -15,13 +15,13 @@ import { AuthService } from '~/app/shared/services/auth.service';
   styles: [
     `
       .toolbar {
-        min-height: 75px;
+        min-height: 48px;
+        max-height: 30px;
+        display: flex;
+        margin-bottom: 10px;
       }
       .select {
         padding-right: 15px;
-      }
-      .toolbar {
-        height: 100px;
       }
       .selector {
         display: flex;
@@ -30,7 +30,7 @@ import { AuthService } from '~/app/shared/services/auth.service';
     `,
   ],
   template: `
-    <mat-toolbar class="my-0" color="primary" class="toolbar">
+    <mat-toolbar class="my-1" color="primary" class="toolbar">
         <form [formGroup]="meetingRoomSelector" novalidate>
             <mat-form-field class="select">
               <mat-label>{{'calendar-header.city' | translate}}</mat-label>
