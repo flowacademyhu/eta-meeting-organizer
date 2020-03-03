@@ -16,5 +16,5 @@ public interface MeetingRoomRepository extends JpaRepository<MeetingRoom, Long> 
   @Modifying
   void deleteByIdIn(List<Long> id);
 
-  List<MeetingRoom> findByBuilding_AddressAndName(String City, String name);
+  List<MeetingRoom> findByBuilding_IdAndName(Long id, String name);
 }
