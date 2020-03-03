@@ -62,42 +62,14 @@ public class ReservationService {
         .orElseThrow(MeetingRoomNotFoundException::new);
     Reservation reservation = reservationInput.toSaveEntity(user, mRoom);
     Reservation result = reservationRepository.save(reservation);
-    createWithEmails(reservationInput, reservation);
+    sendWithEmails(reservation, EmailType.CREATE);
     return result;
   }
 
-  public void createWithEmails(ReservationDTO dto, Reservation reservation) {
-    MeetingRoom meetingRoom = meetingRoomRepository.findById(dto.getMeetingRoomId()).orElseThrow();
-    User user = userRepository.findById(dto.getUserId()).orElseThrow();
-    Date startingDate = new Date(reservation.getStartingTime());
-    String meetingDate = FORMATTER_TO_DATE.format(startingDate);
-    String start = FORMATTER_TO_HOUR.format(startingDate);
-    String finish = FORMATTER_TO_HOUR.format(reservation.getEndingTime());
-    String subject = reservation.getTitle();
-    String city = meetingRoom.getBuilding().getCity();
-    String address = meetingRoom.getBuilding().getAddress();
-    String buildingName = meetingRoom.getBuilding().getBuildingName();
-    String meetingRoomName = meetingRoom.getName();
-    sendEmailForAttendants(reservation, meetingDate, start, finish, subject, city, address, buildingName, meetingRoomName, user, EmailType.CREATE);
-  }
-  private void sendEmailForAttendants(Reservation reservation, String meetingDate, String start,
-      String finish, String subject, String city, String address, String buildingName, String meetingroomName,
-      User user, EmailType emailType) {
-      emailService.send(user.getUsername(), subject, emailType.getTemplateName(),
-          Map.of("meetingDate", meetingDate,
-              "start", start,
-              "finish", finish,
-              "title", subject,
-              "city", city,
-              "address", address,
-              "buildingName", buildingName,
-              "meetingRoomName", meetingroomName))
-      ;
-    }
-
-
   public void deleteReservation(Long id) {
+    Reservation reservation = reservationRepository.findById(id).orElseThrow(ReservationNotFoundException::new);
     reservationRepository.deleteById(id);
+    sendWithEmails(reservation, EmailType.DELETE);
   }
 
   public Reservation updateReservation(Long id, ReservationDTO reservationInput) {
@@ -111,6 +83,35 @@ public class ReservationService {
       return reservationRepository.save(reservation);
     }
     throw new ReservationNotFoundException();
+  }
+
+  public void sendWithEmails(Reservation reservation, EmailType type) {
+    MeetingRoom meetingRoom = meetingRoomRepository.findById(reservation.getMeetingRoom().getId()).orElseThrow(MeetingRoomNotFoundException::new);
+    User user = userRepository.findById(reservation.getUser().getId()).orElseThrow();
+    Date startingDate = new Date(reservation.getStartingTime());
+    String meetingDate = FORMATTER_TO_DATE.format(startingDate);
+    String start = FORMATTER_TO_HOUR.format(startingDate);
+    String finish = FORMATTER_TO_HOUR.format(reservation.getEndingTime());
+    String subject = reservation.getTitle();
+    String city = meetingRoom.getBuilding().getCity();
+    String address = meetingRoom.getBuilding().getAddress();
+    String buildingName = meetingRoom.getBuilding().getBuildingName();
+    String meetingRoomName = meetingRoom.getName();
+    sendEmailForAttendants(reservation, meetingDate, start, finish, subject, city, address, buildingName, meetingRoomName, user, type);
+  }
+  private void sendEmailForAttendants(Reservation reservation, String meetingDate, String start,
+      String finish, String subject, String city, String address, String buildingName, String meetingroomName,
+      User user, EmailType emailType) {
+    emailService.send(user.getUsername(), subject, emailType.getTemplateName(),
+        Map.of("meetingDate", meetingDate,
+            "start", start,
+            "finish", finish,
+            "title", subject,
+            "city", city,
+            "address", address,
+            "buildingName", buildingName,
+            "meetingRoomName", meetingroomName))
+    ;
   }
 
   private void validateReservation(ReservationDTO input) {

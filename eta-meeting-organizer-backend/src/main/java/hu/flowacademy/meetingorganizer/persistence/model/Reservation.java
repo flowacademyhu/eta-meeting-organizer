@@ -1,6 +1,7 @@
 package hu.flowacademy.meetingorganizer.persistence.model;
 
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -40,6 +41,6 @@ public class Reservation {
   @ManyToOne
   private MeetingRoom meetingRoom;
 
-/*  @OneToMany
-  private List<Attendant> attendants;*/
+  @OneToMany(cascade = CascadeType.ALL)
+  private List<Attendant> attendants;
 }
