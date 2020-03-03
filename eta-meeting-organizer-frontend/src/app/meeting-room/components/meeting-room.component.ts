@@ -130,7 +130,6 @@ export class MeetingRoomComponent implements OnInit, OnDestroy, AfterViewInit {
     const index = this.checkedArr.findIndex((meetingRoom) => meetingRoom === Id);
     this.checkedArr.splice(index, 1);
    }
-   console.log(this.checkedArr);
   }
 
   public ngOnInit() {
@@ -173,11 +172,11 @@ export class MeetingRoomComponent implements OnInit, OnDestroy, AfterViewInit {
       width: '30%',
       data: id
     });
-    dialogRef.afterClosed().subscribe(()=> {
+    dialogRef.afterClosed()
+    .subscribe(() => {
       this.meetingRoomService.getAllMeetingRooms();
       this.checkedArr = [];
     });
-
 
   }
 
