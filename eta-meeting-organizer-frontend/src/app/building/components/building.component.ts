@@ -122,7 +122,6 @@ export class BuildingComponent implements OnInit, OnDestroy, AfterViewInit {
      const index = this.checkedArr.findIndex((building) => building === Id);
      this.checkedArr.splice(index, 1);
     }
-    console.log(this.checkedArr);
    }
 
   public ngOnInit() {
