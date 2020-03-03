@@ -35,13 +35,15 @@ import { MeetingRoomService } from '../services/meeting-room.service';
   <br>
   <mat-dialog-actions >
   <button mat-raised-button mat-dialog-close="true" color="primary" (click)="deleteByCheckbox()">
-    törlés
-    </button>
-    </mat-dialog-actions>
-    <br>
-    <mat-dialog-actions >
-    <button mat-raised-button mat-dialog-close="false" color="accent">no-no</button>
-    </mat-dialog-actions>
+  {{'meeting-room-delete.delete' | translate}}
+  </button>
+  </mat-dialog-actions>
+  <br>
+  <mat-dialog-actions >
+  <button mat-raised-button mat-dialog-close="false" color="accent">
+    {{'meeting-room-delete.cancel' | translate}}
+  </button>
+  </mat-dialog-actions>
   `
 })
 
