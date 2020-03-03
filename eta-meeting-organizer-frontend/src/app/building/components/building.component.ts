@@ -1,4 +1,3 @@
-import { BuildingCheckboxComponent } from './../../shared/Modals/building-checkbox-delete.component';
 import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import { MatCheckboxChange } from '@angular/material';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
@@ -10,6 +9,7 @@ import { Building } from '~/app/models/building.model';
 import { BuildingDeleteDialogComponent } from '~/app/shared/Modals/building-delete-dialog';
 import { BuildingRegisterComponent } from '~/app/shared/Modals/building-register.component';
 import { BuildingUpdateDialogComponent } from '~/app/shared/Modals/building-update-dialog';
+import { BuildingCheckboxComponent } from './../../shared/Modals/building-checkbox-delete.component';
 import { BuildingService } from './../../shared/services/building.service';
 
 @Component({
