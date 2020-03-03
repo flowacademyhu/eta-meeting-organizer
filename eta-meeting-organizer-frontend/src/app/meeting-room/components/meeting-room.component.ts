@@ -38,12 +38,14 @@ import { MeetingRoomService } from './../../shared/services/meeting-room.service
   </mat-form-field>
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
     <ng-container matColumnDef="checkbox">
-      <th mat-header-cell *matHeaderCellDef class="column">
-        <button mat-icon-button color="primary" (click)="deleteByCheckboxDialog(this.checkedArr)">
+      <th mat-header-cell [ngStyle]="{textAlign: 'center'}" *matHeaderCellDef class="column">
+        <button mat-icon-button  [disabled]="this.checkedArr.length === 0"
+            [color]="(this.checkedArr.length > 0) ? 'primary' : 'accent'"
+            (click)="deleteByCheckboxDialog(this.checkedArr)">
           <mat-icon class="check">delete_forever</mat-icon>
         </button>
       </th>
-      <td mat-cell *matCellDef="let meetingRoom">
+      <td mat-cell [ngStyle]="{textAlign: 'center'}" *matCellDef="let meetingRoom">
         <mat-checkbox (change)="checkCheckBox(meetingRoom.id, $event)"></mat-checkbox>
       </td>
     </ng-container>
