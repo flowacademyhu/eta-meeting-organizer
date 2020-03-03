@@ -1,3 +1,4 @@
+import { MeetingRoomCheckboxComponent } from './../../shared/Modals/meeting-room-checkbox-delete.component';
 import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatDialog } from '@angular/material/dialog';
@@ -38,7 +39,7 @@ import { MeetingRoomService } from './../../shared/services/meeting-room.service
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
     <ng-container matColumnDef="checkbox">
       <th mat-header-cell *matHeaderCellDef class="column">
-        <button mat-icon-button color="primary" (click)="deleteByCheckbox()">
+        <button mat-icon-button color="primary" (click)="deleteByCheckboxDialog(this.checkedArr)">
           <mat-icon class="check">delete_forever</mat-icon>
         </button>
       </th>
@@ -129,15 +130,7 @@ export class MeetingRoomComponent implements OnInit, OnDestroy, AfterViewInit {
    }
   }
 
-  public deleteByCheckbox() {
-    this.unsubFromCheckbox = this.meetingRoomService.deleteMeetingRoomByCheckBox((this.checkedArr))
-    .subscribe(() => {
-      this.meetingRoomService.deleteMeetingRoomByCheckBox(this.checkedArr);
-      this.meetingRoomService.getAllMeetingRooms();
-      }
-    );
-    this.checkedArr = [];
-  }
+
 
   public ngOnInit() {
     this.meetingRoomService.getAllMeetingRooms();
@@ -165,6 +158,15 @@ export class MeetingRoomComponent implements OnInit, OnDestroy, AfterViewInit {
 
   public deleteDialog(id: number) {
       this.dialog.open(MeetingRoomDeleteComponent, {
+      disableClose: true,
+      height: '35%',
+      width: '30%',
+      data: id
+    });
+  }
+
+  public deleteByCheckboxDialog(id: number[]) {
+    this.dialog.open(MeetingRoomCheckboxComponent, {
       disableClose: true,
       height: '35%',
       width: '30%',
