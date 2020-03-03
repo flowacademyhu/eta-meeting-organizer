@@ -13,7 +13,7 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
 
   List<Reservation> findByMeetingRoom_Id(Long id);
 
-  @Query("SELECT r FROM  Reservation r "
+  @Query("SELECT COUNT(r) FROM  Reservation r "
       + "WHERE (r.meetingRoom.id = ?1) "
       + "AND"
       + " (?2 BETWEEN r.startingTime AND r.endingTime)"
@@ -21,5 +21,5 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
       + " (?3 BETWEEN r.startingTime AND r.endingTime)"
       + "OR"
       + " (r.startingTime >= ?2 AND r.endingTime <= ?3)")
-  List<Reservation> findAllByMeetingRoomIdInInterval(Long userId, Long startingTime, Long endingTime);
+  Long findAllByMeetingRoomIdInInterval(Long userId, Long startingTime, Long endingTime);
 }
