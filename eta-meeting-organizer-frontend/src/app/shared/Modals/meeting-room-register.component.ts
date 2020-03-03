@@ -161,6 +161,7 @@ export class MeetingRoomRegisterComponent implements OnInit {
         this.dialogRef.close();
       }, (error: HttpErrorResponse) => {
         this.errorMessage = error.error;
+        console.log(this.errorMessage)
         this.errorSnackBar();
       });
   }

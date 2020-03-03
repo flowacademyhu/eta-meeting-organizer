@@ -49,7 +49,7 @@ import { BuildingService } from './../services/building.service';
       <mat-label>{{'building.buildingName' | translate}}</mat-label>
         <input matInput type="text" name="buildingName" formControlName="buildingName">
         <mat-error>{{'validation.validate' | translate}}</mat-error>
-        <p *ngIf="this.errorMessage === 
+        <p *ngIf="this.errorMessage ===
        'A building with the following building name already exists in this city: ' +
        buildingForm.controls.buildingName.value">
         {{'error-buildingPost-snackbar.building' | translate}}</p>

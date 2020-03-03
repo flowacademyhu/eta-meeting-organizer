@@ -50,9 +50,7 @@ import { BuildingService } from './../services/building.service';
         <input type="text" name="city" formControlName="buildingName"
          matInput placeholder="{{'building.buildingName' | translate}}">
         <mat-error>{{'validation.validate' | translate}}</mat-error>
-        <p *ngIf="this.errorMessage === 
-       'A building with the following building name already exists in this city: ' +
-       buildingForm.controls.buildingName.value">
+        <p *ngIf="this.errorMessage == 'occupied.buildingName'">
         {{'error-buildingPost-snackbar.building' | translate}}</p>
     </mat-form-field>
     <br>
@@ -67,8 +65,7 @@ import { BuildingService } from './../services/building.service';
         <input  type="text" name="address" formControlName="address"
           matInput placeholder="{{'building.address' | translate}}">
          <mat-error>{{'validation.validate' | translate}}</mat-error>
-      <p *ngIf="this.errorMessage === 'A building with the following address already exists: ' +
-       buildingForm.controls.address.value">
+      <p *ngIf="this.errorMessage == 'occupied.address'">
         {{'error-buildingPost-snackbar.address' | translate}}</p>
     </mat-form-field>
       <mat-dialog-actions>
