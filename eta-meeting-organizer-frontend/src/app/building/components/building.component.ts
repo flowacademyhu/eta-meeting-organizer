@@ -25,6 +25,9 @@ import { BuildingService } from './../../shared/services/building.service';
     .addButton {
       width: 100%;
     }
+    .mat-icon-button ::ng-deep .mat-button-focus-overlay {
+    display: none;
+    }
   `],
   template: `
   <div class="row justify-content-center" class="container">
