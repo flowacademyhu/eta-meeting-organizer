@@ -204,11 +204,4 @@ export class BuildingComponent implements OnInit, OnDestroy, AfterViewInit {
       this.unsubFromCheckbox.unsubscribe();
     }
    }
-
-   public setTrashColor() {
-
-       return 'primary';
-
-   }
-
 }
