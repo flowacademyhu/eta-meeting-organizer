@@ -12,105 +12,90 @@ import { AuthService } from '~/app/shared/services/auth.service';
 
 @Component({
   selector: 'app-calendar-header',
-  styles: [
-    `
-      .toolbar {
-        min-height: 48px;
-        max-height: 30px;
-        display: flex;
-        margin-bottom: 10px;
-      }
-      .select {
-        padding-right: 15px;
-      }
-      .selector {
-        display: flex;
-    justify-content: center;
-      }
-    `,
-  ],
+  styles: [`
+    .toolbar {
+      min-height: 48px;
+      max-height: 30px;
+      display: flex;
+      margin-bottom: 10px;
+    }
+    .select {
+      padding-right: 15px;
+    }
+    .selector {
+      display: flex;
+      justify-content: center;
+    }
+`],
   template: `
     <mat-toolbar class="my-1" color="primary" class="toolbar">
-        <form [formGroup]="meetingRoomSelector" novalidate>
-            <mat-form-field class="select">
-              <mat-label>{{'calendar-header.city' | translate}}</mat-label>
-              <mat-select
-              (selectionChange)="getBuildings()"
-              formControlName="city">
-                <mat-option *ngFor="let city of cities" [value]="city">{{
-                  city
-                }}</mat-option>
+      <form [formGroup]="meetingRoomSelector" novalidate>
+        <mat-form-field class="select">
+          <mat-label>{{'calendar-header.city' | translate}}</mat-label>
+            <mat-select (selectionChange)="getBuildings()" formControlName="city">
+              <mat-option *ngFor="let city of cities" [value]="city">
+                {{city}}
+              </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field class="select">
+          <mat-label>{{'calendar-header.building' | translate}}</mat-label>
+              <mat-select (selectionChange)="getMeetingrooms()" formControlName="building">
+                <mat-option *ngFor="let building of buildings" [value]="building">
+                  {{building.address}}
+                </mat-option>
               </mat-select>
-            </mat-form-field>
-            <mat-form-field class="select">
-              <mat-label>{{'calendar-header.building' | translate}}</mat-label>
-              <mat-select
-              (selectionChange)="getMeetingrooms()"
-              formControlName="building">
-                <mat-option *ngFor="let building of buildings" [value]="building">{{
-                  building.address
-                }}</mat-option>
-              </mat-select>
-            </mat-form-field>
-            <mat-form-field>
-              <mat-label>{{'calendar-header.meeting-room' | translate}}</mat-label>
-              <mat-select
-              formControlName="meetingRoom"
-              [(ngModel)]="meetingRoom">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>{{'calendar-header.meeting-room' | translate}}</mat-label>
+            <mat-select formControlName="meetingRoom" [(ngModel)]="meetingRoom">
               <mat-option>
                   <p align="center">--</p>
-                  </mat-option>
-                <mat-option *ngFor="let meetingRoom of meetingRooms" [value]="meetingRoom">{{
-                  meetingRoom.name
-                }}</mat-option>
-              </mat-select>
-            </mat-form-field>
-        </form>
-          <mat-slide-toggle
-          *ngIf="!isReader"
-          labelPosition="before" class="ml-auto"
-          [checked]="checked"
-          (change)="onCheck($event)">
-          {{'calendar-header.own-appointments' | translate}}
-          </mat-slide-toggle>
+              </mat-option>
+              <mat-option *ngFor="let meetingRoom of meetingRooms" [value]="meetingRoom">
+                {{meetingRoom.name}}
+              </mat-option>
+            </mat-select>
+        </mat-form-field>
+      </form>
+      <mat-slide-toggle
+        *ngIf="!isReader"
+        labelPosition="before" class="ml-auto"
+        [checked]="checked"
+        (change)="onCheck($event)">
+        {{'calendar-header.own-appointments' | translate}}
+      </mat-slide-toggle>
     </mat-toolbar>
-    <app-calendar
-    [meetingRoom]="meetingRoom"
-    [checked]=checked
-    > </app-calendar>
+    <app-calendar [meetingRoom]="meetingRoom" [checked]=checked>
+  </app-calendar>
   `
 })
 export class CalendarHeaderComponent implements OnInit, OnDestroy {
   public checked: boolean = true;
-
   public cities: string[];
-
-  private destroy$: Subject<boolean> = new Subject<boolean>();
-
-  protected user: UserToken = {} as UserToken;
-  protected isReader: boolean = false;
-
   public buildingId: number;
   public building: Building;
   public buildings: Building[];
-
   public meetingRoom: MeetingRoom;
   public meetingRooms: MeetingRoom[];
+  protected user: UserToken = {} as UserToken;
+  protected isReader: boolean = false;
+  private destroy$: Subject<boolean> = new Subject<boolean>();
 
   public meetingRoomSelector: FormGroup = new FormGroup({
-      building: new FormControl(),
-      city: new FormControl(),
-      meetingRoom: new FormControl()
+    building: new FormControl(),
+    city: new FormControl(),
+    meetingRoom: new FormControl()
   });
 
   constructor(private readonly api: ApiCommunicationService,
               private changeDetectorRef: ChangeDetectorRef,
               private readonly authService: AuthService) {
-              this.authService.user.pipe(takeUntil(this.destroy$))
-                .subscribe((data) => {
-                  this.user = data;
-                });
-              this.checkReader();
+    this.authService.user.pipe(takeUntil(this.destroy$))
+      .subscribe((data) => {
+        this.user = data;
+      });
+    this.checkReader();
   }
 
   protected checkReader(): void {
@@ -162,7 +147,6 @@ export class CalendarHeaderComponent implements OnInit, OnDestroy {
       this.meetingRoomSelector.enable();
       this.checked = false;
     }
-    // event.checked ? this.meetingRoomSelector.disable() : this.meetingRoomSelector.enable();
   }
 
   public ngOnDestroy(): void {
