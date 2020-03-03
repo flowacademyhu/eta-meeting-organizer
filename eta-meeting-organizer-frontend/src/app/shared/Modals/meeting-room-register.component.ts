@@ -69,13 +69,12 @@ import { MeetingRoomService } from './../services/meeting-room.service';
            matInput placeholder="{{'meeting-room.text' | translate}}">
            <mat-error>{{'validation.validate' | translate}}</mat-error>
      </mat-form-field>
-     <p *ngIf="this.errorMessage === meetingForm.controls.name.value +
-      ' meeting room name already exists in this building.'">
+     <p *ngIf="this.errorMessage == 'occupied.meetingRoomName'">
        {{'error-meeting-roomPost-snackbar.name' | translate}}</p>
      <br>
      <mat-form-field>
        <mat-label>{{'meeting-room.seats' | translate}}</mat-label>
-         <input  type="number" min="0" required="true" name="numberOfSeats" formControlName="numberOfSeats"
+         <input  type="number" min="0" name="numberOfSeats" formControlName="numberOfSeats"
            matInput placeholder="{{'meeting-room.seats' | translate}}">
            <mat-error> {{'validation.validate' | translate}}</mat-error>
      </mat-form-field>
