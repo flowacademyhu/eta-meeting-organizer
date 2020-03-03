@@ -115,11 +115,30 @@
   "update-building-snackbar": {
     "update": "Épület módosítva."
   },
+  "error-buildingPost-snackbar": {
+    "error": "Sikertelen épület létrehozás",
+    "building": "A megadott épületnév már foglalt.",
+    "address": "A megadott cím már foglalt."
+  },
+  "error-buildingUpdate-snackbar": {
+    "error": "Sikertelen épület módosítás.",
+    "building": "A megadott épületnév már foglalt.",
+    "address": "A megadott cím már foglalt.",
+    "general": "A megadott épületnév vagy cím már foglalt."
+  },
+  "error-meeting-roomPost-snackbar": {
+    "error": "Sikertelen tárgyaló létrehozás.",
+    "name": "A megadott tárgyaló név már foglalt."
+  },
+  "error-meeting-roomUpdate-snackbar": {
+    "error": "Sikertelen tárgyaló módosítás.",
+    "name": "A megadott tárgyaló név már foglalt."
+  },
   "verification-snackbar": {
     "verify": "Szerepkör beállítva"
   },
   "meeting-room-update": {
-    "update": "Tárgyaló frissítve!"
+    "update": "Tárgyaló módosítva!"
   },
   "calendar-header": {
     "city": "Város",
@@ -145,7 +164,7 @@
   "snackbar-reservation": {
     "reservationOk": "A tárgyaló foglalása sikeresen megtörtént.",
     "reservationModificationOK": "A foglalás módosítása sikeresen megtörtént.",
-    "reservationDeleteOk": "A foglalás törlése sikeresen megtörtént"
+    "reservationDeleteOk": "A foglalás törlése sikeresen megtörtént."
   },
   "validation": {
     "validate": "A mező kitöltése kötelező!"

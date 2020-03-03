@@ -1,6 +1,8 @@
+import {HttpErrorResponse} from '@angular/common/http';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
+import {MatDialogRef} from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { Building } from '~/app/models/building.model';
 import { BuildingService } from './../services/building.service';
@@ -12,7 +14,7 @@ import { BuildingService } from './../services/building.service';
     padding-top: 5%;
     padding-bottom: 5%;
     margin: 0 auto;
-    font-size: 250%;
+    font-size: 225%;
     text-align: center;
   }
   .align-content{
@@ -25,6 +27,10 @@ import { BuildingService } from './../services/building.service';
     width: 100%;
     text-align: center;
     margin: 0 auto;
+  }
+  p {
+    font-size: 75% !important;
+    color: #e64b3a;
   }
   button {
     width: 80%;
@@ -56,9 +62,11 @@ import { BuildingService } from './../services/building.service';
         <input matInput type="text" name="address" formControlName="address">
         <mat-error>{{'validation.validate' | translate}}</mat-error>
         </mat-form-field>
+        <p *ngIf="this.errorMessage == 'occupied.buildingName'">
+        {{'error-buildingUpdate-snackbar.general' | translate}}</p>
     <mat-dialog-actions>
-      <button mat-raised-button mat-dialog-close type="submit" [disabled]="buildingForm.invalid"
-      (click)="openSnackBar()" color="primary">{{'building.update' | translate}}</button>
+      <button mat-raised-button type="submit" [disabled]="buildingForm.invalid"
+      color="primary">{{'building.update' | translate}}</button>
     </mat-dialog-actions>
       <br>
     <mat-dialog-actions>
@@ -70,9 +78,10 @@ import { BuildingService } from './../services/building.service';
 
 export class BuildingUpdateDialogComponent implements OnInit {
   public building: Building = {} as Building;
-
+  public errorMessage: string = '';
   constructor(@Inject(MAT_DIALOG_DATA)
               private readonly buildingData: Building,
+              public dialogRef: MatDialogRef<BuildingUpdateDialogComponent>,
               private readonly snackBar: MatSnackBar,
               private readonly buildingService: BuildingService,
               private readonly translate: TranslateService) { }
@@ -96,13 +105,25 @@ export class BuildingUpdateDialogComponent implements OnInit {
     this.building = this.buildingForm.getRawValue();
     this.buildingService
     .updateBuilding(this.buildingData.id, this.building)
-    .subscribe(() =>
+    .subscribe(() => {
     this.buildingService
-    .getAllBuildings());
+    .getAllBuildings();
+    this.openSnackBar();
+    this.dialogRef.close();
+  }, (error: HttpErrorResponse) => {
+      this.errorMessage = error.error;
+      this.errorSnackBar();
+    });
   }
 
   public openSnackBar() {
     this.snackBar.open(this.translate.instant(`update-building-snackbar.update`), '', {
+      duration: 2500
+    });
+  }
+
+  public errorSnackBar() {
+    this.snackBar.open(this.translate.instant(`error-buildingUpdate-snackbar.error`), '', {
       duration: 2500
     });
   }
