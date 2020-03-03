@@ -1,4 +1,3 @@
-import { MeetingRoomCheckboxComponent } from './../../shared/Modals/meeting-room-checkbox-delete.component';
 import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatDialog } from '@angular/material/dialog';
@@ -8,6 +7,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Subscription } from 'rxjs';
 import { MeetingRoomUpdateComponent } from '~/app/shared/Modals/meeting-room-update.component';
 import { MeetingRoom } from './../../models/meetingroom.model';
+import { MeetingRoomCheckboxComponent } from './../../shared/Modals/meeting-room-checkbox-delete.component';
 import { MeetingRoomDeleteComponent } from './../../shared/Modals/meeting-room-delete.component';
 import { MeetingRoomRegisterComponent } from './../../shared/Modals/meeting-room-register.component';
 import { MeetingRoomService } from './../../shared/services/meeting-room.service';
