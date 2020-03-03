@@ -119,7 +119,7 @@ export class MeetingRoomComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild(MatPaginator) public paginator: MatPaginator;
 
   constructor(private readonly dialog: MatDialog,
-              private readonly meetingRoomService: MeetingRoomService
+              private readonly meetingRoomService: MeetingRoomService,
               ) { }
 
   public checkCheckBox(Id: number, event: MatCheckboxChange) {
@@ -130,6 +130,7 @@ export class MeetingRoomComponent implements OnInit, OnDestroy, AfterViewInit {
     const index = this.checkedArr.findIndex((meetingRoom) => meetingRoom === Id);
     this.checkedArr.splice(index, 1);
    }
+   console.log(this.checkedArr);
   }
 
   public ngOnInit() {
@@ -166,12 +167,18 @@ export class MeetingRoomComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   public deleteByCheckboxDialog(id: number[]) {
-    this.dialog.open(MeetingRoomCheckboxComponent, {
+    const dialogRef = this.dialog.open(MeetingRoomCheckboxComponent, {
       disableClose: true,
       height: '35%',
       width: '30%',
       data: id
     });
+    dialogRef.afterClosed().subscribe(()=> {
+      this.meetingRoomService.getAllMeetingRooms();
+      this.checkedArr = [];
+    });
+
+
   }
 
   public updateDialog(id: number) {
