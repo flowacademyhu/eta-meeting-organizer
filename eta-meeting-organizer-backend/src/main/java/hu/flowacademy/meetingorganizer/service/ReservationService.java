@@ -73,10 +73,7 @@ public class ReservationService {
   }
 
   private void validateReservation(ReservationDTO input) {
-    Long meetingRoomId = input.getMeetingRoomId();
-    Long start = input.getStartingTime();
-    Long end = input.getEndingTime();
-    if(!reservationRepository.findAllByMeetingRoomIdInInterval(meetingRoomId, start, end).isEmpty()) {
+    if(!reservationRepository.findAllByMeetingRoomIdInInterval(input.getMeetingRoomId(), input.getStartingTime(), input.getEndingTime()).isEmpty()) {
       throw new ValidationException("reservation.reserved");
     }
     if (StringUtils.isEmpty(input.getUserId())) {
