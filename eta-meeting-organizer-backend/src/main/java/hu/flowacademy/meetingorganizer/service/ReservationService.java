@@ -80,7 +80,9 @@ public class ReservationService {
       MeetingRoom mRoom = meetingRoomRepository.findById(reservationInput.getMeetingRoomId())
           .orElseThrow(MeetingRoomNotFoundException::new);
       Reservation reservation = reservationInput.toUpdateEntity(id, user, mRoom);
-      return reservationRepository.save(reservation);
+      Reservation result = reservationRepository.save(reservation);
+      sendWithEmails(result, EmailType.UPDATE);
+      return result;
     }
     throw new ReservationNotFoundException();
   }
