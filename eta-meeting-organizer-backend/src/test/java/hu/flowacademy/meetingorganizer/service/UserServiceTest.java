@@ -11,6 +11,7 @@ import static org.mockito.Mockito.when;
 
 import hu.flowacademy.meetingorganizer.persistence.model.Role;
 import hu.flowacademy.meetingorganizer.persistence.model.User;
+import hu.flowacademy.meetingorganizer.persistence.model.dto.RoleDTO;
 import hu.flowacademy.meetingorganizer.persistence.repository.UserRepository;
 import java.util.Arrays;
 import java.util.List;
@@ -31,7 +32,6 @@ public class UserServiceTest {
 
   private static User user1;
   private static User user2;
-  private static User user;
 
   @Mock
   private UserRepository userRepository;
@@ -84,8 +84,18 @@ public class UserServiceTest {
   }
 
   @Test
+  public void setUserRoleTest() {
+    RoleDTO roleDTO = RoleDTO.builder().role(Role.USER).build();
+    userService.createUser(user1);
+    userService.setUserRole("12345rtz", roleDTO);
+    assertEquals("12345rtz", user1.getId());
+    assertEquals(Role.USER, user1.getRole());
+
+  }
+
+  @Test
   public void updateUserTest() {
-    user = User.builder().username("gyula@gmail.com").password("rántotta").role(Role.READER)
+    User user = User.builder().username("gyula@gmail.com").password("rántotta").role(Role.READER)
         .accountNonExpired(true)
         .accountNonLocked(true)
         .enabled(true)
@@ -100,10 +110,5 @@ public class UserServiceTest {
   public void deleteUserTest() {
     userService.deleteUser("12345rtz");
     verify(userRepository, times(1)).deleteById("12345rtz");
-  }
-
-  @Test
-  public void setUserRoleTest() {
-
   }
 }
