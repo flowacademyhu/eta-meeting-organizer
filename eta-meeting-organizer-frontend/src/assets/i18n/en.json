@@ -145,7 +145,7 @@
     "city": "City",
     "building": "Building",
     "meeting-room": "Meetingroom",
-    "own-appointments": "Own Appointments"
+    "own-appointments": "My Appointments"
   },
   "reservation": {
     "meetingroom": "Meetingroom:",

@@ -88,6 +88,7 @@ import { BuildingService } from './../../shared/services/building.service';
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
     <mat-paginator
+      class="mat-elevation-z8"
       [pageSize]="5"
       [pageSizeOptions]="[10, 25, 50]"
       showFirstLastButtons>
