@@ -1,5 +1,7 @@
 package hu.flowacademy.meetingorganizer.service;
 
+import hu.flowacademy.meetingorganizer.email.EmailType;
+import hu.flowacademy.meetingorganizer.email.GmailService;
 import hu.flowacademy.meetingorganizer.exception.MeetingRoomNotFoundException;
 import hu.flowacademy.meetingorganizer.exception.ReservationNotFoundException;
 import hu.flowacademy.meetingorganizer.exception.UserNotFoundException;
@@ -11,6 +13,10 @@ import hu.flowacademy.meetingorganizer.persistence.model.dto.ReservationDTO;
 import hu.flowacademy.meetingorganizer.persistence.repository.MeetingRoomRepository;
 import hu.flowacademy.meetingorganizer.persistence.repository.ReservationRepository;
 import hu.flowacademy.meetingorganizer.persistence.repository.UserRepository;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import lombok.AllArgsConstructor;
@@ -28,6 +34,9 @@ public class ReservationService {
   private ReservationRepository reservationRepository;
   private UserRepository userRepository;
   private MeetingRoomRepository meetingRoomRepository;
+  private static final DateFormat FORMATTER_TO_HOUR = new SimpleDateFormat("HH:mm");
+  private static final DateFormat FORMATTER_TO_DATE = new SimpleDateFormat("yyyy-MM-dd");
+  private final GmailService emailService;
 
   public List<Reservation> findAll() {
     return reservationRepository.findAll();
@@ -52,8 +61,40 @@ public class ReservationService {
     MeetingRoom mRoom = meetingRoomRepository.findById(reservationInput.getMeetingRoomId())
         .orElseThrow(MeetingRoomNotFoundException::new);
     Reservation reservation = reservationInput.toSaveEntity(user, mRoom);
-    return reservationRepository.save(reservation);
+    Reservation result = reservationRepository.save(reservation);
+    createWithEmails(reservationInput, reservation);
+    return result;
   }
+
+  public void createWithEmails(ReservationDTO dto, Reservation reservation) {
+    MeetingRoom meetingRoom = meetingRoomRepository.findById(dto.getMeetingRoomId()).orElseThrow();
+    User user = userRepository.findById(dto.getUserId()).orElseThrow();
+    Date startingDate = new Date(reservation.getStartingTime());
+    String meetingDate = FORMATTER_TO_DATE.format(startingDate);
+    String start = FORMATTER_TO_HOUR.format(startingDate);
+    String finish = FORMATTER_TO_HOUR.format(reservation.getEndingTime());
+    String subject = reservation.getTitle();
+    String city = meetingRoom.getBuilding().getCity();
+    String address = meetingRoom.getBuilding().getAddress();
+    String buildingName = meetingRoom.getBuilding().getBuildingName();
+    String meetingRoomName = meetingRoom.getName();
+    sendEmailForAttendants(reservation, meetingDate, start, finish, subject, city, address, buildingName, meetingRoomName, user, EmailType.CREATE);
+  }
+  private void sendEmailForAttendants(Reservation reservation, String meetingDate, String start,
+      String finish, String subject, String city, String address, String buildingName, String meetingroomName,
+      User user, EmailType emailType) {
+      emailService.send(user.getUsername(), subject, emailType.getTemplateName(),
+          Map.of("meetingDate", meetingDate,
+              "start", start,
+              "finish", finish,
+              "title", subject,
+              "city", city,
+              "address", address,
+              "buildingName", buildingName,
+              "meetingRoomName", meetingroomName))
+      ;
+    }
+
 
   public void deleteReservation(Long id) {
     reservationRepository.deleteById(id);

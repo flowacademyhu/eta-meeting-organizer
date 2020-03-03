@@ -40,6 +40,6 @@ public class Reservation {
   @ManyToOne
   private MeetingRoom meetingRoom;
 
-  @OneToMany
-  private List<Attendant> attendants;
+/*  @OneToMany
+  private List<Attendant> attendants;*/
 }

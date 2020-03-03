@@ -18,7 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserService {
 
   private UserRepository userRepository;
-  private EmailService emailService;
+  //private EmailService emailService;
 
   public List<User> findAll() {
     return userRepository.findAllByOrderById();
@@ -46,7 +46,7 @@ public class UserService {
   public User setUserRole(String id, RoleDTO roleDTO) {
     User user = userRepository.findById(id).orElseThrow(() -> new UserNotFoundException(id));
     if (user.getRole() == Role.PENDING) {
-      emailService.send(user.getUsername(), "welcome", EmailType.TEXT);
+      //emailService.send(user.getUsername(), "welcome", EmailType.TEXT);
     }
     user.setRole(roleDTO.getRole());
     return userRepository.save(user);
