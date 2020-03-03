@@ -1,5 +1,7 @@
+import {HttpErrorResponse} from '@angular/common/http';
 import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import {MatDialogRef} from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
 import { Building } from '~/app/models/building.model';
@@ -14,11 +16,11 @@ import { MeetingRoomService } from './../services/meeting-room.service';
     padding-top: 5%;
     padding-bottom: 5%;
     margin: 0 auto;
-    font-size: 250%;
+    font-size: 225%;
     text-align: center;
   }
   .align-content{
-    height: 80%;
+    height: 95%;
     font-size: 160%;
     margin: 0 auto;
     text-align: center;
@@ -33,6 +35,10 @@ import { MeetingRoomService } from './../services/meeting-room.service';
     text-align: center;
     margin: 0 auto;
   }
+  p {
+    font-size: 75% !important;
+    color: #e64b3a;
+  }
   button {
     width: 80%;
     margin: 0 auto;
@@ -42,7 +48,8 @@ import { MeetingRoomService } from './../services/meeting-room.service';
   }
 `],
  template: `
-<mat-dialog-content class="align-title">{{'meeting-room.post' | translate}}</mat-dialog-content>
+<mat-dialog-content cdkDrag cdkDragRootElement=".cdk-overlay-pane"
+ class="align-title">{{'meeting-room.post' | translate}}</mat-dialog-content>
 <mat-dialog-content class="align-content">
    <form [formGroup]="meetingForm" (ngSubmit)="onSubmit()">
      <mat-form-field>
@@ -63,12 +70,14 @@ import { MeetingRoomService } from './../services/meeting-room.service';
            matInput placeholder="{{'meeting-room.text' | translate}}">
            <mat-error>{{'validation.validate' | translate}}</mat-error>
      </mat-form-field>
+     <p *ngIf="this.errorMessage == 'occupied.meetingRoomName'">
+       {{'error-meeting-roomPost-snackbar.name' | translate}}</p>
      <br>
      <mat-form-field>
        <mat-label>{{'meeting-room.seats' | translate}}</mat-label>
-         <input  type="number" min="0" required="true" name="numberOfSeats" formControlName="numberOfSeats"
+         <input  type="number" min="0" name="numberOfSeats" formControlName="numberOfSeats"
            matInput placeholder="{{'meeting-room.seats' | translate}}">
-           <mat-error>{{'validation.validate' | translate}}</mat-error>
+           <mat-error> {{'validation.validate' | translate}}</mat-error>
      </mat-form-field>
      <br>
      <div align="left">
@@ -79,8 +88,7 @@ import { MeetingRoomService } from './../services/meeting-room.service';
      </div>
      <br>
      <mat-dialog-actions>
-     <button mat-raised-button mat-dialog-close type="submit" color="primary"[disabled]="meetingForm.invalid"
-         (click)="openSnackBar() "backgroundcolor="primary">
+     <button mat-raised-button type="submit" color="primary"[disabled]="meetingForm.invalid">
          {{'meeting-room.saveButton' | translate}}
        </button>
     </mat-dialog-actions>
@@ -100,10 +108,12 @@ export class MeetingRoomRegisterComponent implements OnInit {
   public meetingRooms: MeetingRoom[];
   public meetingRoom: MeetingRoom;
   public checked: boolean = false;
+  public errorMessage: string = '';
   public meetingF: FormGroup;
 
   constructor(
     private readonly changeDetectorRef: ChangeDetectorRef,
+    public dialogRef: MatDialogRef<MeetingRoomRegisterComponent>,
     private readonly snackBar: MatSnackBar,
     private meetingRoomService: MeetingRoomService,
     private buildigService: BuildingService,
@@ -147,14 +157,22 @@ export class MeetingRoomRegisterComponent implements OnInit {
       .subscribe((data) => {
         this.meetingRoom = data;
         this.meetingRoomService.getAllMeetingRooms();
+        this.openSnackBar();
+        this.dialogRef.close();
+      }, (error: HttpErrorResponse) => {
+        this.errorMessage = error.error;
+        this.errorSnackBar();
       });
-    if (this.meetingForm.valid) {
-    this.meetingForm.reset();
-    }
   }
 
   public openSnackBar() {
     this.snackBar.open(this.translate.instant(`snackbar-meeting-room.registerOk`), '', {
+      duration: 2500
+    });
+  }
+
+  public errorSnackBar() {
+    this.snackBar.open(this.translate.instant(`error-meeting-roomPost-snackbar.error`), '', {
       duration: 2500
     });
   }

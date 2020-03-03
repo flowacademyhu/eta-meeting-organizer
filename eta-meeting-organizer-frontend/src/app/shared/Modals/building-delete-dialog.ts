@@ -10,11 +10,11 @@ import { BuildingService } from '../services/building.service';
   .align-title {
     padding-top: 5%;
     margin: 0 auto;
-    font-size: 250%;
+    font-size: 225%;
     text-align: center;
   }
   .align-content {
-    font-size: 170%;
+    font-size: 160%;
     margin: 0 auto;
     text-align: center;
   }

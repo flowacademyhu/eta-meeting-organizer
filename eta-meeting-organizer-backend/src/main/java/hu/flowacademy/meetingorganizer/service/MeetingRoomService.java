@@ -68,10 +68,8 @@ public class MeetingRoomService {
     validateMeetingRoomData(input);
     List<MeetingRoom> resultList = meetingRoomRepository
         .findByBuilding_AddressAndName(input.getBuilding().getAddress(), input.getName());
-    System.out.println(resultList);
-    List<String> list = resultList.stream().map(x -> x.getName()).collect(Collectors.toList());
-    System.out.println(list);
-    if (!(resultList.isEmpty())) {
+    resultList.remove(input.toEntity());
+   if (!(resultList.isEmpty())) {
       throw new MeetingRoomNameAlreadyExistsException();
     }
   }
