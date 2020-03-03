@@ -4,7 +4,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
 import { MeetingRoomService } from '../services/meeting-room.service';
 
-
 @Component({
   selector: 'app-meeting-room-checkbox-delete',
   styles: [`
