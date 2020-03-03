@@ -132,13 +132,17 @@ export class BuildingComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   public deleteByCheckboxDialog(id: number[]) {
-    this.dialogRef = this.dialog.open(BuildingCheckboxComponent, {
+    const dialogRef = this.dialogRef = this.dialog.open(BuildingCheckboxComponent, {
       disableClose: true,
       height: '35%',
       width: '30%',
       data: id
     });
+    dialogRef.afterClosed()
+    .subscribe(() => {
+    this.buildingService.getAllBuildings();
     this.checkedArr = [];
+    });
   }
 
   public ngAfterViewInit(): void {
