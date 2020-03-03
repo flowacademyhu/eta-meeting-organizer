@@ -39,17 +39,22 @@ import { BuildingService } from './../../shared/services/building.service';
     </mat-form-field>
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8"
       matSort matSortActive="id" matSortDirection="desc" matSortDisableClear>
+
       <ng-container matColumnDef="checkbox">
-        <th mat-header-cell *matHeaderCellDef class="column">
-          <button mat-icon-button  [disabled]="this.checkedArr.length === 0" [color]="(this.checkedArr.length > 0) ? 'primary' : 'accent'"
+        <th mat-header-cell  [ngStyle]="{textAlign: 'center'}" *matHeaderCellDef class="column">
+          <button mat-icon-button  [disabled]="this.checkedArr.length === 0"
+            [color]="(this.checkedArr.length > 0) ? 'primary' : 'accent'"
             (click)="deleteByCheckboxDialog(this.checkedArr)">
             <mat-icon>delete_forever</mat-icon>
           </button>
         </th>
-        <td mat-cell *matCellDef="let building">
+        <div >
+        <td mat-cell [ngStyle]="{textAlign: 'center'}" *matCellDef="let building">
           <mat-checkbox (change)="checkCheckBox(building.id, $event)"></mat-checkbox>
         </td>
+        </div>
       </ng-container>
+
       <ng-container matColumnDef="id">
         <th mat-header-cell *matHeaderCellDef class="column" mat-sort-header>{{'profile.id' | translate}}</th>
         <td mat-cell  *matCellDef="let building">{{building.id}}</td>
