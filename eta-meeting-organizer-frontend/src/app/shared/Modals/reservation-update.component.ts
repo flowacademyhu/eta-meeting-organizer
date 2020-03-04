@@ -96,7 +96,6 @@ export class ReservationUpdateComponent implements OnInit {
     this.reservationToPost = new ReservationToPost(Number(this.data.id), this.data.userId, this.data.meetingRoomId,
         new Date(this.data.start).valueOf(), new Date(this.data.end).valueOf(), this.data.title, this.data.summary);
     this.reservationToPost.participants = [];
-    console.log('reservation to update', this.reservationToPost);
     this.reservationService.
     updateReservation(Number(this.data.id), this.reservationToPost)
     .subscribe(() => {
