@@ -38,7 +38,7 @@ import { AuthService } from '../services/auth.service';
     `,
 ],
   template: `
-  <mat-toolbar id="row" class="my-0" color="accent" routerLinkActive="active-link" 
+  <mat-toolbar id="row" class="my-0" color="accent" routerLinkActive="active-link"
     [routerLinkActiveOptions]="{exact: true}">
     <a class="mr-3"  routerLink="/calendar"><img src="../../../assets/wysio_arrow.png" height="55" /></a>
     <a class="mr-3" id="a"
