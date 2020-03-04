@@ -2,10 +2,10 @@ import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
-import { MeetingRoomService } from '../services/meeting-room.service';
+import { UserService } from './../services/user.service';
 
 @Component({
-  selector: 'app-meeting-room-checkbox-delete',
+  selector: 'app-user-checkbox-delete',
   styles: [`
     .align-title {
       padding-top: 7%;
@@ -34,38 +34,38 @@ import { MeetingRoomService } from '../services/meeting-room.service';
     }
   `],
   template: `
-  <mat-dialog-content class="align-title">{{'meeting-room-delete.meetingRoomDelete' | translate}}</mat-dialog-content>
+  <mat-dialog-content class="align-title">{{'user-delete-dialog.userDelete' | translate}}</mat-dialog-content>
   <br>
-  <mat-dialog-content class="align-content">{{'meeting-room-delete.verification' | translate}}</mat-dialog-content>
+  <mat-dialog-content class="align-content">{{'user-delete-dialog.verification' | translate}}</mat-dialog-content>
   <br>
-  <p>{{'meeting-room-delete.warning' | translate}}</p>
+  <p>{{'user-delete-dialog.warning' | translate}}</p>
   <mat-dialog-actions >
   <button mat-raised-button color="primary" (click)="deleteByCheckbox()">
-  {{'meeting-room-delete.delete' | translate}}
+  {{'user-delete-dialog.delete' | translate}}
   </button>
   </mat-dialog-actions>
   <br>
   <mat-dialog-actions >
   <button mat-raised-button mat-dialog-close="false" color="accent">
-    {{'meeting-room-delete.cancel' | translate}}
+  {{'user-delete-dialog.cancel' | translate}}
   </button>
   </mat-dialog-actions>
   `
 })
 
-export class MeetingRoomCheckboxComponent {
+export class UserCheckboxComponent {
   constructor(
     private readonly snackBar: MatSnackBar,
     private readonly translate: TranslateService,
-    @Inject(MAT_DIALOG_DATA) private  id: number[],
-    public dialogRef: MatDialogRef<MeetingRoomCheckboxComponent>,
-    private readonly meetingRoomService: MeetingRoomService) {}
+    @Inject(MAT_DIALOG_DATA) private  id: string[],
+    public dialogRef: MatDialogRef<UserCheckboxComponent>,
+    private readonly userService: UserService) {}
 
     public deleteByCheckbox() {
-    this.meetingRoomService.deleteMeetingRoomByCheckBox((this.id))
+    this.userService.deleteUserByCheckBox((this.id))
       .subscribe(() => {
-        this.meetingRoomService.deleteMeetingRoomByCheckBox(this.id);
-        this.meetingRoomService.getAllMeetingRooms();
+        this.userService.deleteUserByCheckBox(this.id);
+        this.userService.getAllUsers();
         this.dialogRef.close();
         }, () => {
           this.errorSnackbar();

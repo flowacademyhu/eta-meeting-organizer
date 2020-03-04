@@ -57,4 +57,9 @@ public class UserResource {
     userService.setUserRole(id, roleDTO);
     return ResponseEntity.accepted().build();
   }
+  @DeleteMapping("/delete/{id}")
+  public ResponseEntity<Void> deleteWithCheckbox(@PathVariable List<String> id) {
+    userService.deleteAllById(id);
+    return ResponseEntity.noContent().build();
+  }
 }

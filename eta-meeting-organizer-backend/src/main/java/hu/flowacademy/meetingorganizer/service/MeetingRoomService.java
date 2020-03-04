@@ -69,7 +69,7 @@ public class MeetingRoomService {
     List<MeetingRoom> resultList = meetingRoomRepository
         .findByBuilding_AddressAndName(input.getBuilding().getAddress(), input.getName());
     resultList.remove(input.toEntity());
-   if (!(resultList.isEmpty())) {
+    if (!(resultList.isEmpty())) {
       throw new MeetingRoomNameAlreadyExistsException();
     }
   }

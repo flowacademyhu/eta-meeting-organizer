@@ -25,6 +25,9 @@ import { BuildingService } from './../../shared/services/building.service';
     .addButton {
       width: 100%;
     }
+    .mat-icon-button ::ng-deep .mat-button-focus-overlay {
+    display: none;
+    }
   `],
   template: `
   <div class="row justify-content-center" class="container">
@@ -133,7 +136,7 @@ export class BuildingComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   public deleteByCheckboxDialog(id: number[]) {
-    const dialogRef = this.dialogRef = this.dialog.open(BuildingCheckboxComponent, {
+    const dialogRef = this.dialog.open(BuildingCheckboxComponent, {
       disableClose: true,
       height: '35%',
       width: '30%',

@@ -52,4 +52,8 @@ public class UserService {
     user.setRole(roleDTO.getRole());
     return userRepository.save(user);
   }
+
+  public void deleteAllById(List<String> id) {
+    userRepository.deleteByIdIn(id);
+  }
 }

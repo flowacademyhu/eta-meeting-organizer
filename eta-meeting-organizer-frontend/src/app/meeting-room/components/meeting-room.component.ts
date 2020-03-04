@@ -25,6 +25,9 @@ import { MeetingRoomService } from './../../shared/services/meeting-room.service
       width: 100%;
       table-layout: fixed;
     }
+    .mat-icon-button ::ng-deep .mat-button-focus-overlay {
+    display: none;
+    }
   `],
   template: `
   <div class="row justify-content-center" class="container">
