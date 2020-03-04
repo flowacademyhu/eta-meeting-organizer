@@ -90,8 +90,8 @@ import { MeetingRoomService } from './../../shared/services/meeting-room.service
         {{meetingRoom.building?.buildingName}}
       </td>
     </ng-container>
-    <ng-container matColumnDef="building">
-      <th mat-header-cell *matHeaderCellDef class="column" mat-sort-header>
+    <ng-container matColumnDef="building.city">
+      <th mat-header-cell *matHeaderCellDef class="column" mat-sort-header="building.city">
         {{'meeting-room.building' | translate}}
       </th>
       <td mat-cell *matCellDef="let meetingRoom">
@@ -127,7 +127,7 @@ import { MeetingRoomService } from './../../shared/services/meeting-room.service
 })
 export class MeetingRoomComponent implements OnInit, OnDestroy, AfterViewInit {
 
-  public displayedColumns: string[] = ['checkbox', 'name', 'numberOfSeats', 'projector', 'building', 'delete'];
+  public displayedColumns: string[] = ['checkbox', 'name', 'numberOfSeats', 'projector', 'building.city', 'delete'];
   public dataSource: MatTableDataSource<MeetingRoom> = new MatTableDataSource<MeetingRoom>();
   public dataSub: Subscription;
   public unsubFromDialog: Subscription;
@@ -156,12 +156,18 @@ export class MeetingRoomComponent implements OnInit, OnDestroy, AfterViewInit {
     this.meetingRoomService.getAllMeetingRooms();
     this.dataSource.paginator = this.paginator;
     this.meetingRoomService.meetingRoomSub.subscribe((meetingRooms) => this.dataSource.data = meetingRooms);
+    this.dataSource.sortingDataAccessor = (item, property) => {
+      switch (property) {
+        case 'building.city': return item.building?.city;
+        default: return item[property];
+      }
+    };
+    this.dataSource.sort = this.sort;
   }
 
   public ngAfterViewInit(): void {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
-    this.dataSource.sortingDataAccessor = (data, attribute) => data[attribute];
   }
 
   public doFilter = (value: string) => {
