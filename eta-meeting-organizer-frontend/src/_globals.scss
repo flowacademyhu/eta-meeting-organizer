@@ -10,3 +10,22 @@ body {
 .w-50 {
   width: 50%;
 }
+
+.fc-toolbar.fc-header-toolbar {
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+}
+
+a.fc-time-grid-event.fc-event {
+  cursor: pointer;
+}
+
+div.fc-title {
+  font-size: 1.8em;
+  text-align: center;
+  word-break: break-all;
+}
+
+.fc-time-grid-event .fc-time {
+  text-align: center;
+}

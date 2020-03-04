@@ -23,7 +23,7 @@ import { MeetingRoomService } from './../services/meeting-room.service';
     margin: 0 auto;
     color: #e64b3a;
     text-align:center;
-  }
+    }
     button {
       margin-top: 15%;
       width: 80%;

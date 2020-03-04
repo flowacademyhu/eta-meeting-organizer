@@ -19,7 +19,7 @@ import { ReservationUpdateComponent } from './reservation-update.component';
     text-align: center;
   }
   .align-content{
-    height: auto;
+    height: 16cm;
     font-size: 120%;
     margin: 0 auto;
     text-align: center;
@@ -34,16 +34,21 @@ import { ReservationUpdateComponent } from './reservation-update.component';
   mat-label {
     font-weight: bold;
   }
+  .example-card {
+    word-break: break-all;
+    max-width: 300px;
+  }
   `],
  template: `
 <mat-dialog-content cdkDrag cdkDragRootElement=".cdk-overlay-pane"
 class="align-title">{{'reservation.summary' | translate}}</mat-dialog-content>
 <mat-dialog-content class="align-content">
-  <mat-card class="align-content">
+  <mat-card class="align-content" class="example-card">
     <div class="data">
       <mat-label>{{'reservation.meetingroom' | translate}}</mat-label>
       <br>
       {{ data.meetingRoomName }}
+      <br>
       <br>
       <mat-divider></mat-divider>
       <br>
@@ -51,17 +56,23 @@ class="align-title">{{'reservation.summary' | translate}}</mat-dialog-content>
       <br>
       {{ data.title }}
       <br>
+      <br>
       <mat-divider></mat-divider>
       <br>
       <mat-label>{{'reservation.summary' | translate}}</mat-label>
       <br>
+      <mat-card-content>
+      <p>
       {{ data.summary }}
+      </p>
+      </mat-card-content>
       <br>
       <mat-divider></mat-divider>
       <br>
       <mat-label>{{'reservation.startDate' | translate}}</mat-label>
       <br>
       {{ data.start | date : 'y.MM.dd. HH:mm'}}
+      <br>
       <br>
       <mat-divider></mat-divider>
       <br>
@@ -72,6 +83,7 @@ class="align-title">{{'reservation.summary' | translate}}</mat-dialog-content>
 </mat-card>
 <mat-dialog-actions>
     <button mat-raised-button
+    *ngIf="!data.meetingRoomView"
       (click)="updateDialog()" color="primary">{{'reservation.modify' | translate}}</button>
     </mat-dialog-actions>
       <br>
@@ -82,6 +94,7 @@ class="align-title">{{'reservation.summary' | translate}}</mat-dialog-content>
       <br>
     <mat-dialog-actions>
       <button mat-raised-button color="warn"
+      *ngIf="!data.meetingRoomView || data.admin"
       (click)="deleteDialog()">{{'reservation.delete' | translate}}</button>
     </mat-dialog-actions>
 </mat-dialog-content>`,
@@ -113,6 +126,7 @@ export class ReservationInfoComponent {
 
   public updateDialog() {
     const dialogRef = this.dialog.open(ReservationUpdateComponent, {
+      height: '80%',
       width: '400px',
       data: this.data
     });
