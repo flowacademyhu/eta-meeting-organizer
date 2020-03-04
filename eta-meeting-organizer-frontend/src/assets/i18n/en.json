@@ -178,8 +178,9 @@
   },
   "reservation-error-messages": {
     "post": "There is another reservation in the given time frame.",
-    "update": "There is another reservation in the given time frame..",
-    "delete": "Unsuccesful deletion",
+    "update": "There is another reservation in the given time frame.",
+    "delete": "Unsuccesful deletion.",
+    "updateError": "Unsuccesful update.",
     "error": "Unsuccesful reservation."
   },
   "reservation-delete-dialog": {

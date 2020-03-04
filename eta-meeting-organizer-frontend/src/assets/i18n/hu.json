@@ -175,6 +175,7 @@
     "post": "A megadott időintervallum ütközik egy másik foglalással.",
     "update": "A megadott időintervallum ütközik egy másik foglalással.",
     "error": "Sikertelen foglalás.",
+    "updateError": "Sikertelen módosítás",
     "delete": "Sikertelen törlés."
   },
   "validation": {
