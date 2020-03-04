@@ -7,6 +7,8 @@ import { EventElement } from '~/app/models/event.model';
 import { ReservationService } from '../services/reservation.service';
 import { ReservationDeleteComponent } from './reservation-delete.component';
 import { ReservationUpdateComponent } from './reservation-update.component';
+import { MatSnackBar } from '@angular/material';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-reservation-info',
@@ -110,6 +112,8 @@ export class ReservationInfoComponent {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: EventElement,
     public dialogRef: MatDialogRef<ReservationInfoComponent>,
+    private readonly snackBar: MatSnackBar,
+    private readonly translate: TranslateService,
     public datepipe: DatePipe,
     private readonly dialog: MatDialog,
     private readonly reservationService: ReservationService) {
@@ -149,7 +153,22 @@ export class ReservationInfoComponent {
     this.reservationService.deleteReservation(Number(this.data.id))
     .subscribe(() => {
     this.closeOutput.emit();
+    this.openSnackBar();
     this.dialogRef.close();
+    }, () => {
+      this.errorSnackBar();
+    });
+  }
+
+  public openSnackBar() {
+    this.snackBar.open(this.translate.instant(`snackbar-reservation.reservationDeleteOk`), undefined, {
+      duration: 2500
+    });
+  }
+
+  public errorSnackBar() {
+    this.snackBar.open(this.translate.instant(`reservation-error-messages.delete`), '', {
+      duration: 2500
     });
   }
 }

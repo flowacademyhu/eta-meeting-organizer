@@ -33,8 +33,8 @@ import { TranslateService } from '@ngx-translate/core';
   <br>
   <mat-dialog-actions>
     <button
-    mat-raised-button mat-dialog-close="true" color="primary"
-    (click)="openSnackBar()">{{'reservation-delete-dialog.yes' | translate}}</button>
+    mat-raised-button mat-dialog-close="true" color="primary">
+    {{'reservation-delete-dialog.yes' | translate}}</button>
     </mat-dialog-actions>
     <br>
     <mat-dialog-actions>

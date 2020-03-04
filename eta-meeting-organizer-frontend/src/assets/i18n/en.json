@@ -180,7 +180,7 @@
     "post": "There is another reservation in the given time frame.",
     "update": "There is another reservation in the given time frame..",
     "delete": "Unsuccesful deletion",
-    "error": "Unsuccesful reservation.",
+    "error": "Unsuccesful reservation."
   },
   "reservation-delete-dialog": {
     "reservationDelete": "Reservation deletion",
