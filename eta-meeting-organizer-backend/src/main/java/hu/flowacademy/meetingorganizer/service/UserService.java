@@ -53,13 +53,15 @@ public class UserService {
     user.setRole(roleDTO.getRole());
     return userRepository.save(user);
   }
-  
+
   private void sendEmailForVerify(String email, EmailType emailType) {
     emailService.send(email, "Welcome", emailType.getTemplateName(),
         Map.of())
     ;
-    
+  }
+
   public void deleteAllById(List<String> id) {
     userRepository.deleteByIdIn(id);
   }
 }
+
