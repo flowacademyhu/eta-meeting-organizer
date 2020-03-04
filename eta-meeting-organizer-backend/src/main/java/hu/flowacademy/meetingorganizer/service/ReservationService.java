@@ -46,7 +46,7 @@ public class ReservationService {
   }
 
   public Reservation createReservation(ReservationDTO reservationInput) {
-    validateReservation(reservationInput);
+    validateReservation(reservationInput, "create", 0l);
     User user = userRepository.findById(reservationInput.getUserId())
         .orElseThrow(() -> new UserNotFoundException(reservationInput.getUserId()));
     MeetingRoom mRoom = meetingRoomRepository.findById(reservationInput.getMeetingRoomId())
@@ -61,7 +61,7 @@ public class ReservationService {
 
   public Reservation updateReservation(Long id, ReservationDTO reservationInput) {
     if (reservationRepository.findById(id).isPresent()) {
-      validateReservation(reservationInput);
+      validateReservation(reservationInput, "update", id);
       User user = userRepository.findById(reservationInput.getUserId())
           .orElseThrow(() -> new UserNotFoundException(reservationInput.getUserId()));
       MeetingRoom mRoom = meetingRoomRepository.findById(reservationInput.getMeetingRoomId())
@@ -72,9 +72,21 @@ public class ReservationService {
     throw new ReservationNotFoundException();
   }
 
-  private void validateReservation(ReservationDTO input) {
-    if(reservationRepository.findAllByMeetingRoomIdInInterval(input.getMeetingRoomId(), input.getStartingTime(), input.getEndingTime()) > 0) {
-      throw new ValidationException("reservation.reserved");
+  private void validateReservation(ReservationDTO input, String type, Long id) {
+    if (type.equals("create")) {
+      if (reservationRepository
+          .findAllByMeetingRoomIdInInterval(input.getMeetingRoomId(), input.getStartingTime(),
+              input.getEndingTime()) > 0) {
+        throw new ValidationException("reservation.reserved");
+      }
+      if (type.equals("update")) {
+        if (reservationRepository
+            .findAllByMeetingRoomIdInIntervalForUpdate(input.getMeetingRoomId(), id,
+                input.getStartingTime(), input.getEndingTime()) > 0) {
+          throw new ValidationException("reservation.reserved");
+        }
+
+      }
     }
     if (StringUtils.isEmpty(input.getUserId())) {
       throw new ValidationException("reservation.userId");

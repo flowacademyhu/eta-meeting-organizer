@@ -74,14 +74,10 @@ public class BuildingService {
     validateBuildingData(input);
     Building formerBuilding = buildingRepository.findById(id)
         .orElseThrow(BuildingNotFoundException::new);
-/*    List<String> addressList = buildingRepository.findAllAddresses();
-    addressList.remove(formerBuilding.getAddress());*/
-    if (buildingRepository.findByAddressNotIn(List.of(formerBuilding.getAddress())).contains(input.getAddress())) {
+    if (buildingRepository.findByAddressNotIn(formerBuilding.getAddress()).contains(input.getAddress())) {
       throw new BuildingAddressAlreadyExistsException();
     }
-    List<String> buildingNameList = buildingRepository.findBuildingNamesByCity(input.getCity());
-    buildingNameList.remove(formerBuilding.getBuildingName());
-    if (buildingNameList.contains(input.getBuildingName())) {
+    if (buildingRepository.findBuildingNamesByCity(input.getCity(), formerBuilding.getBuildingName()).contains(input.getBuildingName())) {
       throw new BuildingNameAlreadyExistsException();
     }
   }

@@ -10,19 +10,19 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface BuildingRepository extends JpaRepository<Building, Long> {
 
-  @Query("select distinct city from Building b")
+  @Query("SELECT DISTINCT city FROM Building b")
   List<String> findAllCities();
 
-  @Query("select distinct address from Building b")
+  @Query("SELECT DISTINCT address FROM Building b")
   List<String> findAllAddresses();
 
-  @Query
+  @Query("SELECT address FROM Building b WHERE b.address != ?1")
   List<String> findByAddressNotIn(String address);
 
   List<Building> findByCityAndBuildingName(String city, String buildingName);
 
-  @Query("SELECT buildingName FROM Building b WHERE (city = ?1)")
-  List<String> findBuildingNamesByCity(String city);
+  @Query("SELECT buildingName FROM Building b WHERE b.city = ?1 AND b.buildingName != ?2")
+  List<String> findBuildingNamesByCity(String city, String buildingName);
 
   List<Building> findAllByCity(String city);
 
