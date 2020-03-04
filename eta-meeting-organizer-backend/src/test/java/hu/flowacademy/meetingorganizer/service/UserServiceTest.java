@@ -13,8 +13,12 @@ import hu.flowacademy.meetingorganizer.persistence.model.Role;
 import hu.flowacademy.meetingorganizer.persistence.model.User;
 import hu.flowacademy.meetingorganizer.persistence.model.dto.RoleDTO;
 import hu.flowacademy.meetingorganizer.persistence.repository.UserRepository;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Optional;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -85,8 +89,8 @@ public class UserServiceTest {
   @Test
   public void setUserRoleTest() {
     RoleDTO roleDTO = RoleDTO.builder().role(Role.USER).build();
-    userService.createUser(user1);
-    userService.setUserRole("12345rtz", roleDTO);
+    userRepository.save(user1);
+    userService.setUserRole(user1.getId(), roleDTO);
     assertEquals("12345rtz", user1.getId());
     assertEquals(Role.USER, user1.getRole());
 
@@ -109,5 +113,15 @@ public class UserServiceTest {
   public void deleteUserTest() {
     userService.deleteUser("12345rtz");
     verify(userRepository, times(1)).deleteById("12345rtz");
+  }
+
+  @Test
+  public void deleteAllByIdTest() {
+    List<String> idList = new ArrayList<>();
+    idList.add("12345rtz");
+    idList.add("2rtifnjw234");
+
+    userService.deleteAllById(idList);
+    verify(userRepository, times(1)).deleteByIdIn(idList);
   }
 }
