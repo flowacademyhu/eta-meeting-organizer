@@ -3,7 +3,6 @@ package hu.flowacademy.meetingorganizer.service;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -15,10 +14,7 @@ import hu.flowacademy.meetingorganizer.persistence.model.dto.RoleDTO;
 import hu.flowacademy.meetingorganizer.persistence.repository.UserRepository;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 import java.util.Optional;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -89,6 +85,10 @@ public class UserServiceTest {
   @Test
   public void setUserRoleTest() {
     RoleDTO roleDTO = RoleDTO.builder().role(Role.USER).build();
+    when(userRepository.findById("12345rtz")).thenReturn(Optional.of(user1));
+    assertThat(userService.findOne("12345rtz"), is(Optional.of(user1)));
+    verify(userRepository, times(1)).findById("12345rtz");
+
     userRepository.save(user1);
     userService.setUserRole(user1.getId(), roleDTO);
     assertEquals("12345rtz", user1.getId());
