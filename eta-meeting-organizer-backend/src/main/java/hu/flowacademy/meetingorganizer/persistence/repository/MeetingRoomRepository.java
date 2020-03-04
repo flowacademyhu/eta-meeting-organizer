@@ -4,6 +4,7 @@ import hu.flowacademy.meetingorganizer.persistence.model.MeetingRoom;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -16,5 +17,8 @@ public interface MeetingRoomRepository extends JpaRepository<MeetingRoom, Long> 
   @Modifying
   void deleteByIdIn(List<Long> id);
 
-  List<MeetingRoom> findByBuilding_AddressAndName(String City, String name);
+  List<MeetingRoom> findByBuilding_IdAndName(Long id, String name);
+
+  @Query("SELECT m.name FROM MeetingRoom m WHERE m.building.id = ?1")
+  List<String> findMeetingRoomNamesByBuildingId(Long id);
 }

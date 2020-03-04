@@ -45,11 +45,14 @@ import { AuthService } from '~/app/shared/services/auth.service';
                   {{building.address}}
                 </mat-option>
               </mat-select>
-        </mat-form-field>
-        <mat-form-field>
-          <mat-label>{{'calendar-header.meeting-room' | translate}}</mat-label>
-            <mat-select (selectionChange)="setParam()" formControlName="meetingRoom" [(ngModel)]="meetingRoom">
-              <mat-option>
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>{{'calendar-header.meeting-room' | translate}}</mat-label>
+              <mat-select
+              formControlName="meetingRoom"
+              [(ngModel)]="meetingRoom"
+              (selectionChange)="setParam()">
+              <mat-option *ngIf="meetingRooms === undefined || meetingRooms.length < 1">
                   <p align="center">--</p>
               </mat-option>
               <mat-option *ngFor="let meetingRoom of meetingRooms" [value]="meetingRoom">

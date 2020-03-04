@@ -105,7 +105,7 @@ export class ReservationTimeUpdateComponent {
     this.reservationToPost.endingTime = new Date(this.data.end).valueOf();
     this.reservationToPost.title = this.data.title;
     this.reservationToPost.summary = this.data.summary;
-
+    this.reservationToPost.participants = [];
     this.reservationService.
     updateReservation(Number(this.data.id), this.reservationToPost)
     .subscribe(() => {

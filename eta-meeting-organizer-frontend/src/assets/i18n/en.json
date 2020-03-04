@@ -160,7 +160,12 @@
     "reserve": "Reserve",
     "head": "Meeting room reservation",
     "edit": "Reservation edit:",
-    "quit": "Back to the calendar"
+    "quit": "Back to the calendar",
+    "participantButton": "Add participants",
+    "email": "E-mail address",
+    "add": "Add",
+    "participantList": "List of participants",
+    "back": "Back"
   },
   "snackbar-reservation": {
     "reservationOk": "Making reservation was succesful.",
@@ -168,7 +173,8 @@
     "reservationDeleteOk": "Reservation deletion was successful"
   },
   "validation": {
-    "validate": "You must fill out this field!"
+    "validate": "You must fill out this field!",
+    "email": "Not valid e-mail address"
   },
   "reservation-delete-dialog": {
     "reservationDelete": "Reservation deletion",
