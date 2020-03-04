@@ -149,7 +149,6 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnChanges, OnDe
       changes?.posted?.currentValue) {
         this.getReservationsByMeetingRoom();
         if (this.isReader) {
-          console.log('setteimeout')
           timer(100, 30000)
           .pipe(takeUntil(this.destroy$))
           .subscribe(() => {
