@@ -1,14 +1,14 @@
 import { DatePipe } from '@angular/common';
 import { Component, EventEmitter, Inject, Output } from '@angular/core';
+import { MatSnackBar } from '@angular/material';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { TranslateService } from '@ngx-translate/core';
 import { Subject, Subscription } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { EventElement } from '~/app/models/event.model';
 import { ReservationService } from '../services/reservation.service';
 import { ReservationDeleteComponent } from './reservation-delete.component';
 import { ReservationUpdateComponent } from './reservation-update.component';
-import { MatSnackBar } from '@angular/material';
-import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-reservation-info',
