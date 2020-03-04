@@ -92,7 +92,7 @@ import { BuildingService } from './../../shared/services/building.service';
     </table>
     <mat-paginator
       class="mat-elevation-z8"
-      [pageSize]="5"
+      [pageSize]="10"
       [pageSizeOptions]="[10, 25, 50]"
       showFirstLastButtons>
     </mat-paginator>
