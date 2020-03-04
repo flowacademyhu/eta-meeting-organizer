@@ -18,6 +18,9 @@ public interface BuildingRepository extends JpaRepository<Building, Long> {
 
   List<Building> findByCityAndBuildingName(String city, String buildingName);
 
+  @Query("SELECT buildingName FROM Building b WHERE (city = ?1)")
+  List<String> findBuildingNamesByCity(String city);
+
   List<Building> findAllByCity(String city);
 
   List<Building> findAllByOrderById();
