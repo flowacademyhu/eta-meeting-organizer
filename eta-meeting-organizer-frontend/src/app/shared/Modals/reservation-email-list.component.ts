@@ -12,7 +12,7 @@ import { Participant } from '~/app/models/participant.model';
     padding-top: 5%;
     height: 100px;
     margin: 0 auto;
-    font-size: 250%;
+    font-size: 225%;
     text-align: center;
   }
   .align-content{
@@ -26,12 +26,18 @@ import { Participant } from '~/app/models/participant.model';
     text-align: center;
     margin: 0 auto;
   }
-  button {
+  .button {
     width: 80%;
     margin: 0 auto;
     border:1px solid;
     border-color: black;
     font-size: 100%;
+    margin: 20px;
+    text-align: center;
+  }
+  mat-icon {
+    vertical-align: middle;
+    display: inline-flex;
   }
   `],
  template: `
@@ -43,7 +49,7 @@ import { Participant } from '~/app/models/participant.model';
         <input matInput type="email" name="participant" formControlName="participant" [email]="true">
         <mat-error>{{'validation.email' | translate}}</mat-error>
   </mat-form-field>
-<button
+  <button class="button"
        mat-raised-button
        [disabled]="emailListForm.invalid"
        cdkFocusInitial
@@ -51,24 +57,26 @@ import { Participant } from '~/app/models/participant.model';
        (click)="addEmail()"
        >{{'reservation.add' | translate}}</button>
 </form>
-  <mat-card class="align-content" class="example-card">
-    <div class="emails">
+<mat-card>
       <mat-label>{{'reservation.participantList' | translate}}</mat-label>
       <mat-card-content>
+      <br>
       <p *ngFor="let participant of participants">
         {{participant.email}}
-        <button (click)=deleteEmail(participant)>{{'reservation.delete' | translate}}</button>
+      <button mat-button color="warn" (click)="deleteEmail(participant)">
+        <mat-icon>
+        clear
+        </mat-icon>
+      </button>
       </p>
       </mat-card-content>
-  </div>
-</mat-card>
-<mat-dialog-actions>
-    <button
+  </mat-card>
+    <button class="button"
       mat-raised-button
       (click)="close()"
       color="primary">{{'reservation.back' | translate}}</button>
-  </mat-dialog-actions>
-</mat-dialog-content>`,
+</mat-dialog-content>
+`,
 })
 
 export class ReservationEmailListComponent {
