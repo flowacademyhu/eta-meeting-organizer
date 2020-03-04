@@ -21,6 +21,7 @@ import { MeetingRoomRegisterComponent } from './Modals/meeting-room-register.com
 import { MeetingRoomUpdateComponent } from './Modals/meeting-room-update.component';
 import { ReservationBookingComponent } from './Modals/reservation-book.component';
 import { ReservationDeleteComponent } from './Modals/reservation-delete.component';
+import { ReservationEmailListComponent } from './Modals/reservation-email-list.component';
 import { ReservationInfoComponent } from './Modals/reservation-info.component';
 import { ReservationTimeUpdateComponent } from './Modals/reservation-time-update';
 import { ReservationUpdateComponent } from './Modals/reservation-update.component';
@@ -49,6 +50,7 @@ import { UserService } from './services/user.service';
     ReservationInfoComponent,
     ReservationDeleteComponent,
     ReservationTimeUpdateComponent,
+    ReservationEmailListComponent,
   ],
   exports: [
     CommonModule,
