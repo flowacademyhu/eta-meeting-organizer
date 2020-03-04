@@ -38,7 +38,7 @@ public class MeetingRoomService {
   }
 
   public MeetingRoomDTO updateMeetingRoom(Long id, MeetingRoomDTO meetingRoomDTO) {
-    validateMeetingRoom(meetingRoomDTO);
+    validateMeetingRoomOnUpdate(meetingRoomDTO);
     MeetingRoom oldMeetingRoom = meetingRoomRepository.findById(id).orElseThrow(MeetingRoomNotFoundException::new);
     oldMeetingRoom.setName(meetingRoomDTO.getName());
     oldMeetingRoom.setProjector(meetingRoomDTO.getProjector());
@@ -64,7 +64,7 @@ public class MeetingRoomService {
       throw new MeetingRoomNameAlreadyExistsException();
     }
   }
-/*
+
   public void validateMeetingRoomOnCreate(MeetingRoomDTO input) {
     validateMeetingRoomData(input);
     if ((!(meetingRoomRepository
@@ -77,13 +77,13 @@ public class MeetingRoomService {
     validateMeetingRoomData(input);
     List<MeetingRoom> resultList = meetingRoomRepository
         .findByBuilding_IdAndName(input.getBuilding().getId(), input.getName());
+    System.out.println(resultList.size());
     resultList.remove(input.toEntity());
-   if (!(resultList.isEmpty())) {
+    System.out.println(resultList.size());
+   if ((resultList.isEmpty())) {
       throw new MeetingRoomNameAlreadyExistsException();
     }
   }
-
- */
 
   public void validateMeetingRoomData(MeetingRoomDTO input) {
     if (Objects.isNull(input.getBuilding())) {
