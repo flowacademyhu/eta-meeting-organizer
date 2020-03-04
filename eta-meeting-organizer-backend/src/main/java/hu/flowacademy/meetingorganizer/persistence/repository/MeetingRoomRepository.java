@@ -19,6 +19,6 @@ public interface MeetingRoomRepository extends JpaRepository<MeetingRoom, Long> 
 
   List<MeetingRoom> findByBuilding_IdAndName(Long id, String name);
 
-  @Query("SELECT name FROM MeetingRoom m WHERE (m.building.id = ?1)")
+  @Query("SELECT m.name FROM MeetingRoom m WHERE m.building.id = ?1")
   List<String> findMeetingRoomNamesByBuildingId(Long id);
 }
