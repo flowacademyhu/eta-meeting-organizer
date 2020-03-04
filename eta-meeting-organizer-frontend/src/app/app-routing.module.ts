@@ -61,6 +61,10 @@ const routes: Routes = [
     path: 'users-table',
     pathMatch: 'full',
   },
+  {
+    path: '**',
+    redirectTo: '/calendar',
+  },
 ];
 
 @NgModule({

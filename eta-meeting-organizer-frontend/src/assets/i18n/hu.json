@@ -159,7 +159,12 @@
     "reserve": "Lefoglalás",
     "head": "Tárgyaló foglalás",
     "edit": "Esemény szerkesztése:",
-    "quit": "Vissza a naptárhoz"
+    "quit": "Vissza a naptárhoz",
+    "participantButton": "Résztvevők hozzáadása",
+    "email": "E-mail cím",
+    "add": "Hozzáadás",
+    "participantList": "Résztvevők listája",
+    "back": "Vissza"
   },
   "snackbar-reservation": {
     "reservationOk": "A tárgyaló foglalása sikeresen megtörtént.",
@@ -167,7 +172,8 @@
     "reservationDeleteOk": "A foglalás törlése sikeresen megtörtént."
   },
   "validation": {
-    "validate": "A mező kitöltése kötelező!"
+    "validate": "A mező kitöltése kötelező!",
+    "email": "Nem megfelelő e-mail cím"
   },
   "reservation-delete-dialog": {
     "reservationDelete": "Foglalás törlése",
@@ -177,7 +183,8 @@
   },
   "reservation-time-change-dialog": {
     "head": "Szeretné a foglalása időpontját a következők szerint módosítani?"
-  },"search-bar": {
+  },
+  "search-bar": {
    "search": "Keresés"
   }
 }
