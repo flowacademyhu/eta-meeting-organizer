@@ -32,28 +32,43 @@ import { AuthService } from '../services/auth.service';
       #logout{
       padding-top: 15px;
       }
+      .class1{
+        background-color: #555555;
+      }
     `,
 ],
   template: `
-  <mat-toolbar id="row" class="my-0" color="accent" >
-  <a class="mr-3"  routerLink="/calendar"><img src="../../../assets/wysio_arrow.png" height="55" /></a>
+  <mat-toolbar id="row" class="my-0" color="accent" routerLinkActive="active-link" 
+    [routerLinkActiveOptions]="{exact: true}">
+    <a class="mr-3"  routerLink="/calendar"><img src="../../../assets/wysio_arrow.png" height="55" /></a>
 
-  <a class="mr-3" id="a"
-  *ngIf="isAdmin" mat-stroked-button routerLink="/calendar">{{'navbar.calendar' | translate}}</a>
-  <a class="mr-3" id="a"
-  *ngIf="isAdmin" mat-stroked-button routerLink="/meetingroom">{{'navbar.meetingRoomEditor' | translate}}</a>
-  <a class="mr-3" id="a"
-  *ngIf="isAdmin" mat-stroked-button routerLink="/users-table">{{'navbar.usersManagement' | translate}}</a>
-  <a class="mr-3" id="a"
-  *ngIf="isAdmin" mat-stroked-button routerLink="/building-register">{{'navbar.buildingEditor' | translate}}</a>
-
-  <button mat-button class="ml-auto"(click)="onLanguageChange()">{{'header.button' | translate}}</button>
-  <p *ngIf="isToken" class="email">{{ user.username }}</p>
-
-  <a *ngIf="isToken" id="logout" (click)="logout()" class="ml-2" style="cursor: pointer;">
-
-  <p><img padding="20" src="../../../assets/logout.png" height="50"/></p>
-</a>
+    <a class="mr-3" id="a"
+      *ngIf="isAdmin" mat-stroked-button routerLink="/calendar" routerLinkActive="class1">
+        {{'navbar.calendar' | translate}}
+    </a>
+    <a class="mr-3" id="a"
+      *ngIf="isAdmin" mat-stroked-button routerLink="/meetingroom" routerLinkActive="class1">
+        {{'navbar.meetingRoomEditor' | translate}}
+      </a>
+    <a class="mr-3" id="a"
+      *ngIf="isAdmin" mat-stroked-button routerLink="/users-table" routerLinkActive="class1">
+        {{'navbar.usersManagement' | translate}}
+      </a>
+    <a class="mr-3" id="a"
+      *ngIf="isAdmin" mat-stroked-button routerLink="/building-register" routerLinkActive="class1">
+        {{'navbar.buildingEditor' | translate}}
+      </a>
+    <button mat-button class="ml-auto"(click)="onLanguageChange()">{{'header.button' | translate}}</button>
+    <p *ngIf="isToken" class="email">
+      {{ user.username }}
+    </p>
+    <span id="logout">
+      <p>
+      <a *ngIf="isToken" id="logout" (click)="logout()" style="cursor: pointer;">
+        <img  src="../../../assets/logout.png" height="50"/>
+      </a>
+      </p>
+    </span>
 </mat-toolbar>`
 })
 
