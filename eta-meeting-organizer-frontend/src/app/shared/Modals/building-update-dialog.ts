@@ -51,6 +51,8 @@ import { BuildingService } from './../services/building.service';
         <input matInput type="text" name="buildingName" formControlName="buildingName">
         <mat-error>{{'validation.validate' | translate}}</mat-error>
     </mat-form-field>
+    <p *ngIf="this.errorMessage == 'occupied.buildingName'">
+        {{'error-buildingUpdate-snackbar.building' | translate}}</p>
     <br>
     <mat-form-field>
       <mat-label>{{'building.city' | translate}}</mat-label>
@@ -63,8 +65,8 @@ import { BuildingService } from './../services/building.service';
         <input matInput type="text" name="address" formControlName="address">
         <mat-error>{{'validation.validate' | translate}}</mat-error>
         </mat-form-field>
-        <p *ngIf="this.errorMessage == 'occupied.buildingName'">
-        {{'error-buildingUpdate-snackbar.general' | translate}}</p>
+        <p *ngIf="this.errorMessage == 'occupied.address'">
+        {{'error-buildingUpdate-snackbar.address' | translate}}</p>
     <mat-dialog-actions>
       <button mat-raised-button type="submit" [disabled]="buildingForm.invalid"
       color="primary">{{'building.update' | translate}}</button>
