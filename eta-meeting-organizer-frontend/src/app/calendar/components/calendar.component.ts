@@ -183,6 +183,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnChanges, OnDe
     });
   }
   public getInfo(eventInput: EventInput) {
+    if (this.userToken.role !== 'READER') {
     let isMeetingRoomView = false;
     let isAdmin = false;
     if (!this.checked && eventInput.event.extendedProps.userId !== this.userToken.sub) {
@@ -218,6 +219,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnChanges, OnDe
     dialogRef.afterClosed()
       .pipe(takeUntil(this.destroy$))
       .subscribe();
+  }
   }
   public updateReservationTime(eventInput: EventInput) {
     const dialogRef = this.dialog.open(ReservationTimeUpdateComponent, {

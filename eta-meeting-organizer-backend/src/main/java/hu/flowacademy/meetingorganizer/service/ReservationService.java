@@ -58,7 +58,7 @@ public class ReservationService {
   }
 
   public Reservation createReservation(ReservationDTO reservationInput) {
-    validateReservation(reservationInput, "create", 0l);
+    validateReservation(reservationInput, "create", null);
     User user = userRepository.findById(reservationInput.getUserId())
         .orElseThrow(() -> new UserNotFoundException(reservationInput.getUserId()));
     MeetingRoom mRoom = meetingRoomRepository.findById(reservationInput.getMeetingRoomId())
