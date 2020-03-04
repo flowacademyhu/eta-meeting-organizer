@@ -41,7 +41,7 @@ import { BuildingService } from './../../shared/services/building.service';
      placeholder="{{'search-bar.search' | translate}}">
     </mat-form-field>
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8"
-      matSort matSortActive="id" matSortDirection="desc" matSortDisableClear>
+      matSort matSortActive="id" matSortDirection="desc">
 
       <ng-container matColumnDef="checkbox">
         <th mat-header-cell  [ngStyle]="{textAlign: 'center'}" *matHeaderCellDef class="column">
@@ -77,7 +77,7 @@ import { BuildingService } from './../../shared/services/building.service';
           <td mat-cell *matCellDef="let building"> {{building.address}} </td>
       </ng-container>
       <ng-container matColumnDef="delete">
-        <th mat-header-cell *matHeaderCellDef class="column" mat-sort-header> {{'building.action' | translate}} </th>
+        <th mat-header-cell *matHeaderCellDef class="column"> {{'building.action' | translate}} </th>
           <td mat-cell *matCellDef="let building">
             <button mat-icon-button color="accent" (click)="updateDialog(building)">
               <mat-icon aria-label="Edit">edit</mat-icon>
