@@ -9,9 +9,11 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import hu.flowacademy.meetingorganizer.exception.ValidationException;
 import hu.flowacademy.meetingorganizer.persistence.model.Building;
 import hu.flowacademy.meetingorganizer.persistence.model.dto.BuildingDTO;
 import hu.flowacademy.meetingorganizer.persistence.repository.BuildingRepository;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -49,10 +51,14 @@ public class BuildingServiceTest {
 
   @BeforeAll
   public static void init() {
-    building1 = Building.builder().id(1L).city("Budapest").address("Kossuth tér 1.").buildingName("Kék épület").build();
-    building2 = Building.builder().id(2L).city("Szeged").address("Damjanich u. 10.").buildingName("Zöld épület").build();
-    buildingDTO1 = BuildingDTO.builder().id(1L).city("Budapest").address("Kossuth tér 1.").buildingName("Kék épület").build();
-    buildingDTO2 = BuildingDTO.builder().id(2L).city("Szeged").address("Damjanich u. 10.").buildingName("Zöld épület").build();
+    building1 = Building.builder().id(1L).city("Budapest").address("Kossuth tér 1.")
+        .buildingName("Kék épület").build();
+    building2 = Building.builder().id(2L).city("Szeged").address("Damjanich u. 10.")
+        .buildingName("Zöld épület").build();
+    buildingDTO1 = BuildingDTO.builder().id(1L).city("Budapest").address("Kossuth tér 1.")
+        .buildingName("Kék épület").build();
+    buildingDTO2 = BuildingDTO.builder().id(2L).city("Szeged").address("Damjanich u. 10.")
+        .buildingName("Zöld épület").build();
   }
 
   @Test
@@ -76,14 +82,15 @@ public class BuildingServiceTest {
   @Test
   public void createBuildingTest() {
     buildingService.createBuilding(buildingDTO1);
-    assertEquals("Budapest", building1.getCity());
-    assertEquals("Kossuth tér 1.", building1.getAddress());
+    Building building = buildingDTO1.toEntity();
+    assertEquals(buildingRepository.findById(1L), building);
   }
 
   @Test
   public void updateBuildingTest() {
     building = Building.builder().city("Budapest").address("Kossuth tér 2.").build();
     buildingService.updateBuilding(1L, buildingDTO);
+
     assertEquals(1L, building.getId());
     assertEquals(building.getId(), building1.getId());
     assertEquals(building.getCity(), building1.getCity());
@@ -98,11 +105,29 @@ public class BuildingServiceTest {
 
   @Test
   public void findAllCitiesTest() {
-
+    when(buildingRepository.findAllCities()).thenReturn(List.of("Budapest", "Szeged"));
+    assertThat(buildingService.findAllCities(), is(List.of("Budapest", "Szeged")));
+    verify(buildingRepository, times(1)).findAllCities();
   }
 
   @Test
-  public void findByCityTest() {
+  public void findAllByCityTest() {
+    when(buildingRepository.findAllByCity("Budapest")).thenReturn(List.of(building1));
+    assertThat(buildingService.findAllByCity("Budapest"), is(List.of(building1)));
+    verify(buildingRepository, times(1)).findAllByCity("Budapest");
+  }
 
+  @Test
+  public void deleteAllByIdTest() {
+    List<Long> idList = new ArrayList<>();
+    idList.add(1L);
+    idList.add(2L);
+
+    buildingService.deleteAllById(idList);
+    verify(buildingRepository, times(1)).deleteByIdIn(idList);
+  }
+
+  @Test
+  public void validateBuildingDataTest() throws ValidationException {
   }
 }
