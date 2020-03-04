@@ -1,6 +1,7 @@
+import {HttpErrorResponse} from '@angular/common/http';
 import { Component, Inject, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
 import { MeetingRoom } from '~/app/models/meetingroom.model';
@@ -13,7 +14,7 @@ import { MeetingRoomService } from '../services/meeting-room.service';
     padding-top: 5%;
     padding-bottom: 5%;
     margin: 0 auto;
-    font-size: 250%;
+    font-size: 225%;
     text-align: center;
   }
   .align-content{
@@ -27,6 +28,10 @@ import { MeetingRoomService } from '../services/meeting-room.service';
     text-align: center;
     margin: 0 auto;
   }
+  p {
+    font-size: 75% !important;
+    color: #e64b3a;
+  }
   button {
     width: 80%;
     margin: 0 auto;
@@ -36,7 +41,8 @@ import { MeetingRoomService } from '../services/meeting-room.service';
   }
 `],
  template: `
-    <mat-dialog-content class="align-title">{{'meeting-room.edit' | translate}}</mat-dialog-content>
+    <mat-dialog-content  cdkDrag cdkDragRootElement=".cdk-overlay-pane"
+    class="align-title">{{'meeting-room.edit' | translate}}</mat-dialog-content>
     <mat-dialog-content class="align-content">
     <form [formGroup]="meetingForm" (ngSubmit)="onSubmit()">
       <mat-form-field>
@@ -45,6 +51,8 @@ import { MeetingRoomService } from '../services/meeting-room.service';
             matInput placeholder="{{'meeting-room.text' | translate}}" [(ngModel)]="meetingRoom.name">
             <mat-error>{{'validation.validate' | translate}}</mat-error>
       </mat-form-field>
+      <p *ngIf="this.errorMessage == 'occupied.meetingRoomName'">
+       {{'error-meeting-roomPost-snackbar.name' | translate}}</p>
       <br>
       <mat-form-field>
         <mat-label>{{'meeting-room.seats' | translate}}</mat-label>
@@ -61,8 +69,8 @@ import { MeetingRoomService } from '../services/meeting-room.service';
       </div>
       <br>
       <mat-dialog-actions>
-      <button mat-raised-button mat-dialog-close type="submit"
-          (click)="openSnackBar()" [disabled]="meetingForm.invalid" color="primary">
+      <button mat-raised-button type="submit"
+          [disabled]="meetingForm.invalid" color="primary">
           {{'meeting-room.saveButton' | translate}}
         </button>
         </mat-dialog-actions>
@@ -79,10 +87,11 @@ export class MeetingRoomUpdateComponent implements OnInit {
   @Input()
   public meetingRooms: MeetingRoom[];
   public meetingRoom: MeetingRoom = {} as MeetingRoom;
-
+  public errorMessage: string = '';
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: number,
     private meetingRoomService: MeetingRoomService,
+    public dialogRef: MatDialogRef<MeetingRoomUpdateComponent>,
     private snackBar: MatSnackBar,
     private translate: TranslateService
   ) {}
@@ -105,11 +114,22 @@ export class MeetingRoomUpdateComponent implements OnInit {
       .updateMeetingRoom(this.data, this.meetingRoom)
       .subscribe(() => {
       this.meetingRoomService.getAllMeetingRooms();
+      this.openSnackBar();
+      this.dialogRef.close();
+      }, (error: HttpErrorResponse) => {
+        this.errorMessage = error.error;
+        this.errorSnackBar();
       });
   }
 
   public openSnackBar() {
     this.snackBar.open(this.translate.instant(`meeting-room-update.update`), '', {
+      duration: 2500
+    });
+  }
+
+  public errorSnackBar() {
+    this.snackBar.open(this.translate.instant(`error-meeting-roomUpdate-snackbar.error`), '', {
       duration: 2500
     });
   }
