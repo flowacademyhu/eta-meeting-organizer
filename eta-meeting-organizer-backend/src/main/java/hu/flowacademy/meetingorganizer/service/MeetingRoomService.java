@@ -88,4 +88,8 @@ public class MeetingRoomService {
       throw new ValidationException("meetingRoom.projector");
     }
   }
+
+  public void deleteAllById(List<Long> id) {
+    meetingRoomRepository.deleteByIdIn(id);
+  }
 }

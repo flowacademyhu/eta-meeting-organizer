@@ -9,6 +9,7 @@ import { Building } from '~/app/models/building.model';
 import { BuildingDeleteDialogComponent } from '~/app/shared/Modals/building-delete-dialog';
 import { BuildingRegisterComponent } from '~/app/shared/Modals/building-register.component';
 import { BuildingUpdateDialogComponent } from '~/app/shared/Modals/building-update-dialog';
+import { BuildingCheckboxComponent } from './../../shared/Modals/building-checkbox-delete.component';
 import { BuildingService } from './../../shared/services/building.service';
 
 @Component({
@@ -24,6 +25,9 @@ import { BuildingService } from './../../shared/services/building.service';
     .addButton {
       width: 100%;
     }
+    .mat-icon-button ::ng-deep .mat-button-focus-overlay {
+    display: none;
+    }
   `],
   template: `
   <div class="row justify-content-center" class="container">
@@ -38,16 +42,22 @@ import { BuildingService } from './../../shared/services/building.service';
     </mat-form-field>
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8"
       matSort matSortActive="id" matSortDirection="desc" matSortDisableClear>
+
       <ng-container matColumnDef="checkbox">
-        <th mat-header-cell *matHeaderCellDef class="column">
-          <button mat-icon-button color="primary" (click)="deleteByCheckbox()">
+        <th mat-header-cell  [ngStyle]="{textAlign: 'center'}" *matHeaderCellDef class="column">
+          <button mat-icon-button  [disabled]="this.checkedArr.length === 0"
+            [color]="(this.checkedArr.length > 0) ? 'primary' : 'accent'"
+            (click)="deleteByCheckboxDialog(this.checkedArr)">
             <mat-icon>delete_forever</mat-icon>
           </button>
         </th>
-        <td mat-cell *matCellDef="let building">
+        <div >
+        <td mat-cell [ngStyle]="{textAlign: 'center'}" *matCellDef="let building">
           <mat-checkbox (change)="checkCheckBox(building.id, $event)"></mat-checkbox>
         </td>
+        </div>
       </ng-container>
+
       <ng-container matColumnDef="id">
         <th mat-header-cell *matHeaderCellDef class="column" mat-sort-header>{{'profile.id' | translate}}</th>
         <td mat-cell  *matCellDef="let building">{{building.id}}</td>
@@ -81,7 +91,8 @@ import { BuildingService } from './../../shared/services/building.service';
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
     <mat-paginator
-      [pageSize]="5"
+      class="mat-elevation-z8"
+      [pageSize]="10"
       [pageSizeOptions]="[10, 25, 50]"
       showFirstLastButtons>
     </mat-paginator>
@@ -98,7 +109,7 @@ export class BuildingComponent implements OnInit, OnDestroy, AfterViewInit {
   public dataSource: MatTableDataSource<Building> = new MatTableDataSource<Building>();
   public dataSub: Subscription;
   public checkedArr: number[] = [];
-  public dialogRef: MatDialogRef<BuildingDeleteDialogComponent>;
+  public dialogRef: MatDialogRef<BuildingCheckboxComponent>;
 
   @ViewChild(MatSort) public sort: MatSort;
   @ViewChild(MatPaginator) public paginator: MatPaginator;
@@ -117,16 +128,6 @@ export class BuildingComponent implements OnInit, OnDestroy, AfterViewInit {
     }
    }
 
-   public deleteByCheckbox() {
-    this.unsubFromCheckbox = this.buildingService.deleteBuildingByCheckBox((this.checkedArr))
-    .subscribe(() => {
-      this.buildingService.deleteBuildingByCheckBox(this.checkedArr);
-      this.buildingService.getAllBuildings();
-      }
-    );
-    this.checkedArr = [];
-  }
-
   public ngOnInit() {
     this.buildingService.getAllBuildings();
     this.dataSource.paginator = this.paginator;
@@ -134,10 +135,24 @@ export class BuildingComponent implements OnInit, OnDestroy, AfterViewInit {
     .subscribe((buildings) => this.dataSource.data = buildings);
   }
 
+  public deleteByCheckboxDialog(id: number[]) {
+    const dialogRef = this.dialog.open(BuildingCheckboxComponent, {
+      disableClose: true,
+      height: '35%',
+      width: '30%',
+      data: id
+    });
+    dialogRef.afterClosed()
+    .subscribe(() => {
+    this.buildingService.getAllBuildings();
+    this.checkedArr = [];
+    });
+  }
+
   public ngAfterViewInit(): void {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
- }
+  }
 
  public doFilter = (value: string) => {
    this.dataSource.filter = value.trim()
@@ -147,7 +162,7 @@ export class BuildingComponent implements OnInit, OnDestroy, AfterViewInit {
   public postDialog(): void {
     const dialogRef = this.dialog.open(BuildingRegisterComponent, {
       disableClose: true,
-      height: '65%',
+      height: '75%',
       width: '25%',
     });
     this.postUnsub = dialogRef.afterClosed()
@@ -157,7 +172,7 @@ export class BuildingComponent implements OnInit, OnDestroy, AfterViewInit {
   public updateDialog(buildingData: Building) {
     const dialogRef = this.dialog.open(BuildingUpdateDialogComponent, {
       disableClose: true,
-      height: '65%',
+      height: '75%',
       width: '25%',
       data: buildingData
     });
