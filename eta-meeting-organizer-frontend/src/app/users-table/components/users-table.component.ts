@@ -22,7 +22,7 @@ import { UserService } from './../../shared/services/user.service';
       table-layout: auto;
     }
     .column {
-      font-size: larger;
+      font-size: auto;
     }
     .mat-icon-button ::ng-deep .mat-button-focus-overlay {
     display: none;
@@ -44,7 +44,7 @@ import { UserService } from './../../shared/services/user.service';
              {{user.id}}
           </td>
         </ng-container>
-        <ng-container matColumnDef="checkbox">
+        <ng-container matColumnDef="checkbox" class="column">
         <th mat-header-cell  [ngStyle]="{textAlign: 'center'}" *matHeaderCellDef class="column">
           <button mat-icon-button [disabled]="this.checkedArr.length === 0"
             [color]="(this.checkedArr.length > 0) ? 'primary' : 'accent'"

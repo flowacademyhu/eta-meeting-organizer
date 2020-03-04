@@ -52,7 +52,7 @@
     },
   "navbar": {
     "calendar": "Naptár",
-    "usersManagement" : "Felhasználó-kezelés",
+    "usersManagement" : "Felhasználókezelő",
     "meetingRoomEditor": "Tárgyalókezelő",
     "buildingEditor":"Épületkezelő"
   },
@@ -144,7 +144,7 @@
     "city": "Város",
     "building": "Épület",
     "meeting-room": "Tárgyaló",
-    "own-appointments": "Saját Foglalásaim"
+    "own-appointments": "Foglalásaim"
   },
   "reservation": {
     "meetingroom": "Tárgyaló:",
