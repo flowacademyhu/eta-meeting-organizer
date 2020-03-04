@@ -3,9 +3,12 @@ package hu.flowacademy.meetingorganizer.service;
 import hu.flowacademy.meetingorganizer.exception.BuildingAddressAlreadyExistsException;
 import hu.flowacademy.meetingorganizer.exception.BuildingNameAlreadyExistsException;
 import hu.flowacademy.meetingorganizer.exception.BuildingNotFoundException;
+import hu.flowacademy.meetingorganizer.exception.MeetingRoomNotFoundException;
 import hu.flowacademy.meetingorganizer.exception.ValidationException;
 import hu.flowacademy.meetingorganizer.persistence.model.Building;
+import hu.flowacademy.meetingorganizer.persistence.model.MeetingRoom;
 import hu.flowacademy.meetingorganizer.persistence.model.dto.BuildingDTO;
+import hu.flowacademy.meetingorganizer.persistence.model.dto.MeetingRoomDTO;
 import hu.flowacademy.meetingorganizer.persistence.repository.BuildingRepository;
 import java.util.Optional;
 import lombok.AllArgsConstructor;
@@ -28,8 +31,8 @@ public class BuildingService {
   }
 
   public BuildingDTO updateBuilding(Long id, BuildingDTO buildingDTO) {
+    validateBuildingOnUpdate(id, buildingDTO);
     buildingRepository.findById(id).orElseThrow(BuildingNotFoundException::new);
-    validateBuildingOnUpdate(buildingDTO);
     Building building = buildingDTO.toEntity();
     building.setId(id);
     return new BuildingDTO(buildingRepository.save(building));
@@ -67,13 +70,14 @@ public class BuildingService {
     }
   }
 
-  public void validateBuildingOnUpdate(BuildingDTO input) {
+  public void validateBuildingOnUpdate(Long id, BuildingDTO input) {
     validateBuildingData(input);
-    List<Building> result = buildingRepository
-        .findByCityAndBuildingName(input.getCity(), input.getBuildingName());
-    result.remove(input.toEntity());
-    if (!(result.isEmpty())  && (buildingRepository.findAllAddresses()
-        .contains(input.getAddress()))){
+    Building formerBuilding = buildingRepository.findById(id)
+        .orElseThrow(BuildingNotFoundException::new);
+    if (buildingRepository.findByAddressNotIn(formerBuilding.getAddress()).contains(input.getAddress())) {
+      throw new BuildingAddressAlreadyExistsException();
+    }
+    if (buildingRepository.findBuildingNamesByCity(input.getCity(), formerBuilding.getBuildingName()).contains(input.getBuildingName())) {
       throw new BuildingNameAlreadyExistsException();
     }
   }
@@ -88,5 +92,9 @@ public class BuildingService {
     if (StringUtils.isEmpty(input.getAddress())) {
       throw new ValidationException("building.city");
     }
+  }
+
+  public void deleteAllById(List<Long> id) {
+    buildingRepository.deleteByIdIn(id);
   }
 }

@@ -1,4 +1,5 @@
 import { MeetingRoom } from './meetingroom.model';
+import { Participant } from './participant.model';
 import { User } from './user.model';
 
 export interface Reservation {
@@ -9,4 +10,5 @@ export interface Reservation {
   endingTime: number;
   title: string;
   summary: string;
+  participants?: Participant[];
 }

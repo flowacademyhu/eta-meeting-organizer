@@ -20,4 +20,7 @@ export class UserApiConnector extends AbstractApiConnector {
   public userRoleSet(id: string, roleset: string) {
     return this.http.put(`${this.apiRoute}/users/` + id + `/role`, {role: roleset});
   }
+  public deleteUserByCheckbox(id: string[]) {
+    return this.http.delete(`${this.apiRoute}/users/delete/` + id);
+  }
 }

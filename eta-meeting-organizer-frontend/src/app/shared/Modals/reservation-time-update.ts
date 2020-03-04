@@ -13,7 +13,6 @@ import { ReservationService } from '../services/reservation.service';
   styles: [`
   .align-title {
     padding-top: 5%;
-    height: 100%;
     margin: 0 auto;
     font-size: 250%;
     text-align: center;
@@ -23,6 +22,8 @@ import { ReservationService } from '../services/reservation.service';
     font-size: 120%;
     margin: 0 auto;
     text-align: center;
+    word-break: break-all;
+
   }
   button {
     width: 80%;
@@ -36,7 +37,7 @@ import { ReservationService } from '../services/reservation.service';
   }
   `],
  template: `
-<mat-dialog-content
+<mat-dialog-content  cdkDrag cdkDragRootElement=".cdk-overlay-pane"
 class="align-title">{{'reservation-time-change-dialog.head' | translate}}</mat-dialog-content>
 <mat-dialog-content class="align-content">
   <mat-card class="align-content">
@@ -57,7 +58,6 @@ class="align-title">{{'reservation-time-change-dialog.head' | translate}}</mat-d
       <br>
       {{ data.end | date : 'y.MM.dd. HH:mm'}}
 </div>
-</mat-card>
 <mat-dialog-actions>
     <button mat-raised-button
       (click)="updateTime()" color="primary">{{'reservation.modify' | translate}}</button>
@@ -66,7 +66,8 @@ class="align-title">{{'reservation-time-change-dialog.head' | translate}}</mat-d
     <mat-dialog-actions>
       <button mat-raised-button color="accent"
       (click)="close()">{{'reservation.quit' | translate}}</button>
-    </mat-dialog-actions>
+</mat-dialog-actions>
+</mat-card>
 </mat-dialog-content>`,
 })
 
@@ -104,7 +105,7 @@ export class ReservationTimeUpdateComponent {
     this.reservationToPost.endingTime = new Date(this.data.end).valueOf();
     this.reservationToPost.title = this.data.title;
     this.reservationToPost.summary = this.data.summary;
-
+    this.reservationToPost.participants = [];
     this.reservationService.
     updateReservation(Number(this.data.id), this.reservationToPost)
     .subscribe(() => {

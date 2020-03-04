@@ -38,11 +38,13 @@ public class MeetingRoomService {
   }
 
   public MeetingRoomDTO updateMeetingRoom(Long id, MeetingRoomDTO meetingRoomDTO) {
-    meetingRoomRepository.findById(id).orElseThrow(MeetingRoomNotFoundException::new);
     validateMeetingRoomOnUpdate(meetingRoomDTO);
-    MeetingRoom meetingRoom = meetingRoomDTO.toEntity();
-    meetingRoom.setId(id);
-    return new MeetingRoomDTO(meetingRoomRepository.save(meetingRoom));
+    MeetingRoom oldMeetingRoom = meetingRoomRepository.findById(id)
+        .orElseThrow(MeetingRoomNotFoundException::new);
+    oldMeetingRoom.setName(meetingRoomDTO.getName());
+    oldMeetingRoom.setProjector(meetingRoomDTO.getProjector());
+    oldMeetingRoom.setNumberOfSeats(meetingRoomDTO.getNumberOfSeats());
+    return new MeetingRoomDTO(meetingRoomRepository.save(oldMeetingRoom));
   }
 
   public List<MeetingRoomDTO> findByBuildingId(Long id) {
@@ -58,7 +60,7 @@ public class MeetingRoomService {
   public void validateMeetingRoomOnCreate(MeetingRoomDTO input) {
     validateMeetingRoomData(input);
     if ((!(meetingRoomRepository
-        .findByBuilding_AddressAndName(input.getBuilding().getAddress(), input.getName()))
+        .findByBuilding_IdAndName(input.getBuilding().getId(), input.getName()))
         .isEmpty())) {
       throw new MeetingRoomNameAlreadyExistsException();
     }
@@ -66,10 +68,12 @@ public class MeetingRoomService {
 
   public void validateMeetingRoomOnUpdate(MeetingRoomDTO input) {
     validateMeetingRoomData(input);
-    List<MeetingRoom> resultList = meetingRoomRepository
-        .findByBuilding_AddressAndName(input.getBuilding().getAddress(), input.getName());
-    resultList.remove(input.toEntity());
-    if (!(resultList.isEmpty())) {
+    MeetingRoom formerMeetingRoom = meetingRoomRepository.findById(input.getId())
+        .orElseThrow(MeetingRoomNotFoundException::new);
+    List<String> resultList = meetingRoomRepository
+        .findMeetingRoomNamesByBuildingId(input.getBuilding().getId());
+    resultList.remove(formerMeetingRoom.getName());
+    if (resultList.contains(input.getName())) {
       throw new MeetingRoomNameAlreadyExistsException();
     }
   }
@@ -87,5 +91,9 @@ public class MeetingRoomService {
     if (Objects.isNull(input.getProjector())) {
       throw new ValidationException("meetingRoom.projector");
     }
+  }
+
+  public void deleteAllById(List<Long> id) {
+    meetingRoomRepository.deleteByIdIn(id);
   }
 }

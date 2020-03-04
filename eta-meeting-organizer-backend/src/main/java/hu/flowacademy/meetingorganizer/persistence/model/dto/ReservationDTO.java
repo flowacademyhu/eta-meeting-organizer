@@ -1,8 +1,10 @@
 package hu.flowacademy.meetingorganizer.persistence.model.dto;
 
+import hu.flowacademy.meetingorganizer.persistence.model.Participant;
 import hu.flowacademy.meetingorganizer.persistence.model.MeetingRoom;
 import hu.flowacademy.meetingorganizer.persistence.model.Reservation;
 import hu.flowacademy.meetingorganizer.persistence.model.User;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -26,6 +28,8 @@ public class ReservationDTO {
   private String title;
 
   private String summary;
+
+  private List<Participant> participants;
 
   public Reservation toSaveEntity(User user, MeetingRoom meetingRoom) {
     Reservation reservation = new Reservation();
