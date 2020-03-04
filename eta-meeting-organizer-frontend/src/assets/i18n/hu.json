@@ -52,7 +52,7 @@
     },
   "navbar": {
     "calendar": "Naptár",
-    "usersManagement" : "Felhasználó-kezelés",
+    "usersManagement" : "Felhasználókezelő",
     "meetingRoomEditor": "Tárgyalókezelő",
     "buildingEditor":"Épületkezelő"
   },

@@ -41,23 +41,22 @@ import { AuthService } from '../services/auth.service';
   <mat-toolbar id="row" class="my-0" color="accent" routerLinkActive="active-link" 
     [routerLinkActiveOptions]="{exact: true}">
     <a class="mr-3"  routerLink="/calendar"><img src="../../../assets/wysio_arrow.png" height="55" /></a>
-
     <a class="mr-3" id="a"
       *ngIf="isAdmin" mat-stroked-button routerLink="/calendar" routerLinkActive="class1">
         {{'navbar.calendar' | translate}}
     </a>
     <a class="mr-3" id="a"
+      *ngIf="isAdmin" mat-stroked-button routerLink="/building-register" routerLinkActive="class1">
+        {{'navbar.buildingEditor' | translate}}
+    </a>
+    <a class="mr-3" id="a"
       *ngIf="isAdmin" mat-stroked-button routerLink="/meetingroom" routerLinkActive="class1">
         {{'navbar.meetingRoomEditor' | translate}}
-      </a>
+    </a>
     <a class="mr-3" id="a"
       *ngIf="isAdmin" mat-stroked-button routerLink="/users-table" routerLinkActive="class1">
         {{'navbar.usersManagement' | translate}}
-      </a>
-    <a class="mr-3" id="a"
-      *ngIf="isAdmin" mat-stroked-button routerLink="/building-register" routerLinkActive="class1">
-        {{'navbar.buildingEditor' | translate}}
-      </a>
+    </a>
     <button mat-button class="ml-auto"(click)="onLanguageChange()">{{'header.button' | translate}}</button>
     <p *ngIf="isToken" class="email">
       {{ user.username }}
