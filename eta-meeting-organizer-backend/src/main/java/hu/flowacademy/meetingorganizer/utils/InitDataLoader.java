@@ -2,7 +2,6 @@ package hu.flowacademy.meetingorganizer.utils;
 
 import hu.flowacademy.meetingorganizer.persistence.model.Building;
 import hu.flowacademy.meetingorganizer.persistence.model.MeetingRoom;
-import hu.flowacademy.meetingorganizer.persistence.model.Participant;
 import hu.flowacademy.meetingorganizer.persistence.model.Reservation;
 import hu.flowacademy.meetingorganizer.persistence.model.Role;
 import hu.flowacademy.meetingorganizer.persistence.model.User;
@@ -11,9 +10,6 @@ import hu.flowacademy.meetingorganizer.persistence.repository.MeetingRoomReposit
 import hu.flowacademy.meetingorganizer.persistence.repository.*;
 import hu.flowacademy.meetingorganizer.persistence.repository.UserRepository;
 import java.time.ZoneOffset;
-import java.util.ArrayList;
-import java.util.List;
-import javax.mail.Part;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -68,7 +64,6 @@ public class InitDataLoader {
         .address("Kelemen Ákos utca 12 2/6")
         .buildingName("Kék kakas")
         .build());
-
 
     userRepository.save(User.builder()
         .id("112003548510441733141")
