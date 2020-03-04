@@ -97,23 +97,6 @@ public class ReservationService {
     throw new ReservationNotFoundException();
   }
 
-<<<<<<< HEAD
-  private void validateReservation(ReservationDTO input, String type, Long id) {
-    if (type.equals("create")) {
-      if (reservationRepository
-          .findAllByMeetingRoomIdInInterval(input.getMeetingRoomId(), input.getStartingTime(),
-              input.getEndingTime()) > 0) {
-        throw new ValidationException("reservation.reserved");
-      }
-      if (type.equals("update")) {
-        if (reservationRepository
-            .findAllByMeetingRoomIdInIntervalForUpdate(input.getMeetingRoomId(), id,
-                input.getStartingTime(), input.getEndingTime()) > 0) {
-          throw new ValidationException("reservation.reserved");
-        }
-
-      }
-=======
   public void sendWithEmails(Reservation reservation, EmailType type) {
     MeetingRoom meetingRoom = meetingRoomRepository.findById(reservation.getMeetingRoom().getId())
         .orElseThrow(MeetingRoomNotFoundException::new);
@@ -151,25 +134,36 @@ public class ReservationService {
     }
   }
 
-  private void validateReservation(ReservationDTO input) {
-    if(reservationRepository.findAllByMeetingRoomIdInInterval(input.getMeetingRoomId(), input.getStartingTime(), input.getEndingTime()) > 0) {
-      throw new ValidationException("reservation.reserved");
->>>>>>> master
-    }
-    if (StringUtils.isEmpty(input.getUserId())) {
-      throw new ValidationException("reservation.userId");
-    }
-    if (Objects.isNull(input.getMeetingRoomId())) {
-      throw new ValidationException("reservation.meetingRoomId");
-    }
-    if (Objects.isNull(input.getStartingTime())) {
-      throw new ValidationException("reservation.startingTime");
-    }
-    if (Objects.isNull(input.getEndingTime())) {
-      throw new ValidationException("reservation.endingTime");
-    }
-    if (StringUtils.isEmpty(input.getTitle())) {
-      throw new ValidationException("reservation.title");
+  private void validateReservation(ReservationDTO input, String type, Long id) {
+    if (type.equals("create")) {
+      if (reservationRepository
+          .findAllByMeetingRoomIdInInterval(input.getMeetingRoomId(), input.getStartingTime(),
+              input.getEndingTime()) > 0) {
+        throw new ValidationException("reservation.reserved");
+      }
+      if (type.equals("update")) {
+        if (reservationRepository
+            .findAllByMeetingRoomIdInIntervalForUpdate(input.getMeetingRoomId(), id,
+                input.getStartingTime(), input.getEndingTime()) > 0) {
+          throw new ValidationException("reservation.reserved");
+        }
+
+      }
+      if (StringUtils.isEmpty(input.getUserId())) {
+        throw new ValidationException("reservation.userId");
+      }
+      if (Objects.isNull(input.getMeetingRoomId())) {
+        throw new ValidationException("reservation.meetingRoomId");
+      }
+      if (Objects.isNull(input.getStartingTime())) {
+        throw new ValidationException("reservation.startingTime");
+      }
+      if (Objects.isNull(input.getEndingTime())) {
+        throw new ValidationException("reservation.endingTime");
+      }
+      if (StringUtils.isEmpty(input.getTitle())) {
+        throw new ValidationException("reservation.title");
+      }
     }
   }
 
