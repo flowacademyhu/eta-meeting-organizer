@@ -27,6 +27,7 @@ import { ReservationDeleteComponent } from './Modals/reservation-delete.componen
 import { ReservationInfoComponent } from './Modals/reservation-info.component';
 import { ReservationTimeUpdateComponent } from './Modals/reservation-time-update';
 import { ReservationUpdateComponent } from './Modals/reservation-update.component';
+import { UserCheckboxComponent } from './Modals/user-checkbox-delete.component';
 import { UserDeleteDialogComponent } from './Modals/user-delete-dialog';
 import { UserVerificationDialogComponent } from './Modals/user-verification-dialog';
 import { BuildingService } from './services/building.service';
@@ -54,6 +55,7 @@ import { UserService } from './services/user.service';
     ReservationDeleteComponent,
     ReservationTimeUpdateComponent,
     BuildingCheckboxComponent,
+    UserCheckboxComponent,
   ],
   exports: [
     CommonModule,
