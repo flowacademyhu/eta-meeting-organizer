@@ -34,7 +34,7 @@ import { ReservationEmailListComponent } from './reservation-email-list.componen
     margin: 0 auto;
   }
   button {
-    width: 80%;
+    width: 85%;
     margin: 0 auto;
     border:1px solid;
     border-color: black;
@@ -63,8 +63,6 @@ import { ReservationEmailListComponent } from './reservation-email-list.componen
          <br>
            <mat-error>{{'validation.validate' | translate}}</mat-error>
        </mat-form-field>
-     <br>
-     <br>
      <br>
      </form>
 
@@ -153,7 +151,7 @@ export class ReservationBookingComponent implements OnInit {
   public openEmailModal() {
     const dialogRef = this.dialog.open(ReservationEmailListComponent, {
       height: '80%',
-      width: '400px',
+      width: '420px',
       data: {
         participants: this.participants
       }
