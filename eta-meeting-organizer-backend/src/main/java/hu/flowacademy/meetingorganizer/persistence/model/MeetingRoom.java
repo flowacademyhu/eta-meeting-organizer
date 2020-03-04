@@ -40,4 +40,8 @@ public class MeetingRoom {
   @OneToMany(mappedBy = "meetingRoom", cascade = CascadeType.ALL)
   @JsonIgnore
   private List<Reservation> reservations;
+
+  public MeetingRoom(Long id) {
+    this.id = id;
+  }
 }

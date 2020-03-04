@@ -19,7 +19,7 @@ import { ReservationEmailListComponent } from './reservation-email-list.componen
     padding-top: 5%;
     padding-bottom: 3%;
     margin: 0 auto;
-    font-size: 250%;
+    font-size: 225%;
     text-align: center;
   }
   .align-content{
@@ -45,7 +45,8 @@ import { ReservationEmailListComponent } from './reservation-email-list.componen
   }
 `],
  template: `
- <mat-dialog-content class="align-title">{{'reservation.head' | translate}}</mat-dialog-content>
+ <mat-dialog-content cdkDrag cdkDragRootElement=".cdk-overlay-pane"
+ class="align-title">{{'reservation.head' | translate}}</mat-dialog-content>
  <mat-dialog-content class="align-content">
    <form [formGroup]="reservationBookingForm" id="reservationBookingForm" (ngSubmit)="onSubmit()">
      <mat-form-field>

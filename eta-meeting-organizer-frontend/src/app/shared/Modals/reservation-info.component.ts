@@ -40,7 +40,8 @@ import { ReservationUpdateComponent } from './reservation-update.component';
   }
   `],
  template: `
-<mat-dialog-content class="align-title">{{'reservation.summary' | translate}}</mat-dialog-content>
+<mat-dialog-content cdkDrag cdkDragRootElement=".cdk-overlay-pane"
+class="align-title">{{'reservation.summary' | translate}}</mat-dialog-content>
 <mat-dialog-content class="align-content">
   <mat-card class="align-content" class="example-card">
     <div class="data">

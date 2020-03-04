@@ -11,14 +11,14 @@
   },
   "building": {
     "buildingName": "Building name",
-    "post": "Create building",
+    "post": "Building creation",
     "city": "City",
     "address":"Address",
     "saveButton":"Save",
     "cancel":"Cancel",
     "deleteButton":"Delete",
     "add":"Add building",
-    "edit":"Edit",
+    "edit":"Editing",
     "update": "Update",
     "action": "Actions"
 
@@ -31,7 +31,7 @@
     "email": "E-mail address",
     "role": "Role",
     "delete": "Delete",
-    "edit": "Edit",
+    "edit": "Editing",
     "action": "Actions"
   },
   "meeting-room": {
@@ -46,8 +46,8 @@
     "saveButton":"Save",
     "delete": "Delete",
     "add":"Add meeting room",
-    "post": "Meeting-room creation.",
-    "edit": "Edit",
+    "post": "Meeting-room creation",
+    "edit": "Editing",
     "cancel": "Cancel",
     "action": "Actions"
     },
@@ -64,26 +64,32 @@
   "meeting-room-delete":{
     "meetingRoomDelete": "Meeting room deletion",
     "verification": "Are you sure you want to delete meeting room?",
-    "yes": "Yes",
-    "no": "No",
+    "warning":"Attention: all associated items will be deleted too.",
+    "delete": "Delete",
+    "cancel": "Cancel",
     "button": "EN",
     "exit": "exit",
-    "deleted":"Meeting room has been deleted"
+    "deleted":"Meeting room has been deleted",
+    "fail": "Unsuccesful deletion."
   },
   "user-delete-dialog": {
     "userDelete": "User deletion",
     "verification": "Are you sure you want to delete user?",
-    "yes": "Yes",
-    "no": "No"
+    "warning":"Attention: all associated items will be deleted too.",
+    "delete": "Delete",
+    "cancel": "Cancel",
+    "fail": "Unsuccesful deletion."
   },
   "building-delete-dialog": {
     "buildingDelete": "Building deletion",
     "verification": "Are you sure you want to delete this building?",
-    "yes": "Yes",
-    "no": "No"
+    "warning":"Attention: all associated items will be deleted too.",
+    "delete": "Delete",
+    "cancel": "Cancel",
+    "fail": "Unsuccesful deletion."
   },
   "authentication": {
-    "answer": "Your registration has not been verified by admin yet!"
+    "answer": "Your registration has not been verified by an admin yet!"
   },
   "snackbar-meeting-room": {
     "registerOk":"Meeting room has been saved!"
@@ -110,8 +116,27 @@
   "update-building-snackbar": {
     "update": "Building has been updated."
   },
+  "error-buildingPost-snackbar": {
+    "error": "Unsuccesful building creation.",
+    "building": "The given building name already exists",
+    "address": "The given address already exists"
+  },
+  "error-buildingUpdate-snackbar": {
+    "error": "Unsuccesful building update.",
+    "building": "The given building name already exists",
+    "address": "The given address already exists",
+    "general": "The given building name or address already exists."
+  },
+  "error-meeting-roomPost-snackbar": {
+    "error": "Unsuccesful meeting-room creation",
+    "name": "The given meeting-room name already exists"
+  },
+  "error-meeting-roomUpdate-snackbar": {
+    "error": "Unsuccesful meeting-room update",
+    "name": "The given meeting-room name already exists"
+  },
   "verification-snackbar": {
-    "verify": "User has been verified"
+    "verify": "Role has been set"
   },
   "meeting-room-update": {
     "update": "Meeting room has been updated"
@@ -120,7 +145,7 @@
     "city": "City",
     "building": "Building",
     "meeting-room": "Meetingroom",
-    "own-appointments": "Own Appointments"
+    "own-appointments": "My Appointments"
   },
   "reservation": {
     "meetingroom": "Meetingroom:",
