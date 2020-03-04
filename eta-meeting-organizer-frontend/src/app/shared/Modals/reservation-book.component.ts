@@ -65,7 +65,6 @@ import { ReservationEmailListComponent } from './reservation-email-list.componen
            <mat-error>{{'validation.validate' | translate}}</mat-error>
        </mat-form-field>
      <br>
-<<<<<<< HEAD
      </form>
 
        <button
@@ -77,21 +76,12 @@ import { ReservationEmailListComponent } from './reservation-email-list.componen
        <br>
        <br>
        <mat-dialog-actions>
-=======
-     <br>
-     <br>
-     <mat-dialog-actions>
->>>>>>> master
        <button
        mat-raised-button
        type="submit"
        form="reservationBookingForm"
        [mat-dialog-close]
        [disabled]="reservationBookingForm.invalid"
-<<<<<<< HEAD
-=======
-       cdkFocusInitial
->>>>>>> master
        color="primary"
        (click)="openSnackBar()"
        mat-dialog-close>{{'reservation.reserve' | translate}}</button>
