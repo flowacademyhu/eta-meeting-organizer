@@ -1,4 +1,5 @@
 import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { MatCheckboxChange } from '@angular/material';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -9,6 +10,7 @@ import { UserVerificationDialogComponent } from '~/app/shared/Modals/user-verifi
 import { UserToken } from '~/app/shared/models/user-token.model';
 import { AuthService } from '~/app/shared/services/auth.service';
 import { User } from './../../models/user.model';
+import { UserCheckboxComponent } from './../../shared/Modals/user-checkbox-delete.component';
 import { UserDeleteDialogComponent } from './../../shared/Modals/user-delete-dialog';
 import { UserService } from './../../shared/services/user.service';
 
@@ -21,6 +23,9 @@ import { UserService } from './../../shared/services/user.service';
     }
     .column {
       font-size: larger;
+    }
+    .mat-icon-button ::ng-deep .mat-button-focus-overlay {
+    display: none;
     }
   `],
   template: `
@@ -39,6 +44,21 @@ import { UserService } from './../../shared/services/user.service';
              {{user.id}}
           </td>
         </ng-container>
+        <ng-container matColumnDef="checkbox">
+        <th mat-header-cell  [ngStyle]="{textAlign: 'center'}" *matHeaderCellDef class="column">
+          <button mat-icon-button [disabled]="this.checkedArr.length === 0"
+            [color]="(this.checkedArr.length > 0) ? 'primary' : 'accent'"
+            (click)="deleteByCheckboxDialog(this.checkedArr)">
+            <mat-icon>delete_forever</mat-icon>
+          </button>
+        </th>
+        <div >
+        <td mat-cell [ngStyle]="{textAlign: 'center'}" *matCellDef="let user">
+          <mat-checkbox *ngIf="user.username !== currentAdmin.username"
+          (change)="checkCheckBox(user.id, $event)"></mat-checkbox>
+        </td>
+        </div>
+      </ng-container>
         <ng-container matColumnDef="email">
           <th mat-header-cell *matHeaderCellDef class="column" mat-sort-header>
             {{'profile.email' | translate}}
@@ -81,7 +101,7 @@ import { UserService } from './../../shared/services/user.service';
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       </table>
       <mat-paginator class="mat-elevation-z8"
-        [pageSize]="5"
+        [pageSize]="10"
         [pageSizeOptions]="[10, 25, 50]"
         showFirstLastButtons>
       </mat-paginator>
@@ -90,13 +110,14 @@ import { UserService } from './../../shared/services/user.service';
 })
 
 export class UsersTableComponent implements OnInit, OnDestroy, AfterViewInit {
-  public displayedColumns: string[] = ['email', 'role', 'action'];
+  public displayedColumns: string[] = ['checkbox', 'email', 'role', 'action'];
   public deleteUnsub: Subscription;
   public verifyUnsub: Subscription;
   public subs: Subscription;
   protected currentAdmin: UserToken = {} as UserToken;
   public dataSource: MatTableDataSource<User> = new MatTableDataSource<User>();
   public dataSub: Subscription;
+  public checkedArr: string[] = [];
   @ViewChild(MatSort) public sort: MatSort;
   @ViewChild(MatPaginator) public paginator: MatPaginator;
 
@@ -164,6 +185,30 @@ export class UsersTableComponent implements OnInit, OnDestroy, AfterViewInit {
       .getAllUsers();
     });
    }
+
+   public checkCheckBox(Id: string, event: MatCheckboxChange) {
+    const checked = event.checked;
+    if (checked) {
+     this.checkedArr.push(Id);
+    } else {
+     const index = this.checkedArr.findIndex((building) => building === Id);
+     this.checkedArr.splice(index, 1);
+    }
+   }
+
+   public deleteByCheckboxDialog(id: number[]) {
+    const dialogRef = this.dialog.open(UserCheckboxComponent, {
+      disableClose: true,
+      height: '35%',
+      width: '30%',
+      data: id
+    });
+    dialogRef.afterClosed()
+    .subscribe(() => {
+    this.userService.getAllUsers();
+    this.checkedArr = [];
+    });
+  }
 
    public ngOnDestroy(): void {
      if (this.dataSub) {

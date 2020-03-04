@@ -9,4 +9,6 @@ export interface EventElement {
   overlap: boolean;
   title: string;
   summary: string;
+  meetingRoomView: boolean;
+  admin: string;
 }
