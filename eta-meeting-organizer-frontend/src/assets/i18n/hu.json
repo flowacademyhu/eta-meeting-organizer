@@ -171,6 +171,11 @@
     "reservationModificationOK": "A foglalás módosítása sikeresen megtörtént.",
     "reservationDeleteOk": "A foglalás törlése sikeresen megtörtént."
   },
+  "reservation-error-messages": {
+    "post": "A megadott időintervallum ütközik egy másik foglalással.",
+    "update": "A megadott időintervallum ütközik egy másik foglalással.",
+    "delete": "Sikertelen törlés."
+  },
   "validation": {
     "validate": "A mező kitöltése kötelező!",
     "email": "Nem megfelelő e-mail cím"
@@ -178,8 +183,8 @@
   "reservation-delete-dialog": {
     "reservationDelete": "Foglalás törlése",
     "verification": "Biztosan törölni akarja a foglalását?",
-    "yes": "Igen",
-    "no": "Nem"
+    "yes": "Törlés",
+    "no": "Mégse"
   },
   "reservation-time-change-dialog": {
     "head": "Szeretné a foglalása időpontját a következők szerint módosítani?"
