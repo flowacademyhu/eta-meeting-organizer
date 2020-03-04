@@ -37,7 +37,7 @@ import { ReservationService } from '../services/reservation.service';
   }
   `],
  template: `
-<mat-dialog-content
+<mat-dialog-content  cdkDrag cdkDragRootElement=".cdk-overlay-pane"
 class="align-title">{{'reservation-time-change-dialog.head' | translate}}</mat-dialog-content>
 <mat-dialog-content class="align-content">
   <mat-card class="align-content">

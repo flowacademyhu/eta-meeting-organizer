@@ -56,4 +56,10 @@ public class MeetingRoomResource {
     meetingRoomService.deleteMeetingRoom(id);
     return ResponseEntity.noContent().build();
   }
+
+  @DeleteMapping("/delete/{id}")
+  public ResponseEntity<Void> deleteWithCheckbox(@PathVariable List<Long> id ){
+    meetingRoomService.deleteAllById(id);
+    return ResponseEntity.noContent().build();
+  }
 }
