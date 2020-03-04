@@ -147,7 +147,9 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnChanges, OnDe
     } else if (changes?.meetingRoom?.currentValue ||
       (!this.checked && this.meetingRoom !== undefined) ||
       changes?.posted?.currentValue) {
+        this.getReservationsByMeetingRoom();
         if (this.isReader) {
+          console.log('setteimeout')
           timer(100, 30000)
           .pipe(takeUntil(this.destroy$))
           .subscribe(() => {
@@ -176,7 +178,9 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnChanges, OnDe
     });
     dialogRef.afterClosed()
     .pipe(takeUntil(this.destroy$))
-    .subscribe();
+    .subscribe(() => {
+      this.getReservationsByMeetingRoom();
+    });
   }
   public getInfo(eventInput: EventInput) {
     let isMeetingRoomView = false;

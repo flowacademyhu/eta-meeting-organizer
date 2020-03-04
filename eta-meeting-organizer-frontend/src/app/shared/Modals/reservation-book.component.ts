@@ -45,7 +45,7 @@ import { ReservationEmailListComponent } from './reservation-email-list.componen
   }
 `],
  template: `
- <mat-dialog-content cdkDrag cdkDragRootElement=".cdk-overlay-pane"
+ <mat-dialog-content
  class="align-title">{{'reservation.head' | translate}}</mat-dialog-content>
  <mat-dialog-content class="align-content">
    <form [formGroup]="reservationBookingForm" id="reservationBookingForm" (ngSubmit)="onSubmit()">
@@ -143,9 +143,8 @@ export class ReservationBookingComponent implements OnInit {
     this.data.participants = this.participants;
     this.reservationService.
     postReservation(this.data)
-    .subscribe((data) => {
-        this.reservation = data;
-        this.passEntry.emit();
+    .subscribe(() => {
+      this.dialogRef.close();
     });
   }
 
