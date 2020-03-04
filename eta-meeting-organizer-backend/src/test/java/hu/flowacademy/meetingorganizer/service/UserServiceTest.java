@@ -79,7 +79,6 @@ public class UserServiceTest {
   public void createUserTest() {
     userService.createUser(user1);
     assertEquals("gyula@gmail.com", user1.getUsername());
-    assertEquals("alma", user1.getPassword());
     assertEquals(Role.ADMIN, user1.getRole());
   }
 
