@@ -64,7 +64,8 @@ public class ReservationService {
     MeetingRoom mRoom = meetingRoomRepository.findById(reservationInput.getMeetingRoomId())
         .orElseThrow(MeetingRoomNotFoundException::new);
     List<Participant> participants = reservationInput.getParticipants();
-    participants.stream().forEach(x -> participantRepository.findById(x.getEmail()).orElseGet(() -> saveParticipant(x)));
+    participants.stream().forEach(
+        x -> participantRepository.findById(x.getEmail()).orElseGet(() -> saveParticipant(x)));
     Reservation reservation = reservationInput.toSaveEntity(user, mRoom);
     Reservation result = reservationRepository.save(reservation);
     sendWithEmails(reservation, EmailType.CREATE);
@@ -72,7 +73,8 @@ public class ReservationService {
   }
 
   public void deleteReservation(Long id) {
-    Reservation reservation = reservationRepository.findById(id).orElseThrow(ReservationNotFoundException::new);
+    Reservation reservation = reservationRepository.findById(id)
+        .orElseThrow(ReservationNotFoundException::new);
     reservationRepository.deleteById(id);
     sendWithEmails(reservation, EmailType.DELETE);
   }
@@ -85,7 +87,9 @@ public class ReservationService {
       MeetingRoom mRoom = meetingRoomRepository.findById(reservationInput.getMeetingRoomId())
           .orElseThrow(MeetingRoomNotFoundException::new);
       Reservation reservation = reservationInput.toUpdateEntity(id, user, mRoom);
-      reservation.setParticipants(reservationRepository.findById(id).orElseThrow(ReservationNotFoundException::new).getParticipants());
+      reservation.setParticipants(
+          reservationRepository.findById(id).orElseThrow(ReservationNotFoundException::new)
+              .getParticipants());
       Reservation result = reservationRepository.save(reservation);
       sendWithEmails(result, EmailType.UPDATE);
       return result;
@@ -94,7 +98,8 @@ public class ReservationService {
   }
 
   public void sendWithEmails(Reservation reservation, EmailType type) {
-    MeetingRoom meetingRoom = meetingRoomRepository.findById(reservation.getMeetingRoom().getId()).orElseThrow(MeetingRoomNotFoundException::new);
+    MeetingRoom meetingRoom = meetingRoomRepository.findById(reservation.getMeetingRoom().getId())
+        .orElseThrow(MeetingRoomNotFoundException::new);
     User user = userRepository.findById(reservation.getUser().getId()).orElseThrow();
     Date startingDate = new Date(reservation.getStartingTime());
     String meetingDate = FORMATTER_TO_DATE.format(startingDate);
@@ -105,10 +110,13 @@ public class ReservationService {
     String address = meetingRoom.getBuilding().getAddress();
     String buildingName = meetingRoom.getBuilding().getBuildingName();
     String meetingRoomName = meetingRoom.getName();
-    sendEmailForAttendants(reservation, meetingDate, start, finish, subject, city, address, buildingName, meetingRoomName, user, type);
+    sendEmailForAttendants(reservation, meetingDate, start, finish, subject, city, address,
+        buildingName, meetingRoomName, user, type);
   }
+
   private void sendEmailForAttendants(Reservation reservation, String meetingDate, String start,
-      String finish, String subject, String city, String address, String buildingName, String meetingroomName,
+      String finish, String subject, String city, String address, String buildingName,
+      String meetingroomName,
       User user, EmailType emailType) {
     List<Participant> participants = reservation.getParticipants();
     participants.add(Participant.builder().email(user.getUsername()).build());
