@@ -19,7 +19,7 @@ import { ReservationEmailListComponent } from './reservation-email-list.componen
     padding-top: 5%;
     padding-bottom: 3%;
     margin: 0 auto;
-    font-size: 250%;
+    font-size: 225%;
     text-align: center;
   }
   .align-content{
@@ -45,7 +45,8 @@ import { ReservationEmailListComponent } from './reservation-email-list.componen
   }
 `],
  template: `
- <mat-dialog-content class="align-title">{{'reservation.head' | translate}}</mat-dialog-content>
+ <mat-dialog-content cdkDrag cdkDragRootElement=".cdk-overlay-pane"
+ class="align-title">{{'reservation.head' | translate}}</mat-dialog-content>
  <mat-dialog-content class="align-content">
    <form [formGroup]="reservationBookingForm" id="reservationBookingForm" (ngSubmit)="onSubmit()">
      <mat-form-field>
@@ -64,6 +65,7 @@ import { ReservationEmailListComponent } from './reservation-email-list.componen
            <mat-error>{{'validation.validate' | translate}}</mat-error>
        </mat-form-field>
      <br>
+<<<<<<< HEAD
      </form>
 
        <button
@@ -75,12 +77,21 @@ import { ReservationEmailListComponent } from './reservation-email-list.componen
        <br>
        <br>
        <mat-dialog-actions>
+=======
+     <br>
+     <br>
+     <mat-dialog-actions>
+>>>>>>> master
        <button
        mat-raised-button
        type="submit"
        form="reservationBookingForm"
        [mat-dialog-close]
        [disabled]="reservationBookingForm.invalid"
+<<<<<<< HEAD
+=======
+       cdkFocusInitial
+>>>>>>> master
        color="primary"
        (click)="openSnackBar()"
        mat-dialog-close>{{'reservation.reserve' | translate}}</button>

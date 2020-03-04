@@ -37,4 +37,9 @@ export class UserService {
     return this.userCom.user()
     .userRoleSet(id, roleSet);
   }
+  public deleteUserByCheckBox(id: string[]) {
+    return this.userCom
+      .user()
+      .deleteUserByCheckbox(id);
+  }
 }

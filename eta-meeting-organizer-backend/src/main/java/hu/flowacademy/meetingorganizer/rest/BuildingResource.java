@@ -1,6 +1,7 @@
 package hu.flowacademy.meetingorganizer.rest;
 
 import hu.flowacademy.meetingorganizer.persistence.model.Building;
+import hu.flowacademy.meetingorganizer.persistence.model.dto.BuildingDTO;
 import hu.flowacademy.meetingorganizer.service.BuildingService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -25,7 +26,7 @@ public class BuildingResource {
   private BuildingService buildingService;
 
   @PostMapping
-  public ResponseEntity<Building> createBuilding(@RequestBody Building building) {
+  public ResponseEntity<BuildingDTO> createBuilding(@RequestBody BuildingDTO building) {
     return new ResponseEntity<>(buildingService.createBuilding(building), HttpStatus.CREATED);
   }
 
@@ -47,12 +48,12 @@ public class BuildingResource {
 
   @GetMapping("/cities")
   public ResponseEntity<List<Building>> findByCity(@RequestParam String city) {
-    return new ResponseEntity<>(buildingService.findByCity(city), HttpStatus.OK);
+    return new ResponseEntity<>(buildingService.findAllByCity(city), HttpStatus.OK);
   }
 
   @PutMapping("/{id}")
-  public ResponseEntity<Building> updateBuilding(@PathVariable Long id,
-      @RequestBody Building building) {
+  public ResponseEntity<BuildingDTO> updateBuilding(@PathVariable Long id,
+      @RequestBody BuildingDTO building) {
     buildingService.updateBuilding(id, building);
     return ResponseEntity.accepted().build();
   }
@@ -60,6 +61,12 @@ public class BuildingResource {
   @DeleteMapping("/{id}")
   public ResponseEntity<Void> deleteBuilding(@PathVariable Long id) {
     buildingService.deleteBuilding(id);
+    return ResponseEntity.noContent().build();
+  }
+
+  @DeleteMapping("/delete/{id}")
+  public ResponseEntity<Void> deleteWithCheckbox(@PathVariable List<Long> id) {
+    buildingService.deleteAllById(id);
     return ResponseEntity.noContent().build();
   }
 }

@@ -1,4 +1,10 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { UserToken } from '~/app/shared/models/user-token.model';
+import { AuthService } from '~/app/shared/services/auth.service';
+import { ConfigurationService } from '~/app/shared/services/configuration.service';
 import { environment } from '~/environment/environment';
 
 @Component({
@@ -92,6 +98,26 @@ import { environment } from '~/environment/environment';
   `
 })
 export class LoginComponent {
-  // tslint:disable-next-line: no-empty
-  constructor() {}
+  protected isToken: boolean = false;
+  private destroy$: Subject<boolean> = new Subject<boolean>();
+  protected user: UserToken = {} as UserToken;
+
+  constructor(private  readonly router: Router,
+              private readonly authService: AuthService,
+              private readonly configService: ConfigurationService) {
+                this.authService.user.pipe(takeUntil(this.destroy$))
+                .subscribe((data) => {
+                  this.user = data;
+                });
+                this.checkToken();
+                if (this.isToken && !!this.user) {
+                  this.router.navigate(['./calendar']);
+                }
+              }
+
+  protected checkToken(): void {
+    if (!!this.configService.fetchToken('accessToken') && !!this.user) {
+        this.isToken = true;
+    }
+  }
 }

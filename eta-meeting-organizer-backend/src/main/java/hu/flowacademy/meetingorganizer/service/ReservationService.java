@@ -1,5 +1,9 @@
 package hu.flowacademy.meetingorganizer.service;
 
+import hu.flowacademy.meetingorganizer.exception.MeetingRoomNotFoundException;
+import hu.flowacademy.meetingorganizer.exception.ReservationNotFoundException;
+import hu.flowacademy.meetingorganizer.exception.UserNotFoundException;
+import hu.flowacademy.meetingorganizer.exception.ValidationException;
 import hu.flowacademy.meetingorganizer.persistence.model.MeetingRoom;
 import hu.flowacademy.meetingorganizer.persistence.model.Reservation;
 import hu.flowacademy.meetingorganizer.persistence.model.User;
@@ -43,8 +47,10 @@ public class ReservationService {
 
   public Reservation createReservation(ReservationDTO reservationInput) {
     validateReservation(reservationInput);
-    User user = userRepository.findById(reservationInput.getUserId()).orElseThrow(() -> new RuntimeException("User not found in DB"));
-    MeetingRoom mRoom = meetingRoomRepository.findById(reservationInput.getMeetingRoomId()).orElseThrow(() -> new RuntimeException("MeetingRoom not found in DB"));
+    User user = userRepository.findById(reservationInput.getUserId())
+        .orElseThrow(() -> new UserNotFoundException(reservationInput.getUserId()));
+    MeetingRoom mRoom = meetingRoomRepository.findById(reservationInput.getMeetingRoomId())
+        .orElseThrow(MeetingRoomNotFoundException::new);
     Reservation reservation = reservationInput.toSaveEntity(user, mRoom);
     return reservationRepository.save(reservation);
   }
@@ -57,30 +63,33 @@ public class ReservationService {
     if (reservationRepository.findById(id).isPresent()) {
       validateReservation(reservationInput);
       User user = userRepository.findById(reservationInput.getUserId())
-          .orElseThrow(() -> new RuntimeException("User not found in DB"));
+          .orElseThrow(() -> new UserNotFoundException(reservationInput.getUserId()));
       MeetingRoom mRoom = meetingRoomRepository.findById(reservationInput.getMeetingRoomId())
-          .orElseThrow(() -> new RuntimeException("MeetingRoom not found in DB"));
+          .orElseThrow(MeetingRoomNotFoundException::new);
       Reservation reservation = reservationInput.toUpdateEntity(id, user, mRoom);
       return reservationRepository.save(reservation);
     }
-    throw new RuntimeException("Reservation not found in DB");
+    throw new ReservationNotFoundException();
   }
 
   private void validateReservation(ReservationDTO input) {
+    if(reservationRepository.findAllByMeetingRoomIdInInterval(input.getMeetingRoomId(), input.getStartingTime(), input.getEndingTime()) > 0) {
+      throw new ValidationException("reservation.reserved");
+    }
     if (StringUtils.isEmpty(input.getUserId())) {
-      throw new RuntimeException("User Id is neccessary to make a reservation!");
+      throw new ValidationException("reservation.userId");
     }
     if (Objects.isNull(input.getMeetingRoomId())) {
-      throw new RuntimeException("MeetingRoom Id is neccessary to make a reservation!");
+      throw new ValidationException("reservation.meetingRoomId");
     }
     if (Objects.isNull(input.getStartingTime())) {
-      throw new RuntimeException("Start time is neccessary to make a reservation!");
+      throw new ValidationException("reservation.startingTime");
     }
     if (Objects.isNull(input.getEndingTime())) {
-      throw new RuntimeException("End time is neccessary to make a reservation!");
+      throw new ValidationException("reservation.endingTime");
     }
     if (StringUtils.isEmpty(input.getTitle())) {
-      throw new RuntimeException("Title is neccessary to make a reservation!");
+      throw new ValidationException("reservation.title");
     }
   }
 }
