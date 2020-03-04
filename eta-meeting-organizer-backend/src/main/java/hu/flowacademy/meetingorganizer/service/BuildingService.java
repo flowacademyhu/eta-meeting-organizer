@@ -74,9 +74,9 @@ public class BuildingService {
     validateBuildingData(input);
     Building formerBuilding = buildingRepository.findById(id)
         .orElseThrow(BuildingNotFoundException::new);
-    List<String> addressList = buildingRepository.findAllAddresses();
-    addressList.remove(formerBuilding.getAddress());
-    if (addressList.contains(input.getAddress())) {
+/*    List<String> addressList = buildingRepository.findAllAddresses();
+    addressList.remove(formerBuilding.getAddress());*/
+    if (buildingRepository.findByAddressNotIn(List.of(formerBuilding.getAddress())).contains(input.getAddress())) {
       throw new BuildingAddressAlreadyExistsException();
     }
     List<String> buildingNameList = buildingRepository.findBuildingNamesByCity(input.getCity());

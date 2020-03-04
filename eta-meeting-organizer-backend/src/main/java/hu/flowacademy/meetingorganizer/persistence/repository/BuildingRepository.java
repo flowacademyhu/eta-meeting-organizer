@@ -16,6 +16,9 @@ public interface BuildingRepository extends JpaRepository<Building, Long> {
   @Query("select distinct address from Building b")
   List<String> findAllAddresses();
 
+  @Query
+  List<String> findByAddressNotIn(String address);
+
   List<Building> findByCityAndBuildingName(String city, String buildingName);
 
   @Query("SELECT buildingName FROM Building b WHERE (city = ?1)")
