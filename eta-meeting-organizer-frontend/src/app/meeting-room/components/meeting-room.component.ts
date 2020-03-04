@@ -40,7 +40,8 @@ import { MeetingRoomService } from './../../shared/services/meeting-room.service
       <input matInput type="text" (keyup)="doFilter($event.target.value)"
         placeholder="{{'search-bar.search' | translate}}">
     </mat-form-field>
-  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" 
+    matSort matSortActive="id" matSortDirection="desc">
     <ng-container matColumnDef="checkbox">
       <th mat-header-cell [ngStyle]="{textAlign: 'center'}" *matHeaderCellDef class="column">
         <button mat-icon-button  [disabled]="this.checkedArr.length === 0"
