@@ -147,9 +147,9 @@ export class CalendarHeaderComponent implements OnInit, OnDestroy {
     .subscribe((data) => {
       this.buildings = data;
     });
-    this.meetingRoomSelector.setValue(
-      city = this.city
-    )
+    this.meetingRoomSelector.patchValue({
+      city: this.city,
+  });
   }
 
   public getBuildings() {
