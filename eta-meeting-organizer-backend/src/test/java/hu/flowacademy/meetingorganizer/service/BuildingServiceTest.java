@@ -3,7 +3,6 @@ package hu.flowacademy.meetingorganizer.service;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -33,11 +32,8 @@ public class BuildingServiceTest {
 
   private static Building building1;
   private static Building building2;
-  private static Building building;
   private static BuildingDTO buildingDTO1;
-  private static BuildingDTO buildingDTO2;
   private static List<MeetingRoom> meetingRooms = new ArrayList<>();
-  private static MeetingRoom meetingRoom1;
 
   @Mock
   private BuildingRepository buildingRepository;
@@ -52,7 +48,7 @@ public class BuildingServiceTest {
 
   @BeforeAll
   public static void init() {
-    meetingRoom1 = MeetingRoom.builder().id(1L).name("Ügyfél fogadó").numberOfSeats(5)
+    MeetingRoom meetingRoom1 = MeetingRoom.builder().id(1L).name("Ügyfél fogadó").numberOfSeats(5)
         .building(building1).projector(false).build();
     building1 = Building.builder().id(1L).city("Budapest").address("Kossuth tér 1.")
         .buildingName("Kék épület").build();
@@ -60,7 +56,8 @@ public class BuildingServiceTest {
         .buildingName("Zöld épület").build();
     buildingDTO1 = BuildingDTO.builder().id(1L).city("Budapest").address("Kossuth tér 1.")
         .buildingName("Kék épület").build();
-    buildingDTO2 = BuildingDTO.builder().id(2L).city("Szeged").address("Damjanich u. 10.")
+    BuildingDTO buildingDTO2 = BuildingDTO.builder().id(2L).city("Szeged")
+        .address("Damjanich u. 10.")
         .buildingName("Zöld épület").build();
   }
 
@@ -93,7 +90,9 @@ public class BuildingServiceTest {
   public void updateBuildingTest() {
     when(buildingRepository.findById(1L)).thenReturn(Optional.of(building1));
     when(buildingRepository.findByAddressNotIn(building1.getAddress())).thenReturn(List.of());
-    when(buildingRepository.findBuildingNamesByCity(buildingDTO1.getCity(), building1.getBuildingName())).thenReturn(List.of());
+    when(buildingRepository
+        .findBuildingNamesByCity(buildingDTO1.getCity(), building1.getBuildingName()))
+        .thenReturn(List.of());
     Building building = buildingDTO1.toEntity();
     building.setId(1L);
     when(buildingRepository.save(building)).thenReturn(building);
@@ -135,8 +134,4 @@ public class BuildingServiceTest {
     buildingService.deleteAllById(idList);
     verify(buildingRepository, times(1)).deleteByIdIn(idList);
   }
-
-  /* @Test
-  public void validateBuildingDataTest() throws ValidationException {
-  } */
 }
