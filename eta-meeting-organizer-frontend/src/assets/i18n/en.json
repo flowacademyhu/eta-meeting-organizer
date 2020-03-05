@@ -68,7 +68,7 @@
     "delete": "Delete",
     "cancel": "Cancel",
     "button": "EN",
-    "exit": "exit",
+    "exit": "Exit",
     "deleted":"Meeting room has been deleted",
     "fail": "Unsuccesful deletion."
   },
@@ -78,7 +78,7 @@
     "warning":"Attention: all associated items will be deleted too.",
     "delete": "Delete",
     "cancel": "Cancel",
-    "fail": "Unsuccesful deletion."
+    "fail": "Unsuccesful deletion"
   },
   "building-delete-dialog": {
     "buildingDelete": "Building deletion",
@@ -86,13 +86,13 @@
     "warning":"Attention: all associated items will be deleted too.",
     "delete": "Delete",
     "cancel": "Cancel",
-    "fail": "Unsuccesful deletion."
+    "fail": "Unsuccesful deletion"
   },
   "authentication": {
     "answer": "Your registration has not been verified by an admin yet!"
   },
   "snackbar-meeting-room": {
-    "registerOk":"Meeting room has been saved!"
+    "registerOk":"Meeting room has been saved"
   },
   "user-verification-dialog": {
     "roleSetting": "User role setting",
@@ -111,29 +111,29 @@
     "delete": "Building has been deleted"
   },
   "post-building-snackbar": {
-    "post": "Building has been saved."
+    "post": "Building has been saved"
   },
   "update-building-snackbar": {
     "update": "Building has been updated."
   },
   "error-buildingPost-snackbar": {
-    "error": "Unsuccesful building creation.",
-    "building": "The given building name already exists",
-    "address": "The given address already exists"
+    "error": "Unsuccesful building creation",
+    "building": "The given building name already exists.",
+    "address": "The given address already exists."
   },
   "error-buildingUpdate-snackbar": {
-    "error": "Unsuccesful building update.",
-    "building": "The given building name already exists",
-    "address": "The given address already exists",
+    "error": "Unsuccesful building update",
+    "building": "The given building name already exists.",
+    "address": "The given address already exists.",
     "general": "The given building name or address already exists."
   },
   "error-meeting-roomPost-snackbar": {
     "error": "Unsuccesful meeting-room creation",
-    "name": "The given meeting-room name already exists"
+    "name": "The given meeting-room name already exists."
   },
   "error-meeting-roomUpdate-snackbar": {
     "error": "Unsuccesful meeting-room update",
-    "name": "The given meeting-room name already exists"
+    "name": "The given meeting-room name already exists."
   },
   "verification-snackbar": {
     "verify": "Role has been set"
@@ -150,7 +150,7 @@
   "reservation": {
     "meetingroom": "Meetingroom:",
     "title": "Title:",
-    "summary": "Summary:",
+    "summary": "Summary",
     "startDate": "Start:",
     "endDate": "End:",
     "ok": "Ok",
@@ -159,7 +159,7 @@
     "delete": "Delete",
     "reserve": "Reserve",
     "head": "Meeting room reservation",
-    "edit": "Reservation edit:",
+    "edit": "Reservation edit",
     "quit": "Back to the calendar",
     "participantButton": "Add participants",
     "email": "E-mail address",
@@ -168,7 +168,7 @@
     "back": "Back"
   },
   "snackbar-reservation": {
-    "reservationOk": "Making reservation was succesful.",
+    "reservationOk": "Reservation has been made.",
     "reservationModificationOK": "Reservation modification was successful",
     "reservationDeleteOk": "Reservation deletion was successful"
   },
@@ -179,9 +179,9 @@
   "reservation-error-messages": {
     "post": "There is another reservation in the given time frame.",
     "update": "There is another reservation in the given time frame.",
-    "delete": "Unsuccesful deletion.",
-    "updateError": "Unsuccesful update.",
-    "error": "Unsuccesful reservation."
+    "delete": "Unsuccesful deletion",
+    "updateError": "Unsuccesful update",
+    "error": "Unsuccesful reservation"
   },
   "reservation-delete-dialog": {
     "reservationDelete": "Reservation deletion",

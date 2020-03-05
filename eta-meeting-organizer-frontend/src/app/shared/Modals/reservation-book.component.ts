@@ -146,6 +146,7 @@ export class ReservationBookingComponent implements OnInit {
     this.data.startingTime = new Date(this.data.startingTime as number).valueOf();
     this.data.endingTime = new Date(this.data.endingTime as number).valueOf();
     this.data.participants = this.participants;
+    console.log(this.data);
     this.reservationService.
     postReservation(this.data)
     .subscribe(() => {
