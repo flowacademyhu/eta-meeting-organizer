@@ -145,7 +145,7 @@
     "city": "City",
     "building": "Building",
     "meeting-room": "Meetingroom",
-    "own-appointments": "My Appointments"
+    "own-appointments": "My Reservations"
   },
   "reservation": {
     "meetingroom": "Meetingroom:",
@@ -176,11 +176,18 @@
     "validate": "You must fill out this field!",
     "email": "Not valid e-mail address"
   },
+  "reservation-error-messages": {
+    "post": "There is another reservation in the given time frame.",
+    "update": "There is another reservation in the given time frame.",
+    "delete": "Unsuccesful deletion.",
+    "updateError": "Unsuccesful update.",
+    "error": "Unsuccesful reservation."
+  },
   "reservation-delete-dialog": {
     "reservationDelete": "Reservation deletion",
     "verification": "Are you sure you want to delete reservation?",
-    "yes": "Yes",
-    "no": "No"
+    "yes": "Delete",
+    "no": "Cancel"
   },
   "reservation-time-change-dialog": {
     "head": "Do you want to change your reservation's time as follows?"
