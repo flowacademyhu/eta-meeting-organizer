@@ -127,11 +127,7 @@ public class BuildingServiceTest {
 
   @Test
   public void deleteAllByIdTest() {
-    List<Long> idList = new ArrayList<>();
-    idList.add(1L);
-    idList.add(2L);
-
-    buildingService.deleteAllById(idList);
-    verify(buildingRepository, times(1)).deleteByIdIn(idList);
+    buildingService.deleteAllById(List.of(1L, 2L));
+    verify(buildingRepository, times(1)).deleteByIdIn(List.of(1L, 2L));
   }
 }
