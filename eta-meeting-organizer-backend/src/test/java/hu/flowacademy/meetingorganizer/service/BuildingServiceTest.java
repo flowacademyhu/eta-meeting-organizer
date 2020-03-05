@@ -91,15 +91,19 @@ public class BuildingServiceTest {
 
   @Test
   public void updateBuildingTest() {
+    when(buildingRepository.findById(1L)).thenReturn(Optional.of(building1));
+    when(buildingRepository.findByAddressNotIn(building1.getAddress())).thenReturn(List.of());
+    when(buildingRepository.findBuildingNamesByCity(buildingDTO1.getCity(), building1.getBuildingName())).thenReturn(List.of());
+    Building building = buildingDTO1.toEntity();
+    building.setId(1L);
+    when(buildingRepository.save(building)).thenReturn(building);
 
-    buildingRepository.save(building1);
-    Optional<Building> expectedBuilding = buildingRepository.findById(1L);
     buildingService.updateBuilding(1L, buildingDTO1);
 
     assertEquals(1L, buildingDTO1.getId());
-    assertEquals("Kék épület", buildingDTO1.getId());
+    assertEquals("Kék épület", buildingDTO1.getBuildingName());
     assertEquals("Budapest", buildingDTO1.getCity());
-    assertNotEquals("Kossuth tér 1.", buildingDTO1.getAddress());
+    assertEquals("Kossuth tér 1.", buildingDTO1.getAddress());
   }
 
   @Test
