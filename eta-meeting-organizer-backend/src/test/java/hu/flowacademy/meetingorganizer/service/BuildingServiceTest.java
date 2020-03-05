@@ -9,8 +9,8 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import hu.flowacademy.meetingorganizer.exception.ValidationException;
 import hu.flowacademy.meetingorganizer.persistence.model.Building;
+import hu.flowacademy.meetingorganizer.persistence.model.MeetingRoom;
 import hu.flowacademy.meetingorganizer.persistence.model.dto.BuildingDTO;
 import hu.flowacademy.meetingorganizer.persistence.repository.BuildingRepository;
 import java.util.ArrayList;
@@ -36,7 +36,8 @@ public class BuildingServiceTest {
   private static Building building;
   private static BuildingDTO buildingDTO1;
   private static BuildingDTO buildingDTO2;
-  private static BuildingDTO buildingDTO;
+  private static List<MeetingRoom> meetingRooms = new ArrayList<>();
+  private static MeetingRoom meetingRoom1;
 
   @Mock
   private BuildingRepository buildingRepository;
@@ -51,6 +52,8 @@ public class BuildingServiceTest {
 
   @BeforeAll
   public static void init() {
+    meetingRoom1 = MeetingRoom.builder().id(1L).name("Ügyfél fogadó").numberOfSeats(5)
+        .building(building1).projector(false).build();
     building1 = Building.builder().id(1L).city("Budapest").address("Kossuth tér 1.")
         .buildingName("Kék épület").build();
     building2 = Building.builder().id(2L).city("Szeged").address("Damjanich u. 10.")
@@ -88,13 +91,15 @@ public class BuildingServiceTest {
 
   @Test
   public void updateBuildingTest() {
-    building = Building.builder().city("Budapest").address("Kossuth tér 2.").build();
-    buildingService.updateBuilding(1L, buildingDTO);
 
-    assertEquals(1L, building.getId());
-    assertEquals(building.getId(), building1.getId());
-    assertEquals(building.getCity(), building1.getCity());
-    assertNotEquals(building.getAddress(), building1.getAddress());
+    buildingRepository.save(building1);
+    Optional<Building> expectedBuilding = buildingRepository.findById(1L);
+    buildingService.updateBuilding(1L, buildingDTO1);
+
+    assertEquals(1L, buildingDTO1.getId());
+    assertEquals("Kék épület", buildingDTO1.getId());
+    assertEquals("Budapest", buildingDTO1.getCity());
+    assertNotEquals("Kossuth tér 1.", buildingDTO1.getAddress());
   }
 
   @Test
@@ -127,7 +132,7 @@ public class BuildingServiceTest {
     verify(buildingRepository, times(1)).deleteByIdIn(idList);
   }
 
-  @Test
+  /* @Test
   public void validateBuildingDataTest() throws ValidationException {
-  }
+  } */
 }
