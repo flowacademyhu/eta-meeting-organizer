@@ -39,12 +39,6 @@ public class ReservationServiceTest {
 
   private static Reservation reservation1;
   private static Reservation reservation2;
-  private static Reservation reservation;
-  private static ReservationDTO reservationDTO;
-  private static User user1;
-  private static User user2;
-  private static BuildingDTO building1;
-  private static MeetingRoom meetingRoom1;
   private static Participant participant;
   private static List<Participant> participants = new ArrayList<>();
 
@@ -64,15 +58,15 @@ public class ReservationServiceTest {
   @BeforeAll
   public static void init() {
     participant = Participant.builder().email("zsani@gmail.com").build();
-    user1 = User.builder().id("12345rtz").username("gyula@gmail.com").password("alma")
+    User user1 = User.builder().id("12345rtz").username("gyula@gmail.com").password("alma")
         .role(Role.ADMIN).accountNonExpired(true).accountNonLocked(true).enabled(true).build();
-    user2 = User.builder().id("10769rzt").username("isti@gmail.com").role(Role.USER)
+    User user2 = User.builder().id("10769rzt").username("isti@gmail.com").role(Role.USER)
         .accountNonExpired(true).accountNonLocked(true).enabled(true).build();
 
-    building1 = BuildingDTO.builder().buildingName("Fehérház").id(1L).city("Paks")
+    BuildingDTO building1 = BuildingDTO.builder().buildingName("Fehérház").id(1L).city("Paks")
         .address("Jakab utca 3.").build();
 
-    meetingRoom1 = MeetingRoom.builder().id(1L).name("Kistárgyaló").numberOfSeats(12)
+    MeetingRoom meetingRoom1 = MeetingRoom.builder().id(1L).name("Kistárgyaló").numberOfSeats(12)
         .projector(true).building(building1.toEntity()).build();
 
     reservation1 = Reservation.builder().id(1L).title("Napi meeting")
@@ -88,7 +82,8 @@ public class ReservationServiceTest {
         .endingTime((LocalDateTime.of(2020, 2, 26, 9, 15)).toInstant(ZoneOffset.UTC).toEpochMilli())
         .build();
 
-    reservationDTO = ReservationDTO.builder().userId("12345rtz").meetingRoomId(1L).title("Húsvét")
+    ReservationDTO reservationDTO = ReservationDTO.builder().userId("12345rtz").meetingRoomId(1L)
+        .title("Húsvét")
         .summary("húsvéti program megbeszélése Pennywise-al").startingTime(
             (LocalDateTime.of(2020, 2, 27, 12, 0)).toInstant(ZoneOffset.UTC).toEpochMilli())
         .endingTime(
