@@ -3,7 +3,6 @@ package hu.flowacademy.meetingorganizer.service;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -32,11 +31,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 public class MeetingRoomServiceTest {
 
   private static MeetingRoom meetingRoom1;
-  private static MeetingRoom meetingRoom2;
-  private static MeetingRoom meetingRoom;
   private static MeetingRoomDTO meetingRoomDTO1;
   private static MeetingRoomDTO meetingRoomDTO2;
-  private static BuildingDTO building1;
 
   @Mock
   private MeetingRoomRepository meetingRoomRepository;
@@ -51,10 +47,11 @@ public class MeetingRoomServiceTest {
 
   @BeforeAll
   public static void init() {
-    building1 = BuildingDTO.builder().buildingName("Fehérház").id(1L).city("Paks").build();
+    BuildingDTO building1 = BuildingDTO.builder().buildingName("Fehérház").id(1L).city("Paks")
+        .build();
     meetingRoom1 = MeetingRoom.builder().id(1L).name("Kistárgyaló").numberOfSeats(12)
         .projector(true).building(building1.toEntity()).build();
-    meetingRoom2 = MeetingRoom.builder().id(2L).name("Nagytárgyaló").numberOfSeats(40)
+    MeetingRoom meetingRoom2 = MeetingRoom.builder().id(2L).name("Nagytárgyaló").numberOfSeats(40)
         .projector(true).building(building1.toEntity()).build();
     meetingRoomDTO1 = MeetingRoomDTO.builder().id(1L).name("Kistárgyaló").numberOfSeats(12)
         .projector(true).building(building1).build();
@@ -89,15 +86,18 @@ public class MeetingRoomServiceTest {
 
   @Test
   public void updateMeetingRoomTest() {
-    meetingRoom = MeetingRoom.builder().name("Kistárgyaló").numberOfSeats(20).projector(true)
-        .building(building1.toEntity())
-        .build();
+    when(meetingRoomRepository.findById(1L)).thenReturn(Optional.of(meetingRoom1));
+    MeetingRoom meetingRoom = meetingRoomDTO1.toEntity();
+    meetingRoom.setId(1L);
+    when(meetingRoomRepository.save(meetingRoom)).thenReturn(meetingRoom);
+
     meetingRoomService.updateMeetingRoom(1L, meetingRoomDTO1);
+
     assertEquals(1L, meetingRoomDTO1.getId());
-    assertEquals(meetingRoomDTO1.getId(), meetingRoom1.getId());
-    assertEquals(meetingRoomDTO1.getName(), meetingRoom1.getName());
-    assertEquals(meetingRoomDTO1.getProjector(), meetingRoom1.getProjector());
-    assertNotEquals(meetingRoomDTO1.getNumberOfSeats(), meetingRoom1.getNumberOfSeats());
+    assertEquals("Kistárgyaló", meetingRoomDTO1.getName());
+    assertEquals(12, meetingRoomDTO1.getNumberOfSeats());
+    assertEquals(true, meetingRoomDTO1.getProjector());
+
   }
 
   @Test
@@ -124,4 +124,3 @@ public class MeetingRoomServiceTest {
     verify(meetingRoomRepository, times(1)).deleteByIdIn(idList);
   }
 }
-
