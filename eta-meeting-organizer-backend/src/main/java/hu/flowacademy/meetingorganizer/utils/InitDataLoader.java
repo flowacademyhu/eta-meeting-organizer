@@ -64,11 +64,18 @@ public class InitDataLoader {
         .address("Kossuth Lajos sgt. 76")
         .buildingName("Második Telephely")
         .build());
-
     userRepository.save(User.builder()
         .id("112003548510441733141")
-        .username("human.relationship@gmail.com")
-        .role(Role.ADMIN)
+        .username("wysiomeetingorganizer@gmail.com")
+        .role(Role.USER)
+        .accountNonExpired(true)
+        .accountNonLocked(true)
+        .enabled(true)
+        .build());
+    userRepository.save(User.builder()
+        .id("111455286747437812553")
+        .username("dombimihaly89@gmail.com")
+        .role(Role.USER)
         .accountNonExpired(true)
         .accountNonLocked(true)
         .enabled(true)
@@ -149,54 +156,96 @@ public class InitDataLoader {
         .id(1L)
         .user(userRepository.findById("112003548510441733141").orElse(null))
         .meetingRoom(meetingRoomRepository.findById(1L).orElse(null))
-        .title("Napi meeting")
+        .title("Hétfői eligazítás")
         .summary("Megbeszéljük ki mivel haladt tegnap és mivel fog ma foglalkozni.")
         .startingTime(
-            (LocalDateTime.of(2020, 2, 25, 16, 0)).toInstant(ZoneOffset.UTC).toEpochMilli())
+            (LocalDateTime.of(2020, 3, 2, 10, 0)).toInstant(ZoneOffset.UTC).toEpochMilli())
         .endingTime(
-            (LocalDateTime.of(2020, 2, 25, 18, 0)).toInstant(ZoneOffset.UTC).toEpochMilli())
+            (LocalDateTime.of(2020, 3, 2, 12, 0)).toInstant(ZoneOffset.UTC).toEpochMilli())
         .build());
     reservationRepository.save(Reservation.builder()
         .id(2L)
-        .user(userRepository.findById("11111110350006150715113077777").orElse(null))
-        .meetingRoom(meetingRoomRepository.findById(2L).orElse(null))
-        .title("Flow tárgyalás")
-        .summary("Új ügyfelek felkutatása.")
+        .user(userRepository.findById("112003548510441733141").orElse(null))
+        .meetingRoom(meetingRoomRepository.findById(1L).orElse(null))
+        .title("Havi értékelés")
+        .summary("Tervek elemzése és teljesítményértékelés.")
         .startingTime(
-            (LocalDateTime.of(2020, 2, 26, 9, 0)).toInstant(ZoneOffset.UTC).toEpochMilli())
-        .endingTime((LocalDateTime.of(2020, 2, 26, 9, 15)).toInstant(ZoneOffset.UTC).toEpochMilli())
+            (LocalDateTime.of(2020, 3, 4, 10, 00)).toInstant(ZoneOffset.UTC).toEpochMilli())
+        .endingTime((LocalDateTime.of(2020, 3, 4, 12, 30)).toInstant(ZoneOffset.UTC).toEpochMilli())
         .build());
     reservationRepository.save(Reservation.builder()
         .id(3L)
         .user(userRepository.findById("112003548510441733141").orElse(null))
-        .meetingRoom(meetingRoomRepository.findById(1L).orElse(null))
-        .title("Húsvét")
-        .summary("húsvéti program megbeszélése Pennywise-al")
+        .meetingRoom(meetingRoomRepository.findById(2L).orElse(null))
+        .title("Daily Meeting")
+        .summary("Napi teendők megtárgyalása.")
         .startingTime(
-            (LocalDateTime.of(2020, 2, 27, 12, 0)).toInstant(ZoneOffset.UTC).toEpochMilli())
+            (LocalDateTime.of(2020, 3, 5, 7, 00)).toInstant(ZoneOffset.UTC).toEpochMilli())
         .endingTime(
-            (LocalDateTime.of(2020, 2, 27, 14, 15)).toInstant(ZoneOffset.UTC).toEpochMilli())
+            (LocalDateTime.of(2020, 3, 5, 8, 15)).toInstant(ZoneOffset.UTC).toEpochMilli())
         .build());
     reservationRepository.save(Reservation.builder()
         .id(4L)
         .user(userRepository.findById("112003548510441733141").orElse(null))
-        .meetingRoom(meetingRoomRepository.findById(2L).orElse(null))
-        .title("Karácsony")
-        .summary("Megbeszéljük hogy mikor tartsuk illetve ki melyik zenekart szeretné ")
+        .meetingRoom(meetingRoomRepository.findById(1L).orElse(null))
+        .title("Havi Záróértekezlet")
+        .summary("A havi eredmények kiértékelése.")
         .startingTime(
-            (LocalDateTime.of(2020, 2, 27, 16, 0)).toInstant(ZoneOffset.UTC).toEpochMilli())
+            (LocalDateTime.of(2020, 2, 27, 8, 00)).toInstant(ZoneOffset.UTC).toEpochMilli())
         .endingTime(
-            (LocalDateTime.of(2020, 2, 27, 16, 30)).toInstant(ZoneOffset.UTC).toEpochMilli())
+            (LocalDateTime.of(2020, 2, 27, 10, 30)).toInstant(ZoneOffset.UTC).toEpochMilli())
+        .build());
+    reservationRepository.save(Reservation.builder()
+        .id(4L)
+        .user(userRepository.findById("112003548510441733141").orElse(null))
+        .meetingRoom(meetingRoomRepository.findById(1L).orElse(null))
+        .title("Kamarai ügyek")
+        .summary("Tanácsadói team fogadása.")
+        .startingTime(
+            (LocalDateTime.of(2020, 2, 25, 10, 00)).toInstant(ZoneOffset.UTC).toEpochMilli())
+        .endingTime(
+            (LocalDateTime.of(2020, 2, 25, 11, 30)).toInstant(ZoneOffset.UTC).toEpochMilli())
+        .build());
+    reservationRepository.save(Reservation.builder()
+        .id(4L)
+        .user(userRepository.findById("112003548510441733141").orElse(null))
+        .meetingRoom(meetingRoomRepository.findById(1L).orElse(null))
+        .title("Bankett")
+        .summary("Projekt zárórendezvény")
+        .startingTime(
+            (LocalDateTime.of(2020, 3, 6, 17, 30)).toInstant(ZoneOffset.UTC).toEpochMilli())
+        .endingTime(
+            (LocalDateTime.of(2020, 3, 6, 20, 00)).toInstant(ZoneOffset.UTC).toEpochMilli())
         .build());
     reservationRepository.save(Reservation.builder()
         .id(5L)
-        .user(userRepository.findById("112003548510441733141").orElse(null))
-        .meetingRoom(meetingRoomRepository.findById(3L).orElse(null))
-        .title("Tesla")
-        .summary("Tesla gyár látogatásának időpontja")
+        .user(userRepository.findById("111455286747437812553").orElse(null))
+        .meetingRoom(meetingRoomRepository.findById(1L).orElse(null))
+        .title("Toborzási ügyek")
+        .summary("HR stratégia átformálása.")
         .startingTime(
-            (LocalDateTime.of(2020, 2, 28, 6, 0)).toInstant(ZoneOffset.UTC).toEpochMilli())
-        .endingTime((LocalDateTime.of(2020, 2, 28, 6, 45)).toInstant(ZoneOffset.UTC).toEpochMilli())
+            (LocalDateTime.of(2020, 3, 2, 8, 00)).toInstant(ZoneOffset.UTC).toEpochMilli())
+        .endingTime((LocalDateTime.of(2020, 3, 2, 9, 30)).toInstant(ZoneOffset.UTC).toEpochMilli())
+        .build());
+    reservationRepository.save(Reservation.builder()
+        .id(6L)
+        .user(userRepository.findById("111455286747437812553").orElse(null))
+        .meetingRoom(meetingRoomRepository.findById(1L).orElse(null))
+        .title("Bérszámfejtés")
+        .summary("Bérek átszámítása")
+        .startingTime(
+            (LocalDateTime.of(2020, 3, 7, 8, 00)).toInstant(ZoneOffset.UTC).toEpochMilli())
+        .endingTime((LocalDateTime.of(2020, 3, 7, 10, 00)).toInstant(ZoneOffset.UTC).toEpochMilli())
+        .build());
+    reservationRepository.save(Reservation.builder()
+        .id(6L)
+        .user(userRepository.findById("111455286747437812553").orElse(null))
+        .meetingRoom(meetingRoomRepository.findById(2L).orElse(null))
+        .title("Elemzés")
+        .summary("Piaci trendek")
+        .startingTime(
+            (LocalDateTime.of(2020, 3, 3, 10, 00)).toInstant(ZoneOffset.UTC).toEpochMilli())
+        .endingTime((LocalDateTime.of(2020, 3, 3, 12, 00)).toInstant(ZoneOffset.UTC).toEpochMilli())
         .build());
   }
 }
