@@ -1,4 +1,3 @@
-import { environment } from '~/environment/environment';
 import { AfterViewInit, Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { FullCalendarComponent } from '@fullcalendar/angular';
@@ -23,6 +22,7 @@ import { UserToken } from '~/app/shared/models/user-token.model';
 import { ApiCommunicationService } from '~/app/shared/services/api-communication.service';
 import { AuthService } from '~/app/shared/services/auth.service';
 import { ReservationService } from '~/app/shared/services/reservation.service';
+import { environment } from '~/environment/environment';
 @Component({
   selector: 'app-calendar',
   styles: [`
