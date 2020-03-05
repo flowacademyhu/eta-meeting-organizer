@@ -7,6 +7,7 @@ export const environment = {
   googleAuthLink: 'http://localhost:8080/oauth2/authorize/google',
   production: false,
   storagePrefix: 'meeting_organizer_',
+  refreshTime: 30000,
 };
 
 /*
