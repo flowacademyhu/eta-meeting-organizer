@@ -2,6 +2,7 @@ package hu.flowacademy.meetingorganizer.persistence.model.dto;
 
 import hu.flowacademy.meetingorganizer.persistence.model.MeetingRoom;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.BeanUtils;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Component;
 @NoArgsConstructor
 @AllArgsConstructor
 @Component
+@Builder
 public class MeetingRoomDTO {
 
   private Long id;
