@@ -60,6 +60,7 @@ import { ReservationService } from '~/app/shared/services/reservation.service';
       [eventLimit]="true"
       (eventResize)="updateReservationTime($event)"
       (eventDrop)="updateReservationTime($event)"
+      (eventResizeStart)="getReservationsByMeetingRoom()"
       [eventBackgroundColor]= "'#e64b3a'"
       [eventTextColor]="'#f3f5ed'"
       [displayEventTime]="true"
