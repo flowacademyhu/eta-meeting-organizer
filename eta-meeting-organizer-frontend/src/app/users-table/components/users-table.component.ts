@@ -22,7 +22,7 @@ import { UserService } from './../../shared/services/user.service';
       table-layout: auto;
     }
     .column {
-      font-size: auto;
+      font-size: larger;
     }
     .mat-icon-button ::ng-deep .mat-button-focus-overlay {
     display: none;
