@@ -1,3 +1,5 @@
+import { Participant } from './participant.model';
+
 // ennek egyeznie kell a backend-es objektummal
 export class ReservationToPost {
   public id?: number;
@@ -7,6 +9,7 @@ export class ReservationToPost {
   public endingTime?: number;
   public title?: string;
   public summary?: string;
+  public participants?: Participant[];
 
   public constructor();
   public constructor(
