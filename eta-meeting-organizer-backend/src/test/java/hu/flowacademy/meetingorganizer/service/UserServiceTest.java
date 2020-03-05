@@ -117,11 +117,7 @@ public class UserServiceTest {
 
   @Test
   public void deleteAllByIdTest() {
-    List<String> idList = new ArrayList<>();
-    idList.add("12345rtz");
-    idList.add("2rtifnjw234");
-
-    userService.deleteAllById(idList);
-    verify(userRepository, times(1)).deleteByIdIn(idList);
+    userService.deleteAllById(List.of("12345rtz", "2rtifnjw234"));
+    verify(userRepository, times(1)).deleteByIdIn(List.of("12345rtz", "2rtifnjw234"));
   }
 }
