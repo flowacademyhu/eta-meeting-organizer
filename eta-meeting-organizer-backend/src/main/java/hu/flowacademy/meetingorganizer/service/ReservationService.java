@@ -137,8 +137,8 @@ public class ReservationService {
   private void validateReservation(ReservationDTO input, String type, Long id) {
     if (type.equals("create")) {
       if (reservationRepository
-          .findAllByMeetingRoomIdInInterval(input.getMeetingRoomId(), input.getStartingTime(),
-              input.getEndingTime()) > 0) {
+          .findAllByMeetingRoomIdInInterval(input.getMeetingRoomId(), input.getStartingTime() + 30000,
+              input.getEndingTime() - 30000) > 0) {
         throw new ValidationException("reservation.reserved");
       }
       if (type.equals("update")) {
