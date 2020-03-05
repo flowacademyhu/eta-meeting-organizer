@@ -81,9 +81,9 @@ public class BuildingServiceTest {
 
   @Test
   public void createBuildingTest() {
-    buildingService.createBuilding(buildingDTO1);
-    Building building = buildingDTO1.toEntity();
-    assertEquals(buildingRepository.findById(1L), building);
+    when(buildingRepository.save(buildingDTO1.toEntity())).thenReturn(building1);
+    assertThat(buildingService.createBuilding(buildingDTO1), is(buildingDTO1));
+    verify(buildingRepository, times(1)).save(buildingDTO1.toEntity());
   }
 
   @Test
