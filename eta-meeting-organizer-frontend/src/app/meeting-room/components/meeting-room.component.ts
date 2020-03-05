@@ -128,7 +128,7 @@ import { MeetingRoomService } from './../../shared/services/meeting-room.service
 })
 export class MeetingRoomComponent implements OnInit, OnDestroy, AfterViewInit {
 
-  public displayedColumns: string[] = ['checkbox', 'name', 'numberOfSeats', 'projector', 'building', 'delete'];
+  public displayedColumns: string[] = ['checkbox', 'name', 'numberOfSeats', 'projector', 'building.city', 'delete'];
   public dataSource: MatTableDataSource<MeetingRoomToFilter> = new MatTableDataSource<MeetingRoomToFilter>();
   public dataSub: Subscription;
   public unsubFromDialog: Subscription;
