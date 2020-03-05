@@ -5,8 +5,8 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Subscription } from 'rxjs';
+import { MeetingRoomToFilter } from '~/app/models/meetingroom-tofilter';
 import { MeetingRoomUpdateComponent } from '~/app/shared/Modals/meeting-room-update.component';
-import { MeetingRoom } from './../../models/meetingroom.model';
 import { MeetingRoomCheckboxComponent } from './../../shared/Modals/meeting-room-checkbox-delete.component';
 import { MeetingRoomDeleteComponent } from './../../shared/Modals/meeting-room-delete.component';
 import { MeetingRoomRegisterComponent } from './../../shared/Modals/meeting-room-register.component';
@@ -96,7 +96,7 @@ import { MeetingRoomService } from './../../shared/services/meeting-room.service
         {{'meeting-room.building' | translate}}
       </th>
       <td mat-cell *matCellDef="let meetingRoom">
-        {{meetingRoom.building?.city}} - {{meetingRoom.building?.address}}</td>
+        {{meetingRoom.buildingCity}} - {{meetingRoom.buildingAddress}}</td>
     </ng-container>
     <ng-container matColumnDef="delete">
       <th mat-header-cell *matHeaderCellDef class="column">
@@ -129,13 +129,14 @@ import { MeetingRoomService } from './../../shared/services/meeting-room.service
 export class MeetingRoomComponent implements OnInit, OnDestroy, AfterViewInit {
 
   public displayedColumns: string[] = ['checkbox', 'name', 'numberOfSeats', 'projector', 'building.city', 'delete'];
-  public dataSource: MatTableDataSource<MeetingRoom> = new MatTableDataSource<MeetingRoom>();
+  public dataSource: MatTableDataSource<MeetingRoomToFilter> = new MatTableDataSource<MeetingRoomToFilter>();
   public dataSub: Subscription;
   public unsubFromDialog: Subscription;
   public unsubFromDelete: Subscription;
   public unsubFromUpdate: Subscription;
   public unsubFromCheckbox: Subscription;
   public checkedArr: number[] = [];
+  public meetingRoomToFilter: MeetingRoomToFilter = new MeetingRoomToFilter();
 
   @ViewChild(MatSort) public sort: MatSort;
   @ViewChild(MatPaginator) public paginator: MatPaginator;
@@ -156,14 +157,9 @@ export class MeetingRoomComponent implements OnInit, OnDestroy, AfterViewInit {
   public ngOnInit() {
     this.meetingRoomService.getAllMeetingRooms();
     this.dataSource.paginator = this.paginator;
-    this.meetingRoomService.meetingRoomSub.subscribe((meetingRooms) => this.dataSource.data = meetingRooms);
-    this.dataSource.sortingDataAccessor = (item, property) => {
-      switch (property) {
-        case 'building.city': return item.building?.city;
-        default: return item[property];
-      }
-    };
-    this.dataSource.sort = this.sort;
+    this.meetingRoomService.meetingRoomSub.subscribe((meetingRooms) => {
+      this.dataSource.data = meetingRooms.map((x) => this.meetingRoomToFilter.meetingRoomToMeetingRoomFilter(x));
+    });
   }
 
   public ngAfterViewInit(): void {

@@ -11,12 +11,12 @@
   },
   "building": {
     "buildingName": "Épület megnevezése",
-    "post": "Épület létrehozás.",
+    "post": "Épület létrehozás",
     "city": "Város",
     "address":"Cím",
     "saveButton":"Mentés",
     "cancel":"Mégse",
-    "deleteButton":"törlés",
+    "deleteButton":"Törlés",
     "add":"Épület hozzáadás",
     "edit":"Szerkesztés",
     "update": "Módosítás",
@@ -95,7 +95,7 @@
   },
   "user-verification-dialog": {
     "roleSetting": "Felhasználói szerepkör megadása",
-    "roles": "Rendelkezésre álló szerepkörök.",
+    "roles": "Rendelkezésre álló szerepkörök:",
     "admin": "Adminisztrátor",
     "user": "Felhasználó",
     "reader": "Megtekintő",
@@ -113,7 +113,7 @@
     "post": "Épület létrehozva"
   },
   "update-building-snackbar": {
-    "update": "Épület módosítva."
+    "update": "Épület módosítva"
   },
   "error-buildingPost-snackbar": {
     "error": "Sikertelen épület létrehozás",
@@ -121,24 +121,24 @@
     "address": "A megadott cím már foglalt."
   },
   "error-buildingUpdate-snackbar": {
-    "error": "Sikertelen épület módosítás.",
+    "error": "Sikertelen épület módosítás",
     "building": "A megadott épületnév már foglalt.",
     "address": "A megadott cím már foglalt.",
     "general": "A megadott épületnév vagy cím már foglalt."
   },
   "error-meeting-roomPost-snackbar": {
-    "error": "Sikertelen tárgyaló létrehozás.",
+    "error": "Sikertelen tárgyaló létrehozás",
     "name": "A megadott tárgyaló név már foglalt."
   },
   "error-meeting-roomUpdate-snackbar": {
-    "error": "Sikertelen tárgyaló módosítás.",
+    "error": "Sikertelen tárgyaló módosítás",
     "name": "A megadott tárgyaló név már foglalt."
   },
   "verification-snackbar": {
     "verify": "Szerepkör beállítva"
   },
   "meeting-room-update": {
-    "update": "Tárgyaló módosítva!"
+    "update": "Tárgyaló módosítva"
   },
   "calendar-header": {
     "city": "Város",
@@ -149,7 +149,7 @@
   "reservation": {
     "meetingroom": "Tárgyaló:",
     "title": "Esemény neve:",
-    "summary": "Esemény leírása:",
+    "summary": "Esemény leírása",
     "startDate": "Kezdés:",
     "endDate": "Befejezés:",
     "ok": "Rendben",
@@ -158,7 +158,7 @@
     "delete": "Törlés",
     "reserve": "Lefoglalás",
     "head": "Tárgyaló foglalás",
-    "edit": "Esemény szerkesztése:",
+    "edit": "Esemény szerkesztése",
     "quit": "Vissza a naptárhoz",
     "participantButton": "Résztvevők hozzáadása",
     "email": "E-mail cím",
@@ -167,16 +167,16 @@
     "back": "Vissza"
   },
   "snackbar-reservation": {
-    "reservationOk": "A tárgyaló foglalása sikeresen megtörtént.",
-    "reservationModificationOK": "A foglalás módosítása sikeresen megtörtént.",
-    "reservationDeleteOk": "A foglalás törlése sikeresen megtörtént."
+    "reservationOk": "A tárgyaló foglalása sikeresen megtörtént",
+    "reservationModificationOK": "A foglalás módosítása sikeresen megtörtént",
+    "reservationDeleteOk": "A foglalás törlése sikeresen megtörtént"
   },
   "reservation-error-messages": {
     "post": "A megadott időintervallum ütközik egy másik foglalással.",
     "update": "A megadott időintervallum ütközik egy másik foglalással.",
-    "error": "Sikertelen foglalás.",
+    "error": "Sikertelen foglalás",
     "updateError": "Sikertelen módosítás",
-    "delete": "Sikertelen törlés."
+    "delete": "Sikertelen törlés"
   },
   "validation": {
     "validate": "A mező kitöltése kötelező!",
