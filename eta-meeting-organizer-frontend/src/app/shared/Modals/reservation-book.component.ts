@@ -22,6 +22,10 @@ import { ReservationEmailListComponent } from './reservation-email-list.componen
     font-size: 225%;
     text-align: center;
   }
+  p {
+    font-size: 75% !important;
+    color: #e64b3a;
+  }
   .align-content{
     height: 90%;
     font-size: 160%;
@@ -64,6 +68,8 @@ import { ReservationEmailListComponent } from './reservation-email-list.componen
          <br>
            <mat-error>{{'validation.validate' | translate}}</mat-error>
        </mat-form-field>
+       <p *ngIf="this.errorMessage == 'validate.reservation.reserved'">
+        {{'reservation-error-messages.post' | translate}}</p>
      <br>
      </form>
 
@@ -80,11 +86,9 @@ import { ReservationEmailListComponent } from './reservation-email-list.componen
        mat-raised-button
        type="submit"
        form="reservationBookingForm"
-       [mat-dialog-close]
        [disabled]="reservationBookingForm.invalid"
        color="primary"
-       (click)="openSnackBar()"
-       mat-dialog-close>{{'reservation.reserve' | translate}}</button>
+       >{{'reservation.reserve' | translate}}</button>
        </mat-dialog-actions>
        <br>
        <mat-dialog-actions>
@@ -113,6 +117,7 @@ export class ReservationBookingComponent implements OnInit {
   public meetingRoomId: number;
   public newReservation: Reservation = {} as Reservation;
   public participants: Participant[] = [];
+  public errorMessage: string = '';
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: ReservationToPost,
@@ -144,7 +149,11 @@ export class ReservationBookingComponent implements OnInit {
     this.reservationService.
     postReservation(this.data)
     .subscribe(() => {
+      this.openSnackBar();
       this.dialogRef.close();
+    }, (error) => {
+      this.errorMessage = error.error;
+      this.errorSnackBar();
     });
   }
 
@@ -168,6 +177,12 @@ export class ReservationBookingComponent implements OnInit {
   public openSnackBar() {
     this._snackBar.open(this.translate
       .instant(`snackbar-reservation.reservationOk`), '', {
+      duration: 2500
+    });
+  }
+
+  public errorSnackBar() {
+    this._snackBar.open(this.translate.instant(`reservation-error-messages.error`), '', {
       duration: 2500
     });
   }

@@ -35,7 +35,7 @@ import { UserService } from './../../shared/services/user.service';
           placeholder="{{'search-bar.search' | translate}}">
       </mat-form-field>
       <table mat-table [dataSource]="dataSource" class="mat-elevation-z8"
-          matSort matSortActive="id" matSortDirection="desc" matSortDisableClear>
+          matSort matSortActive="id" matSortDirection="asc">
         <ng-container matColumnDef="id">
           <th mat-header-cell *matHeaderCellDef class="column" mat-sort-header>
             {{'profile.id' | translate}}
@@ -44,7 +44,7 @@ import { UserService } from './../../shared/services/user.service';
              {{user.id}}
           </td>
         </ng-container>
-        <ng-container matColumnDef="checkbox">
+        <ng-container matColumnDef="checkbox" class="column">
         <th mat-header-cell  [ngStyle]="{textAlign: 'center'}" *matHeaderCellDef class="column">
           <button mat-icon-button [disabled]="this.checkedArr.length === 0"
             [color]="(this.checkedArr.length > 0) ? 'primary' : 'accent'"
@@ -60,7 +60,7 @@ import { UserService } from './../../shared/services/user.service';
         </div>
       </ng-container>
         <ng-container matColumnDef="email">
-          <th mat-header-cell *matHeaderCellDef class="column" mat-sort-header>
+          <th mat-header-cell *matHeaderCellDef class="column" mat-sort-header="user.username">
             {{'profile.email' | translate}}
           </th>
           <td mat-cell *matCellDef="let user">
@@ -134,6 +134,13 @@ export class UsersTableComponent implements OnInit, OnDestroy, AfterViewInit {
     this.userService.getAllUsers();
     this.dataSource.paginator = this.paginator;
     this.userService.userSub.subscribe((users) => this.dataSource.data = users);
+    this.dataSource.sortingDataAccessor = (item, property) => {
+      switch (property) {
+        case 'user.username': return item.username;
+        default: return item[property];
+      }
+    };
+    this.dataSource.sort = this.sort;
    }
 
    public ngAfterViewInit(): void {

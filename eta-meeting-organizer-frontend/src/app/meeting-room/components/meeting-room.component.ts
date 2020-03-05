@@ -23,7 +23,7 @@ import { MeetingRoomService } from './../../shared/services/meeting-room.service
     }
     table {
       width: 100%;
-      table-layout: fixed;
+      table-layout: auto;
     }
     .mat-icon-button ::ng-deep .mat-button-focus-overlay {
     display: none;
@@ -40,9 +40,10 @@ import { MeetingRoomService } from './../../shared/services/meeting-room.service
       <input matInput type="text" (keyup)="doFilter($event.target.value)"
         placeholder="{{'search-bar.search' | translate}}">
     </mat-form-field>
-  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
-    <ng-container matColumnDef="checkbox">
-      <th mat-header-cell [ngStyle]="{textAlign: 'center'}" *matHeaderCellDef class="column">
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8"
+    matSort matSortActive="id" matSortDirection="desc">
+    <ng-container matColumnDef="checkbox" class="column">
+      <th mat-header-cell [ngStyle]="{textAlign: 'center'}" *matHeaderCellDef >
         <button mat-icon-button  [disabled]="this.checkedArr.length === 0"
             [color]="(this.checkedArr.length > 0) ? 'primary' : 'accent'"
             (click)="deleteByCheckboxDialog(this.checkedArr)">
@@ -90,8 +91,8 @@ import { MeetingRoomService } from './../../shared/services/meeting-room.service
         {{meetingRoom.building?.buildingName}}
       </td>
     </ng-container>
-    <ng-container matColumnDef="building">
-      <th mat-header-cell *matHeaderCellDef class="column" mat-sort-header>
+    <ng-container matColumnDef="building.city">
+      <th mat-header-cell *matHeaderCellDef class="column" mat-sort-header="building.city">
         {{'meeting-room.building' | translate}}
       </th>
       <td mat-cell *matCellDef="let meetingRoom">
@@ -164,7 +165,6 @@ export class MeetingRoomComponent implements OnInit, OnDestroy, AfterViewInit {
   public ngAfterViewInit(): void {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
-    this.dataSource.sortingDataAccessor = (data, attribute) => data[attribute];
   }
 
   public doFilter = (value: string) => {
