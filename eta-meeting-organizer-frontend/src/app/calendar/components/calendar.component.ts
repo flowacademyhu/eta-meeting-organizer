@@ -1,3 +1,4 @@
+import { environment } from '~/environment/environment';
 import { AfterViewInit, Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { FullCalendarComponent } from '@fullcalendar/angular';
@@ -70,6 +71,7 @@ import { ReservationService } from '~/app/shared/services/reservation.service';
 export class CalendarComponent implements OnInit, AfterViewInit, OnChanges, OnDestroy {
   protected locales: Locale[] = [huLocale, enGbLocale];
   private destroy$: Subject<boolean> = new Subject<boolean>();
+  private refreshTime: number = environment.refreshTime;
   public userToken: UserToken = {} as UserToken;
   @Input('meetingRoom')
   public meetingRoom: MeetingRoom;
@@ -150,7 +152,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnChanges, OnDe
       changes?.posted?.currentValue) {
         this.getReservationsByMeetingRoom();
         if (this.isReader) {
-          timer(100, 30000)
+          timer(100, this.refreshTime)
           .pipe(takeUntil(this.destroy$))
           .subscribe(() => {
             this.calendarEvents = [];
