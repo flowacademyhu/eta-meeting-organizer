@@ -9,12 +9,11 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import hu.flowacademy.meetingorganizer.exception.MeetingRoomNotFoundException;
-import hu.flowacademy.meetingorganizer.persistence.model.Building;
 import hu.flowacademy.meetingorganizer.persistence.model.MeetingRoom;
 import hu.flowacademy.meetingorganizer.persistence.model.dto.BuildingDTO;
 import hu.flowacademy.meetingorganizer.persistence.model.dto.MeetingRoomDTO;
 import hu.flowacademy.meetingorganizer.persistence.repository.MeetingRoomRepository;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -105,6 +104,24 @@ public class MeetingRoomServiceTest {
   public void deleteMeetingRoomTest() {
     meetingRoomService.deleteMeetingRoom(1L);
     verify(meetingRoomRepository, times(1)).deleteById(1L);
+  }
+
+  @Test
+  public void findByBuildingIdTest() {
+    when(meetingRoomRepository.findByBuilding_Id(1L))
+        .thenReturn(List.of(meetingRoomDTO1.toEntity()));
+    assertThat(meetingRoomService.findByBuildingId(1L), is(List.of(meetingRoomDTO1)));
+    verify(meetingRoomRepository, times(1)).findByBuilding_Id(1L);
+  }
+
+  @Test
+  public void deleteAllByIdTest() {
+    List<Long> idList = new ArrayList<>();
+    idList.add(1L);
+    idList.add(2L);
+
+    meetingRoomService.deleteAllById(idList);
+    verify(meetingRoomRepository, times(1)).deleteByIdIn(idList);
   }
 }
 
