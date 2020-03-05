@@ -9,7 +9,11 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import hu.flowacademy.meetingorganizer.persistence.model.MeetingRoom;
 import hu.flowacademy.meetingorganizer.persistence.model.Reservation;
+import hu.flowacademy.meetingorganizer.persistence.model.Role;
+import hu.flowacademy.meetingorganizer.persistence.model.User;
+import hu.flowacademy.meetingorganizer.persistence.model.dto.BuildingDTO;
 import hu.flowacademy.meetingorganizer.persistence.model.dto.ReservationDTO;
 import hu.flowacademy.meetingorganizer.persistence.repository.ReservationRepository;
 import java.time.LocalDateTime;
@@ -35,6 +39,9 @@ public class ReservationServiceTest {
   private static Reservation reservation2;
   private static Reservation reservation;
   private static ReservationDTO reservationDTO;
+  private static User user1;
+  private static BuildingDTO building1;
+  private static MeetingRoom meetingRoom1;
 
   @Mock
   private ReservationRepository reservationRepository;
@@ -60,7 +67,15 @@ public class ReservationServiceTest {
             (LocalDateTime.of(2020, 2, 26, 9, 0)).toInstant(ZoneOffset.UTC).toEpochMilli())
         .endingTime((LocalDateTime.of(2020, 2, 26, 9, 15)).toInstant(ZoneOffset.UTC).toEpochMilli())
         .build();
-    reservationDTO = ReservationDTO.builder().title("Húsvét")
+    user1 = User.builder().id("12345rtz").username("gyula@gmail.com").password("alma")
+        .role(Role.ADMIN).accountNonExpired(true)
+        .accountNonLocked(true)
+        .enabled(true)
+        .build();
+    building1 = BuildingDTO.builder().buildingName("Fehérház").id(1L).city("Paks").build();
+    meetingRoom1 = MeetingRoom.builder().id(1L).name("Kistárgyaló").numberOfSeats(12)
+        .projector(true).building(building1.toEntity()).build();
+    reservationDTO = ReservationDTO.builder().userId("12345rtz").meetingRoomId(1L).title("Húsvét")
         .summary("húsvéti program megbeszélése Pennywise-al").startingTime(
             (LocalDateTime.of(2020, 2, 27, 12, 0)).toInstant(ZoneOffset.UTC).toEpochMilli())
         .endingTime(
@@ -87,9 +102,9 @@ public class ReservationServiceTest {
 
   @Test
   public void createReservationTest() {
-    reservationService.createReservation(reservationDTO);
-    assertEquals((LocalDateTime.of(2020, 2, 25, 16, 0)).toInstant(ZoneOffset.UTC).toEpochMilli(), reservationDTO.getStartingTime());
-    assertEquals((LocalDateTime.of(2020, 2, 27, 14, 15)).toInstant(ZoneOffset.UTC).toEpochMilli(), reservationDTO.getEndingTime());
+    when(reservationRepository.save(reservationDTO.toSaveEntity(user1, meetingRoom1))).thenReturn(reservationDTO.toSaveEntity(user1, meetingRoom1));
+    assertThat(reservationService.createReservation(reservationDTO), is(reservationDTO));
+    verify(reservationRepository, times(1)).save(reservationDTO.toSaveEntity(user1, meetingRoom1));
   }
 
   @Test
@@ -105,5 +120,13 @@ public class ReservationServiceTest {
   public void deleteReservationTest() {
     reservationService.deleteReservation(1L);
     verify(reservationRepository, times(1)).deleteById(1L);
+  }
+
+  @Test
+  public void findReservationsByUserIdTest() {
+  }
+
+  @Test
+  public void findReservationsByMeetingRoomIdTest() {
   }
 }
