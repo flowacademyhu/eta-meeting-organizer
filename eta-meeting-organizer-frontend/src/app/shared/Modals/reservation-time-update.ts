@@ -23,7 +23,10 @@ import { ReservationService } from '../services/reservation.service';
     margin: 0 auto;
     text-align: center;
     word-break: break-all;
-
+  }
+  p {
+    font-size: 75% !important;
+    color: #e64b3a;
   }
   button {
     width: 80%;
@@ -58,6 +61,8 @@ class="align-title">{{'reservation-time-change-dialog.head' | translate}}</mat-d
       <br>
       {{ data.end | date : 'y.MM.dd. HH:mm'}}
 </div>
+<p *ngIf="this.errorMessage == 'validate.reservation.reserved'">
+        {{'reservation-error-messages.update' | translate}}</p>
 <mat-dialog-actions>
     <button mat-raised-button
       (click)="updateTime()" color="primary">{{'reservation.modify' | translate}}</button>
@@ -73,6 +78,7 @@ class="align-title">{{'reservation-time-change-dialog.head' | translate}}</mat-d
 
 export class ReservationTimeUpdateComponent {
   public deleteUnsub: Subscription;
+  public errorMessage: string = '';
 
   @Output()
   public closeOutput: EventEmitter<undefined> = new EventEmitter();
@@ -105,17 +111,26 @@ export class ReservationTimeUpdateComponent {
     this.reservationToPost.endingTime = new Date(this.data.end).valueOf();
     this.reservationToPost.title = this.data.title;
     this.reservationToPost.summary = this.data.summary;
-
+    this.reservationToPost.participants = [];
     this.reservationService.
     updateReservation(Number(this.data.id), this.reservationToPost)
     .subscribe(() => {
       this.openSnackBar();
       this.close();
+    }, (error) => {
+      this.errorMessage = error.error;
+      this.errorSnackBar();
     });
   }
 
   public openSnackBar() {
     this.snackBar.open(this.translate.instant(`snackbar-reservation.reservationModificationOK`), undefined, {
+      duration: 2500
+    });
+  }
+
+  public errorSnackBar() {
+    this.snackBar.open(this.translate.instant(`reservation-error-messages.updateError`), '', {
       duration: 2500
     });
   }

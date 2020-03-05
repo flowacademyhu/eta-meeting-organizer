@@ -17,7 +17,7 @@ import { BuildingService } from './../../shared/services/building.service';
   styles: [`
     table {
       width: 100%;
-      table-layout: fixed;
+      table-layout: auto;
     }
     .column {
       font-size: larger;
@@ -41,9 +41,9 @@ import { BuildingService } from './../../shared/services/building.service';
      placeholder="{{'search-bar.search' | translate}}">
     </mat-form-field>
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8"
-      matSort matSortActive="id" matSortDirection="desc" matSortDisableClear>
+      matSort matSortActive="id" matSortDirection="desc">
 
-      <ng-container matColumnDef="checkbox">
+      <ng-container matColumnDef="checkbox" class="column">
         <th mat-header-cell  [ngStyle]="{textAlign: 'center'}" *matHeaderCellDef class="column">
           <button mat-icon-button  [disabled]="this.checkedArr.length === 0"
             [color]="(this.checkedArr.length > 0) ? 'primary' : 'accent'"
@@ -77,7 +77,7 @@ import { BuildingService } from './../../shared/services/building.service';
           <td mat-cell *matCellDef="let building"> {{building.address}} </td>
       </ng-container>
       <ng-container matColumnDef="delete">
-        <th mat-header-cell *matHeaderCellDef class="column" mat-sort-header> {{'building.action' | translate}} </th>
+        <th mat-header-cell *matHeaderCellDef class="column"> {{'building.action' | translate}} </th>
           <td mat-cell *matCellDef="let building">
             <button mat-icon-button color="accent" (click)="updateDialog(building)">
               <mat-icon aria-label="Edit">edit</mat-icon>

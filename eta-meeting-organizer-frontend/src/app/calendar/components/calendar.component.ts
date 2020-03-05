@@ -147,6 +147,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnChanges, OnDe
     } else if (changes?.meetingRoom?.currentValue ||
       (!this.checked && this.meetingRoom !== undefined) ||
       changes?.posted?.currentValue) {
+        this.getReservationsByMeetingRoom();
         if (this.isReader) {
           timer(100, 30000)
           .pipe(takeUntil(this.destroy$))
@@ -176,9 +177,12 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnChanges, OnDe
     });
     dialogRef.afterClosed()
     .pipe(takeUntil(this.destroy$))
-    .subscribe();
+    .subscribe(() => {
+      this.getReservationsByMeetingRoom();
+    });
   }
   public getInfo(eventInput: EventInput) {
+    if (this.userToken.role !== 'READER') {
     let isMeetingRoomView = false;
     let isAdmin = false;
     if (!this.checked && eventInput.event.extendedProps.userId !== this.userToken.sub) {
@@ -214,6 +218,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, OnChanges, OnDe
     dialogRef.afterClosed()
       .pipe(takeUntil(this.destroy$))
       .subscribe();
+  }
   }
   public updateReservationTime(eventInput: EventInput) {
     const dialogRef = this.dialog.open(ReservationTimeUpdateComponent, {

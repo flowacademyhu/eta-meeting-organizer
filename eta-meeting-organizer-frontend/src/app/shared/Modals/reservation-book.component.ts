@@ -1,13 +1,16 @@
 import { DatePipe } from '@angular/common';
 import { Component, EventEmitter, Inject, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { Participant } from '~/app/models/participant.model';
 import { ReservationToPost } from '~/app/models/reservation-to-post.model';
 import { Reservation } from '~/app/models/reservation.model';
 import { ReservationService } from '../services/reservation.service';
+import { ReservationEmailListComponent } from './reservation-email-list.component';
 
 @Component({
   selector: 'app-reservation-book',
@@ -18,6 +21,10 @@ import { ReservationService } from '../services/reservation.service';
     margin: 0 auto;
     font-size: 225%;
     text-align: center;
+  }
+  p {
+    font-size: 75% !important;
+    color: #e64b3a;
   }
   .align-content{
     height: 90%;
@@ -31,7 +38,7 @@ import { ReservationService } from '../services/reservation.service';
     margin: 0 auto;
   }
   button {
-    width: 80%;
+    width: 85%;
     margin: 0 auto;
     border:1px solid;
     border-color: black;
@@ -42,10 +49,10 @@ import { ReservationService } from '../services/reservation.service';
   }
 `],
  template: `
- <mat-dialog-content cdkDrag cdkDragRootElement=".cdk-overlay-pane"
+ <mat-dialog-content
  class="align-title">{{'reservation.head' | translate}}</mat-dialog-content>
  <mat-dialog-content class="align-content">
-   <form [formGroup]="reservationBookingForm" (ngSubmit)="onSubmit()">
+   <form [formGroup]="reservationBookingForm" id="reservationBookingForm" (ngSubmit)="onSubmit()">
      <mat-form-field>
        <mat-label>{{'reservation.title' | translate}}</mat-label>
          <input type="text" name="title" formControlName="title" maxlength="20"
@@ -61,19 +68,27 @@ import { ReservationService } from '../services/reservation.service';
          <br>
            <mat-error>{{'validation.validate' | translate}}</mat-error>
        </mat-form-field>
+       <p *ngIf="this.errorMessage == 'validate.reservation.reserved'">
+        {{'reservation-error-messages.post' | translate}}</p>
      <br>
-     <br>
-     <br>
-     <mat-dialog-actions>
+     </form>
+
+       <button
+       mat-raised-button
+       [disabled]="reservationBookingForm.invalid"
+       color="primary"
+       (click)="openEmailModal()"
+       >{{'reservation.participantButton' | translate}}</button>
+       <br>
+       <br>
+       <mat-dialog-actions>
        <button
        mat-raised-button
        type="submit"
-       [mat-dialog-close]
+       form="reservationBookingForm"
        [disabled]="reservationBookingForm.invalid"
-       cdkFocusInitial
        color="primary"
-       (click)="openSnackBar()"
-       mat-dialog-close>{{'reservation.reserve' | translate}}</button>
+       >{{'reservation.reserve' | translate}}</button>
        </mat-dialog-actions>
        <br>
        <mat-dialog-actions>
@@ -83,7 +98,6 @@ import { ReservationService } from '../services/reservation.service';
        color="accent"
        >{{'reservation.cancel' | translate}}</button>
        </mat-dialog-actions>
-   </form>
 </mat-dialog-content>
 `,
 })
@@ -95,15 +109,20 @@ export class ReservationBookingComponent implements OnInit {
   @Output()
   public passEntry: EventEmitter<undefined> = new EventEmitter();
 
+  private destroy$: Subject<boolean> = new Subject<boolean>();
+
   public reservations$: Observable<Reservation[]>;
   public reservationBookingForm: FormGroup;
   public reservation: ReservationToPost;
   public meetingRoomId: number;
   public newReservation: Reservation = {} as Reservation;
+  public participants: Participant[] = [];
+  public errorMessage: string = '';
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: ReservationToPost,
     public dialogRef: MatDialogRef<ReservationBookingComponent>,
+    private readonly dialog: MatDialog,
     private readonly reservationService: ReservationService,
     private readonly _snackBar: MatSnackBar,
     private readonly translate: TranslateService,
@@ -126,17 +145,44 @@ export class ReservationBookingComponent implements OnInit {
     this.data.summary = this.reservationBookingForm.controls.summary.value;
     this.data.startingTime = new Date(this.data.startingTime as number).valueOf();
     this.data.endingTime = new Date(this.data.endingTime as number).valueOf();
+    this.data.participants = this.participants;
     this.reservationService.
     postReservation(this.data)
-    .subscribe((data) => {
-        this.reservation = data;
-        this.passEntry.emit();
+    .subscribe(() => {
+      this.openSnackBar();
+      this.dialogRef.close();
+    }, (error) => {
+      this.errorMessage = error.error;
+      this.errorSnackBar();
     });
+  }
+
+  public openEmailModal() {
+    const dialogRef = this.dialog.open(ReservationEmailListComponent, {
+      height: '80%',
+      width: '420px',
+      data: {
+        participants: this.participants
+      }
+    });
+    dialogRef.componentInstance.closeOutput.pipe(takeUntil(this.destroy$))
+      .subscribe((participants) => {
+        this.participants = participants;
+    });
+    dialogRef.afterClosed()
+    .pipe(takeUntil(this.destroy$))
+    .subscribe();
   }
 
   public openSnackBar() {
     this._snackBar.open(this.translate
       .instant(`snackbar-reservation.reservationOk`), '', {
+      duration: 2500
+    });
+  }
+
+  public errorSnackBar() {
+    this._snackBar.open(this.translate.instant(`reservation-error-messages.error`), '', {
       duration: 2500
     });
   }
