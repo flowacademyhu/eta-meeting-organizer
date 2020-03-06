@@ -24,10 +24,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.boot.test.context.SpringBootTest;
 
 @ExtendWith(MockitoExtension.class)
-@SpringBootTest
 public class MeetingRoomServiceTest {
 
   private static MeetingRoom meetingRoom1;
@@ -116,11 +114,7 @@ public class MeetingRoomServiceTest {
 
   @Test
   public void deleteAllByIdTest() {
-    List<Long> idList = new ArrayList<>();
-    idList.add(1L);
-    idList.add(2L);
-
-    meetingRoomService.deleteAllById(idList);
-    verify(meetingRoomRepository, times(1)).deleteByIdIn(idList);
+    meetingRoomService.deleteAllById(List.of(1L, 2L));
+    verify(meetingRoomRepository, times(1)).deleteByIdIn(List.of(1L, 2L));
   }
 }
