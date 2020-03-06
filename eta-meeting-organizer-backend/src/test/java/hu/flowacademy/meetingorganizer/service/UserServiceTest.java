@@ -12,7 +12,6 @@ import hu.flowacademy.meetingorganizer.persistence.model.Role;
 import hu.flowacademy.meetingorganizer.persistence.model.User;
 import hu.flowacademy.meetingorganizer.persistence.model.dto.RoleDTO;
 import hu.flowacademy.meetingorganizer.persistence.repository.UserRepository;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -24,10 +23,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.boot.test.context.SpringBootTest;
 
 @ExtendWith(MockitoExtension.class)
-@SpringBootTest
 public class UserServiceTest {
 
   private static User user1;
