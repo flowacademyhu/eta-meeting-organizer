@@ -129,15 +129,15 @@ public class ReservationService {
               "city", city,
               "address", address,
               "buildingName", buildingName,
-              "meetingRoomName", meetingroomName))
-      ;
+              "meetingRoomName", meetingroomName));
     }
   }
 
   private void validateReservation(ReservationDTO input, String type, Long id) {
     if (type.equals("create")) {
       if (reservationRepository
-          .findAllByMeetingRoomIdInInterval(input.getMeetingRoomId(), input.getStartingTime() + 30000,
+          .findAllByMeetingRoomIdInInterval(input.getMeetingRoomId(),
+              input.getStartingTime() + 30000,
               input.getEndingTime() - 30000) > 0) {
         throw new ValidationException("reservation.reserved");
       }
@@ -167,7 +167,7 @@ public class ReservationService {
     }
   }
 
-  private Participant saveParticipant(Participant participant) {
+  public Participant saveParticipant(Participant participant) {
     return participantRepository.save(participant);
   }
 }
