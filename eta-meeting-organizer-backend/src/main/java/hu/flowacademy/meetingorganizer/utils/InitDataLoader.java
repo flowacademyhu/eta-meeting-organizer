@@ -103,7 +103,7 @@ public class InitDataLoader {
     userRepository.save(User.builder()
         .id("112003548510441733141")
         .username("wysiomeetingorganizer@gmail.com")
-        .role(Role.USER)
+        .role(Role.ADMIN)
         .accountNonExpired(true)
         .accountNonLocked(true)
         .enabled(true)
